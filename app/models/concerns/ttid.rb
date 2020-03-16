@@ -3,7 +3,7 @@
 module TTID
   extend ActiveSupport::Concern
 
-  REGEXP = /\A([a-z0-9]{10})([A-Za-z0-9_-]{4})([A-Za-z0-9_-]{6})\z/
+  REGEXP = /\A([a-z0-9]{10})([A-Za-z0-9_-]{5})([A-Za-z0-9_-]{5})\z/
 
   class DuplicateDefinedTableIdError < StandardError; end
 
@@ -70,7 +70,7 @@ module TTID
     end
 
     def crypt_table_id(id = nil)
-      @crypt_table_id ||= Base64.urlsafe_encode64(id || table_id)[..3]
+      @crypt_table_id ||= Base64.urlsafe_encode64(id || table_id)[...5]
     end
 
     def hex_time
@@ -79,7 +79,7 @@ module TTID
     end
 
     def build_id
-      hex_time << crypt_table_id << SecureRandom.urlsafe_base64(4, false)
+      hex_time << crypt_table_id << SecureRandom.urlsafe_base64(4, false)[...5]
     end
   end
 end
