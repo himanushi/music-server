@@ -80,6 +80,7 @@ GEM
       promise.rb (~> 0.7.2)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jwt (2.2.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -182,6 +183,7 @@ DEPENDENCIES
   graphiql-rails
   graphql
   graphql-batch
+  jwt
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4)
   pry-byebug
