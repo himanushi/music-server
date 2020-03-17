@@ -23,7 +23,11 @@ module AppleMusic
       ecdsa_key = OpenSSL::PKey::EC.new(private_key)
       ecdsa_key.check_key
 
-      JWT.encode(payload, ecdsa_key, algorithm, header_fields = headers)
+      {
+        access_token: JWT.encode(payload, ecdsa_key, algorithm, header_fields = headers),
+        token_type: "Bearer",
+        expires_on: Time.at(time_expired),
+      }
     end
   end
 end
