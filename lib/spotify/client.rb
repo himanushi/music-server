@@ -75,8 +75,17 @@ module Spotify
       get("#{default_url}/albums/#{spotify_id}", params)
     end
 
+    def get_album_tracks(spotify_id, params = default_params)
+      get("#{default_url}/albums/#{spotify_id}/tracks", params)
+    end
+
     def get_track(spotify_id, params = default_params)
       get("#{default_url}/tracks/#{spotify_id}", params)
+    end
+
+    def get_tracks(spotify_ids, params = default_params)
+      params["ids"] = spotify_ids.join(",")
+      get("#{default_url}/tracks", params)
     end
 
     def result(response)
