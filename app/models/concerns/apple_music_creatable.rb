@@ -2,15 +2,15 @@ module AppleMusicCreatable
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def find_or_create_by_apple_music_id(apple_music_id)
+      record = find_by(apple_music_id: apple_music_id)
+      return record unless record.nil?
+
+      create_by_apple_music_id(apple_music_id)
+    end
+
     def create_by_apple_music_id(apple_music_id)
-      type = self.name.gsub("AppleMusic", "").downcase
-      body = AppleMusic::Client.new.__send__("get_#{type}", apple_music_id)
-      data = body.try(:dig, "data", 0)
-      id   = data.try(:[], "id")
-
-      return [nil, {}] unless id.present?
-
-      create_by_data(data)
+      raise NotImplementedError
     end
 
     def create_by_data(data)
@@ -27,7 +27,7 @@ module AppleMusicCreatable
           record
         end
 
-      [result_record, data]
+      result_record
     end
   end
 end

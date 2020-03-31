@@ -11,7 +11,7 @@ module AppleMusic
       end
     end
 
-    def initialize(locale: "jp", version: "v1")
+    def initialize(locale: "au", version: "v1")
       @locale   = locale
       @version  = version
     end
