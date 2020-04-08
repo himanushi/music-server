@@ -6,7 +6,7 @@ module SpotifyCreatable
       record = find_by(spotify_id: spotify_id)
       return record unless record.nil?
 
-      create_by_spotify_id(spotify_id)
+      ActiveRecord::Base.transaction { create_by_spotify_id(spotify_id) }
     end
 
     def create_by_spotify_id(spotify_id)

@@ -7,7 +7,7 @@ module TTID
 
   class << self
     def to_hash(id)
-      return nil unless REGEXP =~ id
+      return nil unless REGEXP.match?(id)
       {
         table_id:      Regexp.last_match[1],
         hex_timestamp: Regexp.last_match[2],
