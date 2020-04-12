@@ -1,4 +1,4 @@
-FROM ruby:2.7.0
+FROM ruby:2.7.1
 # nodeのバージョン6以上であること
 RUN curl -SL https://deb.nodesource.com/setup_12.x | bash
 # 最新のyarnを取得
