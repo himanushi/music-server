@@ -2,6 +2,7 @@ class SpotifyArtist < ApplicationRecord
   table_id :spar
 
   include SpotifyCreatable
+  include SpotifyArtworkResizable
 
   belongs_to :artist
 

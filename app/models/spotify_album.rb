@@ -2,6 +2,7 @@ class SpotifyAlbum < ApplicationRecord
   table_id :spal
 
   include SpotifyCreatable
+  include SpotifyArtworkResizable
 
   belongs_to :album
   has_many :spotify_tracks
