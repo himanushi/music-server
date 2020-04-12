@@ -88,4 +88,12 @@ class SpotifyAlbum < ApplicationRecord
   def playable
     true
   end
+
+  def artwork_l
+    @artwork_l ||= Artwork.new(url: artwork_l_url, width: artwork_l_width, height: artwork_l_height)
+  end
+
+  def artwork_m
+    @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
+  end
 end

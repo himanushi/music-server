@@ -22,6 +22,8 @@ gem 'faraday_middleware'
 gem 'jwt'
 # HTTP メソッド許可
 gem 'rack-cors'
+# 画像操作
+gem "mini_magick"
 
 group :development, :test do
   # ブレイクポイント

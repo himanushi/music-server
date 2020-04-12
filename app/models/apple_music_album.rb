@@ -62,4 +62,19 @@ class AppleMusicAlbum < ApplicationRecord
       create_by_data(data)
     end
   end
+
+  def artwork_l
+    @artwork_l ||= build_artwork(640)
+  end
+
+  def artwork_m
+    @artwork_m ||= build_artwork(300)
+  end
+
+  def build_artwork(max_size)
+    height = artwork_height > max_size ? max_size : artwork_height
+    width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
+    url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
+    Artwork.new(url: url, width: width, height: height)
+  end
 end
