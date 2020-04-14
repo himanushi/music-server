@@ -9,12 +9,12 @@ RUN apt update -qq && apt install -y nodejs yarn
 # 日本語対応
 ENV LANG C.UTF-8
 
-RUN mkdir /music-catalog
-WORKDIR /music-catalog
+RUN mkdir /music-server
+WORKDIR /music-server
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install
-COPY . /music-catalog
+COPY . /music-server
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
