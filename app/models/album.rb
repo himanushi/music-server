@@ -44,15 +44,15 @@ class Album < ApplicationRecord
   end
 
   def apple_music_album
-    @apple_music_album = pick_apple_album(true)
+    @apple_music_album ||= pick_apple_album(true)
   end
 
   def itunes_album
-    @itunes_album = pick_apple_album(false)
+    @itunes_album ||= pick_apple_album(false)
   end
 
   def pick_apple_album(is_apple_music)
     return nil unless apple_music_and_itunes_album.present?
-    is_apple_music ? apple_music_and_itunes_album : nil
+    apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
   end
 end

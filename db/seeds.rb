@@ -16,8 +16,19 @@ end
 
 puts "seed 開始".red
 
-["下村陽子", "西木康智", "植松伸夫", "伊藤賢治", "光田康典", "Inon Zur"].each do |name|
-  puts "create #{name}".green
+%w[
+  植松伸夫 すぎやまこういち 伊藤賢治 下村陽子 光田康典 古代祐三
+  崎元仁 西木康智 谷岡久美 成田勤 土屋俊輔 上松範康 岡部啓一 祖堅正慶 Revo
+  岩田匡治 いとうけいすけ なるけみちこ ピース flasygoodness 佐野信義
+  ジェイク・カウフマン Inon\ Zur Austin\ Wintory Gareth\ Coker
+  Jeremy\ Soule Kristofer\ Maddigan
+  SQUARE\ ENIX\ MUSIC CAPCOM カプコン カプコンサウンドチーム アトラスサウンドチーム
+  ファルコム・サウンド・チーム・JDK SNK\ サウンドチーム GUST クラリスディスク コナミ短形波倶楽部
+  colopl INSIDE\ SYSTEM ジョーダウン namco namco\ sounds ベイシスケイプ
+  Sony\ Computer\ Entertainment\ Inc.
+  メギド72 ブレイブファンタジア MOTHER3
+].each do |name|
+  puts "create artist #{name}".green
   start_time = Time.now
 
   Artist.create_by_name(name).map(&:create_albums)

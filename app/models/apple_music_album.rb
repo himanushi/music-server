@@ -18,8 +18,14 @@ class AppleMusicAlbum < ApplicationRecord
       album = Album.find_by_isrc_or_create(album_attrs, tracks_attrs)
 
       data.dig("relationships", "artists", "data").each do |ad|
-        artist = (AppleMusicArtist.find_by(apple_music_id: ad["id"]) ||
-                  AppleMusicArtist.create_by_apple_music_id(ad["id"])).artist
+        apple_music_artist =
+          AppleMusicArtist.find_by(apple_music_id: ad["id"]) ||
+          AppleMusicArtist.create_by_apple_music_id(ad["id"])
+
+        # locale: :jp で参照できないアーティストがいる
+        next unless apple_music_artist.present?
+
+        artist = apple_music_artist.artist
         artist.albums.push(album) if artist.albums.where(id: album.id).empty?
       end
 
@@ -56,7 +62,13 @@ class AppleMusicAlbum < ApplicationRecord
       return unless data.present?
 
       unless data["attributes"]["trackCount"] == data["relationships"]["tracks"]["data"].size
-        raise StandardError, "トラック数が合わないよ"
+        # TODO: いつか起きるかもしれないバグをなんとかする。
+        # アルバムトラック数と実トラック数が合わないことがある。これはおそらく権利の都合上配信ができないトラックがあるから。
+        # もともとエラーにしていたが、仕方なくトラック数を調整することにした。
+        # これは AppleMusic::Client.new.get_album が絶対にエラーが発生しなければ問題はない。
+        # しかし、AppleMusic::Client.new.get_album で全ての Track を取得できなかった場合、不正なデータとなる可能性がある。
+        # raise StandardError, "トラック数が合わないよ"
+        data["attributes"]["trackCount"] = data["relationships"]["tracks"]["data"].size
       end
 
       create_by_data(data)

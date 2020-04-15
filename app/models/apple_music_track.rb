@@ -18,6 +18,18 @@ class AppleMusicTrack < ApplicationRecord
         artist.tracks.push(track)
       end
 
+      # ミュージックビデオなどの場合
+      other_data =
+        if data["type"] != "songs"
+          {
+            disc_number: 0,
+            has_lyrics: false,
+            duration_ms: 0,
+          }
+        else
+          {}
+        end
+
       {
         track:          track,
         apple_music_id: data["id"],
@@ -28,7 +40,7 @@ class AppleMusicTrack < ApplicationRecord
         playable:       attrs["playParams"].present?,
         duration_ms:    attrs["durationInMillis"],
         preview_url:    attrs.dig("previews", 0, "url"),
-      }.merge(track_attrs)
+      }.merge(track_attrs).merge(other_data)
     end
 
     def to_track_attrs(data)
