@@ -1,5 +1,7 @@
 module Queries
   class BaseQuery < GraphQL::Schema::Resolver
+    include Types::Scalars
+
     def selected_fields
       begin
         context.ast_node.selections.first.selections

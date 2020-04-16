@@ -1,5 +1,4 @@
 module Types
-  class MutationType < Types::BaseObject
-
+  class MutationType < Types::Objects::BaseObject
   end
 end
