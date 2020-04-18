@@ -62,7 +62,13 @@ module AppleMusic
     end
 
     def get_artist_albums(apple_music_id, params = {})
-      get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/albums", params)
+      begin
+        get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/albums", params)
+      rescue
+        # アーティストのアルバムが存在しない場合はエラーになる
+        # そのためこのメソッドのみエラーを回避する
+        {}
+      end
     end
 
     def get_album(apple_music_id, params = {})
@@ -74,29 +80,17 @@ module AppleMusic
     end
 
     def result(response)
+      body = response.body
       if response.success?
-        if response.body["next"].present?
-          data = response.body["data"]
-          next_data = get(response.body["next"])["data"] || []
+        if body["next"].present?
+          data = body["data"]
+          next_data = get(body["next"])["data"] || []
           { "data" => (data + next_data) }
         else
-          response.body
+          body
         end
       else
-        error = (response.body["errors"] || []).first
-        error_message =
-          begin
-            "[#{response.status}] #{error['title']} : #{error['detail']}"
-          rescue
-            "code: #{response.status}"
-          end
-
-        {
-          "error" => {
-            "status"  => response.status,
-            "message" => error_message,
-          },
-        }
+        raise StandardError, "#{body}, #{response.env.url.to_s}"
       end
     end
   end

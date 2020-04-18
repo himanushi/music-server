@@ -90,7 +90,7 @@ module Spotify
 
     def result(response)
       body = response.body
-      body unless response.success?
+      raise StandardError, "#{body}, #{response.env.url.to_s}" unless response.success?
 
       if body["next"].present?
         items         = body["items"]
