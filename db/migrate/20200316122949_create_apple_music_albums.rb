@@ -16,7 +16,8 @@ class CreateAppleMusicAlbums < ActiveRecord::Migration[6.0]
       t.integer    :artwork_width, null: false
       t.integer    :artwork_height,null: false
     end
-    add_foreign_key :apple_music_albums, :albums, unique: true
+    add_foreign_key :apple_music_albums, :albums, dependent: :destroy
+    add_index :apple_music_albums, :album_id, unique: true
     add_index :apple_music_albums, :apple_music_id, unique: true
   end
 end

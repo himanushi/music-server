@@ -16,8 +16,8 @@ class Album < ApplicationRecord
   class << self
     def find_by_isrc_or_create(album_attrs, tracks_attrs)
       isrc  = tracks_attrs.map {|attrs| attrs[:isrc] }
-      album = joins(:tracks).where(tracks: { isrc: isrc } ).
-              group(:id).having("count(*) = #{isrc.size}").first
+      album = joins(:tracks).where(tracks: { isrc: isrc }, total_tracks: isrc.size).
+              group(:id).having("count(*) = albums.total_tracks").first
 
       if album.present?
         # 過去の日時を正とする

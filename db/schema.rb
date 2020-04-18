@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.text "artwork_url", null: false
     t.integer "artwork_width", null: false
     t.integer "artwork_height", null: false
-    t.index ["album_id"], name: "fk_rails_7a880d8bee"
+    t.index ["album_id"], name: "index_apple_music_albums_on_album_id", unique: true
     t.index ["apple_music_id"], name: "index_apple_music_albums_on_apple_music_id", unique: true
     t.index ["status"], name: "index_apple_music_albums_on_status"
   end
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.integer "artwork_s_width"
     t.integer "artwork_s_height"
     t.integer "popularity", default: 0, null: false
-    t.index ["album_id"], name: "fk_rails_9e416da95e"
+    t.index ["album_id"], name: "index_spotify_albums_on_album_id", unique: true
     t.index ["popularity"], name: "index_spotify_albums_on_popularity"
     t.index ["spotify_id"], name: "index_spotify_albums_on_spotify_id", unique: true
     t.index ["status"], name: "index_spotify_albums_on_status"

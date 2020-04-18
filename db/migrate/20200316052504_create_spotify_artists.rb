@@ -19,7 +19,7 @@ class CreateSpotifyArtists < ActiveRecord::Migration[6.0]
       t.integer    :artwork_s_height,null: true
       t.integer    :popularity, null: false, default: 0, index: true
     end
-    add_foreign_key :spotify_artists, :artists
+    add_foreign_key :spotify_artists, :artists, dependent: :destroy
     add_index :spotify_artists, :spotify_id, unique: true
   end
 end
