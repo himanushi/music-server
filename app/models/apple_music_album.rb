@@ -8,7 +8,7 @@ class AppleMusicAlbum < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
-  before_update :sync_apple_music_tracks
+  before_update :sync_status_apple_music_tracks
 
   class << self
     def mapping(data)
@@ -92,7 +92,7 @@ class AppleMusicAlbum < ApplicationRecord
     Artwork.new(url: url, width: width, height: height)
   end
 
-  def sync_apple_music_tracks
+  def sync_status_apple_music_tracks
     ActiveRecord::Base.transaction do
       apple_music_tracks.map do |t|
         t.__send__("#{self.status}!")

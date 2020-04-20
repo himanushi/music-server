@@ -2,12 +2,15 @@ module Artists
   module Status
     extend ActiveSupport::Concern
 
-    def status!(state)
-      raise StandardError, "enum に存在しない！" unless self.class.enums(:status).include?(state.to_sym)
+    included do
+      before_update :sync_status_artists
+    end
 
+    def sync_status_artists
       ActiveRecord::Base.transaction do
-        albums.map {|album| album.status!(state) }
-        __send__("#{state}!")
+        apple_music_artists.map {|a| a.__send__("#{status}!") }
+        spotify_artists.map {|a| a.__send__("#{status}!") }
+        albums.map {|a| a.__send__("#{status}!") }
       end
     end
   end

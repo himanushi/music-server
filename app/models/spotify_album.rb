@@ -9,7 +9,7 @@ class SpotifyAlbum < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
-  before_update :sync_spotify_tracks
+  before_update :sync_status_spotify_tracks
 
   JAPANESE_REGEXP = /(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+/
 
@@ -106,7 +106,7 @@ class SpotifyAlbum < ApplicationRecord
     @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
   end
 
-  def sync_spotify_tracks
+  def sync_status_spotify_tracks
     ActiveRecord::Base.transaction do
       spotify_tracks.map do |t|
         t.__send__("#{self.status}!")

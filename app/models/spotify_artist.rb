@@ -51,7 +51,15 @@ class SpotifyArtist < ApplicationRecord
     return [] unless result["items"].present?
 
     result["items"].map do |album|
-      SpotifyAlbum.find_or_create_by_spotify_id(album["id"])
+      SpotifyAlbum.find_or_create_by_spotify_id(album["id"]) rescue nil
     end.compact
+  end
+
+  def artwork_l
+    @artwork_l ||= Artwork.new(url: artwork_l_url, width: artwork_l_width, height: artwork_l_height)
+  end
+
+  def artwork_m
+    @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
   end
 end

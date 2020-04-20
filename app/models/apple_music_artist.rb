@@ -8,8 +8,6 @@ class AppleMusicArtist < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
-  before_update :sync_apple_music_albums
-
   class << self
     def mapping(data)
       name   = Artist.to_name(data.dig("attributes", "name"))
@@ -36,12 +34,40 @@ class AppleMusicArtist < ApplicationRecord
   end
 
   def create_albums
+    albums_ids = []
+
     data = AppleMusic::Client.new.get_artist_albums(apple_music_id)["data"]
+    if data.present?
+      albums_ids += data.map {|album| album["id"] }
+    end
 
-    return [] unless data.present?
+    data = AppleMusic::Client.new.get_artist_tracks(apple_music_id, {}, repeat: 5)["data"]
+    if data.present?
+      # 以下のようなURLからアルバムIDを抽出
+      # https://music.apple.com/jp/album/999999999?i=999999999
+      # https://music.apple.com/jp/album/アルバム名/999999999?i=999999999
+      albums_ids += data.map {|track| track["attributes"]["url"][/\/([0-9]+)\?/, 1] }
+    end
 
-    data.map do |album|
-      AppleMusicAlbum.find_or_create_by_apple_music_id(album["id"])
+    return [] unless albums_ids.present?
+
+    albums_ids.uniq.map do |albums_id|
+      AppleMusicAlbum.find_or_create_by_apple_music_id(albums_id) rescue nil
     end.compact
+  end
+
+  def artwork_l
+    @artwork_l ||= Artwork.new(url: nil, width: 640, height: 640)
+  end
+
+  def artwork_m
+    @artwork_m ||=  Artwork.new(url: nil, width: 300, height: 300)
+  end
+
+  def build_artwork(max_size)
+    height = artwork_height > max_size ? max_size : artwork_height
+    width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
+    url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
+    Artwork.new(url: url, width: width, height: height)
   end
 end
