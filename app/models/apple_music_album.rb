@@ -8,6 +8,8 @@ class AppleMusicAlbum < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
+  before_update :sync_apple_music_tracks
+
   class << self
     def mapping(data)
       attrs        = data["attributes"]
@@ -88,5 +90,13 @@ class AppleMusicAlbum < ApplicationRecord
     width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
     url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
     Artwork.new(url: url, width: width, height: height)
+  end
+
+  def sync_apple_music_tracks
+    ActiveRecord::Base.transaction do
+      apple_music_tracks.map do |t|
+        t.__send__("#{self.status}!")
+      end
+    end
   end
 end

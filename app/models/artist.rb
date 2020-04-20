@@ -1,12 +1,19 @@
 class Artist < ApplicationRecord
   table_id :arst
 
+  include Artists::Status
+
   has_many :artist_has_albums
   has_many :albums, through: :artist_has_albums
   has_many :artist_has_tracks
   has_many :tracks, through: :artist_has_tracks
   has_many :apple_music_artists
   has_many :spotify_artists
+
+  scope :include_albums, -> { eager_load(:albums) }
+  scope :include_services, -> { eager_load(:apple_music_artists, :spotify_artists) }
+  scope :services, -> { include_services.map(&:service) }
+  scope :names, -> { services.map(&:name) }
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
@@ -35,5 +42,9 @@ class Artist < ApplicationRecord
     apple_music_artists.each {|am_art| am_art.create_albums }
     spotify_artists.each {|sp_art| sp_art.create_albums }
     self
+  end
+
+  def service
+    (spotify_artists + apple_music_artists).first
   end
 end

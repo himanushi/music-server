@@ -4,8 +4,11 @@ class AppleMusicArtist < ApplicationRecord
   include AppleMusicCreatable
 
   belongs_to :artist
+  has_many :apple_music_tracks
 
   enum status: { pending: 0, active: 1, ignore: 2 }
+
+  before_update :sync_apple_music_albums
 
   class << self
     def mapping(data)

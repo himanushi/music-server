@@ -1,6 +1,9 @@
 class Album < ApplicationRecord
   table_id :albm
 
+  include Albums::Mix
+  include Albums::Status
+
   has_many :artist_has_albums
   has_many :artists, through: :artist_has_albums
   has_many :album_has_tracks
@@ -9,9 +12,12 @@ class Album < ApplicationRecord
   has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name
   has_one  :spotify_album
 
+  scope :include_artists, -> { eager_load(:artists) }
   scope :include_services, -> { eager_load(:apple_music_and_itunes_album, :spotify_album) }
   scope :services, -> { include_services.map(&:service) }
   scope :names, -> { services.map(&:name) }
+
+  enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
     def find_by_isrc_or_create(album_attrs, tracks_attrs)

@@ -5,9 +5,11 @@ class SpotifyAlbum < ApplicationRecord
   include SpotifyArtworkResizable
 
   belongs_to :album
-  has_many :spotify_tracks
+  has_many :spotify_tracks, dependent: :destroy
 
   enum status: { pending: 0, active: 1, ignore: 2 }
+
+  before_update :sync_spotify_tracks
 
   class << self
     def mapping(data)
@@ -95,5 +97,13 @@ class SpotifyAlbum < ApplicationRecord
 
   def artwork_m
     @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
+  end
+
+  def sync_spotify_tracks
+    ActiveRecord::Base.transaction do
+      spotify_tracks.map do |t|
+        t.__send__("#{self.status}!")
+      end
+    end
   end
 end
