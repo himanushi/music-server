@@ -11,6 +11,8 @@ class SpotifyAlbum < ApplicationRecord
 
   before_update :sync_spotify_tracks
 
+  JAPANESE_REGEXP = /(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+/
+
   class << self
     def mapping(data)
       tracks_data  = data["tracks"]["items"]
@@ -30,6 +32,11 @@ class SpotifyAlbum < ApplicationRecord
       end
 
       images = data["images"][-3..-1] || []
+
+      # 日本語表記のアルバムを優先する
+      if album.spotify_album.present? && data["name"].match?(JAPANESE_REGEXP)
+        album.spotify_album.destroy!
+      end
 
       {
         album:            album,
