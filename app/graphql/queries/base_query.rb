@@ -1,6 +1,7 @@
 module Queries
   class BaseQuery < GraphQL::Schema::Resolver
     include Types::Scalars
+    include Types::InputObjects
 
     def selected_fields
       begin
