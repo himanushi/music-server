@@ -29,7 +29,11 @@ module AppleMusic
       "/#{version}/catalog"
     end
 
+    # @repeat は next を何回実行するか判定する
     def get(url, params = {})
+      return {} unless @repeat != 0
+      @repeat -= 1 unless @repeat.nil?
+
       response = client.get(url) do |c|
                    params.each do |k, v|
                      c.params[k] = v
@@ -51,7 +55,13 @@ module AppleMusic
     end
 
     def get_artist(apple_music_id, params = {})
-      get("#{catalog_url}/#{locale}/artists/#{apple_music_id}", params)
+      begin
+        get("#{catalog_url}/#{locale}/artists/#{apple_music_id}", params)
+      rescue
+        # アーティストを参照できない場合はエラーになる
+        # そのためこのメソッドではエラーを回避する
+        {}
+      end
     end
 
     def index_artists(name)
@@ -66,9 +76,14 @@ module AppleMusic
         get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/albums", params)
       rescue
         # アーティストのアルバムが存在しない場合はエラーになる
-        # そのためこのメソッドのみエラーを回避する
+        # そのためこのメソッドではエラーを回避する
         {}
       end
+    end
+
+    def get_artist_tracks(apple_music_id, params = {}, repeat: nil)
+      @repeat = repeat
+      get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/songs", params)
     end
 
     def get_album(apple_music_id, params = {})
