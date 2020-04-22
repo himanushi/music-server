@@ -1,5 +1,5 @@
 # TTID
-# Table id and hex Timestamp and hex ID
+# Table id, hex Timestamp, ID
 module TTID
   extend ActiveSupport::Concern
 

@@ -7,7 +7,7 @@ module Queries
     argument :id,  TTID, required: true, description: "ID"
 
     def resolve(id:)
-      Album.include_services.find_by(id: id)
+      Album.find_by(id: id)
     end
   end
 end

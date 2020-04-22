@@ -1,5 +1,5 @@
 class Types::Scalars::TTID < Types::Scalars::BaseScalar
-  description "Table id and hex Timestamp and hex ID"
+  description "Table id, hex Timestamp, ID"
 
   def self.coerce_input(input_value, context)
     if TTID::REGEXP.match?(input_value)
