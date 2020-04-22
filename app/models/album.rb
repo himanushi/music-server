@@ -5,9 +5,9 @@ class Album < ApplicationRecord
   include Albums::Status
 
   has_many :artist_has_albums
-  has_many :artists, through: :artist_has_albums
+  has_many :artists, through: :artist_has_albums, dependent: :destroy
   has_many :album_has_tracks
-  has_many :tracks, through: :album_has_tracks
+  has_many :tracks, through: :album_has_tracks, dependent: :destroy
   # iTunes と分けるため名前を変更している
   has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name
   has_one  :spotify_album
@@ -23,7 +23,7 @@ class Album < ApplicationRecord
     def find_by_isrc_or_create(album_attrs, tracks_attrs)
       isrc  = tracks_attrs.map {|attrs| attrs[:isrc] }
       album = joins(:tracks).where(tracks: { isrc: isrc }, total_tracks: isrc.size).
-              group(:id).having("count(*) = albums.total_tracks").first
+              group("albums.id").having("count(*) = albums.total_tracks").first
 
       if album.present?
         # 過去の日時を正とする

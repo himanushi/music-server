@@ -2,9 +2,10 @@ class AppleMusicAlbum < ApplicationRecord
   table_id :amal
 
   include AppleMusicCreatable
+  include Albums::Compact
 
   belongs_to :album
-  has_many :apple_music_tracks
+  has_many :apple_music_tracks, dependent: :destroy
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 

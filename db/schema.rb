@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_142731) do
+ActiveRecord::Schema.define(version: 2020_04_22_122936) do
 
   create_table "album_has_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.text "artwork_url", null: false
     t.integer "artwork_width", null: false
     t.integer "artwork_height", null: false
+    t.string "compacted_id"
     t.index ["album_id"], name: "index_apple_music_albums_on_album_id", unique: true
-    t.index ["apple_music_id"], name: "index_apple_music_albums_on_apple_music_id", unique: true
+    t.index ["apple_music_id", "status"], name: "index_apple_music_albums_on_apple_music_id_and_status", unique: true
     t.index ["status"], name: "index_apple_music_albums_on_status"
   end
 
@@ -79,7 +80,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.integer "duration_ms", null: false, comment: "再生時間"
     t.text "preview_url"
     t.index ["apple_music_album_id", "disc_number", "track_number"], name: "index_apple_music_tracks_on_am_id_and_numbers", unique: true
-    t.index ["apple_music_id"], name: "index_apple_music_tracks_on_apple_music_id", unique: true
+    t.index ["apple_music_id", "status"], name: "index_apple_music_tracks_on_apple_music_id_and_status", unique: true
     t.index ["disc_number"], name: "index_apple_music_tracks_on_disc_number"
     t.index ["duration_ms"], name: "index_apple_music_tracks_on_duration_ms"
     t.index ["isrc"], name: "index_apple_music_tracks_on_isrc"
@@ -136,9 +137,10 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.integer "artwork_s_width"
     t.integer "artwork_s_height"
     t.integer "popularity", default: 0, null: false
+    t.string "compacted_id"
     t.index ["album_id"], name: "index_spotify_albums_on_album_id", unique: true
     t.index ["popularity"], name: "index_spotify_albums_on_popularity"
-    t.index ["spotify_id"], name: "index_spotify_albums_on_spotify_id", unique: true
+    t.index ["spotify_id", "status"], name: "index_spotify_albums_on_spotify_id_and_status", unique: true
     t.index ["status"], name: "index_spotify_albums_on_status"
   end
 
@@ -189,7 +191,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_142731) do
     t.index ["name"], name: "index_spotify_tracks_on_name", length: 191
     t.index ["popularity"], name: "index_spotify_tracks_on_popularity"
     t.index ["spotify_album_id", "disc_number", "track_number"], name: "index_spotify_tracks_on_sp_id_and_numbers", unique: true
-    t.index ["spotify_id"], name: "index_spotify_tracks_on_spotify_id", unique: true
+    t.index ["spotify_id", "status"], name: "index_spotify_tracks_on_spotify_id_and_status", unique: true
     t.index ["status"], name: "index_spotify_tracks_on_status"
     t.index ["track_id"], name: "fk_rails_5fc39ad240"
     t.index ["track_number"], name: "index_spotify_tracks_on_track_number"

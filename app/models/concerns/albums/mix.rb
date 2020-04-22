@@ -1,3 +1,5 @@
+# 別々の音楽サービスで同じアルバムのはずが別のアルバムとして識別された時に使用する
+# 同じアルバムであるということを登録する
 module Albums
   module Mix
     extend ActiveSupport::Concern

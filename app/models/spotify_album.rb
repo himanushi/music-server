@@ -3,6 +3,7 @@ class SpotifyAlbum < ApplicationRecord
 
   include SpotifyCreatable
   include SpotifyArtworkResizable
+  include Albums::Compact
 
   belongs_to :album
   has_many :spotify_tracks, dependent: :destroy
