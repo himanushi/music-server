@@ -10,7 +10,10 @@ module Albums
         end
 
         music_service_albums = where(id: ids)
-        total_tracks = music_service_albums.sum {|album| album[:total_tracks] }
+
+        music_service_albums.each do |music_service_album|
+          raise StandardError, "compacted_id が存在するのでダメ！" unless music_service_album.compacted_id.nil?
+        end
 
         ignore_attr_names = %w[id created_at updated_at]
 
