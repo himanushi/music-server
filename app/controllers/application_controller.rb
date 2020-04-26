@@ -11,9 +11,8 @@ class ApplicationController < ActionController::Base
     if Rails.env.production?
       cookie += [
         "Secure",
-        # "SameSite=strict",
+        "SameSite=strict",
         "HttpOnly",
-        "Domain=music-server.himacloud.app",
       ]
     end
 
