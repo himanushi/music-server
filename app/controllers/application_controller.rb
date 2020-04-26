@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   after_action :refresh_token, only: :execute
 
   def refresh_token
