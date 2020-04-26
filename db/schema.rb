@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_122936) do
+ActiveRecord::Schema.define(version: 2020_04_23_133431) do
 
   create_table "album_has_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -206,6 +206,15 @@ ActiveRecord::Schema.define(version: 2020_04_22_122936) do
     t.index ["isrc"], name: "index_tracks_on_isrc", unique: true
     t.index ["status"], name: "index_tracks_on_status"
     t.index ["updated_at"], name: "index_tracks_on_updated_at"
+  end
+
+  create_table "users", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name", limit: 191, null: false
+    t.text "description"
+    t.string "album_id", limit: 24
+    t.index ["name"], name: "index_users_on_name"
   end
 
   add_foreign_key "apple_music_albums", "albums"

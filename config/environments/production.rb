@@ -98,4 +98,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   config.hosts << "music-server.himacloud.app"
   config.hosts << "video-game-music.web.app"
+  config.hosts << "video-game-music.net"
+  config.hosts << "music-server.video-game-music.net"
 end
