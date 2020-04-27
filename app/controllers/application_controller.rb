@@ -1,27 +1,33 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
-  after_action :refresh_token, only: :execute
+  before_action :set_current_user
+  after_action :refresh_token
+
+  attr_reader :current_user
 
   def refresh_token
     cookie_info = {
-      value: current_user.token,
+      value: "Bearer #{current_user.digit_token}",
       max_age: 7.days.to_i,
       http_only: true,
-      secure: true,
       same_site: :strict,
     }
 
-    response.set_cookie(:token, cookie_info)
+    if Rails.env.production?
+      cookie_info.merge!({ secure: true })
+    end
+
+    response.set_cookie(:Authorization, cookie_info)
   end
 
-  def current_user
+  def set_current_user
     @current_user ||= begin
-      token = request.cookies["token"]
+      token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
 
       if token.present?
-        User.find_by_token!(token)
+        User.find_by_digit_token!(token)
       else
-        User.create!(name: SecureRandom.hex(3).upcase)
+        User.create!
       end
     end
   end

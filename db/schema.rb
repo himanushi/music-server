@@ -211,10 +211,16 @@ ActiveRecord::Schema.define(version: 2020_04_23_133431) do
   create_table "users", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0, null: false
     t.string "name", limit: 191, null: false
+    t.string "username", limit: 191, null: false
+    t.string "encrypted_password", limit: 191
+    t.string "token", limit: 191, null: false
     t.text "description"
     t.string "album_id", limit: 24
-    t.index ["name"], name: "index_users_on_name"
+    t.index ["status"], name: "index_users_on_status"
+    t.index ["token"], name: "index_users_on_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "apple_music_albums", "albums"
