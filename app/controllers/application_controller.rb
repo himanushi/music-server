@@ -1,22 +1,17 @@
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token
   after_action :refresh_token, only: :execute
 
   def refresh_token
-    cookie = [
-      "token=#{current_user.token}",
-      "path=/",
-      "expires=Tue, 19 Jan 2038 03:14:07 GMT",
-    ]
+    cookie_info = {
+      value: current_user.token,
+      max_age: 7.days.to_i,
+      http_only: true,
+      secure: true,
+      same_site: :strict,
+    }
 
-    if Rails.env.production?
-      cookie += [
-        "Secure",
-        "SameSite=strict",
-        "HttpOnly",
-      ]
-    end
-
-    response.set_cookie_header = cookie.join("; ")
+    response.set_cookie(:token, cookie_info)
   end
 
   def current_user
