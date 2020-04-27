@@ -22,8 +22,13 @@ module Server
     # https://mattboldt.com/2019/06/23/rails-graphql-react-apollo-part-two/
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        if Rails.env.production?
+          origins ENV['PRODUCTION_APP_URL']
+          resource '*', headers: :any, methods: [:get, :post, :options]
+        else
+          origins ENV['DEVELOPMENT_SPA_URL']
+          resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
+        end
       end
     end
   end
