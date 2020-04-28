@@ -4,7 +4,7 @@ class Mutations::UpdateUser < Mutations::BaseMutation
   argument :name, String, required: false
 
   field :user, Types::Objects::UserType, null: true
-  field :errors, String, null: true
+  field :error, String, null: true
 
   def resolve(**attrs)
     begin
@@ -14,12 +14,12 @@ class Mutations::UpdateUser < Mutations::BaseMutation
 
       {
         user: context[:current_info][:user],
-        errors: nil,
+        error: nil,
       }
     rescue => error
       {
         user: nil,
-        errors: error.message,
+        error: error.message,
       }
     end
   end

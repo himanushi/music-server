@@ -5,6 +5,8 @@ class Session < ApplicationRecord
 
   before_create :refresh_token
 
+  EXPIRE_DAYS = 7.days
+
   def refresh_token
     self.token = SecureRandom.hex(20)
   end

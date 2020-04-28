@@ -12,14 +12,18 @@ class ApplicationController < ActionController::Base
   def refresh_token
     cookie_info = {
       value: "Bearer #{current_info[:session].digit_token}",
-      max_age: 7.days.to_i,
+      max_age: Session::EXPIRE_DAYS.to_i,
       http_only: true,
       same_site: :strict,
     }
 
     # デバッグ用
     if Rails.env.development?
-      response.set_cookie(:username, {value: current_info[:session].user.username})
+      response.set_cookie(:username, {
+        value: current_info[:session].user.username,
+        http_only: true,
+        same_site: :strict,
+      })
     end
 
     if Rails.env.production?

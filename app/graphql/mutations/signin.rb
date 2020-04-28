@@ -3,7 +3,7 @@ class Mutations::Signin < Mutations::BaseMutation
   argument :password, String, required: false
 
   field :user, Types::Objects::UserType, null: true
-  field :errors, String, null: true
+  field :error, String, null: true
 
   def resolve(username:, password:)
     begin
@@ -17,12 +17,12 @@ class Mutations::Signin < Mutations::BaseMutation
 
       {
         user: user,
-        errors: nil,
+        error: nil,
       }
     rescue => error
       {
         user: nil,
-        errors: "ユーザー名またはパスワードが違います",
+        error: "ユーザー名またはパスワードが違います",
       }
     end
   end
