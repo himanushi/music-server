@@ -19,7 +19,7 @@ module Queries
     argument :conditions, AlbumsConditions, required: false, description: "取得条件"
     argument :order,  AlbumsQueryOrder, required: true, description: "ソート対象"
 
-    def resolve(limit:, offset:, order:, asc:, conditions: {})
+    def query(limit:, offset:, order:, asc:, conditions: {})
       conditions = { **conditions, status: [:pending, :active] }
       sort_type = asc ? :asc : :desc
 

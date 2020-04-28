@@ -5,7 +5,7 @@ class Mutations::Signin < Mutations::BaseMutation
   field :user, Types::Objects::UserType, null: true
   field :error, String, null: true
 
-  def resolve(username:, password:)
+  def mutate(username:, password:)
     begin
       user = User.find_by!(username: username)
       hash_password = BCrypt::Password.new(user.encrypted_password)

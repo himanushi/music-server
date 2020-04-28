@@ -6,4 +6,10 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
   field_class Types::Fields::BaseField
   # This is used for generating the `input: { ... }` object type
   input_object_class Types::InputObjects::BaseInputObject
+
+  def resolve(**args)
+    action_name = self.class.name.demodulize.underscore
+    raise ApplicationController::Forbidden, "権限がありません" unless context[:current_info][:user].can?(action_name)
+    mutate(**args)
+  end
 end

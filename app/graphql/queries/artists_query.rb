@@ -11,7 +11,7 @@ module Queries
 
     argument :order, ArtistsQueryOrder, required: false, description: "ソート対象"
 
-    def resolve(limit:, offset:, order:, asc:)
+    def query(limit:, offset:, order:, asc:)
       sort_type = asc ? :asc : :desc
       Artist.include_services.where(status: [:pending, :active]).order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit)
     end

@@ -45,9 +45,9 @@ class ApplicationController < ActionController::Base
         { user: user, session: user.sessions.first }
       end
     end
-  rescue
-    # TODO: cookie リセット
-    raise Forbidden
+  # rescue
+  #   # TODO: cookie リセット
+  #   raise Forbidden
   end
 
   private

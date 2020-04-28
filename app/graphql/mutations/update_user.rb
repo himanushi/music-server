@@ -6,7 +6,7 @@ class Mutations::UpdateUser < Mutations::BaseMutation
   field :user, Types::Objects::UserType, null: true
   field :error, String, null: true
 
-  def resolve(**attrs)
+  def mutate(**attrs)
     begin
       password = attrs.delete(:password)
       attrs[:encrypted_password] = BCrypt::Password.create(password, cost: 12)

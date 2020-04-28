@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_133432) do
+ActiveRecord::Schema.define(version: 2020_04_23_133434) do
 
   create_table "album_has_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2020_04_23_133432) do
     t.index ["release_date"], name: "index_albums_on_release_date"
     t.index ["status"], name: "index_albums_on_status"
     t.index ["total_tracks"], name: "index_albums_on_total_tracks"
+  end
+
+  create_table "allowed_actions", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "role_id", limit: 24, null: false
+    t.string "name", limit: 191, null: false
+    t.index ["role_id", "name"], name: "index_allowed_actions_on_role_id_and_name", unique: true
   end
 
   create_table "apple_music_albums", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -113,6 +121,13 @@ ActiveRecord::Schema.define(version: 2020_04_23_133432) do
     t.integer "status", default: 0, null: false
     t.index ["name"], name: "index_artists_on_name", unique: true
     t.index ["status"], name: "index_artists_on_status"
+  end
+
+  create_table "roles", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name", limit: 191, null: false
+    t.text "description"
   end
 
   create_table "sessions", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -226,10 +241,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_133432) do
     t.string "encrypted_password", limit: 191
     t.text "description"
     t.string "album_id", limit: 24
+    t.string "role_id", limit: 24
     t.index ["status"], name: "index_users_on_status"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "allowed_actions", "roles"
   add_foreign_key "apple_music_albums", "albums"
   add_foreign_key "apple_music_artists", "artists"
   add_foreign_key "apple_music_tracks", "apple_music_albums"

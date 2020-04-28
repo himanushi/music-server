@@ -6,7 +6,7 @@ module Queries
 
     argument :id,  TTID, required: true, description: "ID"
 
-    def resolve(id:)
+    def query(id:)
       Artist.include_albums.find_by(id: id)
     end
   end

@@ -6,12 +6,15 @@ class User < ApplicationRecord
   validates :name, :username, presence: true
   validates :username, uniqueness: true, format: { with: /\A[0-9a-zA-Z]+\z/, message: "半角英数字のみが使えます" }
 
+  belongs_to :role
+
   class << self
     def create_user_and_session!
       user = new(
         name: "未設定",
         username: SecureRandom.hex(5).upcase,
       )
+      user.role = Role.find_or_create_by_default_role
       user.create_session!
       user
     end
@@ -21,5 +24,9 @@ class User < ApplicationRecord
     session = sessions.new
     save!
     session
+  end
+
+  def can?(action_name)
+    role.allowed_actions.where(name: action_name).exists?
   end
 end

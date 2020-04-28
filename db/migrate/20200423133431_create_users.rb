@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string     :encrypted_password, limit: 191, null: true
       t.text       :description, null: true
       t.string     :album_id, limit: 24, null: true
+      t.string     :role_id, limit: 24
     end
     add_index :users, :username, unique: true
   end
