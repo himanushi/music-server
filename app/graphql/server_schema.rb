@@ -1,7 +1,7 @@
 class ServerSchema < GraphQL::Schema
   max_depth 13
 
-  #mutation(Types::MutationType)
+  mutation(Types::MutationType)
   query(Types::QueryType)
 
   # N+1対策

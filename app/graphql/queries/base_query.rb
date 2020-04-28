@@ -3,10 +3,6 @@ module Queries
     include Types::Scalars
     include Types::InputObjects
 
-    def current_user
-      context[:current_user]
-    end
-
     def selected_fields
       begin
         context.ast_node.selections.first.selections

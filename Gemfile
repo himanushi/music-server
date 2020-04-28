@@ -19,6 +19,7 @@ gem 'graphql-batch'
 gem 'faraday'
 gem 'faraday_middleware'
 # 暗号化
+gem 'bcrypt'
 gem 'jwt'
 # HTTP メソッド許可
 gem 'rack-cors'
