@@ -1,5 +1,5 @@
 module Queries
-  class ArtistsQuery < BaseListQuery
+  class Artists < BaseList
     description "アーティスト一覧取得"
 
     type [Types::Objects::ArtistType], null: false
@@ -13,7 +13,7 @@ module Queries
 
     def query(limit:, offset:, order:, asc:)
       sort_type = asc ? :asc : :desc
-      Artist.include_services.where(status: [:pending, :active]).order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit)
+      ::Artist.include_services.where(status: [:pending, :active]).order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit)
     end
   end
 end

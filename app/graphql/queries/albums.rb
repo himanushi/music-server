@@ -1,5 +1,5 @@
 module Queries
-  class AlbumsQuery < BaseListQuery
+  class Albums < BaseList
     description "アルバム一覧取得"
 
     type [Types::Objects::AlbumType], null: false
@@ -23,7 +23,7 @@ module Queries
       conditions = { **conditions, status: [:pending, :active] }
       sort_type = asc ? :asc : :desc
 
-      album_relation = Album.include_services
+      album_relation = ::Album.include_services
 
       if conditions.has_key?(:artists)
         album_relation = album_relation.include_artists

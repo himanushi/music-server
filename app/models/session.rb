@@ -18,10 +18,7 @@ class Session < ApplicationRecord
   class << self
     def find_by_digit_token!(digit_token)
       token = JwtUtil.decode(digit_token)["token"]
-      session = find_by!(token: token)
-      session.refresh_token
-      session.save!
-      session
+      find_by!(token: token)
     end
   end
 end

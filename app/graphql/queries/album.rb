@@ -1,5 +1,5 @@
 module Queries
-  class AlbumQuery < BaseQuery
+  class Album < BaseQuery
     description "アルバム情報取得"
 
     type Types::Objects::AlbumType, null: true
@@ -7,7 +7,7 @@ module Queries
     argument :id,  TTID, required: true, description: "ID"
 
     def query(id:)
-      Album.find_by(id: id)
+      ::Album.find_by(id: id)
     end
   end
 end

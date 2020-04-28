@@ -7,9 +7,12 @@ class ApplicationController < ActionController::Base
   attr_reader :current_info
 
   class Forbidden < ActionController::ActionControllerError; end
-  rescue_from Forbidden, with: :rescue403
+  rescue_from ApplicationController::Forbidden, with: :rescue403
 
   def refresh_token
+    current_info[:session].refresh_token
+    current_info[:session].save!
+
     cookie_info = {
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,

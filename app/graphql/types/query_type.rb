@@ -1,8 +1,8 @@
 module Types
   class QueryType < Types::Objects::BaseObject
-    field :artist,  resolver: Queries::ArtistQuery
-    field :artists, resolver: Queries::ArtistsQuery
-    field :album,   resolver: Queries::AlbumQuery
-    field :albums,  resolver: Queries::AlbumsQuery
+    field :artist,  resolver: Queries::Artist
+    field :artists, resolver: Queries::Artists
+    field :album,   resolver: Queries::Album
+    field :albums,  resolver: Queries::Albums
   end
 end
