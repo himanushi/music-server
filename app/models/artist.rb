@@ -3,12 +3,12 @@ class Artist < ApplicationRecord
 
   include Artists::Status
 
-  has_many :artist_has_albums
+  has_many :artist_has_albums, dependent: :destroy
   has_many :albums, through: :artist_has_albums
-  has_many :artist_has_tracks
+  has_many :artist_has_tracks, dependent: :destroy
   has_many :tracks, through: :artist_has_tracks
-  has_many :apple_music_artists
-  has_many :spotify_artists
+  has_many :apple_music_artists, dependent: :destroy
+  has_many :spotify_artists, dependent: :destroy
 
   scope :include_albums, -> { eager_load(:albums) }
   scope :include_services, -> { eager_load(:apple_music_artists, :spotify_artists) }

@@ -4,10 +4,10 @@ class Album < ApplicationRecord
   include Albums::Mix
   include Albums::Status
 
-  has_many :artist_has_albums
-  has_many :artists, through: :artist_has_albums, dependent: :destroy
-  has_many :album_has_tracks
-  has_many :tracks, through: :album_has_tracks, dependent: :destroy
+  has_many :artist_has_albums, dependent: :destroy
+  has_many :artists, through: :artist_has_albums
+  has_many :album_has_tracks, dependent: :destroy
+  has_many :tracks, through: :album_has_tracks
   # iTunes と分けるため名前を変更している
   has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name
   has_one  :spotify_album

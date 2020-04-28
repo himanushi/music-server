@@ -22,10 +22,17 @@ module Queries
     def resolve(limit:, offset:, order:, asc:, conditions: {})
       conditions = { **conditions, status: [:pending, :active] }
       sort_type = asc ? :asc : :desc
-      Album.include_services.include_artists.
-            where(conditions).
-            order({ "#{order}": sort_type }).
-            distinct.offset(offset).limit(limit)
+
+      album_relation = Album.include_services
+
+      if conditions.has_key?(:artists)
+        album_relation = album_relation.include_artists
+      end
+
+      album_relation.
+        where(conditions).
+        order({ "#{order}": sort_type }).
+        distinct.offset(offset).limit(limit)
     end
   end
 end
