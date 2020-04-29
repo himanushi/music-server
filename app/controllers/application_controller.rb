@@ -27,6 +27,11 @@ class ApplicationController < ActionController::Base
         http_only: true,
         same_site: :strict,
       })
+      response.set_cookie(:name, {
+        value: current_info[:session].user.name,
+        http_only: true,
+        same_site: :strict,
+      })
     end
 
     if Rails.env.production?

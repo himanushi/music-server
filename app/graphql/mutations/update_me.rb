@@ -1,9 +1,11 @@
-class Mutations::UpdateUser < Mutations::BaseMutation
+class Mutations::UpdateMe < Mutations::BaseMutation
+  description "カレントユーザー情報更新"
+
   argument :username, String, required: false
   argument :password, String, required: false
   argument :name, String, required: false
 
-  field :user, Types::Objects::UserType, null: true
+  field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
 
   def mutate(**attrs)
@@ -13,12 +15,12 @@ class Mutations::UpdateUser < Mutations::BaseMutation
       context[:current_info][:user].update!(attrs)
 
       {
-        user: context[:current_info][:user],
+        current_user: context[:current_info][:user],
         error: nil,
       }
     rescue => error
       {
-        user: nil,
+        current_user: nil,
         error: error.message,
       }
     end

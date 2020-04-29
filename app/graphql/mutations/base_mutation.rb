@@ -8,7 +8,7 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
   input_object_class Types::InputObjects::BaseInputObject
 
   def resolve(**args)
-    action_name = self.class.name.demodulize.underscore
+    action_name = self.class.name.demodulize.camelize(:lower)
     raise ApplicationController::Forbidden, "権限がありません" unless context[:current_info][:user].can?(action_name)
     mutate(**args)
   end
