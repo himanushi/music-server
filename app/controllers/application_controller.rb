@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       max_age: Session::EXPIRE_DAYS.to_i,
       http_only: true,
       same_site: :strict,
+      path: "/",
     }
 
     # デバッグ用
