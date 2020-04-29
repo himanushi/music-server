@@ -24,7 +24,7 @@ module Server
       allow do
         if Rails.env.production?
           origins ENV['PRODUCTION_APP_URL']
-          resource '*', headers: :any, methods: [:get, :post, :options]
+          resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
         else
           origins ENV['DEVELOPMENT_SPA_URL']
           resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
