@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
       token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
 
       if token.present?
+        # TODO: 期限切れとかのエラーハンドリング
         session = Session.find_by_digit_token!(token)
         { user: session.user, session: session }
       else

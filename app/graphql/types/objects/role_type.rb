@@ -9,9 +9,7 @@ module Types
       field :allowed_actions, [String], null: false, description: "出来ること一覧"
 
       def allowed_actions
-        object.allowed_actions.map(&:name).map do |name|
-          Types::MutationType.fields.merge(Types::QueryType.fields)[name].description
-        end
+        object.allowed_actions.map(&:name)
       end
     end
   end
