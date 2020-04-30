@@ -3,7 +3,5 @@ class AllowedAction < ApplicationRecord
 
   belongs_to :role
 
-  ALL_ACTIONS =
-    Types::MutationType.fields.keys.map(&:underscore) +
-    Types::QueryType.fields.keys.map(&:underscore)
+  ALL_ACTIONS = Types::MutationType.fields.keys + Types::QueryType.fields.keys
 end

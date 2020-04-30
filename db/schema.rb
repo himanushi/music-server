@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
-    t.text "description"
+    t.string "description", default: "", null: false
   end
 
   create_table "sessions", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
