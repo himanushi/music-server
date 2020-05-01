@@ -25,6 +25,8 @@ gem 'jwt'
 gem 'rack-cors'
 # 画像操作
 gem "mini_magick"
+# GraphQL 実行画面
+gem 'graphiql-rails'
 
 group :development, :test do
   # ブレイクポイント
@@ -34,8 +36,6 @@ group :development, :test do
 end
 
 group :development do
-  # GraphQL 実行画面
-  gem 'graphiql-rails'
   # ファイル更新監視
   gem 'listen', '>= 3.0.5', '< 3.2'
   # テスト実行高速化
