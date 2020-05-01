@@ -47,17 +47,18 @@ class ApplicationController < ActionController::Base
       token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
 
       if token.present?
-        # TODO: 期限切れとかのエラーハンドリング
-        session = Session.find_by_digit_token!(token)
-        { user: session.user, session: session }
+        begin
+          session = Session.find_by_digit_token!(token)
+          { user: session.user, session: session }
+        rescue
+          user = User.create_user_and_session!
+          { user: user, session: user.sessions.first }
+        end
       else
         user = User.create_user_and_session!
         { user: user, session: user.sessions.first }
       end
     end
-  # rescue
-  #   # TODO: cookie リセット
-  #   raise Forbidden
   end
 
   private
