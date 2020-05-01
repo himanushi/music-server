@@ -7,7 +7,7 @@ class Mutations::UpsertArtist < Mutations::BaseMutation
   field :artists, [ArtistType], null: true, description: "追加されたアーティスト"
   field :error, String, null: true
 
-  def mutate(apple_music_id:, spotify_id:)
+  def mutate(apple_music_id: nil, spotify_id: nil)
     begin
       artists = []
 
