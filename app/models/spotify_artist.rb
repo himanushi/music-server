@@ -1,5 +1,5 @@
 class SpotifyArtist < ApplicationRecord
-  table_id :spar
+  table_id :spa
 
   include SpotifyCreatable
   include SpotifyArtworkResizable

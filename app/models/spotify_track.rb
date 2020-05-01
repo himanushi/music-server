@@ -1,5 +1,5 @@
 class SpotifyTrack < ApplicationRecord
-  table_id :sptr
+  table_id :spt
 
   belongs_to :track
   belongs_to :spotify_album

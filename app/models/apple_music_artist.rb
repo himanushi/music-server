@@ -1,5 +1,5 @@
 class AppleMusicArtist < ApplicationRecord
-  table_id :amar
+  table_id :ama
 
   include AppleMusicCreatable
 

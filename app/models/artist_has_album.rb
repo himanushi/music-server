@@ -1,5 +1,5 @@
 class ArtistHasAlbum < ApplicationRecord
-  table_id :aral
+  table_id :ahb
 
   belongs_to :artist
   belongs_to :album

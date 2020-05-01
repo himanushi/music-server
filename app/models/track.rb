@@ -1,5 +1,5 @@
 class Track < ApplicationRecord
-  table_id :trak
+  table_id :trk
 
   has_many :artist_has_tracks
   has_many :artists, through: :artist_has_tracks

@@ -1,5 +1,5 @@
 class Artist < ApplicationRecord
-  table_id :arst
+  table_id :art
 
   include Artists::Status
 

@@ -1,5 +1,5 @@
 class AllowedAction < ApplicationRecord
-  table_id :alac
+  table_id :awd
 
   belongs_to :role
 

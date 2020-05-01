@@ -1,5 +1,5 @@
 class AppleMusicTrack < ApplicationRecord
-  table_id :amtr
+  table_id :amt
 
   belongs_to :track
   belongs_to :apple_music_album

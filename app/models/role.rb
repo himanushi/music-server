@@ -1,5 +1,5 @@
 class Role < ApplicationRecord
-  table_id :role
+  table_id :rol
 
   has_many :users
   has_many :allowed_actions

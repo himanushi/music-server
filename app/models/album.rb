@@ -1,5 +1,5 @@
 class Album < ApplicationRecord
-  table_id :albm
+  table_id :abm
 
   include Albums::Mix
   include Albums::Status

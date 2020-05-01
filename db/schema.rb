@@ -12,15 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2020_04_23_133434) do
 
-  create_table "album_has_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "album_id", limit: 24, null: false
-    t.string "track_id", limit: 24, null: false
+    t.string "album_id", limit: 16, null: false
+    t.string "track_id", limit: 16, null: false
     t.index ["album_id", "track_id"], name: "index_album_has_tracks_on_album_id_and_track_id", unique: true
   end
 
-  create_table "albums", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
@@ -31,18 +31,18 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["total_tracks"], name: "index_albums_on_total_tracks"
   end
 
-  create_table "allowed_actions", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "allowed_actions", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "role_id", limit: 24, null: false
+    t.string "role_id", limit: 16, null: false
     t.string "name", limit: 191, null: false
     t.index ["role_id", "name"], name: "index_allowed_actions_on_role_id_and_name", unique: true
   end
 
-  create_table "apple_music_albums", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "apple_music_albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "album_id", limit: 24, null: false
+    t.string "album_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", null: false
     t.integer "status", default: 0, null: false
@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["status"], name: "index_apple_music_albums_on_status"
   end
 
-  create_table "apple_music_artists", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "apple_music_artists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "artist_id", limit: 24, null: false
+    t.string "artist_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", limit: 191, null: false
     t.integer "status", default: 0, null: false
@@ -72,12 +72,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["status"], name: "index_apple_music_artists_on_status"
   end
 
-  create_table "apple_music_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "apple_music_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "track_id", limit: 24, null: false
+    t.string "track_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
-    t.string "apple_music_album_id", limit: 24, null: false
+    t.string "apple_music_album_id", limit: 16, null: false
     t.string "isrc", limit: 191, null: false, comment: "国際標準レコーディングコード"
     t.string "name", null: false
     t.integer "disc_number", default: 0, null: false
@@ -98,23 +98,23 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["track_number"], name: "index_apple_music_tracks_on_track_number"
   end
 
-  create_table "artist_has_albums", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "artist_has_albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "artist_id", limit: 24, null: false
-    t.string "album_id", limit: 24, null: false
+    t.string "artist_id", limit: 16, null: false
+    t.string "album_id", limit: 16, null: false
     t.index ["artist_id", "album_id"], name: "index_artist_has_albums_on_artist_id_and_album_id", unique: true
   end
 
-  create_table "artist_has_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "artist_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "artist_id", limit: 24, null: false
-    t.string "track_id", limit: 24, null: false
+    t.string "artist_id", limit: 16, null: false
+    t.string "track_id", limit: 16, null: false
     t.index ["artist_id", "track_id"], name: "index_artist_has_tracks_on_artist_id_and_track_id", unique: true
   end
 
-  create_table "artists", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "artists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
@@ -123,26 +123,26 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["status"], name: "index_artists_on_status"
   end
 
-  create_table "roles", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "roles", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
     t.string "description", default: "", null: false
   end
 
-  create_table "sessions", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "sessions", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_id", limit: 24, null: false
+    t.string "user_id", limit: 16, null: false
     t.string "token", limit: 191, null: false
     t.index ["token"], name: "index_sessions_on_token", unique: true
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "spotify_albums", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "spotify_albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "album_id", limit: 24, null: false
+    t.string "album_id", limit: 16, null: false
     t.string "spotify_id", limit: 191, null: false
     t.string "name", null: false
     t.integer "status", default: 0, null: false
@@ -168,10 +168,10 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["status"], name: "index_spotify_albums_on_status"
   end
 
-  create_table "spotify_artists", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "spotify_artists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "artist_id", limit: 24, null: false
+    t.string "artist_id", limit: 16, null: false
     t.string "spotify_id", limit: 191, null: false
     t.string "name", limit: 191, null: false
     t.integer "status", default: 0, null: false
@@ -193,12 +193,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["total_followers"], name: "index_spotify_artists_on_total_followers"
   end
 
-  create_table "spotify_tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "spotify_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "track_id", limit: 24, null: false
+    t.string "track_id", limit: 16, null: false
     t.string "spotify_id", limit: 191, null: false
-    t.string "spotify_album_id", limit: 24, null: false
+    t.string "spotify_album_id", limit: 16, null: false
     t.string "isrc", limit: 191, null: false, comment: "国際標準レコーディングコード"
     t.string "name", null: false
     t.integer "disc_number", default: 0, null: false
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["track_number"], name: "index_spotify_tracks_on_track_number"
   end
 
-  create_table "tracks", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "isrc", limit: 191, null: false, comment: "国際標準レコーディングコード"
@@ -232,7 +232,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["updated_at"], name: "index_tracks_on_updated_at"
   end
 
-  create_table "users", id: :string, limit: 24, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "users", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
@@ -240,8 +240,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.string "username", limit: 191, null: false
     t.string "encrypted_password", limit: 191
     t.text "description"
-    t.string "album_id", limit: 24
-    t.string "role_id", limit: 24
+    t.string "album_id", limit: 16
+    t.string "role_id", limit: 16, null: false
     t.index ["status"], name: "index_users_on_status"
     t.index ["username"], name: "index_users_on_username", unique: true
   end

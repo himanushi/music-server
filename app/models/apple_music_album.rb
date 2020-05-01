@@ -1,5 +1,5 @@
 class AppleMusicAlbum < ApplicationRecord
-  table_id :amal
+  table_id :amb
 
   include AppleMusicCreatable
   include Albums::Compact

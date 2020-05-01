@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  table_id :user
+  table_id :usr
 
   has_many :sessions
 

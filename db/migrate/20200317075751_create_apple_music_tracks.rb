@@ -1,11 +1,11 @@
 class CreateAppleMusicTracks < ActiveRecord::Migration[6.0]
   def change
     create_table :apple_music_tracks, id: false do |t|
-      t.string     :id, limit: 24, primary_key: true, null: false
+      t.string     :id, limit: 16, primary_key: true, null: false
       t.timestamps
-      t.string     :track_id, limit: 24, null: false
+      t.string     :track_id, limit: 16, null: false
       t.string     :apple_music_id, limit: 191, null: false
-      t.string     :apple_music_album_id, limit: 24, null: false
+      t.string     :apple_music_album_id, limit: 16, null: false
       t.string     :isrc, limit: 191, null: false, index: true, comment: "国際標準レコーディングコード"
       t.string     :name, null: false, index: true
       t.integer    :disc_number, null: false, default: 0, index: true

@@ -1,5 +1,5 @@
 class AlbumHasTrack < ApplicationRecord
-  table_id :altr
+  table_id :bht
 
   belongs_to :album
   belongs_to :track

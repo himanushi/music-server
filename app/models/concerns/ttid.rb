@@ -3,15 +3,15 @@
 module TTID
   extend ActiveSupport::Concern
 
-  REGEXP = /\A([a-z]{4})([0-9a-f]{14})([0-9a-f]{6})\z/
+  REGEXP = /\A([a-z]{3})([0-9a-f]{11})([0-9a-f]{2})\z/
 
   class << self
     def to_hash(id)
-      return nil unless REGEXP.match?(id)
+      return nil unless REGEXP =~ (id)
       {
-        table_id:      Regexp.last_match[1],
-        hex_timestamp: Regexp.last_match[2],
-        hex_id:        Regexp.last_match[3],
+        table_id:      $1,
+        hex_timestamp: $2,
+        hex_id:        $3,
       }
     end
 
@@ -25,7 +25,7 @@ module TTID
     end
 
     def to_timestamp(hex_timestamp)
-      Time.at(hex_timestamp.to_i(16).to_f / 1000000)
+      Time.at(hex_timestamp.to_i(16).to_f / 1000)
     end
 
     def table_info
@@ -39,11 +39,12 @@ module TTID
       @_table_info = table_info.merge(info)
     end
 
-    def unix_timestamp_usec6
+    def unix_timestamp_usec3
       # IDの採番はDBの時間基準とする
       # 複数インスタンスを立ち上げた場合にアプリ基準の時間にすると不整合が発生する可能性があるため
       # TODO: 性能に問題がある場合は DB で関数を作成し ID を生成すること
-      ActiveRecord::Base.connection.select_value("SELECT CAST((UNIX_TIMESTAMP(NOW(6)) * 1000000) AS INTEGER)")
+      # memo: SELECT LOWER(CONCAT(HEX(CAST((UNIX_TIMESTAMP(NOW(3)) * 1000) AS INTEGER)), SUBSTRING(MD5(RAND()), 1, 4)))
+      ActiveRecord::Base.connection.select_value("SELECT CAST((UNIX_TIMESTAMP(NOW(3)) * 1000) AS INTEGER)")
     end
   end
 
@@ -64,7 +65,7 @@ module TTID
       return @table_id.dup if @table_id.present?
 
       raise NotImplementedError, "テーブルIDを必ず実装すること" unless _table_id.present?
-      raise StandardError, "テーブルIDは /[a-z]{4}/ にすること[#{_table_id}]" unless /[a-z]{4}/.match?(_table_id)
+      raise StandardError, "テーブルIDは /[a-z]{3}/ にすること[#{_table_id}]" unless /[a-z]{3}/.match?(_table_id)
 
       _table_id = _table_id.to_s
 
@@ -75,12 +76,11 @@ module TTID
     end
 
     def hex_time
-      # 4253-05-31 22:20:37 まで使用可能
-      TTID.unix_timestamp_usec6.to_s(16).rjust(14, "0")
+      TTID.unix_timestamp_usec3.to_s(16)
     end
 
     def build_id
-      table_id << hex_time << SecureRandom.hex(3)
+      table_id << hex_time << SecureRandom.hex(1)
     end
   end
 end

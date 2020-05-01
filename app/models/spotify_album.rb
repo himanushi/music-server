@@ -1,5 +1,5 @@
 class SpotifyAlbum < ApplicationRecord
-  table_id :spal
+  table_id :spb
 
   include SpotifyCreatable
   include SpotifyArtworkResizable

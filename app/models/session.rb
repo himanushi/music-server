@@ -1,5 +1,5 @@
 class Session < ApplicationRecord
-  table_id :sess
+  table_id :ses
 
   belongs_to :user
 
