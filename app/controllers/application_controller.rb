@@ -21,20 +21,6 @@ class ApplicationController < ActionController::Base
       path: "/",
     }
 
-    # デバッグ用
-    if Rails.env.development?
-      response.set_cookie(:username, {
-        value: current_info[:session].user.username,
-        http_only: true,
-        same_site: :strict,
-      })
-      response.set_cookie(:name, {
-        value: current_info[:session].user.name,
-        http_only: true,
-        same_site: :strict,
-      })
-    end
-
     if Rails.env.production?
       cookie_info.merge!({ secure: true })
     end
