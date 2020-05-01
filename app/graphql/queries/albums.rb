@@ -4,7 +4,7 @@ module Queries
 
     type [Types::Objects::AlbumType], null: false
 
-    class AlbumsQueryOrder < Types::BaseEnum
+    class AlbumsQueryOrder < Types::Enums::BaseEnum
       value "NAME",       value: "name", description: "名前順"
       value "NEW",        value: "albums.created_at", description: "新しい順"
       value "RELEASE",    value: "albums.release_date", description: "発売日順"

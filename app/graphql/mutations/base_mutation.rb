@@ -9,6 +9,8 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
 
   include Types::Objects
   include Types::Scalars
+  include Types::Unions
+  include Types::Enums
 
   def resolve(**args)
     action_name = self.class.name.demodulize.camelize(:lower)

@@ -1,10 +1,11 @@
 module Types
   module Objects
-    class AlbumType < Types::Objects::BaseObject
+    class AlbumType < BaseObject
       description 'アルバム'
 
       field :id,                TTID, null: false, description: "ID"
       field :name,              String, null: false, description: "タイトル"
+      field :status,            StatusEnum, null: false, description: "ステータス"
       field :total_tracks,      PositiveNumber, null: false, description: "トラック数"
       field :release_date,      GraphQL::Types::ISO8601DateTime, null: false, description: "発売日"
       field :created_at,        GraphQL::Types::ISO8601DateTime, null: false, description: "追加日"

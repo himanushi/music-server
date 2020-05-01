@@ -3,9 +3,10 @@ module Types
     class TrackType < Types::Objects::BaseObject
       description 'トラック'
 
-      field :id,                TTID, null: false, description: "ID"
-      field :isrc,              String, null: false, description: "国際標準レコーディングコード"
-      field :name,              String, null: false, description: "タイトル"
+      field :id,     TTID, null: false, description: "ID"
+      field :isrc,   String, null: false, description: "国際標準レコーディングコード"
+      field :name,   String, null: false, description: "タイトル"
+      field :status, StatusEnum, null: false, description: "ステータス"
 
       def name
         object.service.name

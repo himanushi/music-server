@@ -4,7 +4,7 @@ module Queries
 
     type [Types::Objects::ArtistType], null: false
 
-    class ArtistsQueryOrder < Types::BaseEnum
+    class ArtistsQueryOrder < Types::Enums::BaseEnum
       value "NEW",        value: "artists.created_at", description: "新しい順"
       value "POPULARITY", value: "spotify_artists.popularity", description: "人気順"
     end

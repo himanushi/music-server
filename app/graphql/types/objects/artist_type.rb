@@ -5,6 +5,7 @@ module Types
 
       field :id,                  TTID, null: false, description: "ID"
       field :name,                String, null: false, description: "名前"
+      field :status,              StatusEnum, null: false, description: "ステータス"
       field :release_date,        GraphQL::Types::ISO8601DateTime, null: false, description: "発売日"
       field :created_at,          GraphQL::Types::ISO8601DateTime, null: false, description: "追加日"
       field :artwork_l,           ArtworkType, null: false, description: "大型アートワーク"
