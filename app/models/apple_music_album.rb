@@ -74,7 +74,19 @@ class AppleMusicAlbum < ApplicationRecord
         data["attributes"]["trackCount"] = data["relationships"]["tracks"]["data"].size
       end
 
-      create_by_data(data)
+      create_or_update_by_data(data)
+    end
+
+    def create_by_isrc(isrc)
+      apple_music_ids =
+        AppleMusic::Client.new.get_track_by_isrc(isrc).
+        dig("data", 0, "relationships", "albums", "data").try(:map){|d| d["id"] }.try(:compact)
+
+      return [] unless apple_music_ids.present?
+
+      apple_music_ids.map do |apple_music_id|
+        create_by_apple_music_id(apple_music_id)
+      end
     end
   end
 

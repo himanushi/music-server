@@ -61,4 +61,23 @@ class Album < ApplicationRecord
     return nil unless apple_music_and_itunes_album.present?
     apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
   end
+
+  # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
+  def create_all_service_albums
+    # アルバムの一曲目のISRCを基準に全てのサービスで検索する
+    # まとめアルバムのような場合は複数のアルバムにまたいで存在する曲がある
+    _isrc =
+      if apple_music_and_itunes_album.present?
+        apple_music_and_itunes_album.apple_music_tracks.first.isrc
+      elsif spotify_album.present?
+        spotify_album.spotify_tracks.first.isrc
+      else
+        return []
+      end
+
+    albums = []
+    albums += AppleMusicAlbum.create_by_isrc(_isrc).map(&:album)
+    albums += SpotifyAlbum.create_by_isrc(_isrc).map(&:album)
+    albums.compact
+  end
 end

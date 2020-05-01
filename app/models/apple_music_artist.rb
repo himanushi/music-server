@@ -28,7 +28,7 @@ class AppleMusicArtist < ApplicationRecord
     def create_by_apple_music_id(apple_music_id)
       data = AppleMusic::Client.new.get_artist(apple_music_id).dig("data", 0)
       return nil unless data.present?
-      create_by_data(data)
+      create_or_update_by_data(data)
     end
   end
 

@@ -83,6 +83,10 @@ module Spotify
       get("#{default_url}/tracks/#{spotify_id}", params)
     end
 
+    def get_track_by_isrc(isrc)
+      index({ type: "track", q: "isrc:#{isrc}" })
+    end
+
     def get_tracks(spotify_ids, params = default_params)
       params["ids"] = spotify_ids.join(",")
       get("#{default_url}/tracks", params)

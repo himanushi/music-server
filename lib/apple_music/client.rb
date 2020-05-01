@@ -94,6 +94,10 @@ module AppleMusic
       get("#{catalog_url}/#{locale}/songs/#{apple_music_id}", params)
     end
 
+    def get_track_by_isrc(isrc)
+      get("#{catalog_url}/#{locale}/songs", { "filter[isrc]" => isrc })
+    end
+
     def result(response)
       body = response.body
       if response.success?

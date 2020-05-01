@@ -6,7 +6,7 @@ class AllowedAction < ApplicationRecord
   MUTATION_ACTIONS = Types::MutationType.fields.keys
   QUERY_ACTIONS = Types::QueryType.fields.keys
   CONSOLE_ACTIONS = %w[graphiql]
-  DEFAULT_ACTIONS = QUERY_ACTIONS + ["signin"]
+  DEFAULT_ACTIONS = QUERY_ACTIONS + %w[signin]
 
   ALL_ACTIONS = MUTATION_ACTIONS + QUERY_ACTIONS + CONSOLE_ACTIONS
 end

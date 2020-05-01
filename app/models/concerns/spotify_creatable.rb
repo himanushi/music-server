@@ -13,7 +13,7 @@ module SpotifyCreatable
       raise NotImplementedError
     end
 
-    def create_by_data(data)
+    def create_or_update_by_data(data)
       searched_record = find_by(spotify_id: data["id"])
       attributes = mapping(data)
 

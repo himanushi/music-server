@@ -2,7 +2,7 @@ class Role < ApplicationRecord
   table_id :rol
 
   has_many :users
-  has_many :allowed_actions
+  has_many :allowed_actions, dependent: :destroy
 
   class << self
     def admin_role

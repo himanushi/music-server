@@ -34,8 +34,12 @@ class SpotifyAlbum < ApplicationRecord
 
       images = data["images"][-3..-1] || []
 
-      # 日本語表記のアルバムを優先する
-      if album.spotify_album.present? && data["name"].match?(JAPANESE_REGEXP)
+      # 同じアルバムで別のSpotify ID である場合がある(日本語版と英語版など)
+      # そのため日本語表記のアルバムを優先する
+      # 同じアルバム名の場合は何もしない
+      if(album.spotify_album.present? &&
+         data["name"].match?(JAPANESE_REGEXP) &&
+         data["name"] != album.spotify_album.name)
         album.spotify_album.destroy!
       end
 
@@ -90,7 +94,19 @@ class SpotifyAlbum < ApplicationRecord
 
       # アルバム情報にトラック情報を結合
       album_data["tracks"]["items"] = tracks
-      SpotifyAlbum.create_by_data album_data
+      SpotifyAlbum.create_or_update_by_data(album_data)
+    end
+
+    def create_by_isrc(isrc)
+      spotify_ids =
+        Spotify::Client.new.get_track_by_isrc(isrc).
+        dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact)
+
+      return [] unless spotify_ids.present?
+
+      spotify_ids.map do |spotify_id|
+        create_by_spotify_id(spotify_id)
+      end
     end
   end
 

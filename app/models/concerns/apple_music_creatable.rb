@@ -13,7 +13,7 @@ module AppleMusicCreatable
       raise NotImplementedError
     end
 
-    def create_by_data(data)
+    def create_or_update_by_data(data)
       searched_record = find_by(apple_music_id: data["id"])
       attributes = mapping(data)
 
