@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
     t.string "description", default: "", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "sessions", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

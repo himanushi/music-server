@@ -6,5 +6,6 @@ class CreateRoles < ActiveRecord::Migration[6.0]
       t.string     :name, limit: 191, null: false
       t.string     :description, null: false, default: ""
     end
+    add_index :roles, :name, unique: true
   end
 end

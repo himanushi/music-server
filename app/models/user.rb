@@ -14,7 +14,7 @@ class User < ApplicationRecord
         name: "未設定",
         username: SecureRandom.hex(5).upcase,
       )
-      user.role = Role.find_or_create_by_default_role
+      user.role = Role.default_role
       user.create_session!
       user
     end

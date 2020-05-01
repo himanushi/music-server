@@ -14,27 +14,50 @@ class String
   end
 end
 
+raise StandardError, "bundle exec rails db:migrate:reset をしてから実行してね" if User.exists?
+
 puts "seed 開始".red
 
-%w[
-  植松伸夫 すぎやまこういち 伊藤賢治 下村陽子 光田康典 古代祐三
-  崎元仁 西木康智 谷岡久美 成田勤 土屋俊輔 上松範康 岡部啓一 祖堅正慶
-  岩田匡治 いとうけいすけ なるけみちこ ピース flasygoodness 佐野信義
-  ジェイク・カウフマン Inon\ Zur Austin\ Wintory Gareth\ Coker
-  Jeremy\ Soule Kristofer\ Maddigan
-  SQUARE\ ENIX\ MUSIC CAPCOM カプコン カプコンサウンドチーム アトラスサウンドチーム
-  ファルコム・サウンド・チーム・JDK Falcom\ Sound\ Team\ jdk SNK\ サウンドチーム GUST クラリスディスク コナミ短形波倶楽部
-  colopl INSIDE\ SYSTEM ジョーダウン namco namco\ sounds ベイシスケイプ
-  Sony\ Computer\ Entertainment\ Inc.
-].each do |name|
-  puts "create artist #{name}".green
-  start_time = Time.now
+puts "user & role 作成".green
 
-  Artist.create_by_name(name).map(&:create_albums)
+Role.create!(name: "admin", description: "管理者") do |role|
+  AllowedAction::ALL_ACTIONS.each do |action_name|
+    role.allowed_actions.new(name: action_name)
+  end
+end
 
-  end_time = Time.now
-  sec = (end_time - start_time).to_i
-  puts "create finish #{name}, #{sec} sec".green
+Role.create!(name: "default", description: "初期ロール") do |role|
+  AllowedAction::DEFAULT_ACTIONS.each do |action_name|
+    role.allowed_actions.new(name: action_name)
+  end
+end
+
+password = SecureRandom.hex(3)
+puts "http://localhost:3001/signin [username: admin,  password: #{password}]".red
+User.create!(
+  name: "admin",
+  username: "admin",
+  description: "管理者ユーザ",
+  role: Role.find_by!(name: "admin"),
+  encrypted_password: BCrypt::Password.create(password, cost: 12)
+)
+
+puts "user & role 作成終了".green
+
+if File.exists?("#{Rails.root.join("tmp", "vgm_db.dump")}")
+  require 'rake'
+  Rake::Task['db:restore'].execute
+else
+  %w[植松伸夫 伊藤賢治].each do |name|
+    puts "create artist #{name}".green
+    start_time = Time.now
+
+    Artist.create_by_name(name).map(&:create_albums)
+
+    end_time = Time.now
+    sec = (end_time - start_time).to_i
+    puts "create finish #{name}, #{sec} sec".green
+  end
 end
 
 puts "seed 終了".red

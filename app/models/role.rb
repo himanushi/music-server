@@ -5,13 +5,12 @@ class Role < ApplicationRecord
   has_many :allowed_actions
 
   class << self
-    # TODO: 権限適当なのであとで適切にする
-    def find_or_create_by_default_role
-      Role.find_or_create_by(name: "default", description: "初期ロール") do |role|
-        AllowedAction::ALL_ACTIONS.each do |action_name|
-          role.allowed_actions.new(name: action_name)
-        end
-      end
+    def admin_role
+      Role.find_by!(name: "admin")
+    end
+
+    def default_role
+      Role.find_by!(name: "default")
     end
   end
 end
