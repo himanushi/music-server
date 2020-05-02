@@ -10,6 +10,7 @@ class Track < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
+  scope :include_artists, -> { eager_load(:artists) }
   scope :include_services, -> { eager_load(:apple_music_tracks, :spotify_tracks) }
   scope :services, -> { include_services.map(&:service) }
   scope :names, -> { services.map(&:name) }

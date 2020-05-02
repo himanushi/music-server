@@ -2,6 +2,7 @@ module Queries
   class BaseQuery < GraphQL::Schema::Resolver
     include Types::Scalars
     include Types::InputObjects
+    include Types::Enums
 
     def resolve(**args)
       action_name = self.class.name.demodulize.camelize(:lower)

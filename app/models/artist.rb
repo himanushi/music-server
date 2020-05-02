@@ -20,6 +20,7 @@ class Artist < ApplicationRecord
   class << self
     def create_by_name(name)
       name = to_name(name)
+      find_or_create_by!(name: name)
       AppleMusicArtist.create_by_name(name)
       SpotifyArtist.create_by_name(name)
       where(name: name)

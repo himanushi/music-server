@@ -8,7 +8,6 @@ class Mutations::UpdateMe < Mutations::BaseMutation
 
   field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
-  # TODO: ロール管理API
   # TODO: ロール変更API
   def mutate(**attrs)
     begin

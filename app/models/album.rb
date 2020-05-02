@@ -13,6 +13,7 @@ class Album < ApplicationRecord
   has_one  :spotify_album
 
   scope :include_artists, -> { eager_load(:artists) }
+  scope :include_tracks, -> { eager_load(:tracks) }
   scope :include_services, -> { eager_load(:apple_music_and_itunes_album, :spotify_album) }
   scope :services, -> { include_services.map(&:service) }
   scope :names, -> { services.map(&:name) }
