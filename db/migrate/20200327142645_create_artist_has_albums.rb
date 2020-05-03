@@ -6,6 +6,8 @@ class CreateArtistHasAlbums < ActiveRecord::Migration[6.0]
       t.string     :artist_id, limit: 16, null: false
       t.string     :album_id, limit: 16, null: false
     end
+    add_foreign_key :artist_has_albums, :artists, dependent: :destroy
+    add_foreign_key :artist_has_albums, :albums, dependent: :destroy
     add_index :artist_has_albums, [:artist_id, :album_id], unique: true
   end
 end

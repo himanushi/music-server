@@ -6,6 +6,8 @@ class CreateAlbumHasTracks < ActiveRecord::Migration[6.0]
       t.string     :album_id, limit: 16, null: false
       t.string     :track_id, limit: 16, null: false
     end
+    add_foreign_key :album_has_tracks, :albums, dependent: :destroy
+    add_foreign_key :album_has_tracks, :tracks, dependent: :destroy
     add_index :album_has_tracks, [:album_id, :track_id], unique: true
   end
 end

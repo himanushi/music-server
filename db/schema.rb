@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.string "album_id", limit: 16, null: false
     t.string "track_id", limit: 16, null: false
     t.index ["album_id", "track_id"], name: "index_album_has_tracks_on_album_id_and_track_id", unique: true
+    t.index ["track_id"], name: "fk_rails_00ff058104"
   end
 
   create_table "albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "artist_id", limit: 16, null: false
     t.string "album_id", limit: 16, null: false
+    t.index ["album_id"], name: "fk_rails_f83ee68a8b"
     t.index ["artist_id", "album_id"], name: "index_artist_has_albums_on_artist_id_and_album_id", unique: true
   end
 
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.string "artist_id", limit: 16, null: false
     t.string "track_id", limit: 16, null: false
     t.index ["artist_id", "track_id"], name: "index_artist_has_tracks_on_artist_id_and_track_id", unique: true
+    t.index ["track_id"], name: "fk_rails_720bac58d1"
   end
 
   create_table "artists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -137,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.string "user_id", limit: 16, null: false
     t.string "token", limit: 191, null: false
     t.index ["token"], name: "index_sessions_on_token", unique: true
-    t.index ["user_id"], name: "index_sessions_on_user_id"
+    t.index ["user_id"], name: "fk_rails_758836b4f0"
   end
 
   create_table "spotify_albums", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -247,11 +250,18 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "album_has_tracks", "albums"
+  add_foreign_key "album_has_tracks", "tracks"
   add_foreign_key "allowed_actions", "roles"
   add_foreign_key "apple_music_albums", "albums"
   add_foreign_key "apple_music_artists", "artists"
   add_foreign_key "apple_music_tracks", "apple_music_albums"
   add_foreign_key "apple_music_tracks", "tracks"
+  add_foreign_key "artist_has_albums", "albums"
+  add_foreign_key "artist_has_albums", "artists"
+  add_foreign_key "artist_has_tracks", "artists"
+  add_foreign_key "artist_has_tracks", "tracks"
+  add_foreign_key "sessions", "users"
   add_foreign_key "spotify_albums", "albums"
   add_foreign_key "spotify_artists", "artists"
   add_foreign_key "spotify_tracks", "spotify_albums"
