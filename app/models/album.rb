@@ -50,7 +50,7 @@ class Album < ApplicationRecord
   end
 
   def service
-    (apple_music_and_itunes_album || spotify_album)
+    @service ||= (apple_music_and_itunes_album || spotify_album)
   end
 
   def services

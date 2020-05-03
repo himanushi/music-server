@@ -17,6 +17,6 @@ class Track < ApplicationRecord
   scope :names, -> { services.map(&:name) }
 
   def service
-    (apple_music_tracks || spotify_tracks).first
+    @service ||= (apple_music_tracks || spotify_tracks).first
   end
 end

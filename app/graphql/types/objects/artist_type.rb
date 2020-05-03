@@ -16,10 +16,12 @@ module Types
       field :tracks,              [TrackType], null: true, description: "関連曲"
 
       def artwork_l
+        return Artwork.new unless object.service.present?
         object.service.artwork_l
       end
 
       def artwork_m
+        return Artwork.new unless object.service.present?
         object.service.artwork_m
       end
     end

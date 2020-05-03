@@ -17,6 +17,8 @@ class Artist < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
+  FORCE_IGNORE_NAMES = %w[V.A. ヴァリアス・アーティスト]
+
   class << self
     def create_by_name(name)
       name = to_name(name)
@@ -46,6 +48,6 @@ class Artist < ApplicationRecord
   end
 
   def service
-    (spotify_artists + apple_music_artists).first
+    @service ||= (spotify_artists + apple_music_artists).first
   end
 end

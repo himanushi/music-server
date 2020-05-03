@@ -8,9 +8,9 @@ class GraphqlController < ApplicationController
     }
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
-  # rescue => e
-  #   raise e unless Rails.env.development?
-  #   handle_error_in_development e
+  rescue => e
+    raise e unless Rails.env.development?
+    handle_error_in_development e
   end
 
   private
