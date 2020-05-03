@@ -20,6 +20,9 @@ class Album < ApplicationRecord
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
+  # 音楽サービスが一つでも存在した場合はエラー
+  before_destroy :validate_exists_services
+
   class << self
     def find_by_isrc_or_create(album_attrs, tracks_attrs)
       isrc  = tracks_attrs.map {|attrs| attrs[:isrc] }
@@ -48,6 +51,10 @@ class Album < ApplicationRecord
 
   def service
     (apple_music_and_itunes_album || spotify_album)
+  end
+
+  def services
+    [apple_music_and_itunes_album, spotify_album].compact
   end
 
   def apple_music_album
@@ -80,5 +87,11 @@ class Album < ApplicationRecord
     albums += AppleMusicAlbum.create_by_isrc(_isrc).map(&:album)
     albums += SpotifyAlbum.create_by_isrc(_isrc).map(&:album)
     albums.compact
+  end
+
+  def validate_exists_services
+    if services.present?
+      raise StandardError, "音楽サービスが一つでも存在する場合は削除できませんよ！確認してください"
+    end
   end
 end
