@@ -6,13 +6,13 @@ module Albums
       # 複数アルバムを単一アルバムへ統合する
       def compact(name, ids)
         ids.each do |id|
-          raise StandardError, "TTIDが違う" unless id[..3] == self.table_id
+          raise StandardError, "TTIDが違う" unless id[..2] == self.table_id
         end
 
         music_service_albums = where(id: ids)
 
         music_service_albums.each do |music_service_album|
-          raise StandardError, "compacted_id が存在するのでダメ！" unless music_service_album.compacted_id.nil?
+          raise StandardError, "compacted_id が存在するのでダメ!統合解除とかして対応すべし。" unless music_service_album.compacted_id.nil?
         end
 
         ignore_attr_names = %w[id created_at updated_at]
@@ -87,7 +87,7 @@ module Albums
       # 複数アルバムへ戻す
       # 戻す場合のみ単一アルバムを消去する
       def uncompact(id)
-        raise StandardError, "TTIDが違う" unless id[..3] == self.table_id
+        raise StandardError, "TTIDが違う" unless id[..2] == self.table_id
 
         music_service_album = find(id)
 
