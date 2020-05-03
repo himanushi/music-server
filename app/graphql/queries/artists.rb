@@ -24,10 +24,10 @@ module Queries
       artist_relation = ::Artist.include_services
 
       if conditions.has_key?(:albums)
-        artist_ids =
-          ::Album.include_tracks.where(id: conditions.delete(:albums)[:id]).first.
-          tracks.include_artists.map{|t| t.artists.ids }.flatten.uniq
-        conditions[:id] = artist_ids
+        albums = ::Album.include_artists.include_tracks.where(id: conditions.delete(:albums)[:id])
+        artist_ids = albums.map {|a| a.artists.ids }.flatten
+        artist_ids += albums.map {|a| a.tracks.include_artists.map {|t| t.artists.ids } }.flatten
+        conditions[:id] = artist_ids.uniq
       end
 
       artist_relation.where({ status: [:pending, :active], **conditions }).

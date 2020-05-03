@@ -24,7 +24,7 @@ module Queries
       conditions = { status: ["pending", "active"], **conditions }
       sort_type = asc ? :asc : :desc
 
-      album_relation = ::Album
+      album_relation = ::Album.include_services
 
       if conditions.has_key?(:artists)
         album_relation = album_relation.include_artists
