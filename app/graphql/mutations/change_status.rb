@@ -25,6 +25,7 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
       model = klass.find(id)
       model.__send__(:"#{status}!")
 
+      Rails.cache.clear
       {
         model: model,
         error: nil,

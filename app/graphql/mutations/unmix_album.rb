@@ -9,6 +9,7 @@ class Mutations::UnmixAlbum < Mutations::BaseMutation
     begin
       albums = ::Album.unmix(album_id)
 
+      Rails.cache.clear
       {
         albums: albums,
         error: nil,

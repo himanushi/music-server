@@ -21,6 +21,7 @@ class Mutations::UncompactAlbum < Mutations::BaseMutation
         albums = ::SpotifyAlbum.uncompact(id).map {|a| a.album }
       end
 
+      Rails.cache.clear
       {
         albums: albums,
         error: nil,

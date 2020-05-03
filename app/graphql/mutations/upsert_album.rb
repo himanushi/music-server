@@ -24,6 +24,7 @@ class Mutations::UpsertAlbum < Mutations::BaseMutation
         albums << SpotifyAlbum.create_by_spotify_id(spotify_id)&.album
       end
 
+      Rails.cache.clear
       {
         albums: albums.compact.uniq,
         error: nil,

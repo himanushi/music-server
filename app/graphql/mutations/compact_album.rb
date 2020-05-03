@@ -22,6 +22,7 @@ class Mutations::CompactAlbum < Mutations::BaseMutation
         album = ::SpotifyAlbum.compact(name, ids).album
       end
 
+      Rails.cache.clear
       {
         album: album,
         error: nil,

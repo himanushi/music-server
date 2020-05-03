@@ -29,6 +29,7 @@ class Mutations::UpsertArtist < Mutations::BaseMutation
 
       artists.compact.uniq.map {|artist| artist.create_albums }
 
+      Rails.cache.clear
       {
         artists: artists.compact.uniq,
         error: nil,

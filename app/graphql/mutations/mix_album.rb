@@ -16,6 +16,7 @@ class Mutations::MixAlbum < Mutations::BaseMutation
 
       album = ::Album.mix(album_ids[0], album_ids[1])
 
+      Rails.cache.clear
       {
         album: album,
         error: nil,

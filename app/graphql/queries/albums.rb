@@ -34,10 +34,23 @@ module Queries
         conditions[:id] = album_ids.uniq
       end
 
-      album_relation.
-        where(conditions).
-        order({ "#{order}": sort_type }).
-        distinct.offset(offset).limit(limit)
+      cache_key = { where: conditions, order: {  "#{order}": sort_type }, limit: limit, offset: offset }.to_s
+
+      # ステータス以外の条件は容量が多くなるためキャッシュしない
+      if conditions.except(:status).keys.present?
+        album_relation.where(conditions).
+          order({ "#{order}": sort_type }).
+          distinct.offset(offset).limit(limit)
+      elsif Rails.cache.exist?(cache_key)
+        Rails.cache.read(cache_key)
+      else
+        albums =
+          album_relation.where(conditions).
+            order({ "#{order}": sort_type }).
+            distinct.offset(offset).limit(limit).load
+        Rails.cache.write(cache_key, albums)
+        albums
+      end
     end
   end
 end

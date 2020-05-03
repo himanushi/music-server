@@ -29,7 +29,7 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    config.cache_store = :file_store, Rails.root.join("tmp", "cache")
   end
 
   # Print deprecation notices to the Rails logger.
