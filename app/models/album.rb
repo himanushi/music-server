@@ -30,8 +30,8 @@ class Album < ApplicationRecord
               group("albums.id").having("count(*) = albums.total_tracks").first
 
       if album.present?
-        # 過去の日時を正とする
-        if album.release_date > album_attrs[:release_date]
+        # 最新の日時を正とする
+        if album.release_date <= album_attrs[:release_date]
           album.release_date = album_attrs[:release_date]
           album.save!
         end

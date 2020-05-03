@@ -30,8 +30,8 @@ module Albums
             main_album.spotify_album = service_album
           end
 
-          # 発売日は古い方を正とする
-          if main_album.release_date >= sub_album.release_date
+          # 最新の日時を正とする
+          if main_album.release_date <= sub_album.release_date
             main_album.release_date = sub_album.release_date
             main_album.save!
           end
