@@ -15,10 +15,6 @@ module Types
       field :albums,              [AlbumType], null: true, description: "関連アルバム"
       field :tracks,              [TrackType], null: true, description: "関連曲"
 
-      def name
-        object.service.name
-      end
-
       def artwork_l
         object.service.artwork_l
       end

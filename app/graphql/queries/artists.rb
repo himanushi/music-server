@@ -30,7 +30,7 @@ module Queries
         conditions[:id] = artist_ids.uniq
       end
 
-      artist_relation.where({ status: [:pending, :active], **conditions }).
+      artist_relation.where({ **conditions }).
       order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit)
     end
   end

@@ -27,7 +27,11 @@ module Queries
       album_relation = ::Album.include_services
 
       if conditions.has_key?(:artists)
-        album_relation = album_relation.include_artists
+        ids = conditions.delete(:artists)[:id]
+        album_ids = ::Album.include_artists.where(artists: { id: ids }).ids
+        track_ids = ::Track.include_artists.where(artists: { id: ids }).ids
+        album_ids += ::Album.include_tracks.where(tracks: { id: track_ids }).ids
+        conditions[:id] = album_ids.uniq
       end
 
       album_relation.
