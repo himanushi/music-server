@@ -20,6 +20,7 @@ module Albums
         ActiveRecord::Base.transaction do
           main_album.save!
           sub_album.destroy!
+          1/0
         end
       end
     end
