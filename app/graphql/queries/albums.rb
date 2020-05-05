@@ -13,6 +13,7 @@ module Queries
     end
 
     class AlbumsConditions < BaseInputObject
+      argument :name, IdInputObject, "アーティストID", required: false
       argument :artists, IdInputObject, "アーティストID", required: false
       argument :status,  [Types::Enums::StatusEnum], "表示ステータス", required: false
     end

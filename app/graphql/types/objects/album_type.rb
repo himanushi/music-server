@@ -27,6 +27,15 @@ module Types
       def artwork_m
         object.service.artwork_m
       end
+
+      def tracks
+        object.tracks.include_services.order(
+          "apple_music_tracks.disc_number",
+          "apple_music_tracks.track_number",
+          "spotify_tracks.disc_number",
+          "spotify_tracks.track_number",
+        )
+      end
     end
   end
 end
