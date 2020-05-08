@@ -1,25 +1,38 @@
 module Queries
-  class Artists < BaseList
+  class Artists < BaseQuery
     description "アーティスト一覧取得"
 
-    type [Types::Objects::ArtistType], null: false
+    type [ArtistType], null: false
 
-    class ArtistsQueryOrder < Types::Enums::BaseEnum
-      value "NEW",        value: "artists.created_at", description: "新しい順"
-      value "POPULARITY", value: "spotify_artists.popularity", description: "人気順"
+    class ArtistsQueryOrder < BaseEnum
+      value :name,       value: "artists.name", description: "名前順"
+      value :new,        value: "artists.created_at", description: "追加順"
+      value :popularity, value: "spotify_artists.popularity", description: "人気順"
     end
 
     class ArtistsConditions < BaseInputObject
       argument :albums, IdInputObject, "アルバムID", required: false
-      argument :status, [Types::Enums::StatusEnum], "表示ステータス", required: false
+      argument :status, [StatusEnum], "表示ステータス", required: false
+      argument :order,  ArtistsQueryOrder, required: false, description: "ソート対象"
+      argument :sort,   SortEnum, required: false, default_value: SortEnum.values["desc"].value, description: "並び順"
     end
 
+    argument :cursor, CursorInputObject, required: false, description: "取得件数"
     argument :conditions, ArtistsConditions, required: false, description: "取得条件"
-    argument :order, ArtistsQueryOrder, required: false, description: "ソート対象"
 
-    def query(limit:, offset:, order:, asc:, conditions: {})
-      conditions = { status: ["pending", "active"], **conditions }
-      sort_type = asc ? :asc : :desc
+    def query(cursor:, conditions: {})
+      cache_key = {
+        where:  conditions,
+        order:  { order => sort },
+        limit:  cursor[:limit],
+        offset: cursor[:offset],
+      }.to_s
+
+      conditions = { status: [:pending, :active], **conditions }
+      sort   = conditions.delete(:sort)
+      order  = conditions.delete(:order)
+      limit  = cursor.delete(:limit)
+      offset = cursor.delete(:offset)
 
       artist_relation = ::Artist.include_services
 
@@ -30,18 +43,12 @@ module Queries
         conditions[:id] = artist_ids.uniq
       end
 
-      cache_key = { where: conditions, order: {  "#{order}": sort_type }, limit: limit, offset: offset }.to_s
-
-      # ステータス以外の条件は容量が多くなるためキャッシュしない
-      if conditions.except(:status).keys.present?
-        artist_relation.where({ **conditions }).
-        order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit)
-      elsif Rails.cache.exist?(cache_key)
+      if Rails.cache.exist?(cache_key)
         Rails.cache.read(cache_key)
       else
         artists =
           artist_relation.where({ **conditions }).
-          order({ "#{order}": sort_type }).distinct.offset(offset).limit(limit).load
+          order({ order => sort }).distinct.offset(offset).limit(limit).load
         Rails.cache.write(cache_key, artists)
         artists
       end

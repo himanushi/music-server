@@ -1,6 +1,7 @@
 module Queries
   class BaseQuery < GraphQL::Schema::Resolver
     include Types::Scalars
+    include Types::Objects
     include Types::InputObjects
     include Types::Enums
 

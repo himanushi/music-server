@@ -5,6 +5,7 @@ module Types
       include Types::Objects
       include Types::Scalars
       include Types::InputObjects
+      include Types::Enums
     end
   end
 end
