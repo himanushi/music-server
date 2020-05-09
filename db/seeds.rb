@@ -58,7 +58,7 @@ else
     sec = (end_time - start_time).to_i
     puts "create finish #{name}, #{sec} sec".green
   end
-  Rake::Task['db:dump'].execute
+  puts "bundle exec rails db:dump をしておくと吉".red
 end
 
 puts "seed 終了".red
