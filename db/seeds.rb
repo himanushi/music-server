@@ -33,7 +33,7 @@ Role.create!(name: "default", description: "初期ロール") do |role|
 end
 
 password = SecureRandom.hex(3)
-puts "http://localhost:3001/signin [username: admin,  password: #{password}]".red
+puts "/signin [username: admin,  password: #{password}]".red
 User.create!(
   name: "admin",
   username: "admin",
@@ -48,7 +48,7 @@ if File.exists?("#{Rails.root.join("tmp", "vgm_db.dump")}")
   require 'rake'
   Rake::Task['db:restore'].execute
 else
-  %w[植松伸夫 伊藤賢治].each do |name|
+  YAML.load_file(Rails.root.join("db", "artists.yml")).each do |name|
     puts "create artist #{name}".green
     start_time = Time.now
 
@@ -58,6 +58,7 @@ else
     sec = (end_time - start_time).to_i
     puts "create finish #{name}, #{sec} sec".green
   end
+  Rake::Task['db:dump'].execute
 end
 
 puts "seed 終了".red
