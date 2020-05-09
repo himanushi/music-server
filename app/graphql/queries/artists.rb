@@ -5,14 +5,14 @@ module Queries
     type [ArtistType], null: false
 
     class ArtistsQueryOrderEnum < BaseEnum
-      value :name,       value: "artists.name", description: "名前順"
-      value :new,        value: "artists.created_at", description: "追加順"
-      value :popularity, value: "spotify_artists.popularity", description: "人気順"
+      value "NAME",       value: "artists.name", description: "名前順"
+      value "NEW",        value: "artists.created_at", description: "追加順"
+      value "POPULARITY", value: "spotify_artists.popularity", description: "人気順"
     end
 
     class ArtistsSortInputObject < BaseInputObject
-      argument :order,  ArtistsQueryOrderEnum, required: false, default_value: ArtistsQueryOrderEnum.values["name"].value,description: "ソート対象"
-      argument :type,   SortEnum, required: false, default_value: SortEnum.values["desc"].value, description: "並び順"
+      argument :order,  ArtistsQueryOrderEnum, required: false, default_value: ArtistsQueryOrderEnum.values["NAME"].value,description: "ソート対象"
+      argument :type,   SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
     end
 
     class ArtistsConditionsInputObject < BaseInputObject

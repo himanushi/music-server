@@ -5,14 +5,14 @@ module Queries
     type [AlbumType], null: false
 
     class AlbumsQueryOrderEnum < BaseEnum
-      value :new,        value: "albums.created_at", description: "追加順"
-      value :release,    value: "albums.release_date", description: "発売日順"
-      value :popularity, value: "spotify_albums.popularity", description: "人気順"
+      value "NEW",        value: "albums.created_at", description: "追加順"
+      value "RELEASE",    value: "albums.release_date", description: "発売日順"
+      value "POPULARITY", value: "spotify_albums.popularity", description: "人気順"
     end
 
     class AlbumsSortInputObject < BaseInputObject
-      argument :order, AlbumsQueryOrderEnum, required: false, default_value: AlbumsQueryOrderEnum.values["release"].value, description: "並び順対象"
-      argument :type,  SortEnum, required: false, default_value: SortEnum.values["desc"].value, description: "並び順"
+      argument :order, AlbumsQueryOrderEnum, required: false, default_value: AlbumsQueryOrderEnum.values["RELEASE"].value, description: "並び順対象"
+      argument :type,  SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
     end
 
     class AlbumsConditionsInputObject < BaseInputObject
