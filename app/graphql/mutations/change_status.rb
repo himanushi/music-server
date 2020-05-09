@@ -5,11 +5,12 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
   argument :album_id, TTID, required: false, description: "変更したいアルバムID"
   argument :track_id, TTID, required: false, description: "変更したいトラックID"
   argument :status, StatusEnum, required: true, description: "変更したいステータス"
+  argument :only, Boolean, required: false, default_value: false, description: "true の場合は関連のステータスは変更しない。デフォルトは false。アーティスト限定"
 
   field :model, ModelHasStatusUnion, null: true, description: "変更されたステータスを持ったモデル"
   field :error, String, null: true
 
-  def mutate(artist_id: nil, album_id: nil, track_id: nil, status:)
+  def mutate(artist_id: nil, album_id: nil, track_id: nil, status:, only:)
     begin
       raise StandardError, "IDは一つだけ指定すること！" unless [artist_id, album_id, track_id].compact.size == 1
 
@@ -23,7 +24,12 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
         end
 
       model = klass.find(id)
-      model.__send__(:"#{status}!")
+      if only
+        raise StandardError, "関連ステータスを変更しないで更新できるのはアーティストだけ。" unless Artist == klass
+        model.update_column(:status, status)
+      else
+        model.__send__(:"#{status}!")
+      end
 
       Rails.cache.clear
       {

@@ -25,7 +25,7 @@ module Queries
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
     def list_query(cursor:, sort:, conditions: {})
-      conditions = { status: [:pending, :active], **conditions }
+      conditions = { status: [:active], **conditions }
       album_relation = ::Album.include_services
 
       if conditions.has_key?(:artists)
