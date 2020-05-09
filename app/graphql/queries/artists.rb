@@ -12,7 +12,7 @@ module Queries
 
     class ArtistsSortInputObject < BaseInputObject
       argument :order,  ArtistsQueryOrderEnum, required: false, default_value: ArtistsQueryOrderEnum.values["NAME"].value,description: "ソート対象"
-      argument :type,   SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
+      argument :type,   SortEnum, required: false, default_value: SortEnum.values["ASC"].value, description: "並び順"
     end
 
     class ArtistsConditionsInputObject < BaseInputObject
