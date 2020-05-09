@@ -1,32 +1,31 @@
 module Queries
-  class Albums < BaseQuery
+  class Albums < BaseListQuery
     description "アルバム一覧取得"
 
     type [AlbumType], null: false
 
-    class AlbumsQueryOrder < BaseEnum
+    class AlbumsQueryOrderEnum < BaseEnum
       value :new,        value: "albums.created_at", description: "追加順"
       value :release,    value: "albums.release_date", description: "発売日順"
       value :popularity, value: "spotify_albums.popularity", description: "人気順"
     end
 
-    class AlbumsConditions < BaseInputObject
-      argument :artists, IdInputObject, "アーティストID", required: false
-      argument :status,  [StatusEnum], "表示ステータス", required: false
-      argument :order,   AlbumsQueryOrder, required: false, default_value: AlbumsQueryOrder.values["new"].value, description: "並び順対象"
-      argument :sort,    SortEnum, required: false, default_value: SortEnum.values["desc"].value, description: "並び順"
+    class AlbumsSortInputObject < BaseInputObject
+      argument :order, AlbumsQueryOrderEnum, required: false, default_value: AlbumsQueryOrderEnum.values["release"].value, description: "並び順対象"
+      argument :type,  SortEnum, required: false, default_value: SortEnum.values["desc"].value, description: "並び順"
     end
 
-    argument :cursor, CursorInputObject, required: false, description: "取得件数"
-    argument :conditions, AlbumsConditions, required: false, description: "取得条件"
+    class AlbumsConditionsInputObject < BaseInputObject
+      argument :artists, IdInputObject, "アーティストID", required: false
+      argument :status,  [StatusEnum], "表示ステータス", required: false
+    end
 
-    def query(limit:, offset:, conditions: {})
-      cache_key = { where: conditions, order: { order => sort }, limit: limit, offset: offset }.to_s
+    argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
+    argument :sort, AlbumsSortInputObject, required: false, description: "取得順", default_value: AlbumsSortInputObject.default_argument_values
+    argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
-      conditions = { status: ["pending", "active"], **conditions }
-      order = conditions.delete(:order)
-      sort = conditions.delete(:sort)
-
+    def list_query(cursor:, sort:, conditions: {})
+      conditions = { status: [:pending, :active], **conditions }
       album_relation = ::Album.include_services
 
       if conditions.has_key?(:artists)
@@ -37,16 +36,9 @@ module Queries
         conditions[:id] = album_ids.uniq
       end
 
-      if Rails.cache.exist?(cache_key)
-        Rails.cache.read(cache_key)
-      else
-        albums =
-          album_relation.where(conditions).
-            order({ "#{order}": sort_type }).
-            distinct.offset(offset).limit(limit).load
-        Rails.cache.write(cache_key, albums)
-        albums
-      end
+      album_relation.where(conditions).
+        order({ order => sort_type }).
+        distinct.offset(offset).limit(limit)
     end
   end
 end

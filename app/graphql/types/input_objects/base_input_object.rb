@@ -6,6 +6,10 @@ module Types
       include Types::Scalars
       include Types::InputObjects
       include Types::Enums
+
+      def self.default_argument_values
+        arguments.map {|k, v| [k, v.default_value] }.to_h.symbolize_keys
+      end
     end
   end
 end
