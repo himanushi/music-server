@@ -6,8 +6,10 @@ class Mutations::ClearCache < Mutations::BaseMutation
 
   def mutate
     begin
+      size = File::Stat.new(Rails.root.join("tmp", "cache")).size.to_s(:human_size, locale: :en)
+
       {
-        results: Rails.cache.clear,
+        results: [size, *Rails.cache.clear],
         error: nil,
       }
     rescue => error
