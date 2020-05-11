@@ -42,7 +42,7 @@ class AppleMusicAlbum < ApplicationRecord
         apple_music_id:     data["id"],
         name:               attrs["name"],
         record_label:       attrs["recordLabel"],
-        copyright:          attrs["copyright"],
+        copyright:          attrs["copyright"] || attrs["recordLabel"],
         playable:           attrs["playParams"].present?,
         artwork_url:        attrs.dig("artwork", "url"),
         artwork_width:      attrs.dig("artwork", "width"),
@@ -77,7 +77,8 @@ class AppleMusicAlbum < ApplicationRecord
       create_or_update_by_data(data)
     end
 
-    def create_by_isrc(isrc)
+    # トラックのISRC1件でアルバム特定し生成する
+    def create_by_track_isrc(isrc)
       apple_music_ids =
         AppleMusic::Client.new.get_track_by_isrc(isrc).
         dig("data", 0, "relationships", "albums", "data").try(:map){|d| d["id"] }.try(:compact)

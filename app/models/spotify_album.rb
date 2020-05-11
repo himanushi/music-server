@@ -97,7 +97,8 @@ class SpotifyAlbum < ApplicationRecord
       SpotifyAlbum.create_or_update_by_data(album_data)
     end
 
-    def create_by_isrc(isrc)
+    # トラックのISRC1件でアルバム特定し生成する
+    def create_by_track_isrc(isrc)
       spotify_ids =
         Spotify::Client.new.get_track_by_isrc(isrc).
         dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact)
