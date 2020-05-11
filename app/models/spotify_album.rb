@@ -29,7 +29,7 @@ class SpotifyAlbum < ApplicationRecord
       end
 
       spotify_tracks = tracks_data.map do |td|
-        SpotifyTrack.find_or_initialize_by(SpotifyTrack.mapping(td))
+        SpotifyTrack.find_or_initialize_by(SpotifyTrack.mapping(td).merge({ status: album.status }))
       end
 
       images = data["images"][-3..-1] || []
@@ -61,6 +61,7 @@ class SpotifyAlbum < ApplicationRecord
         artwork_s_url:    images.dig(2, "url"),
         artwork_s_width:  images.dig(2, "width"),
         artwork_s_height: images.dig(2, "height"),
+        status:           album.status,
       }.merge(album_attrs)
     end
 

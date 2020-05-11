@@ -33,7 +33,7 @@ class AppleMusicAlbum < ApplicationRecord
       end
 
       apple_music_tracks = tracks_data.map do |td|
-        AppleMusicTrack.find_or_initialize_by(AppleMusicTrack.mapping(td))
+        AppleMusicTrack.find_or_initialize_by(AppleMusicTrack.mapping(td).merge({ status: album.status }))
       end
 
       {
@@ -47,6 +47,7 @@ class AppleMusicAlbum < ApplicationRecord
         artwork_url:        attrs.dig("artwork", "url"),
         artwork_width:      attrs.dig("artwork", "width"),
         artwork_height:     attrs.dig("artwork", "height"),
+        status:             album.status,
       }.merge(album_attrs)
     end
 
