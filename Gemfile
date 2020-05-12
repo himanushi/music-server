@@ -3,8 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-# Rails 6.0
-gem 'rails', '~> 6.0.2.2'
+# Rails 6
+gem 'rails', '~> 6.0.3'
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
