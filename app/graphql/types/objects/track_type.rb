@@ -11,6 +11,7 @@ module Types
       field :track_number, PositiveNumber, null: false, description: "トラック番号"
       field :duration_ms,  PositiveNumber, null: false, description: "再生時間"
       field :preview_url,  String, null: false, description: "プレビューURL"
+      field :popularity,   Integer, null: false, description: "人気度"
 
       def name
         object.service.name
@@ -30,6 +31,10 @@ module Types
 
       def preview_url
         object.service.preview_url
+      end
+
+      def popularity
+        object.spotify_tracks.map(&:popularity).sum
       end
     end
   end

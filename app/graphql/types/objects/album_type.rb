@@ -14,7 +14,7 @@ module Types
       field :apple_music_album, AppleMusicAlbumType, null: true, description: "Apple Music アルバム"
       field :itunes_album,      AppleMusicAlbumType, null: true, description: "iTunes アルバム"
       field :spotify_album,     SpotifyAlbumType, null: true, description: "Spotify アルバム"
-      field :tracks,            [TrackType], null: true, description: "トラック"
+      field :tracks,            [TrackType], null: false, description: "トラック"
 
       def name
         object.service.name
