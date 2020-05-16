@@ -12,6 +12,7 @@ module Types
       field :duration_ms,  PositiveNumber, null: false, description: "再生時間"
       field :preview_url,  String, null: false, description: "プレビューURL"
       field :popularity,   Integer, null: false, description: "人気度"
+      field :artwork_m,    ArtworkType, null: false, description: "中型アートワーク"
 
       def name
         object.service.name
@@ -35,6 +36,10 @@ module Types
 
       def popularity
         object.spotify_tracks.map(&:popularity).sum
+      end
+
+      def artwork_m
+        object.service.artwork_m
       end
     end
   end

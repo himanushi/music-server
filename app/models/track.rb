@@ -13,6 +13,7 @@ class Track < ApplicationRecord
   scope :include_artists, -> { eager_load(:artists) }
   scope :include_albums, -> { eager_load(:albums) }
   scope :include_services, -> { eager_load(:apple_music_tracks, :spotify_tracks) }
+  scope :include_album_services, -> { eager_load(apple_music_tracks: :apple_music_album, spotify_tracks: :spotify_album) }
   scope :services, -> { include_services.map(&:service) }
   scope :names, -> { services.map(&:name) }
 

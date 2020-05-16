@@ -51,4 +51,8 @@ class AppleMusicTrack < ApplicationRecord
       }
     end
   end
+
+  def artwork_m
+    @artwork_m ||= apple_music_album.artwork_m
+  end
 end
