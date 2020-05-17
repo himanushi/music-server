@@ -1,6 +1,7 @@
 {
   "short_name": "ゲーム音楽",
   "name": "ゲーム音楽",
+  "version": "0.1",
   "icons": [
     {
       "src": "favicon.ico",
