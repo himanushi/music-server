@@ -31,8 +31,6 @@ module Types
       def tracks
         # TODO: トラックからアルバムを特定できない問題を解決すること
         object.tracks.include_album_services.
-        # プレビューURLが存在しないトラックは返さない
-        where("apple_music_tracks.preview_url IS NOT NULL OR spotify_tracks.preview_url IS NOT NULL").
         order(
             "apple_music_tracks.disc_number",
             "apple_music_tracks.track_number",

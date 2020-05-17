@@ -10,7 +10,7 @@ module Types
       field :disc_number,  PositiveNumber, null: false, description: "ディスク番号"
       field :track_number, PositiveNumber, null: false, description: "トラック番号"
       field :duration_ms,  PositiveNumber, null: false, description: "再生時間"
-      field :preview_url,  String, null: false, description: "プレビューURL"
+      field :preview_url,  String, null: true, description: "プレビューURL"
       field :popularity,   Integer, null: false, description: "人気度"
       field :artwork_m,    ArtworkType, null: false, description: "中型アートワーク"
 
