@@ -35,7 +35,7 @@ module Types
       end
 
       def popularity
-        object.spotify_tracks.map(&:popularity).sum
+        object.spotify_tracks.map(&:popularity).max || 0
       end
 
       def artwork_m

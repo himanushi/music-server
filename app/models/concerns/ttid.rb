@@ -61,6 +61,17 @@ module TTID
   end
 
   class_methods do
+    # 検証元のクラスと検証したいID
+    def validate_ids!(ids)
+      ids.each do |id|
+        decoded_hash = TTID.decode(id)
+        unless decoded_hash.present? && decoded_hash[:model] == self
+          raise StandardError, "TTIDが不一致(#{ErrorLog.path(4)})"
+        end
+      end
+      true
+    end
+
     def table_id(_table_id = nil)
       return @table_id.dup if @table_id.present?
 

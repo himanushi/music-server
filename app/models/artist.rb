@@ -2,11 +2,12 @@ class Artist < ApplicationRecord
   table_id :art
 
   include Artists::Status
+  include Artists::Mix
 
   has_many :artist_has_albums, dependent: :destroy
-  has_many :albums, through: :artist_has_albums
+  has_many :albums, through: :artist_has_albums, dependent: :destroy
   has_many :artist_has_tracks, dependent: :destroy
-  has_many :tracks, through: :artist_has_tracks
+  has_many :tracks, through: :artist_has_tracks, dependent: :destroy
   has_many :apple_music_artists, dependent: :destroy
   has_many :spotify_artists, dependent: :destroy
 

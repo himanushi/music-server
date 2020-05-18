@@ -34,9 +34,7 @@ class ApplicationController < ActionController::Base
         begin
           session = Session.find_by_digit_token!(token)
           { user: session.user, session: session }
-        rescue => e
-          binding.pry
-          # 1/0
+        rescue
           user = User.create_user_and_session!
           { user: user, session: user.sessions.first }
         end
