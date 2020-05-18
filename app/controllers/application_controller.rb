@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ApplicationController::Forbidden, with: :rescue403
 
   def refresh_token
-    current_info[:session].refresh_token
-    current_info[:session].save!
-
+    # TODO: Session model 自体に expire を持たせること
     cookie_info = {
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,
@@ -36,7 +34,9 @@ class ApplicationController < ActionController::Base
         begin
           session = Session.find_by_digit_token!(token)
           { user: session.user, session: session }
-        rescue
+        rescue => e
+          binding.pry
+          # 1/0
           user = User.create_user_and_session!
           { user: user, session: user.sessions.first }
         end
