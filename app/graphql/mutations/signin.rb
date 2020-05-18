@@ -4,7 +4,7 @@ class Mutations::Signin < Mutations::BaseMutation
   argument :username, String, required: false
   argument :password, String, required: false
 
-  field :user, Types::Objects::UserType, null: true
+  field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
 
   def mutate(username:, password:)
@@ -18,12 +18,12 @@ class Mutations::Signin < Mutations::BaseMutation
       context[:current_info][:session] = user.create_session!
 
       {
-        user: user,
+        current_user: user,
         error: nil,
       }
     rescue => error
       {
-        user: nil,
+        current_user: nil,
         error: "ユーザー名またはパスワードが違います",
       }
     end
