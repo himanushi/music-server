@@ -29,6 +29,7 @@ class SpotifyArtist < ApplicationRecord
         artwork_s_width:  images.dig(2, "width"),
         artwork_s_height: images.dig(2, "height"),
         popularity:       data["popularity"] || 0,
+        status:           artist.status,
       }
     end
 

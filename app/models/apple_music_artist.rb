@@ -16,6 +16,7 @@ class AppleMusicArtist < ApplicationRecord
         artist_id:      artist.id,
         apple_music_id: data["id"],
         name:           name,
+        status:         artist.status,
       }
     end
 

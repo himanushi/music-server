@@ -29,6 +29,7 @@ class SpotifyTrack < ApplicationRecord
         duration_ms:  data["duration_ms"],
         preview_url:  data["preview_url"],
         popularity:   data["popularity"],
+        status:       track.status,
       }.merge(track_attrs)
     end
 

@@ -40,6 +40,7 @@ class AppleMusicTrack < ApplicationRecord
         playable:       attrs["playParams"].present?,
         duration_ms:    attrs["durationInMillis"],
         preview_url:    attrs.dig("previews", 0, "url"),
+        status:         track.status,
       }.merge(track_attrs).merge(other_data)
     end
 
