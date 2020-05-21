@@ -24,6 +24,8 @@ class Mutations::UpsertAlbum < Mutations::BaseMutation
         albums << SpotifyAlbum.create_by_spotify_id(spotify_id)&.album
       end
 
+      albums = albums.compact.uniq.map {|a| a.reload }
+
       Rails.cache.clear
       {
         albums: albums.compact.uniq,
