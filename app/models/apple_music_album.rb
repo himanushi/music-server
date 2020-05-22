@@ -75,7 +75,9 @@ class AppleMusicAlbum < ApplicationRecord
         data["attributes"]["trackCount"] = data["relationships"]["tracks"]["data"].size
       end
 
-      create_or_update_by_data(data)
+      ActiveRecord::Base.transaction do
+        create_or_update_by_data(data)
+      end
     end
 
     # トラックのISRC1件でアルバム特定し生成する

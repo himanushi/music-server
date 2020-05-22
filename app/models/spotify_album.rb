@@ -95,7 +95,9 @@ class SpotifyAlbum < ApplicationRecord
 
       # アルバム情報にトラック情報を結合
       album_data["tracks"]["items"] = tracks
-      SpotifyAlbum.create_or_update_by_data(album_data)
+      ActiveRecord::Base.transaction do
+        SpotifyAlbum.create_or_update_by_data(album_data)
+      end
     end
 
     # トラックのISRC1件でアルバム特定し生成する
