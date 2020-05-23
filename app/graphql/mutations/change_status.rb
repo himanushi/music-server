@@ -16,14 +16,19 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
 
       klass, id =
         if artist_id.present?
-          [Artist, artist_id]
+          [::Artist, artist_id]
         elsif album_id.present?
-          [Album, album_id]
+          [::Album, album_id]
         elsif track_id.present?
-          [Track, track_id]
+          [::Track, track_id]
         end
 
       model = klass.find(id)
+
+      if (klass == ::Artist) && ::Artist::FORCE_IGNORE_NAMES.include?(model.name)
+        raise StandardError, "ヴァリアス・アーティストのステータス変更は絶対にしてはいけない！"
+      end
+
       if only
         raise StandardError, "関連ステータスを変更しないで更新できるのはアーティストだけ。" unless Artist == klass
         model.update_column(:status, status)
