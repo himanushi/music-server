@@ -41,6 +41,13 @@ class Artist < ApplicationRecord
       name
     end
 
+    def all_pending_to_ignore
+      where(status: :pending).map do |artist|
+        artist.ignore!
+        artist
+      end
+    end
+
     def all_create_albums
       active_artists = where(status: :active)
       rate = active_artists.size / 100.to_f

@@ -6,12 +6,7 @@ class Mutations::IgnoreArtist < Mutations::BaseMutation
 
   def mutate
     begin
-      artists =
-        Artist.where(status: :pending).map do |artist|
-          artist.ignore!
-          artist
-        end
-
+      artists = Artist.all_pending_to_ignore
       Rails.cache.clear
       {
         artists: artists,
