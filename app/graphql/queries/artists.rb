@@ -17,6 +17,7 @@ module Queries
 
     class ArtistsConditionsInputObject < BaseInputObject
       argument :albums, IdInputObject, "アルバムID", required: false
+      argument :name,   String, "アーティスト名(あいまい検索)", required: false
       argument :status, [StatusEnum], "表示ステータス", required: false
     end
 
@@ -27,6 +28,12 @@ module Queries
     def list_query(cursor:, sort:, conditions: {})
       conditions = { status: [:active], **conditions }
       artist_relation = ::Artist.include_services
+
+      # 名前あいまい検索
+      if conditions.has_key?(:name)
+        name = conditions.delete(:name)
+        artist_relation = artist_relation.where("artists.name like :name", name: "%#{name}%")
+      end
 
       if conditions.has_key?(:albums)
         albums = ::Album.include_artists.include_tracks.where(id: conditions.delete(:albums)[:id])
