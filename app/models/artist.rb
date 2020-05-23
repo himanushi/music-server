@@ -40,6 +40,15 @@ class Artist < ApplicationRecord
       raise StandardError, "空文字のアーティスト名になっている" unless name.present?
       name
     end
+
+    def all_create_albums
+      active_artists = where(status: :active)
+      rate = active_artists.size / 100.to_f
+      active_artists.map.with_index do |artist, index|
+        Rails.logger.info("---------------- #{artist.name} #{(index / rate).round}% ----------------")
+        artist.create_albums
+      end
+    end
   end
 
   def create_albums
