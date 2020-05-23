@@ -8,7 +8,7 @@ gem 'rails', '~> 6.0.3'
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 # Rails 起動高速化
 gem 'bootsnap', '>= 1.4.2', require: false
 # GraphQL

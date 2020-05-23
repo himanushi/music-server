@@ -117,7 +117,7 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    puma (3.12.4)
+    puma (3.12.6)
     rack (2.2.2)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
@@ -193,7 +193,7 @@ DEPENDENCIES
   pry-byebug
   pry-doc
   pry-rails
-  puma (~> 3.11)
+  puma (~> 3.12)
   rack-cors
   rails (~> 6.0.3)
   spring
