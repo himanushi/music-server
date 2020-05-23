@@ -83,7 +83,13 @@ module AppleMusic
 
     def get_artist_tracks(apple_music_id, params = {}, repeat: nil)
       @repeat = repeat
-      get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/songs", params)
+      begin
+        get("#{catalog_url}/#{locale}/artists/#{apple_music_id}/songs", params)
+      rescue
+        # アーティストのトラックが存在しない場合はエラーになる
+        # そのためこのメソッドではエラーを回避する
+        {}
+      end
     end
 
     def get_album(apple_music_id, params = {})
