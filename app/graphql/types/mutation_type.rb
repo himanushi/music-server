@@ -12,6 +12,7 @@ module Types
     field :uncompact_album, mutation: Mutations::UncompactAlbum
     field :mix_album, mutation: Mutations::MixAlbum
     field :unmix_album, mutation: Mutations::UnmixAlbum
+    field :upsert_role, mutation: Mutations::UpsertRole
     field :clear_cache, mutation: Mutations::ClearCache
   end
 end

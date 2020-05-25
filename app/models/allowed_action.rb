@@ -9,4 +9,7 @@ class AllowedAction < ApplicationRecord
   DEFAULT_ACTIONS = QUERY_ACTIONS + %w[signin] + CONSOLE_ACTIONS
 
   ALL_ACTIONS = MUTATION_ACTIONS + QUERY_ACTIONS + CONSOLE_ACTIONS
+
+  validates :name, presence: true
+  validates :name, inclusion: { in: ALL_ACTIONS, message: "指定できないアクション(%{value})" }
 end
