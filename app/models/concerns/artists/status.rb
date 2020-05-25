@@ -8,9 +8,9 @@ module Artists
 
     def sync_status_artists
       ActiveRecord::Base.transaction do
-        apple_music_artists.map {|a| a.__send__("#{status}!") }
-        spotify_artists.map {|a| a.__send__("#{status}!") }
-        albums.map {|a| a.__send__("#{status}!") }
+        apple_music_artists.each {|a| a.__send__("#{status}!") }
+        spotify_artists.each {|a| a.__send__("#{status}!") }
+        albums.each {|a| a.__send__("#{status}!") }
       end
     end
   end

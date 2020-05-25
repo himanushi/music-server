@@ -10,6 +10,7 @@ module Albums
       ActiveRecord::Base.transaction do
         apple_music_and_itunes_album.__send__("#{status}!") if apple_music_and_itunes_album.present?
         spotify_album.__send__("#{status}!") if spotify_album.present?
+        tracks.each {|track| track.__send__("#{status}!") }
       end
     end
   end

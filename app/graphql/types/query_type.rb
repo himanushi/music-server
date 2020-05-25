@@ -5,5 +5,6 @@ module Types
     field :artists, resolver: Queries::Artists
     field :album,   resolver: Queries::Album
     field :albums,  resolver: Queries::Albums
+    field :tracks,  resolver: Queries::Tracks
   end
 end

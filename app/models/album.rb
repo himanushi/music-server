@@ -9,8 +9,8 @@ class Album < ApplicationRecord
   has_many :album_has_tracks, dependent: :destroy
   has_many :tracks, through: :album_has_tracks
   # iTunes と分けるため名前を変更している
-  has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name
-  has_one  :spotify_album
+  has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name, dependent: :destroy
+  has_one  :spotify_album, dependent: :destroy
 
   scope :include_artists, -> { eager_load(:artists) }
   scope :include_tracks, -> { eager_load(:tracks) }

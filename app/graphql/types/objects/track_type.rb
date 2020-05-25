@@ -13,6 +13,9 @@ module Types
       field :preview_url,  String, null: true, description: "プレビューURL"
       field :popularity,   Integer, null: false, description: "人気度"
       field :artwork_m,    ArtworkType, null: false, description: "中型アートワーク"
+      field :apple_music_tracks, [AppleMusicTrackType], null: true, description: "Apple Music トラック"
+      field :itunes_tracks,      [AppleMusicTrackType], null: true, description: "iTunes トラック"
+      field :spotify_tracks,     [SpotifyTrackType], null: true, description: "Spotify トラック"
 
       def name
         object.service.name
