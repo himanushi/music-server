@@ -6,5 +6,6 @@ module Types
     field :album,   resolver: Queries::Album
     field :albums,  resolver: Queries::Albums
     field :tracks,  resolver: Queries::Tracks
+    field :roles,   resolver: Queries::Roles
   end
 end
