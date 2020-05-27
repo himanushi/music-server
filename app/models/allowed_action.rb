@@ -10,6 +10,6 @@ class AllowedAction < ApplicationRecord
 
   ALL_ACTIONS = MUTATION_ACTIONS + QUERY_ACTIONS + CONSOLE_ACTIONS
 
-  validates :name, presence: true
+  validates :name, :role, presence: true
   validates :name, inclusion: { in: ALL_ACTIONS, message: "指定できないアクション(%{value})" }
 end
