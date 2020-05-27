@@ -48,7 +48,7 @@ module Queries
       end
 
       album_relation.where(conditions).
-        order({ order => sort_type }).
+        order([{ order => sort_type }, { id: sort_type }]).
         distinct.offset(offset).limit(limit)
     end
   end
