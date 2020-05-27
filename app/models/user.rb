@@ -27,6 +27,9 @@ class User < ApplicationRecord
   end
 
   def can?(action_name)
+    unless AllowedAction::ALL_ACTIONS.include?(action_name)
+      raise StandardError, "指定されたアクションは存在しません"
+    end
     role.allowed_actions.where(name: action_name).exists?
   end
 end
