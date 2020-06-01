@@ -1,33 +1,41 @@
 module AppleMusic
   class Token
-    def self.create
-      private_key   = ENV['APPLE_MUSIC_PRIVATE_KEY'].gsub(/\\n/,"\n")
-      keyId         = ENV['APPLE_MUSIC_KEY_ID']
-      teamId        = ENV['APPLE_MUSIC_TEAM_ID']
-      algorithm     = 'ES256'
-      hours_to_live = 3
-      time_now      = Time.now.to_i
-      time_expired  = Time.now.to_i + hours_to_live * 3600
+    class << self
+      def create_client_token
+        create(ENV['APPLE_MUSIC_CLIENT_PRIVATE_KEY'].gsub(/\\n/,"\n"), ENV['APPLE_MUSIC_CLIENT_KEY_ID'], 8)
+      end
 
-      headers = {
-        'typ': 'JWT',
-        'kid': keyId,
-      }
+      def create_server_token
+        create(ENV['APPLE_MUSIC_SERVER_PRIVATE_KEY'].gsub(/\\n/,"\n"), ENV['APPLE_MUSIC_SERVER_KEY_ID'], 3)
+      end
 
-      payload = {
-        'iss': teamId,
-        'exp': time_expired,
-        'iat': time_now,
-      }
+      def create(private_key, keyId, hours)
+        teamId        = ENV['APPLE_MUSIC_TEAM_ID']
+        algorithm     = 'ES256'
+        hours_to_live = hours
+        time_now      = Time.now.to_i
+        time_expired  = Time.now.to_i + hours_to_live * 3600
 
-      ecdsa_key = OpenSSL::PKey::EC.new(private_key)
-      ecdsa_key.check_key
+        headers = {
+          'typ': 'JWT',
+          'kid': keyId,
+        }
 
-      {
-        access_token: JWT.encode(payload, ecdsa_key, algorithm, header_fields = headers),
-        token_type: "Bearer",
-        expires_on: Time.at(time_expired),
-      }
+        payload = {
+          'iss': teamId,
+          'exp': time_expired,
+          'iat': time_now,
+        }
+
+        ecdsa_key = OpenSSL::PKey::EC.new(private_key)
+        ecdsa_key.check_key
+
+        {
+          access_token: JWT.encode(payload, ecdsa_key, algorithm, header_fields = headers),
+          token_type: "Bearer",
+          expires_on: Time.at(time_expired),
+        }
+      end
     end
   end
 end

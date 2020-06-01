@@ -20,7 +20,7 @@ module AppleMusic
       @client ||= Faraday::Connection.new(url: ENDPOINT) do |builder|
         builder.use(FaradayMiddleware::ParseJson)
         builder.headers["Content-Type"] = "application/json; charset=utf-8"
-        builder.authorization("Bearer", AppleMusic::Token.create[:access_token])
+        builder.authorization("Bearer", AppleMusic::Token.create_server_token[:access_token])
         builder.adapter Faraday.default_adapter
       end
     end
