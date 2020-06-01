@@ -15,6 +15,8 @@ COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 COPY . /music-server
 
+# cp -rp /usr/local/bundle/gems vendor/bundle
+
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
