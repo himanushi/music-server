@@ -41,7 +41,9 @@ class Album < ApplicationRecord
 
       tracks = tracks_attrs.map {|attrs| Track.find_or_initialize_by(attrs) }
 
-      raise StandardError, "トラック数が違うっぽい" unless tracks.size == album_attrs[:total_tracks]
+      unless tracks.size == album_attrs[:total_tracks]
+        raise StandardError, "アルバムのトラック数が実トラック数と相違がある"
+      end
 
       album = new(album_attrs.merge(tracks: tracks))
       album.save!
@@ -65,9 +67,9 @@ class Album < ApplicationRecord
     @itunes_album ||= pick_apple_album(false)
   end
 
-  def pick_apple_album(is_apple_music)
-    return nil unless apple_music_and_itunes_album.present?
-    apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
+  private def pick_apple_album(is_apple_music)
+      return nil unless apple_music_and_itunes_album.present?
+      apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
   end
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
