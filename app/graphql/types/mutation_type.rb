@@ -9,6 +9,7 @@ module Types
     field :upsert_active_artists_has_albums, mutation: Mutations::UpsertActiveArtistsHasAlbums
     field :upsert_album, mutation: Mutations::UpsertAlbum
     field :compact_album, mutation: Mutations::CompactAlbum
+    field :ignore_album, mutation: Mutations::IgnoreAlbum
     field :uncompact_album, mutation: Mutations::UncompactAlbum
     field :mix_album, mutation: Mutations::MixAlbum
     field :unmix_album, mutation: Mutations::UnmixAlbum

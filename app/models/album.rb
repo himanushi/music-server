@@ -49,6 +49,13 @@ class Album < ApplicationRecord
       album.save!
       album
     end
+
+    def all_pending_to_ignore
+      where(status: :pending).map do |album|
+        album.ignore!
+        album
+      end
+    end
   end
 
   def service
