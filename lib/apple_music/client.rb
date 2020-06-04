@@ -1,8 +1,29 @@
 module AppleMusic
   class Client
     ENDPOINT = "https://api.music.apple.com"
+    VERSION = "v1"
 
     attr_reader :locale, :version
+
+    class << self
+      attr_accessor :adapter
+      # settings = [
+      #   { path: "/album", status_code: 200, headers: {}, body: {} },
+      #   { path: "/artist", status_code: 404, headers: {}, body: {} },
+      # ]
+      def stub(settings = [])
+        @adapter = Faraday::Adapter::Test::Stubs.new do |_stub|
+          settings.each do |s|
+            s = { path: "/", status_code: 200, headers: {}, body: "" }.merge(s)
+            _stub.get("#{catalog_url}#{s[:path]}") {|env| [s[:status_code], s[:headers], s[:body]] }
+          end
+        end
+      end
+
+      def catalog_url
+        "/#{VERSION}/catalog"
+      end
+    end
 
     class ResponseError < StandardError
       attr_reader :message
@@ -11,7 +32,7 @@ module AppleMusic
       end
     end
 
-    def initialize(locale: "jp", version: "v1")
+    def initialize(locale: "jp", version: VERSION)
       @locale   = locale
       @version  = version
     end
@@ -21,12 +42,12 @@ module AppleMusic
         builder.use(FaradayMiddleware::ParseJson)
         builder.headers["Content-Type"] = "application/json; charset=utf-8"
         builder.authorization("Bearer", AppleMusic::Token.create_server_token[:access_token])
-        builder.adapter Faraday.default_adapter
+        builder.adapter(self.class.adapter || Faraday.default_adapter)
       end
     end
 
     def catalog_url
-      "/#{version}/catalog"
+      self.class.catalog_url
     end
 
     # @repeat は next を何回実行するか判定する
