@@ -1,23 +1,27 @@
 module AppleMusic
   class Client
     ENDPOINT = "https://api.music.apple.com"
-    VERSION = "v1"
+    VERSION  = "v1"
+    LOCALE   = "jp"
 
     attr_reader :locale, :version
 
     class << self
-      attr_accessor :adapter
+      attr_accessor :root_client
       # settings = [
       #   { path: "/album", status_code: 200, headers: {}, body: {} },
       #   { path: "/artist", status_code: 404, headers: {}, body: {} },
       # ]
       def stub(settings = [])
-        @adapter = Faraday::Adapter::Test::Stubs.new do |_stub|
-          settings.each do |s|
-            s = { path: "/", status_code: 200, headers: {}, body: "" }.merge(s)
-            _stub.get("#{catalog_url}#{s[:path]}") {|env| [s[:status_code], s[:headers], s[:body]] }
+        @root_client =
+          Faraday.new do |builder|
+            builder.adapter :test do |_stub|
+              settings.each do |s|
+                s = { path: "/", status_code: 200, headers: {}, body: "" }.merge(s)
+                _stub.get("#{catalog_url}/#{LOCALE}#{s[:path]}") {|env| [s[:status_code], s[:headers], s[:body]] }
+              end
+            end
           end
-        end
       end
 
       def catalog_url
@@ -32,17 +36,17 @@ module AppleMusic
       end
     end
 
-    def initialize(locale: "jp", version: VERSION)
+    def initialize(locale: LOCALE, version: VERSION)
       @locale   = locale
       @version  = version
     end
 
     def client
-      @client ||= Faraday::Connection.new(url: ENDPOINT) do |builder|
+      @client ||= self.class.root_client || Faraday::Connection.new(url: ENDPOINT) do |builder|
         builder.use(FaradayMiddleware::ParseJson)
         builder.headers["Content-Type"] = "application/json; charset=utf-8"
         builder.authorization("Bearer", AppleMusic::Token.create_server_token[:access_token])
-        builder.adapter(self.class.adapter || Faraday.default_adapter)
+        builder.adapter Faraday.default_adapter
       end
     end
 
