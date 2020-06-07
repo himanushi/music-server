@@ -195,4 +195,10 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     assert_equal 300, apple_music_albums(:sample).artwork_m.width
     assert_equal 300, apple_music_albums(:sample).artwork_m.height
   end
+
+  def test_ok_sync_status_apple_music_tracks
+    assert_equal "test_300x300.jpg", apple_music_albums(:sample).artwork_m.url
+    assert_equal 300, apple_music_albums(:sample).artwork_m.width
+    assert_equal 300, apple_music_albums(:sample).artwork_m.height
+  end
 end
