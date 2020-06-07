@@ -35,7 +35,7 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
         model.update_column(:status, status)
       else
         model.__send__(:"#{status}!")
-        tweet_post.call(model) if(tweet && tweet_post.present?)
+        tweet_post.call(model) if(tweet && status == "active" && tweet_post.present?)
       end
 
       Rails.cache.clear
