@@ -6,21 +6,22 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
   argument :track_id, TTID, required: false, description: "変更したいトラックID"
   argument :status, StatusEnum, required: true, description: "変更したいステータス"
   argument :only, Boolean, required: false, default_value: false, description: "true の場合は関連のステータスは変更しない。デフォルトは false。アーティスト限定"
+  argument :tweet, Boolean, required: false, default_value: true, description: "true の場合は Twitter に投稿する。デフォルトは true"
 
   field :model, ModelHasStatusUnion, null: true, description: "変更されたステータスを持ったモデル"
   field :error, String, null: true
 
-  def mutate(artist_id: nil, album_id: nil, track_id: nil, status:, only:)
+  def mutate(artist_id: nil, album_id: nil, track_id: nil, status:, only:, tweet:)
     begin
       raise StandardError, "IDは一つだけ指定すること！" unless [artist_id, album_id, track_id].compact.size == 1
 
-      klass, id =
+      klass, id, tweet_post =
         if artist_id.present?
-          [::Artist, artist_id]
+          [::Artist, artist_id, Tweet::Client.new.method(:post_artist)]
         elsif album_id.present?
-          [::Album, album_id]
+          [::Album, album_id, Tweet::Client.new.method(:post_album)]
         elsif track_id.present?
-          [::Track, track_id]
+          [::Track, track_id, nil]
         end
 
       model = klass.find(id)
@@ -34,6 +35,7 @@ class Mutations::ChangeStatus < Mutations::BaseMutation
         model.update_column(:status, status)
       else
         model.__send__(:"#{status}!")
+        tweet_post.call(model) if(tweet && tweet_post.present?)
       end
 
       Rails.cache.clear

@@ -27,6 +27,8 @@ gem 'rack-cors'
 gem "mini_magick"
 # GraphQL 実行画面
 gem 'graphiql-rails'
+# Twitter 投稿
+gem 'twitter'
 
 group :development, :test do
   # ブレイクポイント
@@ -44,4 +46,4 @@ group :development do
 end
 
 # タイムゾーン
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
