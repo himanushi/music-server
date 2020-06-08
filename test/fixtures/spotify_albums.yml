@@ -1,5 +1,5 @@
 sample:
-  album_id: "dummy_id"
+  album: sample
   name: "test"
   spotify_id: "00000000"
   release_date: "2000-01-01"
