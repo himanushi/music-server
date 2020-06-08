@@ -197,8 +197,15 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
   end
 
   def test_ok_sync_status_apple_music_tracks
-    assert_equal "test_300x300.jpg", apple_music_albums(:sample).artwork_m.url
-    assert_equal 300, apple_music_albums(:sample).artwork_m.width
-    assert_equal 300, apple_music_albums(:sample).artwork_m.height
+    apple_music_albums(:sample).apple_music_tracks.create!(
+      name: "test", track: tracks(:A), apple_music_id: "001", isrc: "A", duration_ms: 0
+    )
+
+    assert_equal "pending",  apple_music_albums(:sample).status
+    assert_equal "pending",  apple_music_albums(:sample).apple_music_tracks.first.status
+
+    apple_music_albums(:sample).active!
+    assert_equal "active",  apple_music_albums(:sample).status
+    assert_equal "active",  apple_music_albums(:sample).apple_music_tracks.first.status
   end
 end

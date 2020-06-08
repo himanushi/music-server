@@ -75,8 +75,8 @@ class Album < ApplicationRecord
   end
 
   private def pick_apple_album(is_apple_music)
-      return nil unless apple_music_and_itunes_album.present?
-      apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
+    return nil unless apple_music_and_itunes_album.present?
+    apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
   end
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
