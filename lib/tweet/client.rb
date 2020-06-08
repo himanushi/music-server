@@ -9,7 +9,7 @@ module Tweet
         [アーティスト追加]
         #{artist.name} さんが追加されました。
         #{artist_url(artist.id)}
-        ##{artist.name.gsub(/\s/, '_')}
+        ##{artist.name.gsub(/\s|-/, '_').gsub(/\./, '')}
         #{default_hash_tag}
       TWEET
     end
