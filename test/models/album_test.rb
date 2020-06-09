@@ -2,13 +2,13 @@ require 'test_helper'
 
 class AlbumTest < ActiveSupport::TestCase
   def test_ok_find_by_isrc_or_create
-    tracks = %w[A B C D].map {|isrc| Track.create!(isrc: isrc) }
+    tracks = %w[1 2 3 4].map {|isrc| Track.create!(isrc: isrc) }
     album = Album.create!(release_date: "2000-01-10", total_tracks: tracks.size, tracks: tracks)
 
     # 発売日が変更されないこと
     result = Album.find_by_isrc_or_create(
       { release_date: "2000-01-09", total_tracks: 4 },
-      [{ isrc: "A" }, { isrc: "B" }, { isrc: "C" }, { isrc: "D" }]
+      [{ isrc: "1" }, { isrc: "2" }, { isrc: "3" }, { isrc: "4" }]
     )
     assert_equal album, result
     assert_equal DateTime.new(2000, 1, 10).utc, result.release_date
@@ -16,7 +16,7 @@ class AlbumTest < ActiveSupport::TestCase
     # 発売日が変更されること
     result = Album.find_by_isrc_or_create(
       { release_date: "2000-01-11", total_tracks: 4 },
-      [{ isrc: "A" }, { isrc: "B" }, { isrc: "C" }, { isrc: "D" }]
+      [{ isrc: "1" }, { isrc: "2" }, { isrc: "3" }, { isrc: "4" }]
     )
     assert_equal album, result
     assert_equal DateTime.new(2000, 1, 11).utc, result.release_date
@@ -24,21 +24,21 @@ class AlbumTest < ActiveSupport::TestCase
     # 新しく作成されていること
     result = Album.find_by_isrc_or_create(
       { release_date: "2000-01-15", total_tracks: 3 },
-      [{ isrc: "A" }, { isrc: "B" }, { isrc: "C" }]
+      [{ isrc: "1" }, { isrc: "2" }, { isrc: "3" }]
     )
     assert_not_equal album, result
     assert_equal DateTime.new(2000, 1, 15).utc, result.release_date
-    assert_equal %w[A B C], result.tracks.map(&:isrc)
+    assert_equal %w[1 2 3], result.tracks.map(&:isrc)
   end
 
   def test_ng_find_by_isrc_or_create
-    tracks = %w[A B C D].map {|isrc| Track.create!(isrc: isrc) }
+    tracks = %w[1 2 3 4].map {|isrc| Track.create!(isrc: isrc) }
     album = Album.create!(release_date: "2000-01-10", total_tracks: tracks.size, tracks: tracks)
 
     err = assert_raises(StandardError) do
       Album.find_by_isrc_or_create(
         { release_date: "2000-01-15", total_tracks: 2 },
-        [{ isrc: "A" }, { isrc: "B" }, { isrc: "C" }]
+        [{ isrc: "1" }, { isrc: "2" }, { isrc: "3" }]
       )
     end
     assert_equal "アルバムのトラック数が実トラック数と相違がある", err.message
@@ -46,7 +46,7 @@ class AlbumTest < ActiveSupport::TestCase
     err = assert_raises(StandardError) do
       Album.find_by_isrc_or_create(
         { release_date: "2000-01-15", total_tracks: 4 },
-        [{ isrc: "A" }, { isrc: "B" }, { isrc: "C" }]
+        [{ isrc: "1" }, { isrc: "2" }, { isrc: "3" }]
       )
     end
     assert_equal "アルバムのトラック数が実トラック数と相違がある", err.message

@@ -22,7 +22,7 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
               id: "track001",
               type: "songs",
               attributes: {
-                isrc: "A",
+                isrc: "1",
                 artistName: "田中",
                 name: "name1",
                 discNumber: 1,
@@ -82,7 +82,7 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     assert_equal({
       apple_music_id: "track001",
       apple_music_album_id: apple_music_album.id,
-      isrc: "A",
+      isrc: "1",
       name: "name1",
       disc_number: 1,
       track_number: 1,
@@ -96,7 +96,7 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     # Tracks
     track_result = apple_music_album.apple_music_tracks[0].track.attributes.slice(*%w[isrc status])
     assert_equal({
-      isrc: "A",
+      isrc: "1",
       status: "pending",
     }.deep_stringify_keys, track_result)
 
@@ -155,7 +155,7 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     assert_equal({
       apple_music_id: "track001",
       apple_music_album_id: apple_music_album.id,
-      isrc: "A",
+      isrc: "1",
       name: "name1",
       disc_number: 1,
       track_number: 1,
@@ -169,7 +169,7 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     # Tracks
     track_result = apple_music_album.apple_music_tracks[0].track.attributes.slice(*%w[isrc status])
     assert_equal({
-      isrc: "A",
+      isrc: "1",
       status: "pending",
     }.deep_stringify_keys, track_result)
 
