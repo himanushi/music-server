@@ -23,7 +23,7 @@ module Tweet
         [アルバム追加]
         「#{album.service.name}」が追加されました。
         #{album_url(album.id)}
-        #{album.artists.active.names.map {|name| "##{name.gsub(/\s|-|\./, '')}" }.join(' ')}
+        #{album.composers.map {|c| "##{c.name.gsub(/\s|-|\./, '')}" }.join(' ')}
         #{services.join(' ')}
         #{default_hash_tag}
       TWEET

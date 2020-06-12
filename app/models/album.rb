@@ -66,6 +66,16 @@ class Album < ApplicationRecord
     [apple_music_and_itunes_album, spotify_album].compact
   end
 
+  # アルバム作曲者とトラック作曲者全員
+  def composers
+    (artists.active + Artist.distinct.active.where(id: tracks.include_artists.pluck("artists.id"))).uniq
+  end
+
+  # アルバムのトラックの作曲者
+  def tracks_composers
+    Artist.distinct.where(id: tracks.include_artists.pluck("artists.id"))
+  end
+
   def apple_music_album
     @apple_music_album ||= pick_apple_album(true)
   end
