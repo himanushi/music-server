@@ -23,16 +23,7 @@ module MusicServiceCreatable
           searched_record
         else
           record = new(attributes)
-          begin
-            record.save!
-          rescue ActiveRecord::RecordNotUnique => error
-            IgnoreContent.create!(
-              music_service_id: music_service_id,
-              error_class: "ActiveRecord::RecordNotUnique",
-              error_log: error.message
-            )
-            return nil
-          end
+          record.save!
           record
         end
 
