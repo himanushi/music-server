@@ -43,16 +43,21 @@ class SpotifyAlbum < ApplicationRecord
         correct_spotify_tracks = [*correct_spotify_tracks, *tracks]
       end
 
-      images = data["images"][-3..-1] || []
-
       # 同じアルバムで別のSpotify ID である場合がある(日本語版と英語版など)
       # そのため日本語表記のアルバムを優先する
-      # 同じアルバム名の場合は何もしない
+      # 同じ Spotify ID の場合は何もしない
       if(album.spotify_album.present? &&
          data["name"].match?(JAPANESE_REGEXP) &&
-         data["name"] != album.spotify_album.name)
+         data["id"] != album.spotify_album.spotify_id)
+        IgnoreContent.create!(
+          music_service_id: album.spotify_album.spotify_id,
+          title: "Duplicate Spotify ID",
+          reason: "Spotify では同じアルバムが登録されていることがあるため除外する"
+        )
         album.spotify_album.destroy!
       end
+
+      images = data["images"][-3..-1] || []
 
       {
         album:            album,
