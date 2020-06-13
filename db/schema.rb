@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 2020_06_13_000000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "music_service_id", limit: 191, null: false
-    t.string "error_class", limit: 191, null: false
-    t.text "error_log", null: false
+    t.string "title", limit: 191, null: false
+    t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
   end
 
