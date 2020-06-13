@@ -1,7 +1,7 @@
 class SpotifyAlbum < ApplicationRecord
   table_id :spb
 
-  include SpotifyCreatable
+  include MusicServiceCreatable
   include SpotifyArtworkResizable
   include Albums::Compact
 
@@ -15,6 +15,10 @@ class SpotifyAlbum < ApplicationRecord
   JAPANESE_REGEXP = /(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+/
 
   class << self
+    def music_service_id_name
+      "spotify_id"
+    end
+
     def mapping(data)
       tracks_data  = data["tracks"]["items"]
       album_attrs  = to_album_attrs(data)
@@ -24,7 +28,7 @@ class SpotifyAlbum < ApplicationRecord
 
       data["artists"].each do |ad|
         artist = (SpotifyArtist.find_by(spotify_id: ad["id"]) ||
-                  SpotifyArtist.create_by_spotify_id(ad["id"])).artist
+                  SpotifyArtist.create_by_music_service_id(ad["id"])).artist
         artist.albums.push(album) if artist.albums.where(id: album.id).empty?
       end
 
@@ -72,7 +76,7 @@ class SpotifyAlbum < ApplicationRecord
       }
     end
 
-    def create_by_spotify_id(spotify_id)
+    def create_by_music_service_id(spotify_id)
       album_data = Spotify::Client.new.get_album(spotify_id)
 
       return unless album_data["id"].present?
@@ -96,7 +100,7 @@ class SpotifyAlbum < ApplicationRecord
       # アルバム情報にトラック情報を結合
       album_data["tracks"]["items"] = tracks
       ActiveRecord::Base.transaction do
-        SpotifyAlbum.create_or_update_by_data(album_data)
+        SpotifyAlbum.create_or_update_by_data(album_data["id"], album_data)
       end
     end
 
@@ -109,7 +113,7 @@ class SpotifyAlbum < ApplicationRecord
       return [] unless spotify_ids.present?
 
       spotify_ids.map do |spotify_id|
-        create_by_spotify_id(spotify_id)
+        create_by_music_service_id(spotify_id)
       end
     end
   end

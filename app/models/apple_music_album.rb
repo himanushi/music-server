@@ -1,7 +1,7 @@
 class AppleMusicAlbum < ApplicationRecord
   table_id :amb
 
-  include AppleMusicCreatable
+  include MusicServiceCreatable
   include Albums::Compact
 
   belongs_to :album
@@ -12,6 +12,10 @@ class AppleMusicAlbum < ApplicationRecord
   before_update :sync_status_apple_music_tracks
 
   class << self
+    def music_service_id_name
+      "apple_music_id"
+    end
+
     def mapping(data)
       attrs        = data["attributes"]
       tracks_data  = data.dig("relationships", "tracks", "data")
@@ -23,7 +27,7 @@ class AppleMusicAlbum < ApplicationRecord
       data.dig("relationships", "artists", "data").each do |ad|
         apple_music_artist =
           AppleMusicArtist.find_by(apple_music_id: ad["id"]) ||
-          AppleMusicArtist.create_by_apple_music_id(ad["id"])
+          AppleMusicArtist.create_by_music_service_id(ad["id"])
 
         # locale: :jp で参照できないアーティストがいる
         next unless apple_music_artist.present?
@@ -60,7 +64,7 @@ class AppleMusicAlbum < ApplicationRecord
       }
     end
 
-    def create_by_apple_music_id(apple_music_id)
+    def create_by_music_service_id(apple_music_id)
       data = AppleMusic::Client.new.get_album(apple_music_id).dig("data", 0)
 
       return unless data.present?
@@ -76,7 +80,7 @@ class AppleMusicAlbum < ApplicationRecord
       end
 
       ActiveRecord::Base.transaction do
-        create_or_update_by_data(data)
+        create_or_update_by_data(data["id"], data)
       end
     end
 
@@ -89,7 +93,7 @@ class AppleMusicAlbum < ApplicationRecord
       return [] unless apple_music_ids.present?
 
       apple_music_ids.map do |apple_music_id|
-        create_by_apple_music_id(apple_music_id)
+        create_by_music_service_id(apple_music_id)
       end
     end
   end

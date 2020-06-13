@@ -1,7 +1,7 @@
 class SpotifyArtist < ApplicationRecord
   table_id :spa
 
-  include SpotifyCreatable
+  include MusicServiceCreatable
   include SpotifyArtworkResizable
 
   belongs_to :artist
@@ -9,6 +9,10 @@ class SpotifyArtist < ApplicationRecord
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
+    def music_service_id_name
+      "spotify_id"
+    end
+
     def mapping(data)
       name   = Artist.to_name(data["name"])
       artist = Artist.create_or_find_by(name: name)
@@ -36,13 +40,13 @@ class SpotifyArtist < ApplicationRecord
     def create_by_name(name)
       artists = Spotify::Client.new.index_artists(name).dig("artists", "items") || []
       spotify_ids = artists.map {|artist| artist["id"] }
-      spotify_ids.map {|id| find_or_create_by_spotify_id(id) }
+      spotify_ids.map {|id| find_or_create_by_music_service_id(id) }
     end
 
-    def create_by_spotify_id(spotify_id)
+    def create_by_music_service_id(spotify_id)
       data = Spotify::Client.new.get_artist(spotify_id)
       return nil unless data["id"].present?
-      create_or_update_by_data(data)
+      create_or_update_by_data(data["id"], data)
     end
   end
 
@@ -52,7 +56,7 @@ class SpotifyArtist < ApplicationRecord
     return [] unless result["items"].present?
 
     result["items"].map do |album|
-      SpotifyAlbum.find_or_create_by_spotify_id(album["id"]) rescue nil
+      SpotifyAlbum.find_or_create_by_music_service_id(album["id"]) rescue nil
     end.compact
   end
 
