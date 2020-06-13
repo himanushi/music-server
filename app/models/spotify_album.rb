@@ -36,6 +36,13 @@ class SpotifyAlbum < ApplicationRecord
         SpotifyTrack.find_or_initialize_by(SpotifyTrack.mapping(td).merge({ status: album.status }))
       end
 
+      # spotify はトラック番号に一意性がないため修正する
+      correct_spotify_tracks = []
+      spotify_tracks.group_by(&:disc_number).map do |disc_number, tracks|
+        tracks.each.with_index(1) {|track, index| track.track_number = index }
+        correct_spotify_tracks = [*correct_spotify_tracks, *tracks]
+      end
+
       images = data["images"][-3..-1] || []
 
       # 同じアルバムで別のSpotify ID である場合がある(日本語版と英語版など)
@@ -49,7 +56,7 @@ class SpotifyAlbum < ApplicationRecord
 
       {
         album:            album,
-        spotify_tracks:   spotify_tracks,
+        spotify_tracks:   correct_spotify_tracks,
         spotify_id:       data["id"],
         name:             data["name"],
         record_label:     data["label"],
