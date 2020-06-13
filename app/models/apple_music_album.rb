@@ -65,6 +65,8 @@ class AppleMusicAlbum < ApplicationRecord
     end
 
     def create_by_music_service_id(apple_music_id)
+      return unless IgnoreContent.where(music_service_id: apple_music_id).empty?
+
       data = AppleMusic::Client.new.get_album(apple_music_id).dig("data", 0)
 
       return unless data.present?

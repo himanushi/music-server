@@ -44,6 +44,8 @@ class SpotifyArtist < ApplicationRecord
     end
 
     def create_by_music_service_id(spotify_id)
+      return unless IgnoreContent.where(music_service_id: spotify_id).empty?
+
       data = Spotify::Client.new.get_artist(spotify_id)
       return nil unless data["id"].present?
       create_or_update_by_data(data["id"], data)

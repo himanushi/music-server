@@ -77,6 +77,8 @@ class SpotifyAlbum < ApplicationRecord
     end
 
     def create_by_music_service_id(spotify_id)
+      return unless IgnoreContent.where(music_service_id: spotify_id).empty?
+
       album_data = Spotify::Client.new.get_album(spotify_id)
 
       return unless album_data["id"].present?
