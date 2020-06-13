@@ -111,11 +111,11 @@ class AppleMusicAlbumTest < ActiveSupport::TestCase
     assert_equal({ name: "田中", status: "pending", apple_music_id: "artist001" }.deep_stringify_keys, apple_music_artist_result)
   end
 
-  def test_ok_create_by_apple_music_id
+  def test_ok_create_by_music_service_id
     artist = Artist.create!(name: "田中")
     apple_music_artist = AppleMusicArtist.create!(name: "田中", artist: artist, apple_music_id: "artist001")
     AppleMusic::Client.stub([path: "/albums/album001", body: { "data" => [data] }])
-    apple_music_album = AppleMusicAlbum.create_by_apple_music_id("album001")
+    apple_music_album = AppleMusicAlbum.create_by_music_service_id("album001")
 
     # Apple Music Album
     result = apple_music_album.attributes.slice(*%w[

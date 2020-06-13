@@ -61,7 +61,7 @@ module Albums
             service_id = album.apple_music_and_itunes_album.apple_music_id
             album.apple_music_and_itunes_album.destroy
             album.reload
-            albums << AppleMusicAlbum.create_by_apple_music_id(service_id).album
+            albums << AppleMusicAlbum.create_by_music_service_id(service_id).album
           end
 
           if (album.spotify_album.present? &&
@@ -69,7 +69,7 @@ module Albums
             service_id = album.spotify_album.spotify_id
             album.spotify_album.destroy
             album.reload
-            albums << SpotifyAlbum.create_by_spotify_id(service_id).album
+            albums << SpotifyAlbum.create_by_music_service_id(service_id).album
           end
         end
 

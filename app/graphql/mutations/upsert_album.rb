@@ -17,11 +17,11 @@ class Mutations::UpsertAlbum < Mutations::BaseMutation
       end
 
       if apple_music_id.present?
-        albums << AppleMusicAlbum.create_by_apple_music_id(apple_music_id)&.album
+        albums << AppleMusicAlbum.create_by_music_service_id(apple_music_id)&.album
       end
 
       if spotify_id.present?
-        albums << SpotifyAlbum.create_by_spotify_id(spotify_id)&.album
+        albums << SpotifyAlbum.create_by_music_service_id(spotify_id)&.album
       end
 
       albums = albums.compact.uniq.map {|a| a.reload }

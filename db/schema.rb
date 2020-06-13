@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_133434) do
+ActiveRecord::Schema.define(version: 2020_06_13_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -124,6 +124,15 @@ ActiveRecord::Schema.define(version: 2020_04_23_133434) do
     t.integer "status", default: 0, null: false
     t.index ["name"], name: "index_artists_on_name", unique: true
     t.index ["status"], name: "index_artists_on_status"
+  end
+
+  create_table "ignore_contents", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "music_service_id", limit: 191, null: false
+    t.string "error_class", limit: 191, null: false
+    t.text "error_log", null: false
+    t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
   end
 
   create_table "roles", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

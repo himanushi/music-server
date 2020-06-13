@@ -1,13 +1,17 @@
 class AppleMusicArtist < ApplicationRecord
   table_id :ama
 
-  include AppleMusicCreatable
+  include MusicServiceCreatable
 
   belongs_to :artist
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
+    def music_service_id_name
+      "apple_music_id"
+    end
+
     def mapping(data)
       name   = Artist.to_name(data.dig("attributes", "name"))
       artist = Artist.find_or_create_by(name: name)
@@ -23,13 +27,15 @@ class AppleMusicArtist < ApplicationRecord
     def create_by_name(name)
       artists = AppleMusic::Client.new.index_artists(name).dig("results", "artists", "data") || []
       apple_music_ids = artists.map {|artist| artist["id"] }
-      apple_music_ids.map {|id| find_or_create_by_apple_music_id(id) }
+      apple_music_ids.map {|id| find_or_create_by_music_service_id(id) }
     end
 
-    def create_by_apple_music_id(apple_music_id)
+    def create_by_music_service_id(apple_music_id)
+      return unless IgnoreContent.where(music_service_id: apple_music_id).empty?
+
       data = AppleMusic::Client.new.get_artist(apple_music_id).dig("data", 0)
       return nil unless data.present?
-      create_or_update_by_data(data)
+      create_or_update_by_data(data["id"], data)
     end
   end
 
@@ -53,7 +59,7 @@ class AppleMusicArtist < ApplicationRecord
     return [] unless albums_ids.present?
 
     albums_ids.uniq.map do |albums_id|
-      AppleMusicAlbum.find_or_create_by_apple_music_id(albums_id) rescue nil
+      AppleMusicAlbum.find_or_create_by_music_service_id(albums_id) rescue nil
     end.compact
   end
 
