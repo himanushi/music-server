@@ -53,6 +53,10 @@ class AppleMusicTrack < ApplicationRecord
     end
   end
 
+  def music_service_id
+    apple_music_id
+  end
+
   def artwork_m
     @artwork_m ||= apple_music_album.artwork_m
   end

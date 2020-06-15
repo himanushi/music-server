@@ -52,6 +52,11 @@ class SpotifyArtist < ApplicationRecord
     end
   end
 
+  def music_service_id
+    spotify_id
+  end
+
+
   def create_albums
     result = Spotify::Client.new.get_artist_albums(spotify_id)
 

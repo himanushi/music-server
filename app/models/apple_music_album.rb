@@ -100,6 +100,10 @@ class AppleMusicAlbum < ApplicationRecord
     end
   end
 
+  def music_service_id
+    apple_music_id
+  end
+
   def artwork_l
     @artwork_l ||= build_artwork(640)
   end

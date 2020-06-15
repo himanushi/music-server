@@ -39,6 +39,10 @@ class AppleMusicArtist < ApplicationRecord
     end
   end
 
+  def music_service_id
+    apple_music_id
+  end
+
   def create_albums
     albums_ids = []
 

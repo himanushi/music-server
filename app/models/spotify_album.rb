@@ -140,6 +140,10 @@ class SpotifyAlbum < ApplicationRecord
     end
   end
 
+  def music_service_id
+    spotify_id
+  end
+
   # albums tracks 全てで playable が存在するため共通化
   def playable
     true

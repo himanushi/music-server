@@ -40,6 +40,10 @@ class SpotifyTrack < ApplicationRecord
     end
   end
 
+  def music_service_id
+    spotify_id
+  end
+
   def artwork_m
     @artwork_m ||= spotify_album.artwork_m
   end
