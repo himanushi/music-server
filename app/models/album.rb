@@ -113,4 +113,23 @@ class Album < ApplicationRecord
       raise StandardError, "音楽サービスが一つでも存在する場合は削除できませんよ！確認してください"
     end
   end
+
+  # レコードを削除し関連音楽サービスを除外コンテンツにする
+  def force_ignore
+    ActiveRecord::Base.transaction do
+      services.each do |_service|
+        IgnoreContent.create!(
+          music_service_id: _service.music_service_id,
+          title: "Force ignore Album",
+          reason: "除外対象のアルバムのため"
+        )
+
+        _service.destroy
+      end
+
+      # 関連音楽サービスが削除されたことを同期する
+      reload
+      destroy
+    end
+  end
 end
