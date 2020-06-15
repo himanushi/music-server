@@ -46,15 +46,23 @@ class SpotifyAlbum < ApplicationRecord
       # 同じアルバムで別のSpotify ID である場合がある(日本語版と英語版など)
       # そのため日本語表記のアルバムを優先する
       # 同じ Spotify ID の場合は何もしない
-      if(album.spotify_album.present? &&
-         data["name"].match?(JAPANESE_REGEXP) &&
-         data["id"] != album.spotify_album.spotify_id)
-        IgnoreContent.create!(
-          music_service_id: album.spotify_album.spotify_id,
-          title: "Duplicate Spotify ID",
-          reason: "Spotify では同じアルバムが登録されていることがあるため除外する"
-        )
-        album.spotify_album.destroy!
+      if(album.spotify_album.present? && data["id"] != album.spotify_album.spotify_id)
+        if(data["name"].match?(JAPANESE_REGEXP))
+          # 日本語表記のアルバムを優先する
+          IgnoreContent.create!(
+            music_service_id: album.spotify_album.spotify_id,
+            title: "Duplicate Spotify ID",
+            reason: "Spotify では同じアルバムが登録されていることがあるため除外する(日本語)"
+          )
+          album.spotify_album.destroy!
+        else
+          # 英語表記のアルバムの場合は除外するのみ
+          IgnoreContent.create!(
+            music_service_id: data["id"],
+            title: "Duplicate Spotify ID",
+            reason: "Spotify では同じアルバムが登録されていることがあるため除外する(英語)"
+          )
+        end
       end
 
       images = data["images"][-3..-1] || []
