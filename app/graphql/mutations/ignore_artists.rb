@@ -1,4 +1,4 @@
-class Mutations::IgnoreArtist < Mutations::BaseMutation
+class Mutations::IgnoreArtists < Mutations::BaseMutation
   description "PENDING状態のアーティスト全てをIGNOREにする。よく考えてから実行すること。"
 
   field :artists, [ArtistType], null: true, description: "IGNOREされたアーティスト"

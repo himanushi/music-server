@@ -1,4 +1,4 @@
-class Mutations::IgnoreAlbum < Mutations::BaseMutation
+class Mutations::IgnoreAlbums < Mutations::BaseMutation
   description "PENDING状態のアルバム全てをIGNOREにする。よく考えてから実行すること。"
 
   field :albums, [AlbumType], null: true, description: "IGNOREされたアルバム"
