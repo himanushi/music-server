@@ -57,11 +57,12 @@ class SpotifyAlbum < ApplicationRecord
           album.spotify_album.destroy!
         else
           # 英語表記のアルバムの場合は除外するのみ
-          IgnoreContent.create!(
-            music_service_id: data["id"],
-            title: "Duplicate Spotify ID",
-            reason: "Spotify では同じアルバムが登録されていることがあるため除外する(英語)"
-          )
+          # TODO: 英語の場合はロールバックされるので考えること
+          # IgnoreContent.create!(
+          #   music_service_id: data["id"],
+          #   title: "Duplicate Spotify ID",
+          #   reason: "Spotify では同じアルバムが登録されていることがあるため除外する(英語)"
+          # )
         end
       end
 
