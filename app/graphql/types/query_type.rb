@@ -8,5 +8,7 @@ module Types
     field :albums,  resolver: Queries::Albums
     field :tracks,  resolver: Queries::Tracks
     field :roles,   resolver: Queries::Roles
+
+    field :error,      resolver: Queries::Error
   end
 end
