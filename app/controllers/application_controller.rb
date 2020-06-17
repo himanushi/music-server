@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
         begin
           session = Session.find_by_digit_token!(token)
           { user: session.user, session: session }
-        rescue
+        rescue => e
+          Rails.logger.info("---------------- Error: #{e.message} #{token} ----------------")
           user = User.create_user_and_session!
           { user: user, session: user.sessions.first }
         end
