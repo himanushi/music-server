@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_info
     @current_info ||= begin
+      Rails.logger.info("---------------- Cookies: #{request.cookies.to_s} ----------------")
       token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
 
       if token.present?
