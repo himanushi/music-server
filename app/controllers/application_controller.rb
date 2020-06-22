@@ -9,24 +9,6 @@ class ApplicationController < ActionController::Base
   class Forbidden < ActionController::ActionControllerError; end
   rescue_from ApplicationController::Forbidden, with: :rescue403
 
-  def refresh_token
-    # TODO: Session model 自体に expire を持たせること
-    cookie_info = {
-      value: "Bearer #{current_info[:session].digit_token}",
-      max_age: Session::EXPIRE_DAYS.to_i,
-      http_only: true,
-      same_site: :strict,
-      path: "/",
-    }
-
-    if Rails.env.production?
-      cookie_info.merge!({ secure: true })
-    end
-
-    response.set_cookie(:Authorization, cookie_info)
-    Rails.logger.info("---------------- Response Cookies: #{response.cookies.to_s} ----------------")
-  end
-
   def set_current_info
     @current_info ||= begin
       Rails.logger.info("---------------- Request Cookies: #{request.cookies.to_s} ----------------")
@@ -46,6 +28,24 @@ class ApplicationController < ActionController::Base
         { user: user, session: user.sessions.first }
       end
     end
+  end
+
+  def refresh_token
+    # TODO: Session model 自体に expire を持たせること
+    cookie_info = {
+      value: "Bearer #{current_info[:session].digit_token}",
+      max_age: Session::EXPIRE_DAYS.to_i,
+      http_only: true,
+      same_site: :strict,
+      path: "/",
+    }
+
+    if Rails.env.production?
+      cookie_info.merge!({ secure: true })
+    end
+
+    response.set_cookie(:Authorization, cookie_info)
+    Rails.logger.info("---------------- Response Cookies: #{response.cookies.to_s} ----------------")
   end
 
   private
