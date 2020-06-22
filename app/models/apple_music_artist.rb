@@ -52,7 +52,7 @@ class AppleMusicArtist < ApplicationRecord
     end
 
     # V.A などの取得不可なアルバムに対応するため携わっているトラックからアルバムを取得する
-    data = AppleMusic::Client.new.get_artist_tracks(apple_music_id, {}, repeat: 3)["data"]
+    data = AppleMusic::Client.new.get_artist_tracks(apple_music_id, {}, repeat: 5)["data"]
     if data.present?
       # 以下のようなURLからアルバムIDを抽出
       # https://music.apple.com/jp/album/999999999?i=999999999
