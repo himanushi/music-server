@@ -3,7 +3,7 @@ module MusicServiceCreatable
 
   module ClassMethods
     def find_or_create_by_music_service_id(music_service_id)
-      record = find_by(spotify_id: music_service_id)
+      record = find_by("#{music_service_id_name}": music_service_id)
       return record unless record.nil?
 
       ActiveRecord::Base.transaction { create_by_music_service_id(music_service_id) }

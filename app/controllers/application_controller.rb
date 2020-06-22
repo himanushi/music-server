@@ -24,17 +24,20 @@ class ApplicationController < ActionController::Base
     end
 
     response.set_cookie(:Authorization, cookie_info)
+    Rails.logger.info("---------------- Response Cookies: #{response.cookies.to_s} ----------------")
   end
 
   def set_current_info
     @current_info ||= begin
+      Rails.logger.info("---------------- Request Cookies: #{request.cookies.to_s} ----------------")
       token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
 
       if token.present?
         begin
           session = Session.find_by_digit_token!(token)
           { user: session.user, session: session }
-        rescue
+        rescue => e
+          Rails.logger.info("---------------- Error: #{e.message} #{token} ----------------")
           user = User.create_user_and_session!
           { user: user, session: user.sessions.first }
         end
