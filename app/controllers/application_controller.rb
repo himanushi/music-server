@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,
       http_only: true,
-      same_site: :strict,
+      same_site: :lax,
       path: "/",
     }
 
