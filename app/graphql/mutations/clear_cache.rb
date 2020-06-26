@@ -14,7 +14,7 @@ class Mutations::ClearCache < Mutations::BaseMutation
       }
     rescue => error
       {
-        artists: nil,
+        results: nil,
         error: error.message,
       }
     end
