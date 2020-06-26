@@ -132,4 +132,12 @@ class Album < ApplicationRecord
       destroy
     end
   end
+
+  def to_path
+    "/#{id}?ai=#{id}"
+  end
+
+  def to_url
+    "#{ENV['PRODUCTION_APP_URL']}/albums#{to_path}"
+  end
 end

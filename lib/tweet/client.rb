@@ -8,7 +8,7 @@ module Tweet
       client.update <<~TWEET
         [アーティスト追加]
         #{artist.name} さんが追加されました。
-        #{artist_url(artist.id)}
+        #{artist.to_url}
         ##{artist.name.gsub(/\s|-|\./, '')}
         #{default_hash_tag}
       TWEET
@@ -22,19 +22,11 @@ module Tweet
       client.update <<~TWEET
         [アルバム追加]
         「#{album.service.name}」が追加されました。
-        #{album_url(album.id)}
+        #{album.to_url}
         #{album.composers.map {|c| "##{c.name.gsub(/\s|-|\./, '')}" }.join(' ')}
         #{services.join(' ')}
         #{default_hash_tag}
       TWEET
-    end
-
-    def artist_url(artist_id)
-      "https://video-game-music.net/artists/#{artist_id}?bi=#{artist_id}"
-    end
-
-    def album_url(album_id)
-      "https://video-game-music.net/albums/#{album_id}?ai=#{album_id}"
     end
 
     def client

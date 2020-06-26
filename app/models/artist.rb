@@ -67,4 +67,12 @@ class Artist < ApplicationRecord
   def service
     @service ||= (spotify_artists + apple_music_artists).first
   end
+
+  def to_path
+    "/#{id}?bi=#{id}"
+  end
+
+  def to_url
+    "#{ENV['PRODUCTION_APP_URL']}/artists#{to_path}"
+  end
 end
