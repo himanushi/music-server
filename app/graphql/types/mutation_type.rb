@@ -14,6 +14,7 @@ module Types
     field :mix_album,          mutation: Mutations::MixAlbum
     field :unmix_album,        mutation: Mutations::UnmixAlbum
     field :upsert_role,        mutation: Mutations::UpsertRole
+    field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
     field :clear_cache,        mutation: Mutations::ClearCache
     field :upsert_active_artists_has_albums, mutation: Mutations::UpsertActiveArtistsHasAlbums
   end
