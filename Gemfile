@@ -23,6 +23,8 @@ gem 'bcrypt'
 gem 'jwt'
 # HTTP メソッド許可
 gem 'rack-cors'
+# DoS攻撃対策
+gem 'rack-attack'
 # 画像操作
 gem "mini_magick"
 # GraphQL 実行画面
