@@ -4,6 +4,7 @@ path:
 - a2billing
 - admin
 - api/jsonws/invoke
+- api/v1/pods
 - axis2
 - dana-na
 - eval-stdin
