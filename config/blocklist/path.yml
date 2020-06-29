@@ -1,0 +1,10 @@
+---
+path:
+- ".well-known"
+- a2billing
+- admin
+- api/jsonws/invoke
+- axis2
+- dana-na
+- eval-stdin
+- wp-login
