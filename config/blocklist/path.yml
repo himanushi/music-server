@@ -1,5 +1,6 @@
 ---
 path:
+- ".git/config"
 - ".well-known"
 - a2billing
 - admin
