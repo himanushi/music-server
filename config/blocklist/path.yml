@@ -1,6 +1,6 @@
 ---
 path:
-- ".git/config"
+- ".git"
 - ".well-known"
 - a2billing
 - admin
@@ -9,5 +9,6 @@ path:
 - axis2
 - dana-na
 - eval-stdin
+- static
 - wlwmanifest
 - wp-login
