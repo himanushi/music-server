@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2020_07_05_000000) do
     t.string "user_id", limit: 16, null: false
     t.string "favorable_id", limit: 16, null: false
     t.string "favorable_type", limit: 191, null: false
+    t.index ["favorable_type", "favorable_id", "user_id"], name: "index_favorites_on_favorable_type_and_favorable_id_and_user_id", unique: true
     t.index ["favorable_type", "favorable_id"], name: "index_favorites_on_favorable_type_and_favorable_id"
     t.index ["user_id"], name: "fk_rails_d15744e438"
   end

@@ -8,6 +8,7 @@ class CreateFavorites < ActiveRecord::Migration[6.0]
       t.string     :favorable_type, limit: 191, null: false
     end
     add_index :favorites, [:favorable_type, :favorable_id]
+    add_index :favorites, [:favorable_type, :favorable_id, :user_id], unique: true
     add_foreign_key :favorites, :users, dependent: :destroy
   end
 end
