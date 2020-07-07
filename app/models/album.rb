@@ -12,7 +12,7 @@ class Album < ApplicationRecord
   has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name, dependent: :destroy
   has_one  :spotify_album, dependent: :destroy
 
-  has_many :favorites, as: :favorable
+  has_many :favorites, as: :favorable, dependent: :destroy
 
   scope :include_artists, -> { eager_load(:artists) }
   scope :include_tracks, -> { eager_load(:tracks) }
