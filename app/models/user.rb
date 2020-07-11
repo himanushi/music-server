@@ -1,12 +1,13 @@
 class User < ApplicationRecord
   table_id :usr
 
+  include Users::Favorite
+
+  belongs_to :role
   has_many :sessions, dependent: :destroy
 
   validates :name, :username, presence: true
   validates :username, uniqueness: { case_sensitive: true }, format: { with: /\A[0-9a-zA-Z]+\z/, message: "半角英数字のみが使えます" }
-
-  belongs_to :role
 
   class << self
     def create_user_and_session!
