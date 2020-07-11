@@ -7,6 +7,7 @@ module Types
       field :name, String, null: false, description: "名前"
       field :username, String, null: false, description: "ユーザー名"
       field :role, RoleType, null: false, description: "ロール"
+      field :favorite, FavoriteType, null: false, description: "お気に入り"
     end
   end
 end
