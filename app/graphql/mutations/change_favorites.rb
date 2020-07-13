@@ -5,8 +5,7 @@ class Mutations::ChangeFavorites < Mutations::BaseMutation
   argument :album_ids, [TTID], required: false, description: "お気に入り変更したいアルバムID"
   argument :favorite, Boolean, required: true, description: "true の場合は一括でお気に入り登録をする。false 場合は一括で解除する。"
 
-  field :artists, [ArtistType], null: true, description: "一括お気に入り変更したアルバム"
-  field :albums, [AlbumType], null: true, description: "一括お気に入り変更したアルバム"
+  field :current_user, CurrentUserType, null: true, description: "更新されたカレントユーザー"
   field :error, String, null: true
 
   def mutate(artist_ids: [], album_ids: [], favorite:)
@@ -21,14 +20,12 @@ class Mutations::ChangeFavorites < Mutations::BaseMutation
       end
 
       {
-        artists: artists,
-        albums: albums,
+        current_user: context[:current_info][:user].reload,
         error: nil,
       }
     rescue => error
       {
-        artists: nil,
-        albums: nil,
+        current_user: nil,
         error: error.message,
       }
     end
