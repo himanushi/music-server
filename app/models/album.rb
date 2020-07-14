@@ -31,6 +31,10 @@ class Album < ApplicationRecord
       album = joins(:tracks).where(tracks: { isrc: isrc }, total_tracks: isrc.size).
               group("albums.id").having("count(*) = albums.total_tracks").first
 
+      unless tracks_attrs.size > 0
+        raise StandardError, "アルバムのトラック数が0件なので何かしらのバグがある"
+      end
+
       if album.present?
         # 最新の日時を正とする
         if album.release_date <= album_attrs[:release_date]
