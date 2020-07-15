@@ -25,6 +25,7 @@ module Queries
     argument :conditions, TracksConditionsInputObject, required: false, description: "取得条件"
 
     def list_query(cursor:, sort:, conditions: {})
+      # TODO: お気に入り対応
       conditions = { status: [:active], **conditions }
       track_relation = ::Track.include_album_services
 
