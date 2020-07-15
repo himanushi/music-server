@@ -16,9 +16,10 @@ module Queries
     end
 
     class AlbumsConditionsInputObject < BaseInputObject
-      argument :artists, IdInputObject, "アーティストID", required: false
-      argument :name,    String, "アルバム名(あいまい検索)", required: false
-      argument :status,  [StatusEnum], "表示ステータス", required: false
+      argument :artists,  IdInputObject, "アーティストID", required: false
+      argument :name,     String, "アルバム名(あいまい検索)", required: false
+      argument :status,   [StatusEnum], "表示ステータス", required: false
+      argument :favorite, Boolean, "お気に入り", required: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
@@ -26,6 +27,7 @@ module Queries
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
     def list_query(cursor:, sort:, conditions: {})
+      is_cache = true
       conditions = { status: [:active], **conditions }
       album_relation = ::Album.include_services
 
@@ -39,6 +41,13 @@ module Queries
           )
       end
 
+      # お気に入り検索
+      if conditions.delete(:favorite)
+        is_cache = false
+        album_relation =
+          album_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
+      end
+
       if conditions.has_key?(:artists)
         ids = conditions.delete(:artists)[:id]
         album_ids = ::Album.include_artists.where(artists: { id: ids }).ids
@@ -47,9 +56,12 @@ module Queries
         conditions[:id] = album_ids.uniq
       end
 
-      album_relation.where(conditions).
-        order([{ order => sort_type }, { id: sort_type }]).
-        distinct.offset(offset).limit(limit)
+      [
+        is_cache,
+        album_relation.where(conditions).
+          order([{ order => sort_type }, { id: sort_type }]).
+          distinct.offset(offset).limit(limit)
+      ]
     end
   end
 end
