@@ -12,13 +12,13 @@ module Queries
       @limit     = cursor[:limit]
       @offset    = cursor[:offset]
 
-      result = list_query(**args)
+      is_cache, result = list_query(**args)
 
-      if Rails.cache.exist?(cache_key)
+      if is_cache && Rails.cache.exist?(cache_key)
         Rails.cache.read(cache_key)
       else
         loaded_result = result.load
-        Rails.cache.write(cache_key, loaded_result)
+        Rails.cache.write(cache_key, loaded_result) if is_cache
         loaded_result
       end
     end
