@@ -5,6 +5,8 @@ module Types
 
       field :id,                TTID, null: false, description: "ID"
       field :name,              String, null: false, description: "タイトル"
+      field :record_label,      String, null: false, description: "レーベル"
+      field :copyright,         String, null: false, description: "コピーライト"
       field :status,            StatusEnum, null: false, description: "ステータス"
       field :total_tracks,      PositiveNumber, null: false, description: "トラック数"
       field :release_date,      GraphQL::Types::ISO8601DateTime, null: false, description: "発売日"
@@ -18,6 +20,14 @@ module Types
 
       def name
         object.service.name
+      end
+
+      def record_label
+        object.service.record_label
+      end
+
+      def copyright
+        object.service.copyright
       end
 
       def artwork_l
