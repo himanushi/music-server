@@ -9,7 +9,8 @@ module Artists
       # 第一引数のIDがメインアーティストとなる
       # 破壊的なメソッドで修正不可なので注意して使用すること
       def mix!(main_artist_id, sub_artist_id)
-        Artist.validate_associations([:apple_music_artists, :spotify_artists, :artist_has_albums, :artist_has_tracks])
+        Artist.validate_associations([:apple_music_artists, :spotify_artists, :artist_has_albums, :artist_has_tracks, :favorites])
+
         Artist.validate_ids!([main_artist_id, sub_artist_id])
 
         main_artist = find(main_artist_id)
