@@ -20,10 +20,10 @@ task generate_rbs_for_model: :environment do
     # Rails の使用していないモジュール除外
     next if [ActionText, ActionMailbox, ActiveStorage].include?(klass.module_parent)
 
-    path = out_dir / "app/models/#{klass.name.underscore}_rails.rbs"
+    path = out_dir / "app/models/#{klass.name.underscore}.rbs"
     FileUtils.mkdir_p(path.dirname)
 
-    sig = RbsRails::ActiveRecord.class_to_rbs(klass, mode: :extension)
+    sig = RbsRails::ActiveRecord.class_to_rbs(klass, mode: :class)
     path.write sig
   end
 end
