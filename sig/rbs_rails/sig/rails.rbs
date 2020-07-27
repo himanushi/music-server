@@ -1,0 +1,11 @@
+module Rails
+  def self.root: () -> Pathname
+  def self.application: () -> Rails::Application
+end
+
+class Rails::Application
+  def routes: () -> untyped
+end
+
+class Rails::Railtie
+end
