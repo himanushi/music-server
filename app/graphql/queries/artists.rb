@@ -40,8 +40,8 @@ module Queries
       # お気に入り検索
       if conditions.delete(:favorite)
         is_cache = false
-        album_relation =
-          album_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
+        artist_relation =
+          artist_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
       end
 
       if conditions.has_key?(:albums)
