@@ -17,6 +17,8 @@ task generate_rbs_for_model: :environment do
 
   ActiveRecord::Base.descendants.each do |klass|
     next if klass.abstract_class?
+    # Rails の使用していないモジュール除外
+    next if [ActionText, ActionMailbox, ActiveStorage].include?(klass.module_parent)
 
     path = out_dir / "app/models/#{klass.name.underscore}.rbs"
     FileUtils.mkdir_p(path.dirname)
