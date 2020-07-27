@@ -1,0 +1,27 @@
+extension Favorite (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[Favorite, Favorite::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor user_id (): String
+  attr_accessor favorable_id (): String
+  attr_accessor favorable_type (): String
+
+
+  def favorable: () -> untyped
+  def user: () -> User
+
+
+
+end
+
+class Favorite::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[Favorite]
+  include Enumerable[Favorite, self]
+
+
+end
+
+class Favorite::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

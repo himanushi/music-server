@@ -1,0 +1,26 @@
+extension ArtistHasTrack (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[ArtistHasTrack, ArtistHasTrack::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor artist_id (): String
+  attr_accessor track_id (): String
+
+
+  def artist: () -> Artist
+  def track: () -> Track
+
+
+
+end
+
+class ArtistHasTrack::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[ArtistHasTrack]
+  include Enumerable[ArtistHasTrack, self]
+
+
+end
+
+class ArtistHasTrack::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

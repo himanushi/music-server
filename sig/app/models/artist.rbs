@@ -1,0 +1,46 @@
+extension Artist (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[Artist, Artist::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor name (): String
+  attr_accessor status (): Integer
+  def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
+  def albums: () -> Album::ActiveRecord_Associations_CollectionProxy
+  def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
+  def tracks: () -> Track::ActiveRecord_Associations_CollectionProxy
+  def apple_music_artists: () -> AppleMusicArtist::ActiveRecord_Associations_CollectionProxy
+  def spotify_artists: () -> SpotifyArtist::ActiveRecord_Associations_CollectionProxy
+  def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
+
+
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> Artist::ActiveRecord_Relation
+  def self.active: () -> Artist::ActiveRecord_Relation
+  def self.ignore: () -> Artist::ActiveRecord_Relation
+  def self.include_albums: () -> Artist::ActiveRecord_Relation
+  def self.include_services: () -> Artist::ActiveRecord_Relation
+  def self.services: () -> Artist::ActiveRecord_Relation
+  def self.names: () -> Artist::ActiveRecord_Relation
+end
+
+class Artist::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[Artist]
+  include Enumerable[Artist, self]
+  def pending: () -> Artist::ActiveRecord_Relation
+  def active: () -> Artist::ActiveRecord_Relation
+  def ignore: () -> Artist::ActiveRecord_Relation
+  def include_albums: () -> Artist::ActiveRecord_Relation
+  def include_services: () -> Artist::ActiveRecord_Relation
+  def services: () -> Artist::ActiveRecord_Relation
+  def names: () -> Artist::ActiveRecord_Relation
+end
+
+class Artist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

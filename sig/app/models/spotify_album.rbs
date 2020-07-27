@@ -1,0 +1,52 @@
+extension SpotifyAlbum (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[SpotifyAlbum, SpotifyAlbum::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor album_id (): String
+  attr_accessor spotify_id (): String
+  attr_accessor name (): String
+  attr_accessor status (): Integer
+  attr_accessor release_date (): Time
+  attr_accessor total_tracks (): Integer
+  attr_accessor record_label (): String
+  attr_accessor copyright (): String
+  attr_accessor upc (): String
+  attr_accessor artwork_l_url (): String
+  attr_accessor artwork_l_width (): Integer
+  attr_accessor artwork_l_height (): Integer
+  attr_accessor artwork_m_url (): String
+  attr_accessor artwork_m_width (): Integer
+  attr_accessor artwork_m_height (): Integer
+  attr_accessor artwork_s_url (): String
+  attr_accessor artwork_s_width (): Integer
+  attr_accessor artwork_s_height (): Integer
+  attr_accessor popularity (): Integer
+  attr_accessor compacted_id (): String
+  def spotify_tracks: () -> SpotifyTrack::ActiveRecord_Associations_CollectionProxy
+
+  def album: () -> Album
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> SpotifyAlbum::ActiveRecord_Relation
+  def self.active: () -> SpotifyAlbum::ActiveRecord_Relation
+  def self.ignore: () -> SpotifyAlbum::ActiveRecord_Relation
+
+end
+
+class SpotifyAlbum::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[SpotifyAlbum]
+  include Enumerable[SpotifyAlbum, self]
+  def pending: () -> SpotifyAlbum::ActiveRecord_Relation
+  def active: () -> SpotifyAlbum::ActiveRecord_Relation
+  def ignore: () -> SpotifyAlbum::ActiveRecord_Relation
+
+end
+
+class SpotifyAlbum::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

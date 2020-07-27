@@ -1,0 +1,45 @@
+extension AppleMusicAlbum (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[AppleMusicAlbum, AppleMusicAlbum::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor album_id (): String
+  attr_accessor apple_music_id (): String
+  attr_accessor name (): String
+  attr_accessor status (): Integer
+  attr_accessor playable (): TrueClass | FalseClass
+  attr_accessor release_date (): Time
+  attr_accessor total_tracks (): Integer
+  attr_accessor record_label (): String
+  attr_accessor copyright (): String
+  attr_accessor artwork_url (): String
+  attr_accessor artwork_width (): Integer
+  attr_accessor artwork_height (): Integer
+  attr_accessor compacted_id (): String
+  def apple_music_tracks: () -> AppleMusicTrack::ActiveRecord_Associations_CollectionProxy
+
+  def album: () -> Album
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> AppleMusicAlbum::ActiveRecord_Relation
+  def self.active: () -> AppleMusicAlbum::ActiveRecord_Relation
+  def self.ignore: () -> AppleMusicAlbum::ActiveRecord_Relation
+
+end
+
+class AppleMusicAlbum::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[AppleMusicAlbum]
+  include Enumerable[AppleMusicAlbum, self]
+  def pending: () -> AppleMusicAlbum::ActiveRecord_Relation
+  def active: () -> AppleMusicAlbum::ActiveRecord_Relation
+  def ignore: () -> AppleMusicAlbum::ActiveRecord_Relation
+
+end
+
+class AppleMusicAlbum::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

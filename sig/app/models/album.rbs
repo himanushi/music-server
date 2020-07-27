@@ -1,0 +1,48 @@
+extension Album (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[Album, Album::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor status (): Integer
+  attr_accessor release_date (): Time
+  attr_accessor total_tracks (): Integer
+  def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
+  def artists: () -> Artist::ActiveRecord_Associations_CollectionProxy
+  def album_has_tracks: () -> AlbumHasTrack::ActiveRecord_Associations_CollectionProxy
+  def tracks: () -> Track::ActiveRecord_Associations_CollectionProxy
+  def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
+  def apple_music_and_itunes_album: () -> AppleMusicAlbum
+  def spotify_album: () -> SpotifyAlbum
+
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> Album::ActiveRecord_Relation
+  def self.active: () -> Album::ActiveRecord_Relation
+  def self.ignore: () -> Album::ActiveRecord_Relation
+  def self.include_artists: () -> Album::ActiveRecord_Relation
+  def self.include_tracks: () -> Album::ActiveRecord_Relation
+  def self.include_services: () -> Album::ActiveRecord_Relation
+  def self.services: () -> Album::ActiveRecord_Relation
+  def self.names: () -> Album::ActiveRecord_Relation
+end
+
+class Album::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[Album]
+  include Enumerable[Album, self]
+  def pending: () -> Album::ActiveRecord_Relation
+  def active: () -> Album::ActiveRecord_Relation
+  def ignore: () -> Album::ActiveRecord_Relation
+  def include_artists: () -> Album::ActiveRecord_Relation
+  def include_tracks: () -> Album::ActiveRecord_Relation
+  def include_services: () -> Album::ActiveRecord_Relation
+  def services: () -> Album::ActiveRecord_Relation
+  def names: () -> Album::ActiveRecord_Relation
+end
+
+class Album::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

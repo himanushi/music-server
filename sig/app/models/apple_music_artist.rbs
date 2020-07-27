@@ -1,0 +1,36 @@
+extension AppleMusicArtist (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[AppleMusicArtist, AppleMusicArtist::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor artist_id (): String
+  attr_accessor apple_music_id (): String
+  attr_accessor name (): String
+  attr_accessor status (): Integer
+
+
+  def artist: () -> Artist
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> AppleMusicArtist::ActiveRecord_Relation
+  def self.active: () -> AppleMusicArtist::ActiveRecord_Relation
+  def self.ignore: () -> AppleMusicArtist::ActiveRecord_Relation
+
+end
+
+class AppleMusicArtist::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[AppleMusicArtist]
+  include Enumerable[AppleMusicArtist, self]
+  def pending: () -> AppleMusicArtist::ActiveRecord_Relation
+  def active: () -> AppleMusicArtist::ActiveRecord_Relation
+  def ignore: () -> AppleMusicArtist::ActiveRecord_Relation
+
+end
+
+class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end
