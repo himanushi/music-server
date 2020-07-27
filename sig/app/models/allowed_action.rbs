@@ -1,4 +1,4 @@
-extension AllowedAction (RbsRails)
+class AllowedAction < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[AllowedAction, AllowedAction::ActiveRecord_Relation]
 
   attr_accessor id (): String

@@ -1,4 +1,4 @@
-extension SpotifyArtist (RbsRails)
+class SpotifyArtist < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[SpotifyArtist, SpotifyArtist::ActiveRecord_Relation]
 
   attr_accessor id (): String

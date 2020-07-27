@@ -1,4 +1,4 @@
-extension IgnoreContent (RbsRails)
+class IgnoreContent < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[IgnoreContent, IgnoreContent::ActiveRecord_Relation]
 
   attr_accessor id (): String

@@ -1,4 +1,4 @@
-extension User (RbsRails)
+class User < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[User, User::ActiveRecord_Relation]
 
   attr_accessor id (): String

@@ -1,4 +1,4 @@
-extension Favorite (RbsRails)
+class Favorite < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Favorite, Favorite::ActiveRecord_Relation]
 
   attr_accessor id (): String

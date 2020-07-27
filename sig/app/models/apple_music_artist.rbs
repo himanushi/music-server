@@ -1,4 +1,4 @@
-extension AppleMusicArtist (RbsRails)
+class AppleMusicArtist < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[AppleMusicArtist, AppleMusicArtist::ActiveRecord_Relation]
 
   attr_accessor id (): String

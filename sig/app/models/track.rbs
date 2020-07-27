@@ -1,4 +1,4 @@
-extension Track (RbsRails)
+class Track < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Track, Track::ActiveRecord_Relation]
 
   attr_accessor id (): String

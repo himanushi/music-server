@@ -1,4 +1,4 @@
-extension AppleMusicAlbum (RbsRails)
+class AppleMusicAlbum < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[AppleMusicAlbum, AppleMusicAlbum::ActiveRecord_Relation]
 
   attr_accessor id (): String

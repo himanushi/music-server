@@ -1,4 +1,4 @@
-extension SpotifyTrack (RbsRails)
+class SpotifyTrack < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[SpotifyTrack, SpotifyTrack::ActiveRecord_Relation]
 
   attr_accessor id (): String

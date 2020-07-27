@@ -1,4 +1,4 @@
-extension Role (RbsRails)
+class Role < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Role, Role::ActiveRecord_Relation]
 
   attr_accessor id (): String

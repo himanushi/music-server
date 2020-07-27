@@ -1,4 +1,4 @@
-extension ArtistHasTrack (RbsRails)
+class ArtistHasTrack < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[ArtistHasTrack, ArtistHasTrack::ActiveRecord_Relation]
 
   attr_accessor id (): String

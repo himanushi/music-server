@@ -1,4 +1,4 @@
-extension Session (RbsRails)
+class Session < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Session, Session::ActiveRecord_Relation]
 
   attr_accessor id (): String

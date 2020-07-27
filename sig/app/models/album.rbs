@@ -1,4 +1,4 @@
-extension Album (RbsRails)
+class Album < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Album, Album::ActiveRecord_Relation]
 
   attr_accessor id (): String
