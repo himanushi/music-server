@@ -29,16 +29,16 @@ end
 class AbstractController::Base
 end
 
-class ActionController::Metal < AbstractController::Base
+class ActionController::Metal < ::AbstractController::Base
 end
 
-class ActionController::Base < ActionController::Metal
+class ActionController::Base < ::ActionController::Metal
   include _ActionController_API_and_Base
   extend _ActionController_API_and_Base_singletion
-  extend ActionView::Layouts::ClassMethods
+  extend ::ActionView::Layouts::ClassMethods
 end
 
-class ActionController::API < ActionController::Metal
+class ActionController::API < ::ActionController::Metal
   include _ActionController_API_and_Base
   extend _ActionController_API_and_Base_singletion
 end

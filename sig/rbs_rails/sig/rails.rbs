@@ -1,5 +1,5 @@
 module Rails
-  def self.root: () -> Pathname
+  def self.root: () -> untyped # TODO: Pathname の stdlib がないので仕方ないの
   def self.application: () -> Rails::Application
 end
 

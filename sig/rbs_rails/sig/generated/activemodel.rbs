@@ -455,7 +455,7 @@ end
 # :nodoc:
 ActiveModel::AttributeMutationTracker::OPTION_NOT_GIVEN: untyped
 
-class ActiveModel::ForcedMutationTracker < AttributeMutationTracker
+class ActiveModel::ForcedMutationTracker < ActiveModel::AttributeMutationTracker
   # :nodoc:
   def initialize: (untyped attributes, ?::Hash[untyped, untyped] forced_changes) -> untyped
 
@@ -571,28 +571,28 @@ class ActiveModel::Attribute
   def _original_value_for_database: () -> untyped
 end
 
-class ActiveModel::Attribute::FromDatabase < Attribute
+class ActiveModel::Attribute::FromDatabase < ActiveModel::Attribute
   # :nodoc:
   def type_cast: (untyped value) -> untyped
 
   def _original_value_for_database: () -> untyped
 end
 
-class ActiveModel::Attribute::FromUser < Attribute
+class ActiveModel::Attribute::FromUser < ActiveModel::Attribute
   # :nodoc:
   def type_cast: (untyped value) -> untyped
 
   def came_from_user?: () -> untyped
 end
 
-class ActiveModel::Attribute::WithCastValue < Attribute
+class ActiveModel::Attribute::WithCastValue < ActiveModel::Attribute
   # :nodoc:
   def type_cast: (untyped value) -> untyped
 
   def changed_in_place?: () -> ::FalseClass
 end
 
-class ActiveModel::Attribute::Null < Attribute
+class ActiveModel::Attribute::Null < ActiveModel::Attribute
   # :nodoc:
   def initialize: (untyped name) -> untyped
 
@@ -603,7 +603,7 @@ class ActiveModel::Attribute::Null < Attribute
   def with_value_from_database: (untyped value) -> untyped
 end
 
-class ActiveModel::Attribute::Uninitialized < Attribute
+class ActiveModel::Attribute::Uninitialized < ActiveModel::Attribute
   def initialize: (untyped name, untyped `type`) -> untyped
 
   def value: () { (untyped) -> untyped } -> untyped
@@ -797,7 +797,7 @@ end
 
 ActiveModel::Attributes::ClassMethods::NO_DEFAULT_PROVIDED: untyped
 
-class ActiveModel::Attribute::UserProvidedDefault < FromUser
+class ActiveModel::Attribute::UserProvidedDefault < ActiveModel::Attribute::FromUser
   # :nodoc:
   # :nodoc:
   def initialize: (untyped name, untyped value, untyped `type`, untyped database_default) -> untyped
@@ -2304,7 +2304,7 @@ class ActiveModel::Type::BigInteger < Integer
   def max_value: () -> untyped
 end
 
-class ActiveModel::Type::Binary < Value
+class ActiveModel::Type::Binary < ActiveModel::Type::Value
   # :nodoc:
   def `type`: () -> :binary
 
@@ -2339,7 +2339,7 @@ end
 # - "false", "f" , "0", +0+ or any other value in +FALSE_VALUES+ will be coerced to +false+
 # - Empty strings are coerced to +nil+
 # - All other values will be coerced to +true+
-class ActiveModel::Type::Boolean < Value
+class ActiveModel::Type::Boolean < ActiveModel::Type::Value
   def `type`: () -> :boolean
 
   def serialize: (untyped value) -> untyped
@@ -2349,9 +2349,9 @@ end
 
 ActiveModel::Type::Boolean::FALSE_VALUES: untyped
 
-class ActiveModel::Type::Date < Value
+class ActiveModel::Type::Date < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Timezone
+  include ActiveModel::Type::Helpers::Timezone
 
   def `type`: () -> :date
 
@@ -2370,11 +2370,11 @@ end
 
 ActiveModel::Type::Date::ISO_DATE: untyped
 
-class ActiveModel::Type::DateTime < Value
+class ActiveModel::Type::DateTime < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Timezone
+  include ActiveModel::Type::Helpers::Timezone
 
-  include Helpers::TimeValue
+  include ActiveModel::Type::Helpers::TimeValue
 
   def `type`: () -> :datetime
 
@@ -2389,9 +2389,9 @@ class ActiveModel::Type::DateTime < Value
   def value_from_multiparameter_assignment: (untyped values_hash) -> untyped
 end
 
-class ActiveModel::Type::Decimal < Value
+class ActiveModel::Type::Decimal < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Numeric
+  include ActiveModel::Type::Helpers::Numeric
 
   def `type`: () -> :decimal
 
@@ -2408,9 +2408,9 @@ end
 
 ActiveModel::Type::Decimal::BIGDECIMAL_PRECISION: ::Integer
 
-class ActiveModel::Type::Float < Value
+class ActiveModel::Type::Float < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Numeric
+  include ActiveModel::Type::Helpers::Numeric
 
   def `type`: () -> :float
 
@@ -2477,7 +2477,7 @@ module ActiveModel::Type::Helpers::Timezone
   def default_timezone: () -> untyped
 end
 
-class ActiveModel::Type::ImmutableString < Value
+class ActiveModel::Type::ImmutableString < ActiveModel::Type::Value
   # :nodoc:
   def `type`: () -> :string
 
@@ -2486,9 +2486,9 @@ class ActiveModel::Type::ImmutableString < Value
   def cast_value: (untyped value) -> untyped
 end
 
-class ActiveModel::Type::Integer < Value
+class ActiveModel::Type::Integer < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Numeric
+  include ActiveModel::Type::Helpers::Numeric
 
   def initialize: () -> untyped
 
@@ -2542,18 +2542,18 @@ class ActiveModel::Type::Registration
   attr_reader block: untyped
 end
 
-class ActiveModel::Type::String < ImmutableString
+class ActiveModel::Type::String < ActiveModel::Type::ImmutableString
   # :nodoc:
   def changed_in_place?: (untyped raw_old_value, untyped new_value) -> untyped
 
   def cast_value: (untyped value) -> untyped
 end
 
-class ActiveModel::Type::Time < Value
+class ActiveModel::Type::Time < ActiveModel::Type::Value
   # :nodoc:
-  include Helpers::Timezone
+  include ActiveModel::Type::Helpers::Timezone
 
-  include Helpers::TimeValue
+  include ActiveModel::Type::Helpers::TimeValue
 
   def `type`: () -> :time
 
@@ -2786,7 +2786,7 @@ module ActiveModel::Validations
   def validates_with: (*untyped args) { () -> untyped } -> untyped
 end
 
-class ActiveModel::Validations::AbsenceValidator < EachValidator
+class ActiveModel::Validations::AbsenceValidator < ActiveModel::EachValidator
   # == \Active \Model Absence Validator
   # nodoc:
   def validate_each: (untyped record, untyped attr_name, untyped value) -> untyped
@@ -3112,7 +3112,7 @@ module ActiveModel::Validations::HelperMethods
   def validates_presence_of: (*untyped attr_names) -> untyped
 end
 
-class ActiveModel::Validations::AcceptanceValidator < EachValidator
+class ActiveModel::Validations::AcceptanceValidator < ActiveModel::EachValidator
   # :nodoc:
   def initialize: (untyped options) -> untyped
 
@@ -3236,7 +3236,7 @@ end
 # nodoc:
 ActiveModel::Validations::Clusivity::ERROR_MESSAGE: ::String
 
-class ActiveModel::Validations::ConfirmationValidator < EachValidator
+class ActiveModel::Validations::ConfirmationValidator < ActiveModel::EachValidator
   # :nodoc:
   def initialize: (untyped options) -> untyped
 
@@ -3247,14 +3247,14 @@ class ActiveModel::Validations::ConfirmationValidator < EachValidator
   def confirmation_value_equal?: (untyped record, untyped attribute, untyped value, untyped confirmed) -> untyped
 end
 
-class ActiveModel::Validations::ExclusionValidator < EachValidator
+class ActiveModel::Validations::ExclusionValidator < ActiveModel::EachValidator
   # :nodoc:
-  include Clusivity
+  include ActiveModel::Validations::Clusivity
 
   def validate_each: (untyped record, untyped attribute, untyped value) -> untyped
 end
 
-class ActiveModel::Validations::FormatValidator < EachValidator
+class ActiveModel::Validations::FormatValidator < ActiveModel::EachValidator
   # :nodoc:
   def validate_each: (untyped record, untyped attribute, untyped value) -> untyped
 
@@ -3269,14 +3269,14 @@ class ActiveModel::Validations::FormatValidator < EachValidator
   def regexp_using_multiline_anchors?: (untyped regexp) -> untyped
 end
 
-class ActiveModel::Validations::InclusionValidator < EachValidator
+class ActiveModel::Validations::InclusionValidator < ActiveModel::EachValidator
   # :nodoc:
-  include Clusivity
+  include ActiveModel::Validations::Clusivity
 
   def validate_each: (untyped record, untyped attribute, untyped value) -> untyped
 end
 
-class ActiveModel::Validations::LengthValidator < EachValidator
+class ActiveModel::Validations::LengthValidator < ActiveModel::EachValidator
   def initialize: (untyped options) -> untyped
 
   def check_validity!: () -> untyped
@@ -3293,7 +3293,7 @@ ActiveModel::Validations::LengthValidator::CHECKS: untyped
 
 ActiveModel::Validations::LengthValidator::RESERVED_OPTIONS: ::Array[untyped]
 
-class ActiveModel::Validations::NumericalityValidator < EachValidator
+class ActiveModel::Validations::NumericalityValidator < ActiveModel::EachValidator
   def check_validity!: () -> untyped
 
   def validate_each: (untyped record, untyped attr_name, untyped value) -> (nil | untyped)
@@ -3322,7 +3322,7 @@ ActiveModel::Validations::NumericalityValidator::INTEGER_REGEX: untyped
 
 ActiveModel::Validations::NumericalityValidator::HEXADECIMAL_REGEX: untyped
 
-class ActiveModel::Validations::PresenceValidator < EachValidator
+class ActiveModel::Validations::PresenceValidator < ActiveModel::EachValidator
   # :nodoc:
   def validate_each: (untyped record, untyped attr_name, untyped value) -> untyped
 end
@@ -3713,13 +3713,14 @@ ActiveModel::Validations::ClassMethods::VALID_OPTIONS_FOR_VALIDATE: untyped
 #   rescue ActiveModel::ValidationError => invalid
 #     puts invalid.model.errors
 #   end
+
 class ActiveModel::ValidationError < StandardError
   attr_reader model: untyped
 
   def initialize: (untyped model) -> untyped
 end
 
-class ActiveModel::Validations::WithValidator < EachValidator
+class ActiveModel::Validations::WithValidator < ActiveModel::EachValidator
   # :nodoc:
   def validate_each: (untyped record, untyped attr, untyped val) -> untyped
 end
@@ -3837,7 +3838,7 @@ class ActiveModel::Validator
   def validate: (untyped record) -> untyped
 end
 
-class ActiveModel::EachValidator < Validator
+class ActiveModel::EachValidator < ActiveModel::Validator
   # +EachValidator+ is a validator which iterates through the attributes given
   # in the options hash invoking the <tt>validate_each</tt> method passing in the
   # record, attribute and value.
@@ -3866,7 +3867,7 @@ class ActiveModel::EachValidator < Validator
   def check_validity!: () -> nil
 end
 
-class ActiveModel::BlockValidator < EachValidator
+class ActiveModel::BlockValidator < ActiveModel::EachValidator
   # +BlockValidator+ is a special +EachValidator+ which receives a block on initialization
   # and call this block for each attribute being validated. +validates_each+ uses this validator.
   # nodoc:
@@ -3874,4 +3875,3 @@ class ActiveModel::BlockValidator < EachValidator
 
   def validate_each: (untyped record, untyped attribute, untyped value) -> untyped
 end
-

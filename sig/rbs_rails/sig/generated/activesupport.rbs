@@ -4,7 +4,7 @@
 # module and invoke the +action+ class macro to define the action. An action
 # needs a name and a block to execute.
 module ActiveSupport::ActionableError
-  extend Concern
+  extend ActiveSupport::Concern
 
   def self.actions: (untyped error) -> untyped
 
@@ -162,7 +162,7 @@ end
 #
 # FileStore implements the Strategy::LocalCache strategy which implements
 # an in-memory cache inside of a block.
-class ActiveSupport::Cache::FileStore < Store
+class ActiveSupport::Cache::FileStore < ActiveSupport::Cache::Store
   attr_reader cache_path: untyped
 
   def initialize: (untyped cache_path, ?untyped? options) -> untyped
@@ -238,7 +238,7 @@ ActiveSupport::Cache::FileStore::GITKEEP_FILES: untyped
 #
 # MemCacheStore implements the Strategy::LocalCache strategy which implements
 # an in-memory cache inside of a block.
-class ActiveSupport::Cache::MemCacheStore < Store
+class ActiveSupport::Cache::MemCacheStore < ActiveSupport::Cache::Store
   # Advertise cache versioning support.
   def self.supports_cache_versioning?: () -> ::TrueClass
 
@@ -314,7 +314,7 @@ ActiveSupport::Cache::MemCacheStore::ESCAPE_KEY_CHARS: untyped
 # of the maximum size by removing the least recently used entries.
 #
 # MemoryStore is thread-safe.
-class ActiveSupport::Cache::MemoryStore < Store
+class ActiveSupport::Cache::MemoryStore < ActiveSupport::Cache::Store
   def initialize: (?untyped? options) -> untyped
 
   # Advertise cache versioning support.
@@ -366,7 +366,7 @@ ActiveSupport::Cache::MemoryStore::PER_ENTRY_OVERHEAD: ::Integer
 # This cache does implement the local cache strategy, so values will actually
 # be cached inside blocks that utilize this strategy. See
 # ActiveSupport::Cache::Strategy::LocalCache for more details.
-class ActiveSupport::Cache::NullStore < Store
+class ActiveSupport::Cache::NullStore < ActiveSupport::Cache::Store
   # Advertise cache versioning support.
   def self.supports_cache_versioning?: () -> ::TrueClass
 
@@ -845,7 +845,7 @@ end
 # * +read_multi+ and +write_multi+ support for Redis mget/mset. Use Redis::Distributed
 #   4.0.1+ for distributed mget support.
 # * +delete_matched+ support for Redis KEYS globs.
-class ActiveSupport::Cache::RedisCacheStore < Store
+class ActiveSupport::Cache::RedisCacheStore < ActiveSupport::Cache::Store
   # Advertise cache versioning support.
   def self.supports_cache_versioning?: () -> ::TrueClass
 
@@ -1082,7 +1082,7 @@ end
 
 # Simple memory backed cache. This cache is not thread safe and is intended only
 # for serving as a temporary memory cache for a single thread.
-class ActiveSupport::Cache::Strategy::LocalCache::LocalStore < Store
+class ActiveSupport::Cache::Strategy::LocalCache::LocalStore < ActiveSupport::Cache::Store
   def initialize: () -> untyped
 
   def synchronize: () { () -> untyped } -> untyped
@@ -1152,7 +1152,7 @@ end
 #   - save
 #   saved
 module ActiveSupport::Callbacks
-  extend Concern
+  extend ActiveSupport::Concern
 
   extend ActiveSupport::DescendantsTracker
 
@@ -3010,7 +3010,7 @@ extension DateTime (ActiveSupport)
   # ActiveSupport::TimeWithZone instances can be compared with a DateTime.
   def <=>: (untyped other) -> untyped
 
-  include DateAndTime::Compatibility
+  include ::DateAndTime::Compatibility
 
   # Either return an instance of +Time+ with the same UTC offset
   # as +self+ or an instance of +Time+ representing the same time
@@ -5134,7 +5134,7 @@ extension Time (ActiveSupport)
   # Returns a new time the specified number of years in the future.
   def next_year: (?::Integer years) -> untyped
 
-  include DateAndTime::Compatibility
+  include ::DateAndTime::Compatibility
 
   # Either return +self+ or the time in the local system timezone depending
   # on the setting of +ActiveSupport.to_time_preserves_timezone+.
@@ -6221,7 +6221,7 @@ end
 #   DEPRECATION WARNING: This object is now deprecated.
 #   (Backtrace)
 #   # => "#<Object:0x007fb9b34c34b0>"
-class ActiveSupport::Deprecation::DeprecatedObjectProxy < DeprecationProxy
+class ActiveSupport::Deprecation::DeprecatedObjectProxy < ActiveSupport::Deprecation::DeprecationProxy
   def initialize: (untyped object, untyped message, ?untyped deprecator) -> untyped
 
   def target: () -> untyped
@@ -6261,7 +6261,7 @@ end
 #
 #   example.request.to_s
 #   # => "special_request"
-class ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy < DeprecationProxy
+class ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy < ActiveSupport::Deprecation::DeprecationProxy
   def initialize: (untyped `instance`, untyped method, ?::String var, ?untyped deprecator) -> untyped
 
   def target: () -> untyped
@@ -6681,7 +6681,7 @@ ActiveSupport::Duration::PARTS_IN_SECONDS: untyped
 
 ActiveSupport::Duration::PARTS: untyped
 
-class ActiveSupport::EncryptedConfiguration < EncryptedFile
+class ActiveSupport::EncryptedConfiguration < ActiveSupport::EncryptedFile
   def initialize: (raise_if_missing_key: untyped raise_if_missing_key, env_key: untyped env_key, key_path: untyped key_path, config_path: untyped config_path) -> untyped
 
   # Allow a config to be started without a file present
@@ -8030,7 +8030,7 @@ end
 # Log subscriber also has some helpers to deal with logging and automatically
 # flushes all logs when the request finishes
 # (via <tt>action_dispatch.callback</tt> notification) in a Rails environment.
-class ActiveSupport::LogSubscriber < Subscriber
+class ActiveSupport::LogSubscriber < ActiveSupport::Subscriber
   def self.logger: () -> untyped
 
   attr_writer logger: untyped
@@ -8312,7 +8312,7 @@ module ActiveSupport::Messages::Rotator
 end
 
 module ActiveSupport::Messages::Rotator::Encryptor
-  include Rotator
+  include ActiveSupport::Messages::Rotator
 
   def decrypt_and_verify: (*untyped args, ?on_rotation: untyped? on_rotation, **untyped options) -> untyped
 
@@ -8320,7 +8320,7 @@ module ActiveSupport::Messages::Rotator::Encryptor
 end
 
 module ActiveSupport::Messages::Rotator::Verifier
-  include Rotator
+  include ActiveSupport::Messages::Rotator
 
   def verified: (*untyped args, ?on_rotation: untyped? on_rotation, **untyped options) -> untyped
 
@@ -8758,7 +8758,7 @@ class ActiveSupport::Notifications::Fanout::Subscribers::Evented
   def unsubscribe!: (untyped name) -> untyped
 end
 
-class ActiveSupport::Notifications::Fanout::Subscribers::Timed < Evented
+class ActiveSupport::Notifications::Fanout::Subscribers::Timed < ActiveSupport::Notifications::Fanout::Subscribers::Evented
   # :nodoc:
   def publish: (untyped name, *untyped args) -> untyped
 
@@ -8767,7 +8767,7 @@ class ActiveSupport::Notifications::Fanout::Subscribers::Timed < Evented
   def finish: (untyped name, untyped id, untyped payload) -> untyped
 end
 
-class ActiveSupport::Notifications::Fanout::Subscribers::EventObject < Evented
+class ActiveSupport::Notifications::Fanout::Subscribers::EventObject < ActiveSupport::Notifications::Fanout::Subscribers::Evented
   def start: (untyped name, untyped id, untyped payload) -> untyped
 
   def finish: (untyped name, untyped id, untyped payload) -> untyped
@@ -9125,7 +9125,7 @@ end
 
 ActiveSupport::NumberHelper::NumberConverter::DEFAULTS: ::Hash[untyped, untyped]
 
-class ActiveSupport::NumberHelper::NumberToCurrencyConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToCurrencyConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 
   def options: () -> untyped
@@ -9133,7 +9133,7 @@ class ActiveSupport::NumberHelper::NumberToCurrencyConverter < NumberConverter
   def i18n_opts: () -> untyped
 end
 
-class ActiveSupport::NumberHelper::NumberToDelimitedConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToDelimitedConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 
   def parts: () -> untyped
@@ -9143,7 +9143,7 @@ end
 
 ActiveSupport::NumberHelper::NumberToDelimitedConverter::DEFAULT_DELIMITER_REGEX: untyped
 
-class ActiveSupport::NumberHelper::NumberToHumanConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToHumanConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 
   def format: () -> untyped
@@ -9160,7 +9160,7 @@ ActiveSupport::NumberHelper::NumberToHumanConverter::DECIMAL_UNITS: ::Hash[untyp
 
 ActiveSupport::NumberHelper::NumberToHumanConverter::INVERTED_DECIMAL_UNITS: untyped
 
-class ActiveSupport::NumberHelper::NumberToHumanSizeConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToHumanSizeConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 
   def conversion_format: () -> untyped
@@ -9179,11 +9179,11 @@ end
 # nodoc:
 ActiveSupport::NumberHelper::NumberToHumanSizeConverter::STORAGE_UNITS: ::Array[untyped]
 
-class ActiveSupport::NumberHelper::NumberToPercentageConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToPercentageConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 end
 
-class ActiveSupport::NumberHelper::NumberToPhoneConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToPhoneConverter < ActiveSupport::NumberHelper::NumberConverter
   # nodoc:
   def convert: () -> untyped
 
@@ -9204,7 +9204,7 @@ class ActiveSupport::NumberHelper::NumberToPhoneConverter < NumberConverter
   def regexp_pattern: (untyped default_pattern) -> untyped
 end
 
-class ActiveSupport::NumberHelper::NumberToRoundedConverter < NumberConverter
+class ActiveSupport::NumberHelper::NumberToRoundedConverter < ActiveSupport::NumberHelper::NumberConverter
   def convert: () -> untyped
 
   def strip_insignificant_zeros: () -> untyped
@@ -9664,7 +9664,7 @@ end
 #   h = ActiveSupport::InheritableOptions.new({ girl: 'Mary', boy: 'John' })
 #   h.girl # => 'Mary'
 #   h.boy  # => 'John'
-class ActiveSupport::InheritableOptions[K, V] < OrderedOptions[K, V]
+class ActiveSupport::InheritableOptions[K, V] < ActiveSupport::OrderedOptions[K, V]
   def initialize: (?untyped? parent) -> untyped
 
   def inheritable_copy: () -> untyped
@@ -9799,7 +9799,7 @@ end
 #   after_class_unload -- Run immediately after the classes are
 #   unloaded.
 #
-class ActiveSupport::Reloader < ExecutionWrapper
+class ActiveSupport::Reloader < ActiveSupport::ExecutionWrapper
   # Registers a callback that will run once at application startup and every time the code is reloaded.
   def self.to_prepare: (*untyped args) { () -> untyped } -> untyped
 
@@ -9841,7 +9841,7 @@ end
 
 # Rescuable module adds support for easier exception handling.
 module ActiveSupport::Rescuable
-  extend Concern
+  extend ActiveSupport::Concern
 
   # Delegates to the class method, but uses the instance as the subject for
   # rescue_from handlers (method calls, instance_exec blocks).
@@ -10016,7 +10016,7 @@ class ActiveSupport::SubscriberQueueRegistry
   # See the documentation of <tt>ActiveSupport::PerThreadRegistry</tt>
   # for further details.
   # :nodoc:
-  extend PerThreadRegistry
+  extend ActiveSupport::PerThreadRegistry
 
   def initialize: () -> untyped
 
@@ -10633,7 +10633,7 @@ class ActiveSupport::TimeWithZone
 
   include Comparable
 
-  include DateAndTime::Compatibility
+  include ::DateAndTime::Compatibility
 
   attr_reader time_zone: untyped
 
