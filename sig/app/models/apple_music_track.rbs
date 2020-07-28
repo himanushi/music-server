@@ -32,7 +32,7 @@ class AppleMusicTrack < ApplicationRecord
 
 end
 
-class AppleMusicTrack::ActiveRecord_Relation < ActiveRecord::Relation
+class AppleMusicTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[AppleMusicTrack]
   include Enumerable[AppleMusicTrack, self]
   def pending: () -> AppleMusicTrack::ActiveRecord_Relation
@@ -41,5 +41,5 @@ class AppleMusicTrack::ActiveRecord_Relation < ActiveRecord::Relation
 
 end
 
-class AppleMusicTrack::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class AppleMusicTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

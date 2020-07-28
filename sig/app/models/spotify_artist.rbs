@@ -34,7 +34,7 @@ class SpotifyArtist < ApplicationRecord
 
 end
 
-class SpotifyArtist::ActiveRecord_Relation < ActiveRecord::Relation
+class SpotifyArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[SpotifyArtist]
   include Enumerable[SpotifyArtist, self]
   def pending: () -> SpotifyArtist::ActiveRecord_Relation
@@ -43,5 +43,5 @@ class SpotifyArtist::ActiveRecord_Relation < ActiveRecord::Relation
 
 end
 
-class SpotifyArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class SpotifyArtist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

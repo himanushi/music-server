@@ -31,7 +31,7 @@ class Album < ApplicationRecord
   def self.names: () -> Album::ActiveRecord_Relation
 end
 
-class Album::ActiveRecord_Relation < ActiveRecord::Relation
+class Album::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[Album]
   include Enumerable[Album, self]
   def pending: () -> Album::ActiveRecord_Relation
@@ -44,5 +44,5 @@ class Album::ActiveRecord_Relation < ActiveRecord::Relation
   def names: () -> Album::ActiveRecord_Relation
 end
 
-class Album::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class Album::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

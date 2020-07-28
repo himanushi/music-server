@@ -30,7 +30,7 @@ class Artist < ApplicationRecord
   def self.names: () -> Artist::ActiveRecord_Relation
 end
 
-class Artist::ActiveRecord_Relation < ActiveRecord::Relation
+class Artist::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[Artist]
   include Enumerable[Artist, self]
   def pending: () -> Artist::ActiveRecord_Relation
@@ -42,5 +42,5 @@ class Artist::ActiveRecord_Relation < ActiveRecord::Relation
   def names: () -> Artist::ActiveRecord_Relation
 end
 
-class Artist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class Artist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

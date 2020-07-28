@@ -14,12 +14,12 @@ class Session < ApplicationRecord
 
 end
 
-class Session::ActiveRecord_Relation < ActiveRecord::Relation
+class Session::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[Session]
   include Enumerable[Session, self]
 
 
 end
 
-class Session::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class Session::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

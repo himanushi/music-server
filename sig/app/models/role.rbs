@@ -15,12 +15,12 @@ class Role < ApplicationRecord
 
 end
 
-class Role::ActiveRecord_Relation < ActiveRecord::Relation
+class Role::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[Role]
   include Enumerable[Role, self]
 
 
 end
 
-class Role::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class Role::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

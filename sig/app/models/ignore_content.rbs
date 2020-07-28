@@ -15,12 +15,12 @@ class IgnoreContent < ApplicationRecord
 
 end
 
-class IgnoreContent::ActiveRecord_Relation < ActiveRecord::Relation
+class IgnoreContent::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[IgnoreContent]
   include Enumerable[IgnoreContent, self]
 
 
 end
 
-class IgnoreContent::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class IgnoreContent::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

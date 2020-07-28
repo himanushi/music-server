@@ -23,7 +23,7 @@ class AppleMusicArtist < ApplicationRecord
 
 end
 
-class AppleMusicArtist::ActiveRecord_Relation < ActiveRecord::Relation
+class AppleMusicArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[AppleMusicArtist]
   include Enumerable[AppleMusicArtist, self]
   def pending: () -> AppleMusicArtist::ActiveRecord_Relation
@@ -32,5 +32,5 @@ class AppleMusicArtist::ActiveRecord_Relation < ActiveRecord::Relation
 
 end
 
-class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

@@ -15,12 +15,12 @@ class AlbumHasTrack < ApplicationRecord
 
 end
 
-class AlbumHasTrack::ActiveRecord_Relation < ActiveRecord::Relation
+class AlbumHasTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[AlbumHasTrack]
   include Enumerable[AlbumHasTrack, self]
 
 
 end
 
-class AlbumHasTrack::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class AlbumHasTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

@@ -19,12 +19,12 @@ class User < ApplicationRecord
 
 end
 
-class User::ActiveRecord_Relation < ActiveRecord::Relation
+class User::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[User]
   include Enumerable[User, self]
 
 
 end
 
-class User::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class User::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

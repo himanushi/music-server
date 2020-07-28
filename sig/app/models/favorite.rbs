@@ -16,12 +16,12 @@ class Favorite < ApplicationRecord
 
 end
 
-class Favorite::ActiveRecord_Relation < ActiveRecord::Relation
+class Favorite::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[Favorite]
   include Enumerable[Favorite, self]
 
 
 end
 
-class Favorite::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class Favorite::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

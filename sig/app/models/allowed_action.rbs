@@ -14,12 +14,12 @@ class AllowedAction < ApplicationRecord
 
 end
 
-class AllowedAction::ActiveRecord_Relation < ActiveRecord::Relation
+class AllowedAction::ActiveRecord_Relation < ::ActiveRecord::Relation
   include _ActiveRecord_Relation[AllowedAction]
   include Enumerable[AllowedAction, self]
 
 
 end
 
-class AllowedAction::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+class AllowedAction::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
