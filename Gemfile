@@ -40,6 +40,7 @@ group :development, :test do
   # 型検証
   gem "rbs"
   gem 'rbs_rails'
+  gem "steep"
 end
 
 group :development do
