@@ -29,6 +29,44 @@ class Album < ApplicationRecord
   def self.include_services: () -> Album::ActiveRecord_Relation
   def self.services: () -> Album::ActiveRecord_Relation
   def self.names: () -> Album::ActiveRecord_Relation
+
+  # 以下は rbs prototype rb app/models/album.rb で生成した内容
+
+  include Albums::Mix
+
+  include Albums::Status
+
+  def self.find_by_isrc_or_create: (untyped album_attrs, untyped tracks_attrs) -> untyped
+
+  def self.all_pending_to_ignore: () -> untyped
+
+  def service: () -> untyped
+
+  def services: () -> untyped
+
+  # アルバム作曲者とトラック作曲者全員
+  def composers: () -> untyped
+
+  # アルバムのトラックの作曲者
+  def tracks_composers: () -> untyped
+
+  def apple_music_album: () -> untyped
+
+  def itunes_album: () -> untyped
+
+  def pick_apple_album: (untyped is_apple_music) -> (nil | untyped)
+
+  # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
+  def create_all_service_albums: () -> (::Array[untyped] | untyped)
+
+  def validate_exists_services: () -> untyped
+
+  # レコードを削除し関連音楽サービスを除外コンテンツにする
+  def force_ignore: () -> untyped
+
+  def to_path: () -> ::String
+
+  def to_url: () -> ::String
 end
 
 class Album::ActiveRecord_Relation < ::ActiveRecord::Relation
