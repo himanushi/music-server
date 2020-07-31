@@ -19,7 +19,7 @@
 #   # library "rspec"
 # end
 
-target :app do
-  check "models"
+target :models do
+  check "app/models"
   signature "sig"
 end
