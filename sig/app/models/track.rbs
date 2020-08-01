@@ -1,0 +1,49 @@
+class Track < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Track, Track::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor isrc (): String
+  attr_accessor status (): Integer
+  def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
+  def artists: () -> Artist::ActiveRecord_Associations_CollectionProxy
+  def album_has_tracks: () -> AlbumHasTrack::ActiveRecord_Associations_CollectionProxy
+  def albums: () -> Album::ActiveRecord_Associations_CollectionProxy
+  def apple_music_and_itunes_tracks: () -> AppleMusicTrack::ActiveRecord_Associations_CollectionProxy
+  def spotify_tracks: () -> SpotifyTrack::ActiveRecord_Associations_CollectionProxy
+
+
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> Track::ActiveRecord_Relation
+  def self.active: () -> Track::ActiveRecord_Relation
+  def self.ignore: () -> Track::ActiveRecord_Relation
+  def self.include_artists: () -> Track::ActiveRecord_Relation
+  def self.include_albums: () -> Track::ActiveRecord_Relation
+  def self.include_services: () -> Track::ActiveRecord_Relation
+  def self.include_album_services: () -> Track::ActiveRecord_Relation
+  def self.services: () -> Track::ActiveRecord_Relation
+  def self.names: () -> Track::ActiveRecord_Relation
+end
+
+class Track::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[Track]
+  include Enumerable[Track, self]
+  def pending: () -> Track::ActiveRecord_Relation
+  def active: () -> Track::ActiveRecord_Relation
+  def ignore: () -> Track::ActiveRecord_Relation
+  def include_artists: () -> Track::ActiveRecord_Relation
+  def include_albums: () -> Track::ActiveRecord_Relation
+  def include_services: () -> Track::ActiveRecord_Relation
+  def include_album_services: () -> Track::ActiveRecord_Relation
+  def services: () -> Track::ActiveRecord_Relation
+  def names: () -> Track::ActiveRecord_Relation
+end
+
+class Track::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

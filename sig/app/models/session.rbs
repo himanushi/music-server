@@ -1,0 +1,25 @@
+class Session < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Session, Session::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor user_id (): String
+  attr_accessor token (): String
+
+
+  def user: () -> User
+
+
+
+end
+
+class Session::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[Session]
+  include Enumerable[Session, self]
+
+
+end
+
+class Session::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

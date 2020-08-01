@@ -1,0 +1,25 @@
+class AllowedAction < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[AllowedAction, AllowedAction::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor role_id (): String
+  attr_accessor name (): String
+
+
+  def role: () -> Role
+
+
+
+end
+
+class AllowedAction::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[AllowedAction]
+  include Enumerable[AllowedAction, self]
+
+
+end
+
+class AllowedAction::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

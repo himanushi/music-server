@@ -1,0 +1,26 @@
+class AlbumHasTrack < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[AlbumHasTrack, AlbumHasTrack::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor album_id (): String
+  attr_accessor track_id (): String
+
+
+  def album: () -> Album
+  def track: () -> Track
+
+
+
+end
+
+class AlbumHasTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[AlbumHasTrack]
+  include Enumerable[AlbumHasTrack, self]
+
+
+end
+
+class AlbumHasTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

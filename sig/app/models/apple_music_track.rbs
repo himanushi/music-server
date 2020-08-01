@@ -1,0 +1,45 @@
+class AppleMusicTrack < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[AppleMusicTrack, AppleMusicTrack::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor track_id (): String
+  attr_accessor apple_music_id (): String
+  attr_accessor apple_music_album_id (): String
+  attr_accessor isrc (): String
+  attr_accessor name (): String
+  attr_accessor disc_number (): Integer
+  attr_accessor track_number (): Integer
+  attr_accessor status (): Integer
+  attr_accessor playable (): TrueClass | FalseClass
+  attr_accessor has_lyrics (): TrueClass | FalseClass
+  attr_accessor duration_ms (): Integer
+  attr_accessor preview_url (): String
+
+
+  def track: () -> Track
+  def apple_music_album: () -> AppleMusicAlbum
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> AppleMusicTrack::ActiveRecord_Relation
+  def self.active: () -> AppleMusicTrack::ActiveRecord_Relation
+  def self.ignore: () -> AppleMusicTrack::ActiveRecord_Relation
+
+end
+
+class AppleMusicTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[AppleMusicTrack]
+  include Enumerable[AppleMusicTrack, self]
+  def pending: () -> AppleMusicTrack::ActiveRecord_Relation
+  def active: () -> AppleMusicTrack::ActiveRecord_Relation
+  def ignore: () -> AppleMusicTrack::ActiveRecord_Relation
+
+end
+
+class AppleMusicTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

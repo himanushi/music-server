@@ -1,0 +1,12 @@
+module Albums
+  module Compact
+    extend ActiveSupport::Concern
+
+    # 複数アルバムを単一アルバムへ統合する
+    def compact: (untyped name, untyped ids) -> untyped
+
+    # 複数アルバムへ戻す
+    # 戻す場合のみ単一アルバムを消去する
+    def uncompact: (untyped id) -> untyped
+  end
+end

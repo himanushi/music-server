@@ -37,6 +37,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  # 型検証
+  gem "rbs"
+  gem 'rbs_rails'
+  gem "steep"
 end
 
 group :development do

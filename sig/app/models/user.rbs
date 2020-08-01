@@ -1,0 +1,30 @@
+class User < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[User, User::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor status (): Integer
+  attr_accessor name (): String
+  attr_accessor username (): String
+  attr_accessor encrypted_password (): String
+  attr_accessor description (): String
+  attr_accessor album_id (): String
+  attr_accessor role_id (): String
+  def sessions: () -> Session::ActiveRecord_Associations_CollectionProxy
+
+  def role: () -> Role
+
+
+
+end
+
+class User::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[User]
+  include Enumerable[User, self]
+
+
+end
+
+class User::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

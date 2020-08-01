@@ -1,0 +1,26 @@
+class Role < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Role, Role::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor name (): String
+  attr_accessor description (): String
+  def users: () -> User::ActiveRecord_Associations_CollectionProxy
+  def allowed_actions: () -> AllowedAction::ActiveRecord_Associations_CollectionProxy
+
+
+
+
+
+end
+
+class Role::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[Role]
+  include Enumerable[Role, self]
+
+
+end
+
+class Role::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end

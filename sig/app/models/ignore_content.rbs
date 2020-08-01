@@ -1,0 +1,26 @@
+class IgnoreContent < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[IgnoreContent, IgnoreContent::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  attr_accessor music_service_id (): String
+  attr_accessor title (): String
+  attr_accessor reason (): String
+
+
+
+
+
+
+end
+
+class IgnoreContent::ActiveRecord_Relation < ::ActiveRecord::Relation
+  include _ActiveRecord_Relation[IgnoreContent]
+  include Enumerable[IgnoreContent, self]
+
+
+end
+
+class IgnoreContent::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
