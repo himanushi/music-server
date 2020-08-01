@@ -1,2 +1,10 @@
 class ApplicationRecord < ::ActiveRecord::Base
+  include TTID
+
+  include Enums
+
+  def self.pure_associations: () -> untyped
+
+  # 関連が増えても気づけるような実装を可能にする
+  def self.validate_associations: (untyped _associations) -> untyped
 end

@@ -30,6 +30,32 @@ class AppleMusicAlbum < ApplicationRecord
   def self.active: () -> AppleMusicAlbum::ActiveRecord_Relation
   def self.ignore: () -> AppleMusicAlbum::ActiveRecord_Relation
 
+  # rbs prototype rb app/models/apple_music_album.rb
+
+  include MusicServiceCreatable
+
+  include Albums::Compact
+
+  def self.music_service_id_name: () -> "apple_music_id"
+
+  def self.mapping: (untyped data) -> untyped
+
+  def self.to_album_attrs: (untyped data) -> { release_date: 2, total_tracks: untyped }
+
+  def self.create_by_music_service_id: (untyped apple_music_id) -> (nil | untyped)
+
+  # トラックのISRC1件でアルバム特定し生成する
+  def self.create_by_track_isrc: (untyped isrc) -> (::Array[untyped] | untyped)
+
+  def music_service_id: () -> untyped
+
+  def artwork_l: () -> untyped
+
+  def artwork_m: () -> untyped
+
+  def build_artwork: (untyped max_size) -> untyped
+
+  def sync_status_apple_music_tracks: () -> untyped
 end
 
 class AppleMusicAlbum::ActiveRecord_Relation < ::ActiveRecord::Relation

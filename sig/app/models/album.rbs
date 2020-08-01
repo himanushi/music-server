@@ -30,13 +30,13 @@ class Album < ApplicationRecord
   def self.services: () -> Album::ActiveRecord_Relation
   def self.names: () -> Album::ActiveRecord_Relation
 
-  # 以下は rbs prototype rb app/models/album.rb で生成した内容
+  # rbs prototype rb app/models/album.rb
 
   include Albums::Mix
 
   include Albums::Status
 
-  def self.find_by_isrc_or_create: (untyped album_attrs, untyped tracks_attrs) -> untyped
+  def self.find_by_isrc_or_create: (Array[{ release_date: 1 }] album_attrs, untyped tracks_attrs) -> untyped
 
   def self.all_pending_to_ignore: () -> untyped
 
