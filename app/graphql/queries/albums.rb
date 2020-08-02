@@ -16,16 +16,18 @@ module Queries
     end
 
     class AlbumsConditionsInputObject < BaseInputObject
-      argument :artists,  IdInputObject, "アーティストID", required: false
-      argument :name,     String, "アルバム名(あいまい検索)", required: false
-      argument :status,   [StatusEnum], "表示ステータス", required: false
-      argument :favorite, Boolean, "お気に入り", required: false
+      argument :usernames, [String], "ユーザー名", required: false
+      argument :artists,   IdInputObject, "アーティストID", required: false
+      argument :name,      String, "アルバム名(あいまい検索)", required: false
+      argument :status,    [StatusEnum], "表示ステータス", required: false
+      argument :favorite,  Boolean, "お気に入り", required: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
     argument :sort, AlbumsSortInputObject, required: false, description: "取得順", default_value: AlbumsSortInputObject.default_argument_values
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
+    # TODO: それぞれの条件の検索を疎結合でリファクタすること
     def list_query(cursor:, sort:, conditions: {})
       is_cache = true
       conditions = { status: [:active], **conditions }
@@ -41,6 +43,16 @@ module Queries
           )
       end
 
+      # ユーザー公開お気に入り検索
+      if conditions.has_key?(:usernames)
+        is_cache = false
+        usernames = conditions.delete(:usernames)
+        user_ids =
+          ::User.joins(:public_informations).where(username: usernames, public_informations: { public_type: :album }).ids
+        album_ids = ::Favorite.where(user_id: user_ids, favorable_type: ::Album.name).pluck(:favorable_id)
+        album_relation = album_relation.where(id: album_ids)
+      end
+
       # お気に入り検索
       if conditions.delete(:favorite)
         is_cache = false
@@ -53,7 +65,7 @@ module Queries
         album_ids = ::Album.include_artists.where(artists: { id: ids }).ids
         track_ids = ::Track.include_artists.where(artists: { id: ids }).ids
         album_ids += ::Album.include_tracks.where(tracks: { id: track_ids }).ids
-        conditions[:id] = album_ids.uniq
+        album_relation = album_relation.where(id: album_ids)
       end
 
       [
