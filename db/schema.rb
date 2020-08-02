@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_05_000000) do
+ActiveRecord::Schema.define(version: 2020_08_02_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -144,6 +144,14 @@ ActiveRecord::Schema.define(version: 2020_07_05_000000) do
     t.string "title", limit: 191, null: false
     t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
+  end
+
+  create_table "public_informations", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_id", limit: 16, null: false
+    t.integer "public_type", null: false
+    t.index ["user_id", "public_type"], name: "index_public_informations_on_user_id_and_public_type", unique: true
   end
 
   create_table "roles", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -282,6 +290,7 @@ ActiveRecord::Schema.define(version: 2020_07_05_000000) do
   add_foreign_key "artist_has_tracks", "artists"
   add_foreign_key "artist_has_tracks", "tracks"
   add_foreign_key "favorites", "users"
+  add_foreign_key "public_informations", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "spotify_albums", "albums"
   add_foreign_key "spotify_artists", "artists"
