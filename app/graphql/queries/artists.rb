@@ -16,6 +16,7 @@ module Queries
     end
 
     class ArtistsConditionsInputObject < BaseInputObject
+      argument :usernames, [String], "ユーザー名", required: false
       argument :albums, IdInputObject, "アルバムID", required: false
       argument :name,   String, "アーティスト名(あいまい検索)", required: false
       argument :status, [StatusEnum], "表示ステータス", required: false
@@ -37,6 +38,16 @@ module Queries
         artist_relation = artist_relation.where("artists.name like :name", name: "%#{name}%")
       end
 
+      # ユーザー公開お気に入り検索
+      if conditions.has_key?(:usernames)
+        is_cache = false
+        usernames = conditions.delete(:usernames)
+        user_ids =
+          ::User.joins(:public_informations).where(username: usernames, public_informations: { public_type: :artist }).ids
+        artist_ids = ::Favorite.where(user_id: user_ids, favorable_type: ::Artist.name).pluck(:favorable_id)
+        artist_relation = artist_relation.where(id: artist_ids)
+      end
+
       # お気に入り検索
       if conditions.delete(:favorite)
         is_cache = false
@@ -48,7 +59,7 @@ module Queries
         albums = ::Album.include_artists.include_tracks.where(id: conditions.delete(:albums)[:id])
         artist_ids = albums.map {|a| a.artists.ids }.flatten
         artist_ids += albums.map {|a| a.tracks.include_artists.map {|t| t.artists.ids } }.flatten
-        conditions[:id] = artist_ids.uniq
+        artist_relation = artist_relation.where(id: artist_ids)
       end
 
       [
