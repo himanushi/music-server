@@ -37,6 +37,36 @@ class SpotifyAlbum < ApplicationRecord
   def self.active: () -> SpotifyAlbum::ActiveRecord_Relation
   def self.ignore: () -> SpotifyAlbum::ActiveRecord_Relation
 
+  # rbs prototype rb app/models/spotify_album.rb
+  include MusicServiceCreatable
+
+  include SpotifyArtworkResizable
+
+  include Albums::Compact
+
+  JAPANESE_REGEXP: untyped
+
+  def self.music_service_id_name: () -> "spotify_id"
+
+  def self.mapping: (untyped data) -> untyped
+
+  def self.to_album_attrs: (untyped data) -> { release_date: untyped, total_tracks: untyped }
+
+  def self.create_by_music_service_id: (untyped spotify_id) -> (nil | untyped)
+
+  # トラックのISRC1件でアルバム特定し生成する
+  def self.create_by_track_isrc: (untyped isrc) -> (::Array[untyped] | untyped)
+
+  def music_service_id: () -> untyped
+
+  # albums tracks 全てで playable が存在するため共通化
+  def playable: () -> ::TrueClass
+
+  def artwork_l: () -> untyped
+
+  def artwork_m: () -> untyped
+
+  def sync_status_spotify_tracks: () -> untyped
 end
 
 class SpotifyAlbum::ActiveRecord_Relation < ::ActiveRecord::Relation
