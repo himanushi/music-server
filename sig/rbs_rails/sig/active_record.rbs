@@ -48,6 +48,7 @@ class ActiveRecord::Base
 end
 
 class ActiveRecord::Relation
+  def +: (::ActiveRecord::Relation) -> Array[::ActiveRecord::Base]
 end
 
 class ActiveRecord::Associations::CollectionProxy
@@ -55,7 +56,7 @@ end
 
 interface _ActiveRecord_Relation[Model]
   def all: () -> self
-  def ids: () -> Array[Integer]
+  def ids: () -> Array[String]
   def none: () -> self
   def pluck: (Symbol | String column) -> Array[untyped]
            | (*Symbol | String columns) -> Array[Array[untyped]]
@@ -94,7 +95,7 @@ end
 
 interface _ActiveRecord_Relation_ClassMethods[Model, Relation]
   def all: () -> Relation
-  def ids: () -> Array[Integer]
+  def ids: () -> Array[String]
   def none: () -> Relation
   def pluck: (Symbol | String column) -> Array[untyped]
            | (*Symbol | String columns) -> Array[Array[untyped]]
