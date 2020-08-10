@@ -2,7 +2,7 @@ module Albums
   module Compact
     extend ActiveSupport::Concern
 
-    class_methods do
+    module ClassMethods
       # 複数アルバムを単一アルバムへ統合する
       def compact(name, ids)
         ids.each do |id|
