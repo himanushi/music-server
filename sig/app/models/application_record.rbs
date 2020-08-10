@@ -1,5 +1,6 @@
 class ApplicationRecord < ::ActiveRecord::Base
   include TTID
+  extend TTID::ClassMethods
 
   include Enums
 

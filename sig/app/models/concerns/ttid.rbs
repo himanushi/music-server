@@ -21,14 +21,14 @@ module TTID
 
   def build_id: () -> untyped
 
-  # module ClassMethods
+  module ClassMethods
     # 検証元のクラスと検証したいID
-    def self.validate_ids!: (untyped ids) -> ::TrueClass
+    def validate_ids!: (untyped ids) -> ::TrueClass
 
-    def self.table_id: (?untyped? _table_id) -> untyped
+    def table_id: (?untyped? _table_id) -> untyped
 
-    def self.hex_time: () -> untyped
+    def hex_time: () -> untyped
 
-    def self.build_id: () -> untyped
-  # end
+    def build_id: () -> untyped
+  end
 end
