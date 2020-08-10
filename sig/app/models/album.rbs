@@ -28,7 +28,6 @@ class Album < ApplicationRecord
   def self.include_tracks: () -> Album::ActiveRecord_Relation
   def self.include_services: () -> Album::ActiveRecord_Relation
   def self.services: () -> Album::ActiveRecord_Relation
-  def self.names: () -> Album::ActiveRecord_Relation
 
   # rbs prototype rb app/models/album.rb
 

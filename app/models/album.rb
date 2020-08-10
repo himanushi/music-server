@@ -18,7 +18,6 @@ class Album < ApplicationRecord
   scope :include_tracks, -> { eager_load(:tracks) }
   scope :include_services, -> { eager_load(:apple_music_and_itunes_album, :spotify_album) }
   scope :services, -> { include_services.map(&:service) }
-  scope :names, -> { services.map(&:name) }
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
