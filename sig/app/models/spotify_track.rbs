@@ -43,4 +43,5 @@ class SpotifyTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class SpotifyTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include SpotifyTrack::ActiveRecord_Relation
 end

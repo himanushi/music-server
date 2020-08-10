@@ -42,4 +42,5 @@ class AppleMusicTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class AppleMusicTrack::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include AppleMusicTrack::ActiveRecord_Relation
 end

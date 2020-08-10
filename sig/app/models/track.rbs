@@ -46,4 +46,5 @@ class Track::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class Track::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include Track::ActiveRecord_Relation
 end

@@ -43,4 +43,5 @@ class Artist::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class Artist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include Artist::ActiveRecord_Relation
 end
