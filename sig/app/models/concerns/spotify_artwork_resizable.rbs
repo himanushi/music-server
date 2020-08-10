@@ -1,0 +1,7 @@
+module SpotifyArtworkResizable
+  extend ActiveSupport::Concern
+
+  # artwork のサイズを実寸の値に変更
+  # spotify のサイズは違うことが多々あるため実寸にしておく
+  def resize_artwork: () -> untyped
+end
