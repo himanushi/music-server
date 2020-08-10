@@ -91,7 +91,7 @@ class Album < ApplicationRecord
   end
 
   private def pick_apple_album(is_apple_music)
-    return nil unless apple_music_and_itunes_album.present?
+    return nil if apple_music_and_itunes_album.nil?
     apple_music_and_itunes_album.playable == is_apple_music ? apple_music_and_itunes_album : nil
   end
 
@@ -100,9 +100,9 @@ class Album < ApplicationRecord
     # アルバムの一曲目のISRCを基準に全てのサービスで検索する
     # まとめアルバムのような場合は複数のアルバムにまたいで存在する曲がある
     _isrc =
-      if apple_music_and_itunes_album.present?
+      if !apple_music_and_itunes_album.nil?
         apple_music_and_itunes_album.apple_music_tracks.order(:disc_number, :track_number).first.isrc
-      elsif spotify_album.present?
+      elsif !spotify_album.nil?
         spotify_album.spotify_tracks.order(:disc_number, :track_number).first.isrc
       else
         return []
