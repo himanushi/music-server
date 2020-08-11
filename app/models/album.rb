@@ -74,12 +74,12 @@ class Album < ApplicationRecord
 
   # アルバム作曲者とトラック作曲者全員
   def composers
-    (artists.active + Artist.distinct.active.where(id: tracks.include_artists.pluck("artists.id"))).uniq
+    (artists.active.to_a + tracks_composers).uniq
   end
 
   # アルバムのトラックの作曲者
   def tracks_composers
-    Artist.distinct.where(id: tracks.include_artists.pluck("artists.id"))
+    Artist.distinct.where(id: tracks.include_artists.pluck("artists.id")).to_a
   end
 
   def apple_music_album
@@ -115,7 +115,7 @@ class Album < ApplicationRecord
   end
 
   def validate_exists_services
-    if services.present?
+    unless services.nil?
       raise StandardError, "音楽サービスが一つでも存在する場合は削除できませんよ！確認してください"
     end
   end

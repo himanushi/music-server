@@ -35,33 +35,36 @@ class Album < ApplicationRecord
 
   include Albums::Status
 
-  def self.find_by_isrc_or_create: (untyped album_attrs, Array[untyped] tracks_attrs) -> untyped
+  def self.find_by_isrc_or_create: (
+    { release_date: Time, total_tracks: Integer } album_attrs,
+    Array[{ isrc: String }] tracks_attrs
+  ) -> instance
 
-  def self.all_pending_to_ignore: () -> untyped
+  def self.all_pending_to_ignore: () -> Array[Album]
 
-  def service: () -> untyped
+  def service: () -> (AppleMusicAlbum? | SpotifyAlbum?)
 
-  def services: () -> untyped
+  def services: () -> Array[AppleMusicAlbum? | SpotifyAlbum?]
 
   # アルバム作曲者とトラック作曲者全員
-  def composers: () -> untyped
+  def composers: () -> Array[Artist]
 
   # アルバムのトラックの作曲者
-  def tracks_composers: () -> untyped
+  def tracks_composers: () -> Array[Artist]
 
-  def apple_music_album: () -> untyped
+  def apple_music_album: () -> AppleMusicAlbum?
 
-  def itunes_album: () -> untyped
+  def itunes_album: () -> AppleMusicAlbum?
 
-  def pick_apple_album: (untyped is_apple_music) -> (nil | untyped)
+  def pick_apple_album: (bool is_apple_music) -> AppleMusicAlbum?
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
-  def create_all_service_albums: () -> (::Array[untyped] | untyped)
+  def create_all_service_albums: () -> Array[AppleMusicAlbum? | SpotifyAlbum?]
 
-  def validate_exists_services: () -> untyped
+  def validate_exists_services: () -> void
 
   # レコードを削除し関連音楽サービスを除外コンテンツにする
-  def force_ignore: () -> untyped
+  def force_ignore: () -> void
 
   def to_path: () -> ::String
 
@@ -82,4 +85,5 @@ class Album::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class Album::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include Album::ActiveRecord_Relation
 end
