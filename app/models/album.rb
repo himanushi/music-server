@@ -115,7 +115,7 @@ class Album < ApplicationRecord
   end
 
   def validate_exists_services
-    unless services.nil?
+    unless services.empty?
       raise StandardError, "音楽サービスが一つでも存在する場合は削除できませんよ！確認してください"
     end
   end
