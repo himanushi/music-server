@@ -50,7 +50,8 @@ class Album < ApplicationRecord
         raise StandardError, "アルバムのトラック数が実トラック数と相違がある"
       end
 
-      album = new(album_attrs.merge(tracks: tracks))
+      attributes = album_attrs.merge(tracks: tracks)
+      album = new(attributes)
       album.save!
       album
     end

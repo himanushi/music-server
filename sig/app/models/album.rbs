@@ -35,7 +35,7 @@ class Album < ApplicationRecord
 
   include Albums::Status
 
-  def self.find_by_isrc_or_create: (Array[{ release_date: 1 }] album_attrs, untyped tracks_attrs) -> untyped
+  def self.find_by_isrc_or_create: (untyped album_attrs, Array[untyped] tracks_attrs) -> untyped
 
   def self.all_pending_to_ignore: () -> untyped
 
