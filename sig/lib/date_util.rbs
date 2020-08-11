@@ -1,5 +1,4 @@
 class DateUtil
   # api 経由で取得した日付をよしなに日時へ変換
-  # TODO: DateTime 型が追加されたら変更すること
-  def self.data_to_datetime: (String date) -> untyped
+  def self.data_to_datetime: (String date) -> Time
 end
