@@ -10,8 +10,16 @@ class AllowedAction < ApplicationRecord
 
   def role: () -> Role
 
+  # rbs prototype rb app/models/allowed_action.rb
+  MUTATION_ACTIONS: Array[String]
 
+  QUERY_ACTIONS: Array[String]
 
+  CONSOLE_ACTIONS: Array[String]
+
+  DEFAULT_ACTIONS: Array[String]
+
+  ALL_ACTIONS: Array[String]
 end
 
 class AllowedAction::ActiveRecord_Relation < ::ActiveRecord::Relation
