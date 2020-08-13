@@ -67,6 +67,7 @@ interface _ActiveRecord_Relation[Model]
   def where: (*untyped) -> self
   def not: (*untyped) -> self
   def exists?: (*untyped) -> bool
+  def empty?: (*untyped) -> bool
   def order: (*untyped) -> self
   def group: (*Symbol | String) -> untyped
   def distinct: () -> self
