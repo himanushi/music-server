@@ -33,6 +33,7 @@ class AppleMusicAlbum < ApplicationRecord
   # rbs prototype rb app/models/apple_music_album.rb
 
   include MusicServiceCreatable
+  extend MusicServiceCreatable::ClassMethods
 
   include Albums::Compact
 
