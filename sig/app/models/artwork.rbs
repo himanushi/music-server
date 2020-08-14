@@ -6,5 +6,5 @@ class Artwork
   attr_reader width: Integer
   attr_reader height: Integer
 
-  def initialize: (url: String, width: Integer, height: Integer) -> void
+  def initialize: (url: String?, width: Integer, height: Integer) -> void
 end
