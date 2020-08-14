@@ -60,7 +60,7 @@ class AppleMusicArtist < ApplicationRecord
       albums_ids += data.map {|track| track["attributes"]["url"][/\/([0-9]+)\?/, 1] }
     end
 
-    return [] unless albums_ids.present?
+    return [] if albums_ids.empty?
 
     albums_ids.uniq.map do |albums_id|
       AppleMusicAlbum.find_or_create_by_music_service_id(albums_id) rescue nil
@@ -73,12 +73,5 @@ class AppleMusicArtist < ApplicationRecord
 
   def artwork_m
     @artwork_m ||=  Artwork.new(url: nil, width: 300, height: 300)
-  end
-
-  def build_artwork(max_size)
-    height = artwork_height > max_size ? max_size : artwork_height
-    width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
-    url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
-    Artwork.new(url: url, width: width, height: height)
   end
 end
