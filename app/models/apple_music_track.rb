@@ -14,7 +14,9 @@ class AppleMusicTrack < ApplicationRecord
 
       # TODO: アーティスト紐付け, Apple music は正式な名前を返さないのでどうにかする
       artist = Artist.find_by(name: Artist.to_name(attrs["artistName"]))
-      if artist.present? && artist.tracks.where(id: track.id).empty?
+      # TOTO: Steep エラーいつか直す。 nil に対して tracks を実行しているから。
+      #       TypeScript と違い unless nil でやっても内部で実行しているとエラーになる。
+      if !artist.nil? && artist.tracks.where(id: track.id).empty?
         artist.tracks.push(track)
       end
 

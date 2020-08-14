@@ -30,6 +30,42 @@ class AppleMusicTrack < ApplicationRecord
   def self.active: () -> AppleMusicTrack::ActiveRecord_Relation
   def self.ignore: () -> AppleMusicTrack::ActiveRecord_Relation
 
+  # rbs prototype rb app/models/apple_music_track.rb
+  def self.mapping: ({
+    "id" => String,
+    "type" => String,
+    "attributes" => {
+      "name" => String,
+      "discNumber" => Integer,
+      "trackNumber" => Integer,
+      "hasLyrics" => bool,
+      "playParams" => untyped,
+      "durationInMillis" => Integer,
+      "preview_url" => String,
+      "isrc" => String,
+      "artistName" => String
+    }
+  } data) -> untyped
+
+  def self.to_track_attrs: ({
+    "id" => String,
+    "type" => String,
+    "attributes" => {
+      "name" => String,
+      "discNumber" => Integer,
+      "trackNumber" => Integer,
+      "hasLyrics" => bool,
+      "playParams" => untyped,
+      "durationInMillis" => Integer,
+      "preview_url" => String,
+      "isrc" => String,
+      "artistName" => String
+    }
+  } data) -> untyped # TODO: 型設定すること。今の所できない
+
+  def music_service_id: () -> String
+
+  def artwork_m: () -> Artwork
 end
 
 class AppleMusicTrack::ActiveRecord_Relation < ::ActiveRecord::Relation
