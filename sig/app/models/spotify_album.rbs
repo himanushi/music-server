@@ -7,7 +7,7 @@ class SpotifyAlbum < ApplicationRecord
   attr_accessor album_id (): String
   attr_accessor spotify_id (): String
   attr_accessor name (): String
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   attr_accessor release_date (): Time
   attr_accessor total_tracks (): Integer
   attr_accessor record_label (): String

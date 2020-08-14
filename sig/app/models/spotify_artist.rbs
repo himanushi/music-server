@@ -7,7 +7,7 @@ class SpotifyArtist < ApplicationRecord
   attr_accessor artist_id (): String
   attr_accessor spotify_id (): String
   attr_accessor name (): String
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   attr_accessor total_followers (): Integer
   attr_accessor artwork_l_url (): String
   attr_accessor artwork_l_width (): Integer

@@ -5,7 +5,7 @@ class Track < ApplicationRecord
   attr_accessor created_at (): Time
   attr_accessor updated_at (): Time
   attr_accessor isrc (): String
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
   def artists: () -> Artist::ActiveRecord_Associations_CollectionProxy
   def album_has_tracks: () -> AlbumHasTrack::ActiveRecord_Associations_CollectionProxy

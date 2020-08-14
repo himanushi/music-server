@@ -5,7 +5,7 @@ class Artist < ApplicationRecord
   attr_accessor created_at (): Time
   attr_accessor updated_at (): Time
   attr_accessor name (): String
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
   def albums: () -> Album::ActiveRecord_Associations_CollectionProxy
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy

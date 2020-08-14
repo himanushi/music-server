@@ -4,7 +4,7 @@ class Album < ApplicationRecord
   attr_accessor id (): String
   attr_accessor created_at (): Time
   attr_accessor updated_at (): Time
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   attr_accessor release_date (): Time
   attr_accessor total_tracks (): Integer
   def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy

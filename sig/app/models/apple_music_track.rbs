@@ -11,7 +11,7 @@ class AppleMusicTrack < ApplicationRecord
   attr_accessor name (): String
   attr_accessor disc_number (): Integer
   attr_accessor track_number (): Integer
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   attr_accessor playable (): TrueClass | FalseClass
   attr_accessor has_lyrics (): TrueClass | FalseClass
   attr_accessor duration_ms (): Integer

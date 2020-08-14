@@ -4,7 +4,7 @@ class User < ApplicationRecord
   attr_accessor id (): String
   attr_accessor created_at (): Time
   attr_accessor updated_at (): Time
-  attr_accessor status (): Integer
+  attr_accessor status (): String # enum なので Integer ではなく String
   attr_accessor name (): String
   attr_accessor username (): String
   attr_accessor encrypted_password (): String
