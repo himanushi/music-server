@@ -21,6 +21,31 @@ class AppleMusicArtist < ApplicationRecord
   def self.active: () -> AppleMusicArtist::ActiveRecord_Relation
   def self.ignore: () -> AppleMusicArtist::ActiveRecord_Relation
 
+  # rbs prototype rb app/models/apple_music_artist.rb
+
+  include MusicServiceCreatable
+  extend MusicServiceCreatable::ClassMethods
+
+  def self.music_service_id_name: () -> "apple_music_id"
+
+  def self.mapping: ({
+    "id" => String,
+    "attributes" => {
+      "name" => String
+    }
+  } data) -> { artist_id: String, apple_music_id: String, name: String, status: String }
+
+  def self.create_by_name: (String name) -> Array[instance]
+
+  def self.create_by_music_service_id: (String apple_music_id) -> (nil | instance)
+
+  def music_service_id: () -> String
+
+  def create_albums: () -> Array[AppleMusicAlbum]
+
+  def artwork_l: () -> Artwork
+
+  def artwork_m: () -> Artwork
 end
 
 class AppleMusicArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
