@@ -1,0 +1,12 @@
+# 同じアーティストのはずが別々のアーティストとして識別された時に使用する
+# 同じアーティストであるということを登録する
+# 全ての音楽サービスのアーティストが結合される
+module Artists
+  module Mix
+    extend ActiveSupport::Concern
+
+    # 第一引数のIDがメインアーティストとなる
+    # 破壊的なメソッドで修正不可なので注意して使用すること
+    def mix!: (untyped main_artist_id, untyped sub_artist_id) -> untyped
+  end
+end
