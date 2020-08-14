@@ -1,0 +1,7 @@
+module Artists
+  module Status
+    extend ActiveSupport::Concern
+
+    def sync_status_artists: () -> untyped
+  end
+end
