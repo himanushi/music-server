@@ -58,4 +58,5 @@ class AppleMusicArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
 end
 
 class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  include AppleMusicArtist::ActiveRecord_Relation
 end

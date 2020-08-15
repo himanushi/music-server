@@ -36,17 +36,17 @@ class Artist < ApplicationRecord
 
   FORCE_IGNORE_NAMES: ::Array[untyped]
 
-  def self.create_by_name: (untyped name) -> untyped
+  def self.create_by_name: (String name) -> Artist::ActiveRecord_Relation
 
   def self.to_name: (String name) -> String
 
-  def self.all_pending_to_ignore: () -> untyped
+  def self.all_pending_to_ignore: () -> Array[instance]
 
-  def self.all_create_albums: () -> untyped
+  def self.all_create_albums: () -> Array[instance]
 
-  def create_albums: () -> untyped
+  def create_albums: () -> self
 
-  def service: () -> untyped
+  def service: () -> (SpotifyArtist | AppleMusicArtist | nil)
 
   def to_path: () -> ::String
 
