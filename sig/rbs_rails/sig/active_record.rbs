@@ -101,6 +101,7 @@ interface _ActiveRecord_Relation[Model]
   def delete_all: () -> untyped
   def update_all: (*untyped) -> untyped
   def each: () { (Model) -> void } -> self
+  def push: (*untyped) -> self
 end
 
 interface _ActiveRecord_Relation_ClassMethods[Model, Relation]
