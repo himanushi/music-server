@@ -32,6 +32,26 @@ class SpotifyArtist < ApplicationRecord
   def self.active: () -> SpotifyArtist::ActiveRecord_Relation
   def self.ignore: () -> SpotifyArtist::ActiveRecord_Relation
 
+  # rbs prototype rb app/models/spotify_artist.rb
+  include MusicServiceCreatable
+
+  include SpotifyArtworkResizable
+
+  def self.music_service_id_name: () -> "spotify_id"
+
+  def self.mapping: (untyped data) -> { artist_id: untyped, spotify_id: untyped, name: untyped, total_followers: untyped, artwork_l_url: untyped, artwork_l_width: untyped, artwork_l_height: untyped, artwork_m_url: untyped, artwork_m_width: untyped, artwork_m_height: untyped, artwork_s_url: untyped, artwork_s_width: untyped, artwork_s_height: untyped, popularity: untyped, status: untyped }
+
+  def self.create_by_name: (untyped name) -> untyped
+
+  def self.create_by_music_service_id: (untyped spotify_id) -> (nil | untyped)
+
+  def music_service_id: () -> untyped
+
+  def create_albums: () -> (::Array[untyped] | untyped)
+
+  def artwork_l: () -> untyped
+
+  def artwork_m: () -> untyped
 end
 
 class SpotifyArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
