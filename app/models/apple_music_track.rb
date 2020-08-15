@@ -16,8 +16,9 @@ class AppleMusicTrack < ApplicationRecord
       artist = Artist.find_by(name: Artist.to_name(attrs["artistName"]))
       # TOTO: Steep エラーいつか直す。 nil に対して tracks を実行しているから。
       #       TypeScript と違い unless nil でやっても内部で実行しているとエラーになる。
-      if !artist.nil? && artist.tracks.where(id: track.id).empty?
-        artist.tracks.push(track)
+      #       仕方がないのでぼっち演算子で誤魔化す
+      if !artist.nil? && artist&.tracks&.where(id: track.id)&.empty?
+        artist&.tracks&.push(track)
       end
 
       # ミュージックビデオなどの場合
