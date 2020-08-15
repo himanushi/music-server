@@ -93,7 +93,7 @@ class AppleMusicAlbum < ApplicationRecord
         }]
       }
     }
-  } data) -> untyped # なぜか設定できなかったのでいつか型設定する
+  } data) -> { release_date: Time, total_tracks: Integer }
 
   def self.create_by_music_service_id: (String apple_music_id) -> (nil | AppleMusicAlbum)
 
