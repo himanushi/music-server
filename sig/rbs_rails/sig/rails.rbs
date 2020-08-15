@@ -1,6 +1,8 @@
 module Rails
   overload def self.env: () -> ActiveSupport::StringInquirer
 
+  def self.logger: () ->  ActiveSupport::Logger
+
   module Dom
     module Testing
       module Assertions

@@ -8428,6 +8428,8 @@ module ActiveSupport
   class Logger < ::Logger
     include LoggerSilence
 
+    def info: (String) -> void
+
     # Returns true if the logger destination matches one of the sources
     #
     #   logger = Logger.new(STDOUT)
