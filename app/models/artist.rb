@@ -67,7 +67,7 @@ class Artist < ApplicationRecord
   end
 
   def service
-    @service ||= (spotify_artists + apple_music_artists).first
+    @service ||= (spotify_artists.to_a + apple_music_artists.to_a).first
   end
 
   def to_path
