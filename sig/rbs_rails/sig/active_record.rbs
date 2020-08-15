@@ -50,6 +50,7 @@ class ActiveRecord::Base
   def initialize: (*untyped) -> instance
   def self.find_or_initialize_by: (untyped) -> instance
   def self.find_or_create_by: (*untyped) -> instance
+  def self.find_or_create_by!: (*untyped) -> instance
 end
 
 class ActiveRecord::Relation
