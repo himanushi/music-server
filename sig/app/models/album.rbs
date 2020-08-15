@@ -42,9 +42,9 @@ class Album < ApplicationRecord
 
   def self.all_pending_to_ignore: () -> Array[Album]
 
-  def service: () -> (AppleMusicAlbum? | SpotifyAlbum?)
+  def service: () -> (AppleMusicAlbum | SpotifyAlbum)
 
-  def services: () -> Array[AppleMusicAlbum? | SpotifyAlbum?]
+  def services: () -> Array[AppleMusicAlbum | SpotifyAlbum]
 
   # アルバム作曲者とトラック作曲者全員
   def composers: () -> Array[Artist]
@@ -59,7 +59,7 @@ class Album < ApplicationRecord
   def pick_apple_album: (bool is_apple_music) -> AppleMusicAlbum?
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
-  def create_all_service_albums: () -> Array[AppleMusicAlbum? | SpotifyAlbum?]
+  def create_all_service_albums: () -> Array[AppleMusicAlbum | SpotifyAlbum]
 
   def validate_exists_services: () -> void
 
