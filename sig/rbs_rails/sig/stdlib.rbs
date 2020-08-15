@@ -1,14 +1,24 @@
-class Logger
-end
-
-class Logger::Formatter
-end
-
-module Mutex_m
-end
-
 module DRb
 end
 
 module DRb::DRbUndumped
+end
+
+module TSort
+end
+
+class SimpleDelegator
+end
+
+module Gem
+  class Version
+  end
+end
+
+module OpenSSL
+  class Cipher
+  end
+end
+
+module FileUtils
 end
