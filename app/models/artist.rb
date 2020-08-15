@@ -38,7 +38,7 @@ class Artist < ApplicationRecord
              # カタカナを半角から全角へ変換
              sub(/[\uFF61-\uFF9F]+/) { |str| str.unicode_normalize(:nfkc) }.
              # 半角全角スペースを削除して英語名の場合は名前ごとに区切ってキャメルケースにして半角スペースを追加する
-             split(/\p{blank}/).map(&:camelcase).join(" ").gsub(/([^A-Za-z\s])\s([^A-Za-z\s])/, '\1\2')
+             split(/\p{blank}/).map {|n| n.camelize }.join(" ").gsub(/([^A-Za-z\s])\s([^A-Za-z\s])/, '\1\2')
       raise StandardError, "空文字のアーティスト名になっている" unless name.present?
       name
     end
