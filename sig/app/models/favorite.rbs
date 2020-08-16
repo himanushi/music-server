@@ -12,8 +12,10 @@ class Favorite < ApplicationRecord
   def favorable: () -> untyped
   def user: () -> User
 
+  # rbs prototype rb app/models/favorite.rb
+  def self.register: (Array[ApplicationRecord] favorites, User user) -> void
 
-
+  def self.unregister: (Array[ApplicationRecord] favorites, User user) -> void
 end
 
 class Favorite::ActiveRecord_Relation < ::ActiveRecord::Relation
