@@ -749,7 +749,7 @@ module ActiveModel
     extend ::ActiveModel::AttributeMethods::ClassMethods
 
     module ClassMethods
-      def attribute: (untyped name, ?untyped `type`, **untyped options) -> untyped
+      def attribute: (*untyped) -> untyped
 
       # Returns an array of attribute names as strings
       #
