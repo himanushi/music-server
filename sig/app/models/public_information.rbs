@@ -1,0 +1,84 @@
+class PublicInformation < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[PublicInformation, PublicInformation::ActiveRecord_Relation]
+
+  attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
+  attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
+  attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
+  attr_accessor user_id (): String
+  def user_id_changed?: () -> bool
+  def user_id_change: () -> [String?, String?]
+  def user_id_will_change!: () -> void
+  def user_id_was: () -> String?
+  def user_id_previously_changed?: () -> bool
+  def user_id_previous_change: () -> Array[String?]?
+  def user_id_previously_was: () -> String?
+  def restore_user_id!: () -> void
+  def clear_user_id_change: () -> void
+
+  attr_accessor public_type (): Integer
+  def public_type_changed?: () -> bool
+  def public_type_change: () -> [Integer?, Integer?]
+  def public_type_will_change!: () -> void
+  def public_type_was: () -> Integer?
+  def public_type_previously_changed?: () -> bool
+  def public_type_previous_change: () -> Array[Integer?]?
+  def public_type_previously_was: () -> Integer?
+  def restore_public_type!: () -> void
+  def clear_public_type_change: () -> void
+
+
+
+  def user: () -> User
+  def artist!: () -> bool
+  def artist?: () -> bool
+  def album!: () -> bool
+  def album?: () -> bool
+  def track!: () -> bool
+  def track?: () -> bool
+  def self.artist: () -> PublicInformation::ActiveRecord_Relation
+  def self.album: () -> PublicInformation::ActiveRecord_Relation
+  def self.track: () -> PublicInformation::ActiveRecord_Relation
+
+end
+
+class PublicInformation::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[PublicInformation]
+  include Enumerable[PublicInformation, self]
+  def artist: () -> PublicInformation::ActiveRecord_Relation
+  def album: () -> PublicInformation::ActiveRecord_Relation
+  def track: () -> PublicInformation::ActiveRecord_Relation
+
+end
+
+class PublicInformation::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end
