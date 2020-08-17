@@ -67,14 +67,14 @@ class AppleMusicArtist < ApplicationRecord
   def restore_name!: () -> void
   def clear_name_change: () -> void
 
-  attr_accessor status (): Integer
+  attr_accessor status (): String
   def status_changed?: () -> bool
-  def status_change: () -> [Integer?, Integer?]
+  def status_change: () -> [String?, String?]
   def status_will_change!: () -> void
-  def status_was: () -> Integer?
+  def status_was: () -> String?
   def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[Integer?]?
-  def status_previously_was: () -> Integer?
+  def status_previous_change: () -> Array[String?]?
+  def status_previously_was: () -> String?
   def restore_status!: () -> void
   def clear_status_change: () -> void
 
@@ -128,4 +128,5 @@ class AppleMusicArtist::ActiveRecord_Relation < ActiveRecord::Relation
 end
 
 class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+  include AppleMusicArtist::ActiveRecord_Relation
 end
