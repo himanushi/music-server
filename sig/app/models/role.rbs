@@ -2,25 +2,75 @@ class Role < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Role, Role::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor name (): String
+  def name_changed?: () -> bool
+  def name_change: () -> [String?, String?]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
   attr_accessor description (): String
+  def description_changed?: () -> bool
+  def description_change: () -> [String?, String?]
+  def description_will_change!: () -> void
+  def description_was: () -> String?
+  def description_previously_changed?: () -> bool
+  def description_previous_change: () -> Array[String?]?
+  def description_previously_was: () -> String?
+  def restore_description!: () -> void
+  def clear_description_change: () -> void
+
   def users: () -> User::ActiveRecord_Associations_CollectionProxy
   def allowed_actions: () -> AllowedAction::ActiveRecord_Associations_CollectionProxy
 
+  # rbs prototype rb app/models/role.rb
+  def self.admin_role: () -> instance
 
-
-
-
+  def self.default_role: () -> instance
 end
 
-class Role::ActiveRecord_Relation < ::ActiveRecord::Relation
+class Role::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[Role]
   include Enumerable[Role, self]
 
 
 end
 
-class Role::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+class Role::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
