@@ -2,10 +2,60 @@ class Track < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Track, Track::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor isrc (): String
-  attr_accessor status (): String # enum なので Integer ではなく String
+  def isrc_changed?: () -> bool
+  def isrc_change: () -> [String?, String?]
+  def isrc_will_change!: () -> void
+  def isrc_was: () -> String?
+  def isrc_previously_changed?: () -> bool
+  def isrc_previous_change: () -> Array[String?]?
+  def isrc_previously_was: () -> String?
+  def restore_isrc!: () -> void
+  def clear_isrc_change: () -> void
+
+  attr_accessor status (): Integer
+  def status_changed?: () -> bool
+  def status_change: () -> [Integer?, Integer?]
+  def status_will_change!: () -> void
+  def status_was: () -> Integer?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[Integer?]?
+  def status_previously_was: () -> Integer?
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
   def artists: () -> Artist::ActiveRecord_Associations_CollectionProxy
   def album_has_tracks: () -> AlbumHasTrack::ActiveRecord_Associations_CollectionProxy
@@ -28,10 +78,18 @@ class Track < ApplicationRecord
   def self.include_services: () -> Track::ActiveRecord_Relation
   def self.include_album_services: () -> Track::ActiveRecord_Relation
   def self.services: () -> Track::ActiveRecord_Relation
-  def self.names: () -> Track::ActiveRecord_Relation
+
+  # rbs prototype rb app/models/track.rb
+  def service: () -> (AppleMusicTrack | SpotifyTrack | nil)
+
+  def apple_music_tracks: () -> Array[AppleMusicTrack]
+
+  def itunes_tracks: () -> Array[AppleMusicTrack]
+
+  def pick_apple_track: (bool is_apple_music) -> Array[AppleMusicTrack]
 end
 
-class Track::ActiveRecord_Relation < ::ActiveRecord::Relation
+class Track::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[Track]
   include Enumerable[Track, self]
   def pending: () -> Track::ActiveRecord_Relation
@@ -45,6 +103,5 @@ class Track::ActiveRecord_Relation < ::ActiveRecord::Relation
   def names: () -> Track::ActiveRecord_Relation
 end
 
-class Track::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
-  include Track::ActiveRecord_Relation
+class Track::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end

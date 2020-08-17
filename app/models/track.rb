@@ -15,10 +15,9 @@ class Track < ApplicationRecord
   scope :include_services, -> { eager_load(:apple_music_and_itunes_tracks, :spotify_tracks) }
   scope :include_album_services, -> { eager_load(apple_music_and_itunes_tracks: :apple_music_album, spotify_tracks: :spotify_album) }
   scope :services, -> { include_services.map(&:service) }
-  scope :names, -> { services.map(&:name) }
 
   def service
-    @service ||= (apple_music_and_itunes_tracks + spotify_tracks).first
+    @service ||= (apple_music_and_itunes_tracks.to_a + spotify_tracks.to_a).first
   end
 
   def apple_music_tracks
