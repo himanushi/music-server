@@ -2,10 +2,60 @@ class Artist < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Artist, Artist::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor name (): String
-  attr_accessor status (): String # enum なので Integer ではなく String
+  def name_changed?: () -> bool
+  def name_change: () -> [String?, String?]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
+  attr_accessor status (): String
+  def status_changed?: () -> bool
+  def status_change: () -> [String?, String?]
+  def status_will_change!: () -> void
+  def status_was: () -> String?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[String?]?
+  def status_previously_was: () -> String?
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
   def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
   def albums: () -> Album::ActiveRecord_Associations_CollectionProxy
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
@@ -53,7 +103,7 @@ class Artist < ApplicationRecord
   def to_url: () -> ::String
 end
 
-class Artist::ActiveRecord_Relation < ::ActiveRecord::Relation
+class Artist::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[Artist]
   include Enumerable[Artist, self]
   def pending: () -> Artist::ActiveRecord_Relation
@@ -65,6 +115,6 @@ class Artist::ActiveRecord_Relation < ::ActiveRecord::Relation
   def names: () -> Artist::ActiveRecord_Relation
 end
 
-class Artist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+class Artist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
   include Artist::ActiveRecord_Relation
 end
