@@ -15,7 +15,7 @@ class SpotifyArtist < ApplicationRecord
 
     def mapping(data)
       name   = Artist.to_name(data["name"])
-      artist = Artist.create_or_find_by(name: name)
+      artist = Artist.find_or_create_by(name: name)
       images = data["images"][-3..-1] || []
 
       {
@@ -55,7 +55,6 @@ class SpotifyArtist < ApplicationRecord
   def music_service_id
     spotify_id
   end
-
 
   def create_albums
     result = Spotify::Client.new.get_artist_albums(spotify_id)
