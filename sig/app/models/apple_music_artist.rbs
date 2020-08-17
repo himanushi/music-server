@@ -2,12 +2,82 @@ class AppleMusicArtist < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[AppleMusicArtist, AppleMusicArtist::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor artist_id (): String
+  def artist_id_changed?: () -> bool
+  def artist_id_change: () -> [String?, String?]
+  def artist_id_will_change!: () -> void
+  def artist_id_was: () -> String?
+  def artist_id_previously_changed?: () -> bool
+  def artist_id_previous_change: () -> Array[String?]?
+  def artist_id_previously_was: () -> String?
+  def restore_artist_id!: () -> void
+  def clear_artist_id_change: () -> void
+
   attr_accessor apple_music_id (): String
+  def apple_music_id_changed?: () -> bool
+  def apple_music_id_change: () -> [String?, String?]
+  def apple_music_id_will_change!: () -> void
+  def apple_music_id_was: () -> String?
+  def apple_music_id_previously_changed?: () -> bool
+  def apple_music_id_previous_change: () -> Array[String?]?
+  def apple_music_id_previously_was: () -> String?
+  def restore_apple_music_id!: () -> void
+  def clear_apple_music_id_change: () -> void
+
   attr_accessor name (): String
-  attr_accessor status (): String # enum なので Integer ではなく String
+  def name_changed?: () -> bool
+  def name_change: () -> [String?, String?]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
+  attr_accessor status (): Integer
+  def status_changed?: () -> bool
+  def status_change: () -> [Integer?, Integer?]
+  def status_will_change!: () -> void
+  def status_was: () -> Integer?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[Integer?]?
+  def status_previously_was: () -> Integer?
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
 
 
   def artist: () -> Artist
@@ -48,7 +118,7 @@ class AppleMusicArtist < ApplicationRecord
   def artwork_m: () -> Artwork
 end
 
-class AppleMusicArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
+class AppleMusicArtist::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[AppleMusicArtist]
   include Enumerable[AppleMusicArtist, self]
   def pending: () -> AppleMusicArtist::ActiveRecord_Relation
@@ -57,6 +127,5 @@ class AppleMusicArtist::ActiveRecord_Relation < ::ActiveRecord::Relation
 
 end
 
-class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
-  include AppleMusicArtist::ActiveRecord_Relation
+class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
