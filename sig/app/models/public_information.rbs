@@ -45,14 +45,14 @@ class PublicInformation < ApplicationRecord
   def restore_user_id!: () -> void
   def clear_user_id_change: () -> void
 
-  attr_accessor public_type (): Integer
+  attr_accessor public_type (): String
   def public_type_changed?: () -> bool
-  def public_type_change: () -> [Integer?, Integer?]
+  def public_type_change: () -> [String?, String?]
   def public_type_will_change!: () -> void
-  def public_type_was: () -> Integer?
+  def public_type_was: () -> String?
   def public_type_previously_changed?: () -> bool
-  def public_type_previous_change: () -> Array[Integer?]?
-  def public_type_previously_was: () -> Integer?
+  def public_type_previous_change: () -> Array[String?]?
+  def public_type_previously_was: () -> String?
   def restore_public_type!: () -> void
   def clear_public_type_change: () -> void
 
