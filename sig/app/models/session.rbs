@@ -76,4 +76,5 @@ class Session::ActiveRecord_Relation < ActiveRecord::Relation
 end
 
 class Session::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+  include Session::ActiveRecord_Relation
 end

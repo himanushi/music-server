@@ -24,7 +24,7 @@ class Mutations::UpdateMe < Mutations::BaseMutation
         attrs[:encrypted_password] = BCrypt::Password.create(new_password, cost: 12)
         # パスワードを変更したら全てのセッションを削除し、最新セッション作成
         context[:current_info][:user].sessions.delete_all
-        context[:current_info][:session] = context[:current_info][:user].create_session!
+        context[:current_info][:session] = context[:current_info][:user].sessions.create!
       end
 
       context[:current_info][:user].update!(attrs)

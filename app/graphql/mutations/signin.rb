@@ -14,8 +14,9 @@ class Mutations::Signin < Mutations::BaseMutation
       raise StandardError unless hash_password == password
 
       # cookie 更新
+      # 複数デバイスを許可しておく
       context[:current_info][:user] = user
-      context[:current_info][:session] = user.create_session!
+      context[:current_info][:session] = user.sessions.create!
 
       {
         current_user: user,

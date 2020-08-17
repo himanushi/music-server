@@ -17,15 +17,9 @@ class User < ApplicationRecord
         username: SecureRandom.hex(5).upcase,
       )
       user.role = Role.default_role
-      user.create_session!
+      user.sessions.create!
       user
     end
-  end
-
-  def create_session!
-    session = sessions.new
-    save!
-    session
   end
 
   def can?(action_name)

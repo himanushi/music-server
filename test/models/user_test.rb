@@ -30,14 +30,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 1, user.sessions.size
   end
 
-  def test_ok_create_session!
-    role = Role.create!(name: "default")
-    user = User.create!(name: "test", username: "test", role: role)
-    user.create_session!
-
-    assert_equal 1, user.sessions.size
-  end
-
   def test_ok_can?
     role = Role.create!(name: "default")
     ["me", "updateMe"].each {|name| AllowedAction.create!(name: name, role: role) }

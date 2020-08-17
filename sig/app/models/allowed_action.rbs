@@ -80,4 +80,5 @@ class AllowedAction::ActiveRecord_Relation < ActiveRecord::Relation
 end
 
 class AllowedAction::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+  include AllowedAction::ActiveRecord_Relation
 end

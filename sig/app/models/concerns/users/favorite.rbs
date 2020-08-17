@@ -1,0 +1,18 @@
+# ユーザーお気に入り関連
+module Users
+  module Favorite
+    extend ActiveSupport::Concern
+
+    class UserFavorite
+      attr_reader user_id: untyped
+
+      def initialize: (untyped user_id) -> untyped
+
+      def album_ids: () -> untyped
+
+      def artist_ids: () -> untyped
+    end
+
+    def favorite: () -> untyped
+  end
+end
