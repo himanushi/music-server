@@ -2,10 +2,60 @@ class ArtistHasAlbum < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[ArtistHasAlbum, ArtistHasAlbum::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor artist_id (): String
+  def artist_id_changed?: () -> bool
+  def artist_id_change: () -> [String?, String?]
+  def artist_id_will_change!: () -> void
+  def artist_id_was: () -> String?
+  def artist_id_previously_changed?: () -> bool
+  def artist_id_previous_change: () -> Array[String?]?
+  def artist_id_previously_was: () -> String?
+  def restore_artist_id!: () -> void
+  def clear_artist_id_change: () -> void
+
   attr_accessor album_id (): String
+  def album_id_changed?: () -> bool
+  def album_id_change: () -> [String?, String?]
+  def album_id_will_change!: () -> void
+  def album_id_was: () -> String?
+  def album_id_previously_changed?: () -> bool
+  def album_id_previous_change: () -> Array[String?]?
+  def album_id_previously_was: () -> String?
+  def restore_album_id!: () -> void
+  def clear_album_id_change: () -> void
+
 
 
   def artist: () -> Artist
@@ -15,12 +65,12 @@ class ArtistHasAlbum < ApplicationRecord
 
 end
 
-class ArtistHasAlbum::ActiveRecord_Relation < ::ActiveRecord::Relation
+class ArtistHasAlbum::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[ArtistHasAlbum]
   include Enumerable[ArtistHasAlbum, self]
 
 
 end
 
-class ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+class ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
