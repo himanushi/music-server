@@ -12,9 +12,10 @@ class SpotifyTrack < ApplicationRecord
       track = Track.find_or_create_by(track_attrs)
 
       (data["artists"] || []).each do |artist_data|
-        artist = SpotifyArtist.find_by(spotify_id: artist_data["id"]).try(:artist)
-        if artist.present? && artist.tracks.where(id: track.id).empty?
-          artist.tracks.push(track)
+        artist = SpotifyArtist.find_by(spotify_id: artist_data["id"])&.artist
+
+        if artist.present? && artist&.tracks&.where(id: track.id)&.empty?
+          artist&.tracks&.push(track)
         end
       end
 
