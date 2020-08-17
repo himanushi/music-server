@@ -55,6 +55,21 @@ task generate_rbs_for_model: :environment do
   end
 end
 
+task :generate_rbs_for, ['klass'] => :environment do |task, args|
+  require 'rbs_rails'
+
+  klass = args[:klass].constantize
+  out_dir = Rails.root / 'sig'
+
+  Rails.application.eager_load!
+
+  path = out_dir / "app/models/#{klass.name.underscore}.rbs"
+  FileUtils.mkdir_p(path.dirname)
+
+  sig = RbsRails::ActiveRecord.class_to_rbs(klass)
+  path.write sig
+end
+
 task generate_rbs_for_path_helpers: :environment do
   require 'rbs_rails'
   out_path = Rails.root.join 'sig/path_helpers.rbs'
