@@ -28,8 +28,8 @@ class SpotifyAlbum < ApplicationRecord
 
       data["artists"].each do |ad|
         artist = (SpotifyArtist.find_by(spotify_id: ad["id"]) ||
-                  SpotifyArtist.create_by_music_service_id(ad["id"])).artist
-        artist.albums.push(album) if artist.albums.where(id: album.id).empty?
+                  SpotifyArtist.create_by_music_service_id(ad["id"]))&.artist
+        artist&.albums&.push(album) if artist&.albums&.where(id: album.id)&.empty?
       end
 
       spotify_tracks = tracks_data.map do |td|

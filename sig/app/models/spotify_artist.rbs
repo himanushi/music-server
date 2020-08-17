@@ -271,4 +271,5 @@ class SpotifyArtist::ActiveRecord_Relation < ActiveRecord::Relation
 end
 
 class SpotifyArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+  include SpotifyArtist::ActiveRecord_Relation
 end

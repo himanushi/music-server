@@ -112,6 +112,7 @@ class User < ApplicationRecord
   def clear_role_id_change: () -> void
 
   def sessions: () -> Session::ActiveRecord_Associations_CollectionProxy
+  def sessions=: (*untyped) -> Session::ActiveRecord_Associations_CollectionProxy
   def public_informations: () -> PublicInformation::ActiveRecord_Associations_CollectionProxy
 
   def role: () -> Role
