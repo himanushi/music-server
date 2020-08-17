@@ -2,21 +2,182 @@ class AppleMusicAlbum < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[AppleMusicAlbum, AppleMusicAlbum::ActiveRecord_Relation]
 
   attr_accessor id (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   attr_accessor album_id (): String
+  def album_id_changed?: () -> bool
+  def album_id_change: () -> [String?, String?]
+  def album_id_will_change!: () -> void
+  def album_id_was: () -> String?
+  def album_id_previously_changed?: () -> bool
+  def album_id_previous_change: () -> Array[String?]?
+  def album_id_previously_was: () -> String?
+  def restore_album_id!: () -> void
+  def clear_album_id_change: () -> void
+
   attr_accessor apple_music_id (): String
+  def apple_music_id_changed?: () -> bool
+  def apple_music_id_change: () -> [String?, String?]
+  def apple_music_id_will_change!: () -> void
+  def apple_music_id_was: () -> String?
+  def apple_music_id_previously_changed?: () -> bool
+  def apple_music_id_previous_change: () -> Array[String?]?
+  def apple_music_id_previously_was: () -> String?
+  def restore_apple_music_id!: () -> void
+  def clear_apple_music_id_change: () -> void
+
   attr_accessor name (): String
-  attr_accessor status (): String # enum なので Integer ではなく String
+  def name_changed?: () -> bool
+  def name_change: () -> [String?, String?]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
+  attr_accessor status (): String
+  def status_changed?: () -> bool
+  def status_change: () -> [String?, String?]
+  def status_will_change!: () -> void
+  def status_was: () -> String?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[String?]?
+  def status_previously_was: () -> String?
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
   attr_accessor playable (): TrueClass | FalseClass
+  def playable_changed?: () -> bool
+  def playable_change: () -> [(TrueClass | FalseClass)?, (TrueClass | FalseClass)?]
+  def playable_will_change!: () -> void
+  def playable_was: () -> (TrueClass | FalseClass)?
+  def playable_previously_changed?: () -> bool
+  def playable_previous_change: () -> Array[(TrueClass | FalseClass)?]?
+  def playable_previously_was: () -> (TrueClass | FalseClass)?
+  def restore_playable!: () -> void
+  def clear_playable_change: () -> void
+  attr_accessor playable? (): TrueClass | FalseClass
+
   attr_accessor release_date (): Time
+  def release_date_changed?: () -> bool
+  def release_date_change: () -> [Time?, Time?]
+  def release_date_will_change!: () -> void
+  def release_date_was: () -> Time?
+  def release_date_previously_changed?: () -> bool
+  def release_date_previous_change: () -> Array[Time?]?
+  def release_date_previously_was: () -> Time?
+  def restore_release_date!: () -> void
+  def clear_release_date_change: () -> void
+
   attr_accessor total_tracks (): Integer
+  def total_tracks_changed?: () -> bool
+  def total_tracks_change: () -> [Integer?, Integer?]
+  def total_tracks_will_change!: () -> void
+  def total_tracks_was: () -> Integer?
+  def total_tracks_previously_changed?: () -> bool
+  def total_tracks_previous_change: () -> Array[Integer?]?
+  def total_tracks_previously_was: () -> Integer?
+  def restore_total_tracks!: () -> void
+  def clear_total_tracks_change: () -> void
+
   attr_accessor record_label (): String
+  def record_label_changed?: () -> bool
+  def record_label_change: () -> [String?, String?]
+  def record_label_will_change!: () -> void
+  def record_label_was: () -> String?
+  def record_label_previously_changed?: () -> bool
+  def record_label_previous_change: () -> Array[String?]?
+  def record_label_previously_was: () -> String?
+  def restore_record_label!: () -> void
+  def clear_record_label_change: () -> void
+
   attr_accessor copyright (): String
+  def copyright_changed?: () -> bool
+  def copyright_change: () -> [String?, String?]
+  def copyright_will_change!: () -> void
+  def copyright_was: () -> String?
+  def copyright_previously_changed?: () -> bool
+  def copyright_previous_change: () -> Array[String?]?
+  def copyright_previously_was: () -> String?
+  def restore_copyright!: () -> void
+  def clear_copyright_change: () -> void
+
   attr_accessor artwork_url (): String
+  def artwork_url_changed?: () -> bool
+  def artwork_url_change: () -> [String?, String?]
+  def artwork_url_will_change!: () -> void
+  def artwork_url_was: () -> String?
+  def artwork_url_previously_changed?: () -> bool
+  def artwork_url_previous_change: () -> Array[String?]?
+  def artwork_url_previously_was: () -> String?
+  def restore_artwork_url!: () -> void
+  def clear_artwork_url_change: () -> void
+
   attr_accessor artwork_width (): Integer
+  def artwork_width_changed?: () -> bool
+  def artwork_width_change: () -> [Integer?, Integer?]
+  def artwork_width_will_change!: () -> void
+  def artwork_width_was: () -> Integer?
+  def artwork_width_previously_changed?: () -> bool
+  def artwork_width_previous_change: () -> Array[Integer?]?
+  def artwork_width_previously_was: () -> Integer?
+  def restore_artwork_width!: () -> void
+  def clear_artwork_width_change: () -> void
+
   attr_accessor artwork_height (): Integer
-  attr_accessor compacted_id (): String
+  def artwork_height_changed?: () -> bool
+  def artwork_height_change: () -> [Integer?, Integer?]
+  def artwork_height_will_change!: () -> void
+  def artwork_height_was: () -> Integer?
+  def artwork_height_previously_changed?: () -> bool
+  def artwork_height_previous_change: () -> Array[Integer?]?
+  def artwork_height_previously_was: () -> Integer?
+  def restore_artwork_height!: () -> void
+  def clear_artwork_height_change: () -> void
+
+  attr_accessor compacted_id (): String?
+  def compacted_id_changed?: () -> bool
+  def compacted_id_change: () -> [String?, String?]
+  def compacted_id_will_change!: () -> void
+  def compacted_id_was: () -> String?
+  def compacted_id_previously_changed?: () -> bool
+  def compacted_id_previous_change: () -> Array[String?]?
+  def compacted_id_previously_was: () -> String?
+  def restore_compacted_id!: () -> void
+  def clear_compacted_id_change: () -> void
+
   def apple_music_tracks: () -> AppleMusicTrack::ActiveRecord_Associations_CollectionProxy
 
   def album: () -> Album
@@ -111,7 +272,7 @@ class AppleMusicAlbum < ApplicationRecord
   def sync_status_apple_music_tracks: () -> void
 end
 
-class AppleMusicAlbum::ActiveRecord_Relation < ::ActiveRecord::Relation
+class AppleMusicAlbum::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[AppleMusicAlbum]
   include Enumerable[AppleMusicAlbum, self]
   def pending: () -> AppleMusicAlbum::ActiveRecord_Relation
@@ -120,6 +281,6 @@ class AppleMusicAlbum::ActiveRecord_Relation < ::ActiveRecord::Relation
 
 end
 
-class AppleMusicAlbum::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+class AppleMusicAlbum::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
   include AppleMusicAlbum::ActiveRecord_Relation
 end
