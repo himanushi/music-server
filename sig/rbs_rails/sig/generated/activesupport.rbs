@@ -4953,6 +4953,8 @@ module SecureRandom
 
   BASE36_ALPHABET: untyped
 
+    def self.hex: (?::Integer n) -> String
+
   # SecureRandom.base58 generates a random base58 string.
   #
   # The argument _n_ specifies the length of the random string to be generated.

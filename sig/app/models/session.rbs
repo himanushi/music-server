@@ -2,24 +2,78 @@ class Session < ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Session, Session::ActiveRecord_Relation]
 
   attr_accessor id (): String
-  attr_accessor created_at (): Time
-  attr_accessor updated_at (): Time
-  attr_accessor user_id (): String
-  attr_accessor token (): String
+  def id_changed?: () -> bool
+  def id_change: () -> [String?, String?]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
 
+  attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
+  attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
+  attr_accessor user_id (): String
+  def user_id_changed?: () -> bool
+  def user_id_change: () -> [String?, String?]
+  def user_id_will_change!: () -> void
+  def user_id_was: () -> String?
+  def user_id_previously_changed?: () -> bool
+  def user_id_previous_change: () -> Array[String?]?
+  def user_id_previously_was: () -> String?
+  def restore_user_id!: () -> void
+  def clear_user_id_change: () -> void
+
+  attr_accessor token (): String
+  def token_changed?: () -> bool
+  def token_change: () -> [String?, String?]
+  def token_will_change!: () -> void
+  def token_was: () -> String?
+  def token_previously_changed?: () -> bool
+  def token_previous_change: () -> Array[String?]?
+  def token_previously_was: () -> String?
+  def restore_token!: () -> void
+  def clear_token_change: () -> void
 
   def user: () -> User
 
+  # rbs prototype rb app/models/session.rb
+  EXPIRE_DAYS: ActiveSupport::Duration
 
+  def refresh_token: () -> String
 
+  def digit_token: () -> String
+
+  def self.find_by_digit_token!: (String digit_token) -> instance
 end
 
-class Session::ActiveRecord_Relation < ::ActiveRecord::Relation
+class Session::ActiveRecord_Relation < ActiveRecord::Relation
   include _ActiveRecord_Relation[Session]
   include Enumerable[Session, self]
 
 
 end
 
-class Session::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+class Session::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
