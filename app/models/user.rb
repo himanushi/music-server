@@ -17,7 +17,8 @@ class User < ApplicationRecord
         username: SecureRandom.hex(5).upcase,
       )
       user.role = Role.default_role
-      user.sessions.create!
+      user.sessions.new
+      user.save!
       user
     end
   end
