@@ -6,17 +6,5 @@ end
 module Singleton
 end
 
-module Mutex_m
-end
-
 module PG
-end
-
-class Logger
-end
-
-class Logger::Formatter
-end
-
-class Logger::Severity
 end

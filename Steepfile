@@ -1,5 +1,9 @@
-target :models do
-  # typing_options :strict
-  check "app/models"
-  signature "sig"
+target :app do
+  signature 'sig'
+
+  check 'app'
+
+  library 'pathname'
+  library 'logger'
+  library 'mutex_m'
 end
