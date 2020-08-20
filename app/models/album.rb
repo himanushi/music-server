@@ -26,7 +26,11 @@ class Album < ApplicationRecord
 
   class << self
     def find_by_isrc_or_create(album_attrs, tracks_attrs)
+
+      # @type var isrc: Array[String]
       isrc  = tracks_attrs.map {|attrs| attrs[:isrc] }
+
+      # @type var album: Album?
       album = joins(:tracks).where(tracks: { isrc: isrc }, total_tracks: isrc.size).
               group("albums.id").having("count(*) = albums.total_tracks").first
 
@@ -34,8 +38,9 @@ class Album < ApplicationRecord
         raise StandardError, "アルバムのトラック数が0件なので何かしらのバグがある"
       end
 
-      if album.present?
+      if !album.nil?
         # 最新の日時を正とする
+        # @type var album: Album
         if album.release_date <= album_attrs[:release_date]
           album.release_date = album_attrs[:release_date]
           album.save!
@@ -44,13 +49,17 @@ class Album < ApplicationRecord
         return album
       end
 
+      # @type var tracks: Array[Track]
       tracks = tracks_attrs.map {|attrs| Track.find_or_initialize_by(attrs) }
 
       unless tracks.size == album_attrs[:total_tracks]
         raise StandardError, "アルバムのトラック数が実トラック数と相違がある"
       end
 
+      # @type var attributes: Hash[(Symbol | :release_date | :total_tracks), (Array[Track] | Integer | Time)]
       attributes = album_attrs.merge(tracks: tracks)
+
+      # @type var album: Album
       album = new(attributes)
       album.save!
       album
@@ -99,6 +108,7 @@ class Album < ApplicationRecord
   def create_all_service_albums
     # アルバムの一曲目のISRCを基準に全てのサービスで検索する
     # まとめアルバムのような場合は複数のアルバムにまたいで存在する曲がある
+    # @type var _isrc: String
     _isrc =
       if !apple_music_and_itunes_album.nil?
         apple_music_and_itunes_album.apple_music_tracks.order(:disc_number, :track_number).first.isrc
