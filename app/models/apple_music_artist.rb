@@ -13,7 +13,11 @@ class AppleMusicArtist < ApplicationRecord
     end
 
     def mapping(data)
+
+      # @type ver name: String
       name   = Artist.to_name(data.dig("attributes", "name"))
+
+      # @type ver artist: Artist
       artist = Artist.find_or_create_by(name: name)
 
       {
@@ -25,7 +29,11 @@ class AppleMusicArtist < ApplicationRecord
     end
 
     def create_by_name(name)
+
+      # @type ver artists: Array[{ "id" => String }]
       artists = AppleMusic::Client.new.index_artists(name).dig("results", "artists", "data") || []
+
+      # @type ver apple_music_ids: Array[String]
       apple_music_ids = artists.map {|artist| artist["id"] }
       apple_music_ids.map {|id| find_or_create_by_music_service_id(id) }
     end
@@ -44,6 +52,8 @@ class AppleMusicArtist < ApplicationRecord
   end
 
   def create_albums
+
+    # @type ver albums_ids: Array[String]
     albums_ids = []
 
     data = AppleMusic::Client.new.get_artist_albums(apple_music_id)["data"]
