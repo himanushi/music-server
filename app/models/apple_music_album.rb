@@ -17,14 +17,25 @@ class AppleMusicAlbum < ApplicationRecord
     end
 
     def mapping(data)
+
+      # @type var attrs: { "id" => ::String, "releaseDate" => ::String, "trackCount" => ::Integer, "name" => ::String, "recordLabel" => ::String, "copyright" => (::String | nil), "playParams" => untyped, "artwork" => { "url" => ::String, "width" => ::Integer, "height" => ::Integer } }
       attrs        = data["attributes"]
-      tracks_data  = data.dig("relationships", "tracks", "data")
+
+      # @type var tracks_data: Array[{ "id" => ::String, "type" => ::String, "attributes" => { "name" => ::String, "discNumber" => ::Integer, "trackNumber" => ::Integer, "hasLyrics" => bool, "playParams" => untyped, "durationInMillis" => ::Integer, "preview_url" => ::String, "isrc" => ::String, "artistName" => ::String } }]
+      tracks_data  = data.dig("relationships", "tracks", "data") || []
+
+      # @type var album_attrs: { release_date: Time, total_tracks: Integer }
       album_attrs  = to_album_attrs(data)
+
+      # @type var tracks_attrs: Array[{ isrc: String }]
       tracks_attrs = tracks_data.map {|td| AppleMusicTrack.to_track_attrs(td) }
 
+      # @type var album: Album
       album = Album.find_by_isrc_or_create(album_attrs, tracks_attrs)
 
       data.dig("relationships", "artists", "data").each do |ad|
+
+        # @type var apple_music_artist: AppleMusicArtist?
         apple_music_artist =
           AppleMusicArtist.find_by(apple_music_id: ad["id"]) ||
           AppleMusicArtist.create_by_music_service_id(ad["id"])
@@ -32,10 +43,12 @@ class AppleMusicAlbum < ApplicationRecord
         # locale: :jp で参照できないアーティストがいる
         next unless apple_music_artist.present?
 
+        # @type ver artist: Artist
         artist = apple_music_artist.artist
         artist.albums.push(album) if artist.albums.where(id: album.id).empty?
       end
 
+      # @type var apple_music_tracks: Array[AppleMusicTrack]
       apple_music_tracks = tracks_data.map do |td|
         AppleMusicTrack.find_or_initialize_by(AppleMusicTrack.mapping(td).merge({ status: album.status }))
       end
@@ -88,9 +101,11 @@ class AppleMusicAlbum < ApplicationRecord
 
     # トラックのISRC1件でアルバム特定し生成する
     def create_by_track_isrc(isrc)
+
+      # @type var apple_music_ids: Array[String]
       apple_music_ids =
         AppleMusic::Client.new.get_track_by_isrc(isrc).
-        dig("data", 0, "relationships", "albums", "data").try(:map){|d| d["id"] }.try(:compact)
+        dig("data", 0, "relationships", "albums", "data").try(:map){|d| d["id"] }.try(:compact) || []
 
       return [] unless apple_music_ids.present?
 
@@ -113,8 +128,14 @@ class AppleMusicAlbum < ApplicationRecord
   end
 
   private def build_artwork(max_size)
+
+    # @type var height: Integer
     height = artwork_height > max_size ? max_size : artwork_height
+
+    # @type var width: Integer
     width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
+
+    # @type var url: String
     url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
     Artwork.new(url: url, width: width, height: height)
   end
