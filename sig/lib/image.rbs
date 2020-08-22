@@ -1,0 +1,3 @@
+class Image
+  def self.fetch_actual_size: (String url) -> [Integer?, Integer?]
+end
