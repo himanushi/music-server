@@ -43,7 +43,7 @@ class AppleMusicAlbum < ApplicationRecord
         # locale: :jp で参照できないアーティストがいる
         next unless apple_music_artist.present?
 
-        # @type ver artist: Artist
+        # @type var artist: Artist
         artist = apple_music_artist.artist
         artist.albums.push(album) if artist.albums.where(id: album.id).empty?
       end
