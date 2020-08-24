@@ -9,16 +9,19 @@ class AppleMusicTrack < ApplicationRecord
   class << self
     def mapping(data)
       attrs = data["attributes"]
+
+      # @type var track_attrs: { isrc: String }
       track_attrs = to_track_attrs(data)
+
+      # @type var track: Track
       track = Track.find_or_create_by(track_attrs)
 
       # TODO: アーティスト紐付け, Apple music は正式な名前を返さないのでどうにかする
+      # @type var artist: Artist?
       artist = Artist.find_by(name: Artist.to_name(attrs["artistName"]))
-      # TOTO: Steep エラーいつか直す。 nil に対して tracks を実行しているから。
-      #       TypeScript と違い unless nil でやっても内部で実行しているとエラーになる。
-      #       仕方がないのでぼっち演算子で誤魔化す
       if !artist.nil? && artist&.tracks&.where(id: track.id)&.empty?
-        artist&.tracks&.push(track)
+        # @type var artist: Artist
+        artist.tracks.push(track)
       end
 
       # ミュージックビデオなどの場合
