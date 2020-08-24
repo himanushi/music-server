@@ -14,8 +14,14 @@ class SpotifyArtist < ApplicationRecord
     end
 
     def mapping(data)
+
+      # @type var name: String
       name   = Artist.to_name(data["name"])
+
+      # @type var artist: Artist
       artist = Artist.find_or_create_by(name: name)
+
+      # @type var images: Array[{ "url" => String, "width" => Integer, "height" => Integer }]
       images = data["images"][-3..-1] || []
 
       {
@@ -38,7 +44,11 @@ class SpotifyArtist < ApplicationRecord
     end
 
     def create_by_name(name)
+
+      # @type var artists: Array[{ "id" => String }]
       artists = Spotify::Client.new.index_artists(name).dig("artists", "items") || []
+
+      # @type var spotify_ids: Array[String]
       spotify_ids = artists.map {|artist| artist["id"] }
       spotify_ids.map {|id| find_or_create_by_music_service_id(id) }
     end
@@ -57,6 +67,8 @@ class SpotifyArtist < ApplicationRecord
   end
 
   def create_albums
+
+    # @type var result: { "items" => Array[{ "id" => String }] }
     result = Spotify::Client.new.get_artist_albums(spotify_id)
 
     return [] unless result["items"].present?
