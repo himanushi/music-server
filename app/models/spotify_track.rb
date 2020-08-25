@@ -8,14 +8,22 @@ class SpotifyTrack < ApplicationRecord
 
   class << self
     def mapping(data)
+
+      # @type var track_attrs: { isrc: String }
       track_attrs = to_track_attrs(data)
+
+      # @type var track: Track
       track = Track.find_or_create_by(track_attrs)
 
       (data["artists"] || []).each do |artist_data|
+
+        # @type var artist: Artist?
         artist = SpotifyArtist.find_by(spotify_id: artist_data["id"])&.artist
 
         if artist.present? && artist&.tracks&.where(id: track.id)&.empty?
-          artist&.tracks&.push(track)
+
+           # @type var artist: Artist
+          artist.tracks.push(track)
         end
       end
 
