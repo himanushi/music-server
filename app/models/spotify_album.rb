@@ -20,23 +20,34 @@ class SpotifyAlbum < ApplicationRecord
     end
 
     def mapping(data)
+
+      # @type var tracks_data: Array[{ "id" => String, "name" => String, "disc_number" => Integer, "track_number" => Integer, "explicit" => bool, "is_playable" => (bool | nil), "duration_ms" => Integer, "preview_url" => String, "popularity" => Integer, "external_ids" => { "isrc" => ::String }, "artists" => Array[{ "id" => String }] }]
       tracks_data  = data["tracks"]["items"]
+
+      # @type var album_attrs: { release_date: Time, total_tracks: Integer }
       album_attrs  = to_album_attrs(data)
+
+      # @type var tracks_attrs: Array[{ isrc: String }]
       tracks_attrs = tracks_data.map {|td| SpotifyTrack.to_track_attrs(td) }
 
+      # @type var album: Album
       album = Album.find_by_isrc_or_create(album_attrs, tracks_attrs)
 
       data["artists"].each do |ad|
+
+        # @type var artist: Artist?
         artist = (SpotifyArtist.find_by(spotify_id: ad["id"]) ||
                   SpotifyArtist.create_by_music_service_id(ad["id"]))&.artist
         artist&.albums&.push(album) if artist&.albums&.where(id: album.id)&.empty?
       end
 
+      # @type var spotify_tracks: Array[SpotifyTrack]
       spotify_tracks = tracks_data.map do |td|
         SpotifyTrack.find_or_initialize_by(SpotifyTrack.mapping(td).merge({ status: album.status }))
       end
 
       # spotify はトラック番号に一意性がないため修正する
+      # @type var correct_spotify_tracks: Array[SpotifyTrack]
       correct_spotify_tracks = []
       spotify_tracks.group_by(&:disc_number).map do |disc_number, tracks|
         tracks.each.with_index(1) {|track, index| track.track_number = index }
@@ -66,6 +77,7 @@ class SpotifyAlbum < ApplicationRecord
         end
       end
 
+      # @type var images: Array[{ "url" => String, "width" => Integer, "height" => Integer }]
       images = data["images"][-3..-1] || []
 
       {
@@ -100,16 +112,20 @@ class SpotifyAlbum < ApplicationRecord
     def create_by_music_service_id(spotify_id)
       return unless IgnoreContent.where(music_service_id: spotify_id).empty?
 
+      # @type var album_data: { "id" => String, "total_tracks" => Integer, "tracks" => { "items" => Array[{ "id" => String, "name" => String, "disc_number" => Integer, "track_number" => Integer, "explicit" => bool, "is_playable" => (bool | nil), "duration_ms" => Integer, "preview_url" => String, "popularity" => Integer, "external_ids" => { "isrc" => ::String }, "artists" => Array[{ "id" => String }] }] } }
       album_data = Spotify::Client.new.get_album(spotify_id)
 
       return unless album_data["id"].present?
 
+      # @type var tracks_data: Array[{ "id" => String }]
       tracks_data = Spotify::Client.new.get_album_tracks(spotify_id)["items"]
 
       return unless tracks_data.present?
 
+      # @type var track_ids: Array[String]
       track_ids = tracks_data.map {|t| t["id"] }
 
+      # @type var tracks: Array[{ "id" => String, "name" => String, "disc_number" => Integer, "track_number" => Integer, "explicit" => bool, "is_playable" => (bool | nil), "duration_ms" => Integer, "preview_url" => String, "popularity" => Integer, "external_ids" => { "isrc" => ::String }, "artists" => Array[{ "id" => String }] }]
       tracks = []
       # Spotify API 制限のため50件づつ実行
       # ref: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
@@ -129,6 +145,8 @@ class SpotifyAlbum < ApplicationRecord
 
     # トラックのISRC1件でアルバム特定し生成する
     def create_by_track_isrc(isrc)
+
+      # @type var spotify_ids: Array[String]
       spotify_ids =
         Spotify::Client.new.get_track_by_isrc(isrc).
         dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact)
