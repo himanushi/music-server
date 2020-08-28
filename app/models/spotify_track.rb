@@ -44,7 +44,7 @@ class SpotifyTrack < ApplicationRecord
 
     def to_track_attrs(data)
       {
-        isrc: data.dig("external_ids", "isrc"),
+        isrc: data.dig("external_ids", "isrc").upcase,
       }
     end
   end

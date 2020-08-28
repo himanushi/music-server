@@ -148,8 +148,13 @@ class SpotifyAlbum < ApplicationRecord
 
       # @type var spotify_ids: Array[String]
       spotify_ids =
-        Spotify::Client.new.get_track_by_isrc(isrc).
-        dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact)
+        Spotify::Client.new.get_track_by_isrc(isrc.upcase).
+        dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact) || []
+
+      # Spotify は isrc が大文字小文字が決まっておらず大文字で検索してもヒットしないことあるため両方で検索する
+      spotify_ids +=
+        Spotify::Client.new.get_track_by_isrc(isrc.downcase).
+        dig("tracks", "items").try(:map) {|t| t.dig("album", "id") }.try(:compact) || []
 
       return [] unless spotify_ids.present?
 
