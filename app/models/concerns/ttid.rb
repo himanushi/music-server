@@ -33,7 +33,8 @@ module TTID
     end
 
     def add_table_info(info)
-      if table_info.has_key?(key = info.keys.first)
+      key = info.keys.first || ""
+      if table_info.has_key?(key)
         raise StandardError, "テーブルIDが重複しました。別のテーブルIDに変更してください。[#{ key }]"
       end
       @_table_info = table_info.merge(info)
@@ -60,7 +61,7 @@ module TTID
     end
   end
 
-  class_methods do
+  module ClassMethods
     # 検証元のクラスと検証したいID
     def validate_ids!(ids)
       ids.each do |id|
