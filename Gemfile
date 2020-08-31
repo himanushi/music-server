@@ -5,6 +5,8 @@ ruby '2.7.1'
 
 # Rails 6
 gem 'rails', '~> 6.0.3.2'
+# React TypeScript バンドラー
+gem 'webpacker'
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
