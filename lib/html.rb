@@ -20,7 +20,7 @@ module Html
           header << build_metatag(header, "#{album.service.name} - ゲーム音楽", property: "og:title")
           header << build_metatag(header, "「#{album.service.name}」の発売日は#{album.release_date.strftime('%Y年%m月%d日')}です。収録曲数は#{album.total_tracks}曲です。", property: "og:description")
           header << build_metatag(header, album.service.artwork_l.url, property: "og:image")
-          header << build_metatag(header, "summary_large_image", name: "twitter:card")
+          header << build_metatag(header, "summary", name: "twitter:card")
           header << build_metatag(header, "@vgm_net", name: "twitter:site")
         end
 
