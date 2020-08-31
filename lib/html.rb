@@ -14,8 +14,8 @@ module Html
           # @type var album: Album
           album  = Album.find(id)
           header = html.at("head")
-          header << build_metatag(header, "website" property: "og:type")
-          header << build_metatag(header, "ゲーム音楽" property: "og:site_name")
+          header << build_metatag(header, "website", property: "og:type")
+          header << build_metatag(header, "ゲーム音楽", property: "og:site_name")
           header << build_metatag(header, album.to_url, property: "og:url")
           header << build_metatag(header, "#{album.service.name} - ゲーム音楽", property: "og:title")
           header << build_metatag(header, "「#{album.service.name}」の発売日は#{album.release_date.strftime('%Y年%m月%d日')}です。収録曲数は#{album.total_tracks}曲です。", property: "og:description")
