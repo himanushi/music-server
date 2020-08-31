@@ -57,6 +57,7 @@ class Artist < ApplicationRecord
         Rails.logger.info("---------------- #{artist.name} #{(index / rate).round}% ----------------")
         artist.create_albums
       end
+      Rails.cache.clear
     end
   end
 
