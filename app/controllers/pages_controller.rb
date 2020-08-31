@@ -1,8 +1,12 @@
 class PagesController < ApplicationController
   def index
+
+    # OGP 付与
+    html = Html::Ogp.generate(params["path"].split("/")[1])
+
     respond_to do |format|
       format.html {
-        render file: "#{Rails.root}/public/index.html",
+        render html: html.html_safe,
                layout: false, status: 200, content_type: 'text/html'
       }
     end
