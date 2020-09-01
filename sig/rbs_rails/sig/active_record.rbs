@@ -90,7 +90,7 @@ interface _ActiveRecord_Relation[Model]
              | (Hash[untyped, untyped]) -> self
   def find_by: (*untyped) -> Model?
   def find_by!: (*untyped) -> Model
-  def find: (Integer id) -> Model
+  def find: (String id) -> Model
   def first: () -> Model
            | (Integer count) -> Array[Model]
   def last: () -> Model
@@ -131,7 +131,7 @@ interface _ActiveRecord_Relation_ClassMethods[Model, Relation]
              | (Hash[untyped, untyped]) -> self
   def find_by: (*untyped) -> Model?
   def find_by!: (*untyped) -> Model
-  def find: (Integer id) -> Model
+  def find: (String id) -> Model
   def first: () -> Model
            | (Integer count) -> Array[Model]
   def last: () -> Model

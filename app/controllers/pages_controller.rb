@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   def index
 
     # OGP 付与
-    html = Html::Ogp.generate(params["path"].split("/")[1])
+    html = Html::Ogp.convert(params["path"])
 
     respond_to do |format|
       format.html {

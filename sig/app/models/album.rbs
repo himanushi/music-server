@@ -144,5 +144,6 @@ class Album::ActiveRecord_Relation < ActiveRecord::Relation
 end
 
 class Album::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+  # 色々追加が面倒なので include してるが真似しちゃダメだぞ！
   include Album::ActiveRecord_Relation
 end

@@ -1,18 +1,26 @@
 module Html
   class Ogp
     class << self
-      def generate(id)
+      def convert(path)
 
-        # @type var file: File
-        file = File.open("#{Rails.root}/public/index.html")
+        # @type var raw_html: String
+        raw_html = File.open("#{Rails.root}/public/index.html")&.read || ""
+
+        # @type var category: String?
+        # @type var id: String?
+        category, id = path.split("/")
+        return raw_html unless id.present?
 
         # @type var html: Nokogiri::HTML::Document
-        html = Nokogiri::HTML.parse(file)
+        html = Nokogiri::HTML.parse(raw_html)
 
-        if !id.nil? && id.start_with?(Album.table_id)
+        if !id.nil? && id&.start_with?(Album.table_id)
 
+          # @type var id: String
           # @type var album: Album
           album  = Album.find(id)
+
+          # @type ver header: Nokogiri::XML::Element
           header = html.at("head")
           header << build_metatag(header, "website", property: "og:type")
           header << build_metatag(header, "ゲーム音楽", property: "og:site_name")
