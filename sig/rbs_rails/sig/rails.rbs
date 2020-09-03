@@ -3,6 +3,8 @@ module Rails
 
   def self.logger: () ->  ActiveSupport::Logger
 
+  def self.cache: () ->  ActiveSupport::Cache::FileStore
+
   module Dom
     module Testing
       module Assertions
