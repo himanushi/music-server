@@ -11,8 +11,6 @@ module Artists
       def mix!(main_artist_id, sub_artist_id)
         Artist.validate_associations([:apple_music_artists, :spotify_artists, :artist_has_albums, :artist_has_tracks, :favorites])
 
-        Artist.validate_ids!([main_artist_id, sub_artist_id])
-
         main_artist = find(main_artist_id)
         sub_artist = find(sub_artist_id)
 

@@ -67,7 +67,7 @@ module TTID
       ids.each do |id|
         decoded_hash = TTID.decode(id)
         unless decoded_hash.present? && decoded_hash[:model] == self
-          raise StandardError, "TTIDが不一致(#{ErrorLog.path(4)})"
+          raise StandardError, "TTIDが不一致"
         end
       end
       true

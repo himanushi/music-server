@@ -14,7 +14,7 @@ class ApplicationRecord < ActiveRecord::Base
     def validate_associations(_associations)
       names = pure_associations.map(&:name)
       unless (names - _associations).blank?
-        raise StandardError, "#{self.name} の関連が増えたらここも変更してね(#{ErrorLog.path(2)})"
+        raise StandardError, "#{self.name} の関連が増えたらここも変更してね"
       end
     end
   end
