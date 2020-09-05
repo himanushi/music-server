@@ -7125,6 +7125,8 @@ module ActiveSupport
     def method_missing: (untyped method, *untyped args) { () -> untyped } -> untyped
 
     def raise_type_error: (untyped other) -> untyped
+
+    def from_now: () -> ActiveSupport::TimeWithZone
   end
 end
 
