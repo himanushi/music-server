@@ -18,6 +18,14 @@ end
 module OpenSSL
   class Cipher
   end
+
+  class PKey
+    class EC
+      def initialize:(String) -> untyped
+
+      def check_key: () -> untyped
+    end
+  end
 end
 
 module FileUtils
