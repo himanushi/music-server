@@ -1,0 +1,19 @@
+class SitemapGenerator
+  def self.generate_all: () -> Array[String]
+
+  def self.generate_models: (singleton(MusicService) klass) -> Array[String]
+
+  def self.generate_albums: () -> Array[String]
+
+  def self.generate_artists: () -> Array[String]
+
+  def self.export_file: (String file_name, String content) -> void
+
+  def self.to_xml_content: (MusicService record) -> ::String
+
+  def self.to_xml: (Array[MusicService] records) -> ::String
+
+  def self.to_index_xml_content: (String file_name) -> ::String
+
+  def self.to_index_xml: (Array[String] file_names) -> ::String
+end

@@ -62,7 +62,7 @@ class SitemapGenerator
       <<~XML
         <sitemap>
             <loc>#{ENV['PRODUCTION_APP_URL']}/#{file_name}</loc>
-            <lastmod>#{DateTime.now.strftime('%Y-%m-%d')}</lastmod>
+            <lastmod>#{DateTime.current.strftime('%Y-%m-%d')}</lastmod>
         </sitemap>
       XML
     end

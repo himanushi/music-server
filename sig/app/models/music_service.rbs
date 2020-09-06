@@ -1,0 +1,7 @@
+class MusicService < ApplicationRecord
+  def self.name: () -> String
+  def self.active: () -> ActiveRecord::Relation
+
+  def to_url: () -> String
+  def updated_at: () -> Time
+end
