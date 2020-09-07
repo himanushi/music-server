@@ -1,0 +1,12 @@
+module Spotify
+  class Token
+    type token = {
+      access_token: String,
+      token_type: "Bearer",
+      expires_in: Integer,
+      scope: String
+    }
+
+    def self.create: () -> token
+  end
+end
