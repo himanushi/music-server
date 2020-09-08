@@ -1,0 +1,178 @@
+module AppleMusic
+  class Client
+    ENDPOINT: ::String
+
+    VERSION: ::String
+
+    LOCALE: ::String
+
+    attr_reader locale: ::String
+
+    attr_reader version: ::String
+
+    # settings = [
+    #   { path: "/album", status_code: 200, headers: {}, body: {} },
+    #   { path: "/artist", status_code: 404, headers: {}, body: {} },
+    # ]
+    type stub_settings = ::Array[{
+      path: ::String,
+      status_code: ::Integer,
+      headers: ::Hash[untyped, untyped],
+      body: ""
+    }]
+    def self.stub: (?stub_settings settings) -> void
+
+    def self.stub_client: () -> ::Faraday::Connection
+
+    def self.catalog_url: () -> ::String
+
+    class ResponseError < ::StandardError
+      attr_reader message: ::String
+
+      def initialize: (::String message) -> untyped
+    end
+
+    def initialize: (?locale: ::String locale, ?version: ::String version) -> void
+
+    def client: () -> ::Faraday::Connection
+
+    def catalog_url: () -> ::String
+
+    # レスポンス専用に namespase 分けとく
+    module Response
+      type next = {
+        "next" => ::String
+      }
+
+      type artist_attributes = {
+        "name" => ::String,
+        "genreNames" => ::Array[::String],
+        "url" => ::String
+      }
+
+      type artwork_attributes = {
+        "width" => ::Integer,
+        "height" => ::Integer,
+        "url" => ::String,
+        "bgColor" => ::String,
+        "textColor1" => ::String,
+        "textColor2" => ::String,
+        "textColor3" => ::String,
+        "textColor4" => ::String
+      }
+
+      type album_attributes = {
+        "artwork" => artwork_attributes,
+        "artistName" => ::String,
+        "isSingle" => bool,
+        "url" => ::String,
+        "isComplete" => bool,
+        "genreNames" => ::Array[::String],
+        "trackCount" => ::Integer,
+        "isMasteredForItunes" => bool,
+        "releaseDate" => ::String,
+        "name" => ::String,
+        "recordLabel" => ::String,
+        "copyright" => ::String,
+        # iTunes の場合はキー自体が存在しない
+        "playParams" => {
+          "id" => ::String,
+          "kind" => "album"
+        },
+        "isCompilation" => bool
+      }
+
+      type track_attributes = {
+        "previews" => ::Array[{
+          "url" => ::String
+        }],
+        "artwork" => artwork_attributes,
+        "artistName" => ::String,
+        "url" => ::String,
+        "discNumber" => ::Integer,
+        "genreNames" => ::Array[::String],
+        "durationInMillis" => ::Integer,
+        "releaseDate" => ::String,
+        "name" => ::String,
+        "isrc" => ::String,
+        "hasLyrics" => bool,
+        "albumName" => ::String,
+        # iTunes またはアルバム一括購入特典曲の場合はキー自体が存在しない
+        "playParams" => {
+          "id" => ::String,
+          "kind" => "song"
+        },
+        "trackNumber" => ::Integer,
+        "composerName" => ::String
+      }
+
+      type artist = {
+        "data" => Array[{
+          "id" => ::String,
+          "type" => "artists",
+          "href" => ::String,
+          "attributes" => artist_attributes,
+          "relationships" => {
+            "albums" => {
+              "href" => ::String,
+              "data" => ::Array[{
+                "id" => ::String,
+                "type" => "albums",
+                "href" => ::String
+              }]
+            } & next
+          }
+        }]
+      } & next
+
+      type album = {
+        "data" => Array[{
+          "id" => ::String,
+          "type" => "albums",
+          "href" => ::String,
+          "attributes" => album_attributes,
+          "relationships" => {
+            "tracks" => {
+              "href" => ::String,
+              "data" => ::Array[{
+                "id" => ::String,
+                "type" => "albums",
+                "href" => ::String,
+                "attributes" => track_attributes,
+              }]
+            } & next,
+            "artists" => {
+              "href" => ::String,
+              "data" => ::Array[{
+                "id" => ::String,
+                "type" => "artists",
+                "href" => ::String
+              }]
+            } & next,
+          }
+        }]
+      } & next
+    end
+
+    # @repeat は next を何回実行するか判定する
+    def get: (::String url, ?::Hash[::String, ::String] params) -> (Response::artist | Hash[String, untyped])
+
+    def index: (?::Hash[untyped, untyped] params) -> untyped
+
+    def get_artist: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def index_artists: (untyped name) -> untyped
+
+    def get_artist_albums: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_artist_tracks: (untyped apple_music_id, ?::Hash[untyped, untyped] params, ?repeat: untyped? repeat) -> untyped
+
+    def get_album: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_track: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_track_by_isrc: (untyped isrc) -> untyped
+
+    def result: (untyped response) -> untyped
+  end
+end
