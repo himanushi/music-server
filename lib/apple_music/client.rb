@@ -7,17 +7,20 @@ module AppleMusic
     attr_reader :locale, :version
 
     class << self
-      attr_accessor :root_client
+      def stub_client
+        @stub_client
+      end
+
       # settings = [
       #   { path: "/album", status_code: 200, headers: {}, body: {} },
       #   { path: "/artist", status_code: 404, headers: {}, body: {} },
       # ]
       def stub(settings = [])
-        @root_client =
+        @stub_client =
           Faraday.new do |builder|
-            builder.adapter :test do |_stub|
+            builder.adapter(:test) do |_stub|
               settings.each do |s|
-                s = { path: "/", status_code: 200, headers: {}, body: "" }.merge(s)
+                s = { path: "/", status_code: 200, headers: {}, body: {} }.merge(s)
                 _stub.get("#{catalog_url}/#{LOCALE}#{s[:path]}") {|env| [s[:status_code], s[:headers], s[:body]] }
               end
             end
@@ -42,7 +45,7 @@ module AppleMusic
     end
 
     def client
-      @client ||= self.class.root_client || Faraday::Connection.new(url: ENDPOINT) do |builder|
+      @client ||= self.class.stub_client || Faraday::Connection.new(url: ENDPOINT) do |builder|
         builder.use(FaradayMiddleware::ParseJson)
         builder.headers["Content-Type"] = "application/json; charset=utf-8"
         builder.authorization("Bearer", AppleMusic::Token.create_server_token[:access_token])
