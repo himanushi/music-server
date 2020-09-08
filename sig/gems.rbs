@@ -11,6 +11,8 @@ class Faraday
     def authorization: (*untyped) ?{ (untyped) -> untyped } -> untyped
     def adapter: (*untyped) ?{ (untyped) -> untyped } -> untyped
     def body=: (*untyped) ?{ (untyped) -> untyped } -> untyped
+    def get: (*untyped) ?{ (untyped) -> untyped } -> untyped
+    def params: (*untyped) ?{ (untyped) -> untyped } -> untyped
   end
 
   class Response
