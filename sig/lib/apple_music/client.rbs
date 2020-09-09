@@ -136,9 +136,9 @@ module AppleMusic
               "href" => ::String,
               "data" => ::Array[{
                 "id" => ::String,
-                "type" => "albums",
+                "type" => "songs" | "music-videos",
                 "href" => ::String,
-                "attributes" => track_attributes,
+                "attributes" => track_attributes
               }]
             } & next,
             "artists" => {
@@ -148,7 +148,34 @@ module AppleMusic
                 "type" => "artists",
                 "href" => ::String
               }]
+            } & next
+          }
+        }]
+      } & next
+
+      type track = {
+        "data" => Array[{
+          "id" => ::String,
+          "type" => "songs",
+          "href" => ::String,
+          "attributes" => track_attributes,
+          "relationships" => {
+            "artists" => {
+              "href" => ::String,
+              "data" => ::Array[{
+                "id" => ::String,
+                "type" => "artists",
+                "href" => ::String
+              }]
             } & next,
+            "albums" => {
+              "href" => ::String,
+              "data" => ::Array[{
+                "id" => ::String,
+                "type" => "albums",
+                "href" => ::String
+              }]
+            } & next
           }
         }]
       } & next
