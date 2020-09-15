@@ -1,0 +1,45 @@
+module Spotify
+  class Client
+    ENDPOINT: ::String
+
+    attr_reader locale: untyped
+
+    attr_reader version: untyped
+
+    class ResponseError < StandardError
+      attr_reader message: untyped
+
+      def initialize: (untyped message) -> untyped
+    end
+
+    def initialize: (?locale: ::String locale, ?version: ::String version) -> untyped
+
+    def client: () -> untyped
+
+    def default_url: () -> ::String
+
+    def default_params: () -> { market: untyped }
+
+    def get: (untyped url, ?::Hash[untyped, untyped] params) -> untyped
+
+    def index: (?::Hash[untyped, untyped] params) -> untyped
+
+    def get_artist: (untyped spotify_id, ?untyped params) -> untyped
+
+    def index_artists: (untyped name) -> untyped
+
+    def get_artist_albums: (untyped spotify_id, ?untyped params) -> untyped
+
+    def get_album: (untyped spotify_id, ?untyped params) -> untyped
+
+    def get_album_tracks: (untyped spotify_id, ?untyped params) -> untyped
+
+    def get_track: (untyped spotify_id, ?untyped params) -> untyped
+
+    def get_track_by_isrc: (untyped isrc) -> untyped
+
+    def get_tracks: (untyped spotify_ids, ?untyped params) -> untyped
+
+    def result: (untyped response) -> untyped
+  end
+end
