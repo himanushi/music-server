@@ -20,8 +20,13 @@ module AppleMusic
           Faraday.new do |builder|
             builder.adapter(:test) do |_stub|
               settings.each do |s|
-                s = { path: "/", status_code: 200, headers: {}, body: {} }.merge(s)
-                _stub.get("#{catalog_url}/#{LOCALE}#{s[:path]}") {|env| [s[:status_code], s[:headers], s[:body]] }
+                _stub.get("#{catalog_url}/#{LOCALE}#{s[:path] || '/'}") do |env|
+                  [
+                    s[:status_code] || 200,
+                    s[:headers] || {},
+                    s[:body] || {}
+                  ]
+                end
               end
             end
           end
