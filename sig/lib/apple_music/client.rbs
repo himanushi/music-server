@@ -27,12 +27,6 @@ module AppleMusic
 
     def self.catalog_url: () -> ::String
 
-    class ResponseError < ::StandardError
-      attr_reader message: ::String
-
-      def initialize: (::String message) -> untyped
-    end
-
     def initialize: (?locale: ::String locale, ?version: ::String version) -> void
 
     def client: () -> ::Faraday::Connection

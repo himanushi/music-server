@@ -37,13 +37,6 @@ module AppleMusic
       end
     end
 
-    class ResponseError < StandardError
-      attr_reader :message
-      def initialize(message)
-        @message = message
-      end
-    end
-
     def initialize(locale: LOCALE, version: VERSION)
       @locale   = locale
       @version  = version
