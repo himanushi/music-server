@@ -4,13 +4,6 @@ module Spotify
 
     attr_reader :locale, :version
 
-    class ResponseError < StandardError
-      attr_reader :message
-      def initialize(message)
-        @message = message
-      end
-    end
-
     def initialize(locale: "JP", version: "v1")
       @locale   = locale
       @version  = version
@@ -31,7 +24,7 @@ module Spotify
     end
 
     def default_params
-      { market: locale }
+      { "market" => locale }
     end
 
     def get(url, params = {})
@@ -75,6 +68,8 @@ module Spotify
       get("#{default_url}/albums/#{spotify_id}", params)
     end
 
+    # get_album でも tracks は取得可能だが
+    # 一括で tracks を取得できない(50件まで)ため get_album_tracks が存在する
     def get_album_tracks(spotify_id, params = default_params)
       get("#{default_url}/albums/#{spotify_id}/tracks", params)
     end
@@ -84,7 +79,7 @@ module Spotify
     end
 
     def get_track_by_isrc(isrc)
-      index({ type: "track", q: "isrc:#{isrc}" })
+      index({ "type" => "track", "q" => "isrc:#{isrc}" })
     end
 
     def get_tracks(spotify_ids, params = default_params)

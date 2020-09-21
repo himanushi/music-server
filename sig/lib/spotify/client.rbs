@@ -2,43 +2,170 @@ module Spotify
   class Client
     ENDPOINT: ::String
 
-    attr_reader locale: untyped
+    attr_reader locale: ::String
 
-    attr_reader version: untyped
+    attr_reader version: ::String
 
-    class ResponseError < StandardError
-      attr_reader message: untyped
+    def initialize: (?locale: ::String locale, ?version: ::String version) -> void
 
-      def initialize: (untyped message) -> untyped
-    end
-
-    def initialize: (?locale: ::String locale, ?version: ::String version) -> untyped
-
-    def client: () -> untyped
+    def client: () -> ::Faraday::Connection
 
     def default_url: () -> ::String
 
-    def default_params: () -> { market: untyped }
+    def default_params: () -> { "market" => ::String }
 
-    def get: (untyped url, ?::Hash[untyped, untyped] params) -> untyped
+    # レスポンス専用に namespase 分けとく
+    module Response
+      type images = ::Array[{
+        "height" => ::Integer,
+        "url" => ::String,
+        "width" => ::Integer
+      }]
 
-    def index: (?::Hash[untyped, untyped] params) -> untyped
+      type simple_artist = {
+        "external_urls" => { "spotify" => ::String },
+        "href" => ::String,
+        "id" => ::String,
+        "name" => ::String,
+        "type" => "artist",
+        "uri" => ::String
+      }
 
-    def get_artist: (untyped spotify_id, ?untyped params) -> untyped
+      type artist = {
+        "followers" => {
+          "href" => nil | ::String,
+          "total"=> ::Integer
+        },
+        "genres" => ::Array[::String],
+        "images" => images,
+        "popularity" => ::Integer
+      } & simple_artist
 
-    def index_artists: (untyped name) -> untyped
+      type artists = {
+        "artists" => {
+          "href" => ::String,
+          "items" => ::Array[artist],
+          "limit" => ::Integer,
+          "next" => nil | ::String,
+          "offset" => ::Integer,
+          "previous" => nil | ::String,
+          "total" => ::Integer
+        }
+      }
 
-    def get_artist_albums: (untyped spotify_id, ?untyped params) -> untyped
+      type simple_album = {
+        "album_group" => "album",
+        "album_type" => "album",
+        "artists"=> ::Array[simple_artist],
+        "external_urls" => { "spotify" => ::String },
+        "href" => ::String,
+        "id" => ::String,
+        "images" => images,
+        "name" => ::String,
+        "release_date" => ::String,
+        "release_date_precision" => "year" | "month" | "day",
+        "total_tracks" => ::Integer,
+        "type" => "album",
+        "uri" => ::String
+      }
 
-    def get_album: (untyped spotify_id, ?untyped params) -> untyped
+      type album = {
+        "album_type" => "album",
+        "artists" => ::Array[simple_artist],
+        "copyrights" => ::Array[{
+          "text" => ::String,
+          "type" => ::String
+        }],
+        "external_ids" => { "upc" => ::String },
+        "external_urls" => { "spotify" => ::String },
+        "genres" => ::Array[::String],
+        "href" => ::String,
+        "id" => ::String,
+        "images" => images,
+        "label" => ::String,
+        "name" => ::String,
+        "popularity" => ::Integer,
+        "release_date" => ::String,
+        "release_date_precision" => "year" | "month" | "day",
+        "total_tracks" => ::Integer,
+        "type" => ::String,
+        "uri" => ::String,
+        "tracks" => ::Array[simple_tracks]
+      }
 
-    def get_album_tracks: (untyped spotify_id, ?untyped params) -> untyped
+      type albums = {
+        "href" => ::String,
+        "items" => ::Array[simple_album],
+        "limit" => ::Integer,
+        "next" => nil | ::String,
+        "offset" => ::Integer,
+        "previous" => nil | ::String,
+        "total" => ::Integer
+      }
 
-    def get_track: (untyped spotify_id, ?untyped params) -> untyped
+      type simple_track = {
+        "artists" => ::Array[simple_artist],
+        "track_number" => ::Integer,
+        "disc_number" => ::Integer,
+        "duration_ms" => ::Integer,
+        "explicit" => bool,
+        "external_urls" => { "spotify" => ::String },
+        "href" => ::String,
+        "id" => ::String,
+        "is_local" => bool,
+        "is_playable" => bool,
+        "name" => ::String,
+        "preview_url" => ::String,
+        "type" => "track",
+        "uri" => ::String
+      }
 
-    def get_track_by_isrc: (untyped isrc) -> untyped
+      type track = {
+        "album" => simple_album,
+        "external_ids" => { "isrc" => ::String },
+        "popularity" => ::Integer
+      } & simple_track
 
-    def get_tracks: (untyped spotify_ids, ?untyped params) -> untyped
+      type simple_tracks = {
+        "href" => ::String,
+        "items" => ::Array[simple_track],
+        "limit" => ::Integer,
+        "next" => nil | ::String,
+        "offset" => ::Integer,
+        "previous" => nil | ::String,
+        "total" => ::Integer
+      }
+
+      type tracks = {
+        "href" => ::String,
+        "items" => ::Array[track],
+        "limit" => ::Integer,
+        "next" => nil | ::String,
+        "offset" => ::Integer,
+        "previous" => nil | ::String,
+        "total" => ::Integer
+      }
+    end
+
+    def get: (::String url, ?::Hash[untyped, ::String] params) -> untyped
+
+    def index: (?::Hash[untyped, ::String] params) -> untyped
+
+    def get_artist: (::String spotify_id, ?::Hash[untyped, ::String] params) -> Response::artist
+
+    def index_artists: (::String name) -> Response::artists
+
+    def get_artist_albums: (::String spotify_id, ?::Hash[untyped, ::String] params) -> Response::albums
+
+    def get_album: (::String spotify_id, ?::Hash[untyped, ::String] params) -> Response::album
+
+    def get_album_tracks: (::String spotify_id, ?::Hash[untyped, ::String] params) -> Response::simple_tracks
+
+    def get_track: (::String spotify_id, ?::Hash[untyped, ::String] params) -> Response::track
+
+    def get_track_by_isrc: (::String isrc) -> { "tracks" => Response::tracks }
+
+    def get_tracks: (::Array[::String] spotify_ids, ?::Hash[untyped, ::String] params) -> { "tracks" => Response::tracks }
 
     def result: (untyped response) -> untyped
   end
