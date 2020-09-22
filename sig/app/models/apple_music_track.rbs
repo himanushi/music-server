@@ -183,37 +183,9 @@ class AppleMusicTrack < ApplicationRecord
   def self.ignore: () -> AppleMusicTrack::ActiveRecord_Relation
 
   # rbs prototype rb app/models/apple_music_track.rb
-  def self.mapping: ({
-    "id" => String,
-    "type" => String,
-    "attributes" => {
-      "name" => String,
-      "discNumber" => Integer,
-      "trackNumber" => Integer,
-      "hasLyrics" => bool,
-      "playParams" => untyped,
-      "durationInMillis" => Integer,
-      "preview_url" => String,
-      "isrc" => String,
-      "artistName" => String
-    }
-  } data) -> untyped
+  def self.mapping: (::AppleMusic::Client::Response::track data) -> untyped
 
-  def self.to_track_attrs: ({
-    "id" => String,
-    "type" => String,
-    "attributes" => {
-      "name" => String,
-      "discNumber" => Integer,
-      "trackNumber" => Integer,
-      "hasLyrics" => bool,
-      "playParams" => untyped,
-      "durationInMillis" => Integer,
-      "preview_url" => String,
-      "isrc" => String,
-      "artistName" => String
-    }
-  } data) -> untyped # TODO: 型設定すること。今の所できない
+  def self.to_track_attrs: (::AppleMusic::Client::Response::track data) -> { isrc: ::String }
 
   def music_service_id: () -> String
 
