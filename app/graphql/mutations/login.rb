@@ -1,5 +1,5 @@
-class Mutations::Signin < Mutations::BaseMutation
-  description "サインイン"
+class Mutations::Login < Mutations::BaseMutation
+  description "ログイン"
 
   argument :username, String, required: false
   argument :password, String, required: false
