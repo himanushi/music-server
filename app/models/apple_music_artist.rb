@@ -53,23 +53,24 @@ class AppleMusicArtist < ApplicationRecord
 
   def create_albums
 
-    # @type var albums_ids: Array[String]
+    # @type var albums_ids: ::Array[::String]
     albums_ids = []
 
-    # @type var alums_data: [{ "id" => String }]
+    # @type var alums_data: ::Array[::AppleMusic::Client::Response::album]
     alums_data = AppleMusic::Client.new.get_artist_albums(apple_music_id)["data"]
     if alums_data.present?
       albums_ids += alums_data.map {|album| album["id"] }
     end
 
     # V.A などの取得不可なアルバムに対応するため携わっているトラックからアルバムを取得する
-    # @type var tracks_data: [{ "attributes" => { "url" => String } }]
+    # @type var tracks_data: ::Array[::AppleMusic::Client::Response::track]
     tracks_data = AppleMusic::Client.new.get_artist_tracks(apple_music_id, {}, repeat: 5)["data"]
     if tracks_data.present?
       # 以下のようなURLからアルバムIDを抽出
       # https://music.apple.com/jp/album/999999999?i=999999999
       # https://music.apple.com/jp/album/アルバム名/999999999?i=999999999
-      albums_ids += tracks_data.map {|track| track["attributes"]["url"][/\/([0-9]+)\?/, 1] }
+      # TODO: 型検証のために空文字を追加しているがダメなのでなんとかする
+      albums_ids += tracks_data.map {|track| track["attributes"]["url"][/\/([0-9]+)\?/, 1] || "" }
     end
 
     return [] if albums_ids.empty?

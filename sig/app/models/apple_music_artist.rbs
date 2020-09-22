@@ -98,12 +98,7 @@ class AppleMusicArtist < ApplicationRecord
 
   def self.music_service_id_name: () -> "apple_music_id"
 
-  def self.mapping: ({
-    "id" => String,
-    "attributes" => {
-      "name" => String
-    }
-  } data) -> { artist_id: String, apple_music_id: String, name: String, status: String }
+  def self.mapping: (::AppleMusic::Client::Response::simple_artist data) -> { artist_id: String, apple_music_id: String, name: String, status: String }
 
   def self.create_by_name: (String name) -> Array[instance]
 
