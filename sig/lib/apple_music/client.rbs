@@ -69,7 +69,7 @@ module AppleMusic
         "playParams" => {
           "id" => ::String,
           "kind" => "album"
-        },
+        } | nil,
         "isCompilation" => bool
       }
 
@@ -92,91 +92,89 @@ module AppleMusic
         "playParams" => {
           "id" => ::String,
           "kind" => "song"
-        },
+        } | nil,
         "trackNumber" => ::Integer,
         "composerName" => ::String
       }
 
+      type simple_artist = {
+        "id" => ::String,
+        "type" => "artists",
+        "href" => ::String,
+        "attributes" => artist_attributes
+      }
+
       type artist = {
-        "next" => ::String,
-        "data" => Array[{
-          "id" => ::String,
-          "type" => "artists",
-          "href" => ::String,
-          "attributes" => artist_attributes,
-          "relationships" => {
-            "albums" => {
-              "next" => ::String,
-              "href" => ::String,
-              "data" => ::Array[{
-                "id" => ::String,
-                "type" => "albums",
-                "href" => ::String
-              }]
-            }
+        "relationships" => {
+          "albums" => {
+            "next" => ::String | nil,
+            "href" => ::String,
+            "data" => ::Array[simple_album]
           }
-        }]
+        }
+      } & simple_artist
+
+      type artists = {
+        "next" => ::String | nil,
+        "data" => Array[artist]
+      }
+
+      type simple_album = {
+        "id" => ::String,
+        "type" => "albums",
+        "href" => ::String,
+        "attributes" => album_attributes
       }
 
       type album = {
-        "next" => ::String,
-        "data" => Array[{
-          "id" => ::String,
-          "type" => "albums",
-          "href" => ::String,
-          "attributes" => album_attributes,
-          "relationships" => {
-            "tracks" => {
-              "next" => ::String,
-              "href" => ::String,
-              "data" => ::Array[{
-                "id" => ::String,
-                "type" => "songs" | "music-videos",
-                "href" => ::String,
-                "attributes" => track_attributes
-              }]
-            },
-            "artists" => {
-              "next" => ::String,
-              "href" => ::String,
-              "data" => ::Array[{
-                "id" => ::String,
-                "type" => "artists",
-                "href" => ::String
-              }]
-            }
+        "relationships" => {
+          "tracks" => {
+            "next" => ::String | nil,
+            "href" => ::String,
+            "data" => ::Array[simple_track]
+          },
+          "artists" => {
+            "next" => ::String | nil,
+            "href" => ::String,
+            "data" => ::Array[{
+              "id" => ::String,
+              "type" => "artists",
+              "href" => ::String
+            }]
           }
-        }]
+        }
+      } & simple_album
+
+      type albums = {
+        "next" => ::String | nil,
+        "data" => Array[album]
+      }
+
+      type simple_track = {
+        "id" => ::String,
+        "type" => "songs" | "music-videos",
+        "href" => ::String,
+        "attributes" => track_attributes
       }
 
       type track = {
-        "next" => ::String,
-        "data" => Array[{
-          "id" => ::String,
-          "type" => "songs",
-          "href" => ::String,
-          "attributes" => track_attributes,
-          "relationships" => {
-            "artists" => {
-              "next" => ::String,
-              "href" => ::String,
-              "data" => ::Array[{
-                "id" => ::String,
-                "type" => "artists",
-                "href" => ::String
-              }]
-            },
-            "albums" => {
-              "next" => ::String,
-              "href" => ::String,
-              "data" => ::Array[{
-                "id" => ::String,
-                "type" => "albums",
-                "href" => ::String
-              }]
-            }
+        "relationships" => {
+          "artists" => {
+            "next" => ::String | nil,
+            "href" => ::String,
+            "data" => ::Array[simple_artist]
+          },
+          "albums" => {
+            "next" => ::String | nil,
+            "href" => ::String,
+            "data" => ::Array[simple_album]
           }
-        }]
+        }
+      } & simple_track
+
+      type tracks = {
+        "next" => ::String | nil,
+        "data" => Array[track]
       }
     end
 
@@ -185,19 +183,19 @@ module AppleMusic
 
     def index: (?::Hash[untyped, untyped] params) -> untyped
 
-    def get_artist: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::artist
+    def get_artist: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::artists
 
-    def index_artists: (String name) -> Response::artist
+    def index_artists: (String name) -> Response::artists
 
-    def get_artist_albums: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::album
+    def get_artist_albums: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::albums
 
-    def get_artist_tracks: (String apple_music_id, ?::Hash[untyped, untyped] params, ?repeat: Integer? repeat) -> Response::track
+    def get_artist_tracks: (String apple_music_id, ?::Hash[untyped, untyped] params, ?repeat: Integer? repeat) -> Response::tracks
 
-    def get_album: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::album
+    def get_album: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::albums
 
-    def get_track: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::track
+    def get_track: (String apple_music_id, ?::Hash[untyped, untyped] params) -> Response::tracks
 
-    def get_track_by_isrc: (String isrc) -> Response::track
+    def get_track_by_isrc: (String isrc) -> Response::tracks
 
     def result: (untyped response) -> untyped
   end
