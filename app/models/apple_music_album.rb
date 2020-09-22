@@ -18,19 +18,19 @@ class AppleMusicAlbum < ApplicationRecord
 
     def mapping(data)
 
-      # @type var attrs: { "id" => ::String, "releaseDate" => ::String, "trackCount" => ::Integer, "name" => ::String, "recordLabel" => ::String, "copyright" => (::String | nil), "playParams" => untyped, "artwork" => { "url" => ::String, "width" => ::Integer, "height" => ::Integer } }
+      # @type var attrs: ::AppleMusic::Client::Response::album_attributes
       attrs        = data["attributes"]
 
-      # @type var tracks_data: Array[{ "id" => ::String, "type" => ::String, "attributes" => { "name" => ::String, "discNumber" => ::Integer, "trackNumber" => ::Integer, "hasLyrics" => bool, "playParams" => untyped, "durationInMillis" => ::Integer, "preview_url" => ::String, "isrc" => ::String, "artistName" => ::String } }]
+      # @type var tracks_data: ::Array[::AppleMusic::Client::Response::track]
       tracks_data  = data.dig("relationships", "tracks", "data") || []
 
-      # @type var album_attrs: { release_date: Time, total_tracks: Integer }
+      # @type var album_attrs: { release_date: ::Time, total_tracks: ::Integer }
       album_attrs  = to_album_attrs(data)
 
-      # @type var tracks_attrs: Array[{ isrc: String }]
+      # @type var tracks_attrs: ::Array[{ isrc: ::String }]
       tracks_attrs = tracks_data.map {|td| AppleMusicTrack.to_track_attrs(td) }
 
-      # @type var album: Album
+      # @type var album: ::Album
       album = Album.find_by_isrc_or_create(album_attrs, tracks_attrs)
 
       data.dig("relationships", "artists", "data").each do |ad|
@@ -109,9 +109,19 @@ class AppleMusicAlbum < ApplicationRecord
 
       return [] unless apple_music_ids.present?
 
+      # TODO: ここの書き方は型検証するために面倒な実装になっているのでどうにかしたい
+      # @type var albums: ::Array[::AppleMusicAlbum]
+      albums = []
       apple_music_ids.map do |apple_music_id|
-        create_by_music_service_id(apple_music_id)
+        album = create_by_music_service_id(apple_music_id)
+        if album.present?
+
+          # @type var album: ::AppleMusicAlbum
+          albums << album
+        end
       end
+
+      albums
     end
   end
 

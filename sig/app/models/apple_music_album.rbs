@@ -200,61 +200,9 @@ class AppleMusicAlbum < ApplicationRecord
 
   def self.music_service_id_name: () -> "apple_music_id"
 
-  def self.mapping: ({
-    "id" => String,
-    "attributes" => {
-      "id" => String,
-      "releaseDate" => String,
-      "trackCount" => Integer,
-      "name" => String,
-      "recordLabel" => String,
-      "copyright" => String?,
-      "playParams" => untyped?,
-      "artwork" => {
-        "url" => String,
-        "width" => Integer,
-        "height" => Integer
-      }
-    },
-    "relationships" => {
-      "tracks" => {
-        "data" => Array[untyped]
-      },
-      "artists" => {
-        "data" => Array[{
-          "id" => String
-        }]
-      }
-    }
-  } data) -> Hash[Symbol, untyped]
+  def self.mapping: (AppleMusic::Client::Response::album data) -> Hash[Symbol, untyped]
 
-  def self.to_album_attrs: ({
-    "id" => String,
-    "attributes" => {
-      "id" => String,
-      "releaseDate" => String,
-      "trackCount" => Integer,
-      "name" => String,
-      "recordLabel" => String,
-      "copyright" => String?,
-      "playParams" => untyped?,
-      "artwork" => {
-        "url" => String,
-        "width" => Integer,
-        "height" => Integer
-      }
-    },
-    "relationships" => {
-      "tracks" => {
-        "data" => Array[untyped]
-      },
-      "artists" => {
-        "data" => Array[{
-          "id" => String
-        }]
-      }
-    }
-  } data) -> { release_date: Time, total_tracks: Integer }
+  def self.to_album_attrs: (AppleMusic::Client::Response::album data) -> { release_date: Time, total_tracks: Integer }
 
   def self.create_by_music_service_id: (String apple_music_id) -> (nil | AppleMusicAlbum)
 
