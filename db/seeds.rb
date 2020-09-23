@@ -33,7 +33,7 @@ Role.create!(name: "default", description: "初期ロール") do |role|
 end
 
 password = SecureRandom.hex(3)
-puts "/signin [username: admin,  password: #{password}]".red
+puts "/login [username: admin,  password: #{password}]".red
 User.create!(
   name: "admin",
   username: "admin",
