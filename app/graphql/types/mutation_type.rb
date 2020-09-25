@@ -19,6 +19,5 @@ module Types
     field :change_favorites,   mutation: Mutations::ChangeFavorites
     field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
     field :clear_cache,        mutation: Mutations::ClearCache
-    field :upsert_active_artists_has_albums, mutation: Mutations::UpsertActiveArtistsHasAlbums
   end
 end
