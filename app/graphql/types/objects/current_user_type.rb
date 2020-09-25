@@ -8,18 +8,18 @@ module Types
       field :username, String, null: false, description: "ユーザー名"
       field :role, RoleType, null: false, description: "ロール"
       field :favorite, FavoriteType, null: false, description: "お気に入り"
-      field :initialized, Boolean, null: false, description: "初期設定済み"
+      field :registered, Boolean, null: false, description: "登録済み"
 
-      def initialized
-        object.encrypted_password.present?
+      def registered
+        object.registered?
       end
 
       def name
-        initialized ? object.name : ""
+        object.registered? ? object.name : ""
       end
 
       def username
-        initialized ? object.username : ""
+        object.registered? ? object.username : ""
       end
     end
   end

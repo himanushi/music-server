@@ -29,4 +29,9 @@ class User < ApplicationRecord
     end
     role.allowed_actions.where(name: action_name).exists?
   end
+
+  # 登録済み
+  def registered?
+    encrypted_password.present?
+  end
 end
