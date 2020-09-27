@@ -8,13 +8,13 @@ class Mutations::UpdateMe < Mutations::BaseMutation
 
   field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
-  # TODO: ロール変更API
+
   def mutate(**attrs)
     begin
       old_password = attrs.delete(:old_password)
 
       # なりすまし対策
-      if context[:current_info][:user].encrypted_password.present?
+      if attrs[:new_password].present? && context[:current_info][:user].encrypted_password.present?
         hash_password = BCrypt::Password.new(context[:current_info][:user].encrypted_password)
         raise StandardError unless hash_password == old_password
       end
