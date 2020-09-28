@@ -15,9 +15,9 @@ class Mutations::Signup < Mutations::BaseMutation
       # パスワード検証
       old_password = attrs.delete(:old_password)
       new_password = attrs.delete(:new_password)
-      raise StandardError unless old_password == new_password
+      raise StandardError, "パスワードが一致しません" unless old_password == new_password
 
-      # パスワードを変更したら全てのセッションを削除し、最新セッション作成
+      # パスワードを設定したら全てのセッションを削除し、最新セッション作成
       attrs[:encrypted_password] = BCrypt::Password.create(new_password, cost: 12)
       context[:current_info][:user].sessions.delete_all
       context[:current_info][:session] = context[:current_info][:user].sessions.create!
@@ -30,12 +30,12 @@ class Mutations::Signup < Mutations::BaseMutation
     rescue ActiveRecord::RecordInvalid => error
       {
         current_user: nil,
-        error: "指定したユーザー名はすでに存在します",
+        error: "指定したユーザーIDはすでに存在します",
       }
     rescue => error
       {
         current_user: nil,
-        error: "古いパスワードが違います",
+        error: error.message,
       }
     end
   end
