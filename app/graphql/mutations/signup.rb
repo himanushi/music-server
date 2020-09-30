@@ -9,13 +9,17 @@ class Mutations::Signup < Mutations::BaseMutation
   field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
 
+  class RegisteredError < StandardError; end
+
   def mutate(**attrs)
     begin
+      # 登録済みは正常終了しておく
+      raise RegisteredError if context[:current_info][:user].registered?
 
       # パスワード検証
       old_password = attrs.delete(:old_password)
       new_password = attrs.delete(:new_password)
-      raise StandardError, "パスワードが一致しません" unless old_password == new_password
+      raise StandardError, "エラー : パスワードが一致しません" unless old_password == new_password
 
       # パスワードを設定したら全てのセッションを削除し、最新セッション作成
       attrs[:encrypted_password] = BCrypt::Password.create(new_password, cost: 12)
@@ -27,10 +31,11 @@ class Mutations::Signup < Mutations::BaseMutation
         current_user: context[:current_info][:user],
         error: nil,
       }
-    rescue ActiveRecord::RecordInvalid => error
+    rescue RegisteredError => error
+      # 登録済みは正常終了しておく
       {
-        current_user: nil,
-        error: "指定したユーザーIDはすでに存在します",
+        current_user: context[:current_info][:user],
+        error: nil,
       }
     rescue => error
       {
