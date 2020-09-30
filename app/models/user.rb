@@ -8,7 +8,9 @@ class User < ApplicationRecord
   has_many :public_informations, dependent: :destroy
 
   validates :name, :username, presence: true
-  validates :username, uniqueness: { case_sensitive: true }, format: { with: /\A[0-9a-zA-Z]+\z/, message: "半角英数字のみが使えます" }
+  validates :username,
+            uniqueness: { case_sensitive: true, message: "がすでに使用されています。別のユーザーIDに変更してください。" },
+            format: { with: /\A[0-9a-zA-Z_]+\z/, message: "は半角英数字(0-9,a-z,A-Z)とハイフン(_)のみが使用できます。" }
 
   class << self
     def create_user_and_session!
