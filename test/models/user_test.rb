@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def test_ok_validates_username_format
     role = Role.create!(name: "default")
-    user = User.new(name: "test", role: role)
+    user = User.new(name: "test", role: role, password: "1Aaaaaaa", password_confirmation: "1Aaaaaaa")
     user.username = "09azAZ"
 
     assert user.save
@@ -11,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_ng_validates_username_format
     role = Role.create!(name: "default")
-    user = User.new(name: "test", role: role)
+    user = User.new(name: "test", role: role, password: "1Aaaaaaa", password_confirmation: "1Aaaaaaa")
 
     user.username = "09azAZあ"
     assert_not user.save
@@ -33,7 +33,7 @@ class UserTest < ActiveSupport::TestCase
   def test_ok_can?
     role = Role.create!(name: "default")
     ["me", "updateMe"].each {|name| AllowedAction.create!(name: name, role: role) }
-    user = User.create!(name: "test", username: "test", role: role)
+    user = User.create!(name: "test", username: "test", role: role, password: "1Aaaaaaa", password_confirmation: "1Aaaaaaa")
 
     assert user.can?("me")
     assert user.can?("updateMe")
@@ -42,7 +42,7 @@ class UserTest < ActiveSupport::TestCase
   def test_ng_can?
     role = Role.create!(name: "default")
     ["me", "updateMe"].each {|name| AllowedAction.create!(name: name, role: role) }
-    user = User.create!(name: "test", username: "test", role: role)
+    user = User.create!(name: "test", username: "test", role: role, password: "1Aaaaaaa", password_confirmation: "1Aaaaaaa")
 
     err = assert_raises(StandardError) { user.can?("Me") }
     assert_equal "指定されたアクションは存在しません", err.message

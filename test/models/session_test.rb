@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SessionTest < ActiveSupport::TestCase
   def user
-    User.create!(name: "test", username: "test", role: Role.create!(name: "admin"))
+    User.create!(name: "test", username: "test", role: Role.create!(name: "admin"), password: "1Aaaaaaa", password_confirmation: "1Aaaaaaa")
   end
 
   def test_ok_before_create_refresh_token
