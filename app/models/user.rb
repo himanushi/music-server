@@ -7,16 +7,34 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :public_informations, dependent: :destroy
 
-  validates :name, :username, presence: true
+  validates :name,
+            presence: true,
+            length: { maximum: 50 }
+
   validates :username,
+            presence: true,
+            length: { maximum: 15 },
             uniqueness: { case_sensitive: true, message: "がすでに使用されています。別のユーザーIDに変更してください。" },
-            format: { with: /\A[0-9a-zA-Z_]+\z/, message: "は半角英数字(0-9,a-z,A-Z)とハイフン(_)のみが使用できます。" }
+            format: { with: /\A[0-9a-zA-Z_]+\z/, message: "は半角英数字(0-9,a-z,A-Z)とアンダースコア(_)のみが使用できます。" }
+
+  has_secure_password
+  validates :password,
+            presence: true,
+            length: { minimum: 8 }, # かつ72文字以下
+            format: {
+              with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
+              message: "は半角英小文字大文字数字をそれぞれ1種類以上を含む必要があります"
+            },
+            allow_blank: true
 
   class << self
     def create_user_and_session!
+      password = SecureRandom.hex(6) + "aA1"
       user = new(
         name: "未設定",
         username: SecureRandom.hex(5).upcase,
+        password: password,
+        password_confirmation: password
       )
       user.role = Role.default_role
       user.sessions = [Session.new]
@@ -30,10 +48,5 @@ class User < ApplicationRecord
       raise StandardError, "指定されたアクションは存在しません"
     end
     role.allowed_actions.where(name: action_name).exists?
-  end
-
-  # 登録済み
-  def registered?
-    encrypted_password.present?
   end
 end
