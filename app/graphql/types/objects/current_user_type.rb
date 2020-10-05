@@ -10,16 +10,12 @@ module Types
       field :favorite, FavoriteType, null: false, description: "お気に入り"
       field :registered, Boolean, null: false, description: "登録済み"
 
-      def registered
-        object.registered?
-      end
-
       def name
-        object.registered? ? object.name : ""
+        object.registered ? object.name : ""
       end
 
       def username
-        object.registered? ? object.username : ""
+        object.registered ? object.username : ""
       end
     end
   end
