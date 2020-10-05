@@ -10,8 +10,7 @@ class Mutations::Login < Mutations::BaseMutation
   def mutate(username:, password:)
     begin
       user = User.find_by!(username: username)
-      hash_password = BCrypt::Password.new(user.encrypted_password)
-      raise StandardError, "ユーザー名またはパスワードが違います" unless hash_password == password
+      raise StandardError unless user.authenticate(password)
 
       # cookie 更新
       # 複数デバイスを許可しておく
@@ -25,7 +24,7 @@ class Mutations::Login < Mutations::BaseMutation
     rescue => error
       {
         current_user: nil,
-        error: error.message,
+        error: "ユーザー名またはパスワードが違います",
       }
     end
   end
