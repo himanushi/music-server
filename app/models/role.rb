@@ -9,6 +9,10 @@ class Role < ApplicationRecord
       Role.find_by!(name: "admin")
     end
 
+    def login_role
+      Role.find_by!(name: "login")
+    end
+
     def default_role
       Role.find_by!(name: "default")
     end
