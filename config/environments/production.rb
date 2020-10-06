@@ -96,4 +96,6 @@ Rails.application.configure do
 
   ActiveRecord::Base.logger = Logger.new(STDOUT)
   ActiveRecord::Base.logger.level = 0
+
+  config.hosts << "video-game-music.net"
 end
