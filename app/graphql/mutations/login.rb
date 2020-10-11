@@ -1,16 +1,18 @@
 class Mutations::Login < Mutations::BaseMutation
   description "ログイン"
 
-  argument :username, String, required: false
-  argument :password, String, required: false
+  argument :username, String, required: true
+  argument :password, String, required: true
 
   field :current_user, Types::Objects::CurrentUserType, null: true
   field :error, String, null: true
 
+  def use_recaptcha?; true end
+
   def mutate(username:, password:)
     begin
-      user = User.find_by!(username: username)
-      raise StandardError unless user.authenticate(password)
+      user = User.find_by(username: username)
+      raise StandardError, "エラー : ユーザーIDまたはパスワードに誤りがあります" unless user&.authenticate(password)
 
       # cookie 更新
       # 複数デバイスを許可しておく
@@ -24,7 +26,7 @@ class Mutations::Login < Mutations::BaseMutation
     rescue => error
       {
         current_user: nil,
-        error: "ユーザー名またはパスワードが違います",
+        error: error.message,
       }
     end
   end
