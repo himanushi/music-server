@@ -16,14 +16,14 @@ class ApplicationController < ActionController::Base
       if token.present?
         begin
           session = Session.find_by_digit_token!(token)
-          { user: session.user, session: session }
+          { user: session.user, session: session, cookie: request.cookies }
         rescue => e
           user = User.create_user_and_session!
-          { user: user, session: user.sessions.first }
+          { user: user, session: user.sessions.first, cookie: request.cookies }
         end
       else
         user = User.create_user_and_session!
-        { user: user, session: user.sessions.first }
+        { user: user, session: user.sessions.first, cookie: request.cookies }
       end
     end
   end
