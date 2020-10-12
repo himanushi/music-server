@@ -3,6 +3,9 @@ class Mutations::UpdateMe < Mutations::BaseMutation
 
   argument :name, String, required: false
 
+  argument :is_public_artist, Boolean, required: true
+  argument :is_public_album,  Boolean, required: true
+
   argument :new_password, String, required: false
   argument :password_confirmation, String, required: false
   argument :old_password, String, required: false
@@ -12,8 +15,16 @@ class Mutations::UpdateMe < Mutations::BaseMutation
 
   def mutate(**attrs)
     begin
+      _attrs = {}
+
       ### ユーザー情報更新
-      _attrs = attrs.slice(:name)
+      _attrs.merge!(attrs.slice(:name))
+
+      ### 公開情報更新
+      public_informations = []
+      public_informations << PublicInformation.new(public_type: :artist) if attrs.delete(:is_public_artist)
+      public_informations << PublicInformation.new(public_type: :album) if attrs.delete(:is_public_album)
+      _attrs.merge!({ public_informations: public_informations })
 
       ### パスワード変更
       old_password = attrs.delete(:old_password)
