@@ -14,8 +14,8 @@ class User < ApplicationRecord
   validates :username,
             presence: true,
             length: { maximum: 15 },
-            uniqueness: { case_sensitive: true, message: "がすでに使用されています。別のユーザーIDに変更してください。" },
-            format: { with: /\A[0-9a-zA-Z_]+\z/, message: "は半角英数字(0-9,a-z,A-Z)とアンダースコア(_)のみが使用できます。" }
+            uniqueness: { case_sensitive: true, message: "がすでに使用されています, 別のユーザーIDに変更してください" },
+            format: { with: /\A[0-9a-zA-Z_]+\z/, message: "は半角英数字(0-9,a-z,A-Z)とアンダースコア(_)のみが使用できます" }
 
   has_secure_password
   validates :password,
