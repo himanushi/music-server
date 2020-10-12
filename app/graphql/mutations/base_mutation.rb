@@ -12,19 +12,19 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
   include Types::Unions
   include Types::Enums
 
-  def use_recaptcha?
-    false
-  end
+  attr_reader :error_message
+  def use_recaptcha?; false end
 
   def resolve(**args)
     action_name = self.class.name.demodulize.camelize(:lower)
 
     # 権限とか
+    @error_message = ""
     if use_recaptcha?
       token = context.dig(:current_info, :cookie, "reCAPTCHAv2Token")
-      raise ApplicationController::Forbidden, "ロボットによる操作の可能性があります" unless Google::Recaptcha.valid?(token)
+      @error_message = "エラー : ロボット操作の可能性があります。再入力をお願いします。" unless Google::Recaptcha.valid?(token)
     end
-    raise ApplicationController::Forbidden, "権限がありません" unless context[:current_info][:user].can?(action_name)
+    @error_message = "エラー : 権限がありません" unless context[:current_info][:user].can?(action_name)
 
     mutate(**args)
   end
