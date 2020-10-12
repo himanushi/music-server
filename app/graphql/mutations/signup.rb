@@ -11,15 +11,26 @@ class Mutations::Signup < Mutations::BaseMutation
 
   class RegisteredError < StandardError; end
 
-  def mutate(**attrs)
+  def use_recaptcha?; true end
+
+  def mutate(name:, username:, password:, password_confirmation:)
     begin
+      raise StandardError, error_message unless error_message.blank?
+
       # 登録済みは正常終了しておく
       raise RegisteredError if context[:current_info][:user].registered
 
+      attrs = {
+        name: name,
+        username: username,
+        password: password,
+        password_confirmation: password_confirmation,
+        registered: true,
+        role: Role.login_role
+      }
+
       # 設定したら全てのセッションを削除し、最新セッション作成
       ActiveRecord::Base.transaction do
-        attrs[:registered] = true
-        attrs[:role] = Role.login_role
         context[:current_info][:user].update!(attrs)
         context[:current_info][:user].sessions.delete_all
         context[:current_info][:session] = context[:current_info][:user].sessions.create!

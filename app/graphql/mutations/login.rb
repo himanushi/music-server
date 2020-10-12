@@ -11,6 +11,8 @@ class Mutations::Login < Mutations::BaseMutation
 
   def mutate(username:, password:)
     begin
+      raise StandardError, error_message unless error_message.blank?
+
       user = User.find_by(username: username)
       raise StandardError, "エラー : ユーザーIDまたはパスワードに誤りがあります" unless user&.authenticate(password)
 
