@@ -26,6 +26,7 @@ module Queries
 
     def list_query(cursor:, sort:, conditions: {})
       # TODO: お気に入り対応
+      is_cache = true
       conditions = { status: [:active], **conditions }
       track_relation = ::Track.include_album_services
 
@@ -50,8 +51,11 @@ module Queries
           )
       end
 
-      track_relation.where(conditions).
-        distinct.offset(offset).limit(limit)
+      [
+        is_cache,
+        track_relation.where(conditions).
+          distinct.offset(offset).limit(limit)
+      ]
     end
   end
 end
