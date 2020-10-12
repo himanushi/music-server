@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   attr_reader :current_info
 
   class Forbidden < ActionController::ActionControllerError; end
+  rescue_from StandardError, with: :rescue500
   rescue_from ApplicationController::Forbidden, with: :rescue403
 
   def set_current_info
@@ -46,7 +47,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
     def rescue403(e)
       render file: "#{Rails.root}/public/403.html", status: 403
+    end
+
+    def rescue500(e)
+      render file: "#{Rails.root}/public/500.html", status: 500
     end
 end
