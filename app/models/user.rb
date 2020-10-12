@@ -22,8 +22,8 @@ class User < ApplicationRecord
             presence: true,
             length: { minimum: 8 }, # かつ72文字以下
             format: {
-              with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
-              message: "は半角英小文字大文字数字をそれぞれ1種類以上を含む必要があります"
+              with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
+              message: "は半角英数をそれぞれ1種類以上を含む必要があります"
             },
             allow_blank: true
 
