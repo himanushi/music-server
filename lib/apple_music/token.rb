@@ -2,7 +2,8 @@ module AppleMusic
   class Token
     class << self
       def create_client_token
-        create(ENV['APPLE_MUSIC_CLIENT_PRIVATE_KEY'].gsub(/\\n/,"\n"), ENV['APPLE_MUSIC_CLIENT_KEY_ID'], 8)
+        # 1週間トークンを有効にしておく
+        create(ENV['APPLE_MUSIC_CLIENT_PRIVATE_KEY'].gsub(/\\n/,"\n"), ENV['APPLE_MUSIC_CLIENT_KEY_ID'], 168)
       end
 
       def create_server_token
