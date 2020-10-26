@@ -15,8 +15,6 @@ class Mutations::Signup < Mutations::BaseMutation
 
   def mutate(name:, username:, password:, password_confirmation:)
     begin
-      raise StandardError, error_message unless error_message.blank?
-
       # 登録済みは正常終了しておく
       raise RegisteredError if context[:current_info][:user].registered
 

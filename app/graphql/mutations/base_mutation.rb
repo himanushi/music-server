@@ -12,14 +12,15 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
   include Types::Unions
   include Types::Enums
 
-  attr_reader :error_message
   def use_recaptcha?; false end
 
   def resolve(**args)
     action_name = self.class.name.demodulize.camelize(:lower)
 
     # 権限
-    raise ApplicationController::Forbidden, "エラー : 権限がありません" unless context[:current_info][:user].can?(action_name)
+    unless context[:current_info][:user].can?(action_name)
+      raise GraphQL::ExecutionError.new('エラー : 権限がありません', extensions: { status: 403 })
+    end
 
     # ロボット検証
     @error_message = ""
