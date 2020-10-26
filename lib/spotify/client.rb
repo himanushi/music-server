@@ -14,7 +14,7 @@ module Spotify
         builder.use(FaradayMiddleware::ParseJson)
         builder.headers["Content-Type"] = "application/json; charset=utf-8"
         builder.headers["Accept-Language"] = "ja,en-US;q=0.9,en;q=0.8"
-        builder.authorization("Bearer", Spotify::Token.create[:access_token])
+        builder.authorization("Bearer", Spotify::Token.create_server_token[:access_token])
         builder.adapter Faraday.default_adapter
       end
     end
