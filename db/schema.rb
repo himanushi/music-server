@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_05_000000) do
+ActiveRecord::Schema.define(version: 2020_11_13_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -88,6 +88,9 @@ ActiveRecord::Schema.define(version: 2020_10_05_000000) do
     t.boolean "has_lyrics", default: false, null: false, comment: "歌詞有無"
     t.integer "duration_ms", null: false, comment: "再生時間"
     t.text "preview_url"
+    t.text "artwork_url", null: false
+    t.integer "artwork_width", null: false
+    t.integer "artwork_height", null: false
     t.index ["apple_music_album_id", "disc_number", "track_number"], name: "index_apple_music_tracks_on_am_id_and_numbers", unique: true
     t.index ["apple_music_id", "status"], name: "index_apple_music_tracks_on_apple_music_id_and_status", unique: true
     t.index ["disc_number"], name: "index_apple_music_tracks_on_disc_number"
@@ -241,6 +244,15 @@ ActiveRecord::Schema.define(version: 2020_10_05_000000) do
     t.integer "duration_ms", null: false, comment: "再生時間"
     t.text "preview_url"
     t.integer "popularity", default: 0, null: false
+    t.text "artwork_l_url"
+    t.integer "artwork_l_width"
+    t.integer "artwork_l_height"
+    t.text "artwork_m_url"
+    t.integer "artwork_m_width"
+    t.integer "artwork_m_height"
+    t.text "artwork_s_url"
+    t.integer "artwork_s_width"
+    t.integer "artwork_s_height"
     t.index ["disc_number"], name: "index_spotify_tracks_on_disc_number"
     t.index ["duration_ms"], name: "index_spotify_tracks_on_duration_ms"
     t.index ["isrc"], name: "index_spotify_tracks_on_isrc"
