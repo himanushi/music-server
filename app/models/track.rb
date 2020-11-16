@@ -8,6 +8,8 @@ class Track < ApplicationRecord
   has_many :apple_music_and_itunes_tracks, class_name: AppleMusicTrack.name, dependent: :destroy
   has_many :spotify_tracks, dependent: :destroy
 
+  has_many :favorites, as: :favorable, dependent: :destroy
+
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   scope :include_artists, -> { eager_load(:artists) }

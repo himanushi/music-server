@@ -16,8 +16,9 @@ module Queries
     end
 
     class TracksConditionsInputObject < BaseInputObject
-      argument :name,    String, "トラック名(あいまい検索)", required: false
-      argument :status,  [StatusEnum], "表示ステータス", required: false
+      argument :name,     String, "トラック名(あいまい検索)", required: false
+      argument :status,   [StatusEnum], "表示ステータス", required: false
+      argument :favorite, Boolean, "お気に入り", required: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
@@ -25,7 +26,6 @@ module Queries
     argument :conditions, TracksConditionsInputObject, required: false, description: "取得条件"
 
     def list_query(cursor:, sort:, conditions: {})
-      # TODO: お気に入り対応
       is_cache = true
       conditions = { status: [:active], **conditions }
       track_relation = ::Track.include_services
@@ -40,6 +40,13 @@ module Queries
         else
           track_relation.order({ order => sort_type })
         end
+
+      # お気に入り検索
+      if conditions.delete(:favorite)
+        is_cache = false
+        track_relation =
+          track_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
+      end
 
       # 名前あいまい検索
       if conditions.has_key?(:name)
