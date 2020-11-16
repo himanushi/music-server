@@ -12,6 +12,9 @@ module Queries
       @limit     = cursor[:limit]
       @offset    = cursor[:offset]
 
+      # 最大件数
+      @limit = 100 > @limit ? 100 : @limit
+
       is_cache, result = list_query(**args)
 
       if is_cache && Rails.cache.exist?(cache_key)
