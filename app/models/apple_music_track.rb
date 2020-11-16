@@ -63,7 +63,24 @@ class AppleMusicTrack < ApplicationRecord
     apple_music_id
   end
 
+  def artwork_l
+    @artwork_l ||= build_artwork(640)
+  end
+
   def artwork_m
-    @artwork_m ||= apple_music_album.artwork_m
+    @artwork_m ||= build_artwork(300)
+  end
+
+  private def build_artwork(max_size)
+
+    # @type var height: Integer
+    height = artwork_height > max_size ? max_size : artwork_height
+
+    # @type var width: Integer
+    width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
+
+    # @type var url: String
+    url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
+    Artwork.new(url: url, width: width, height: height)
   end
 end

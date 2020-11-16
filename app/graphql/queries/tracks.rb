@@ -28,7 +28,7 @@ module Queries
       # TODO: お気に入り対応
       is_cache = true
       conditions = { status: [:active], **conditions }
-      track_relation = ::Track.include_album_services
+      track_relation = ::Track.include_services
 
       # 名前順の場合は音楽サービスの名前基準のため整形する
       track_relation =
