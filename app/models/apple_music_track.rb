@@ -46,6 +46,9 @@ class AppleMusicTrack < ApplicationRecord
         playable:       attrs["playParams"].present?,
         duration_ms:    attrs["durationInMillis"],
         preview_url:    attrs.dig("previews", 0, "url"),
+        artwork_url:    attrs.dig("artwork", "url"),
+        artwork_width:  attrs.dig("artwork", "width"),
+        artwork_height: attrs.dig("artwork", "height"),
         status:         track.status,
       }.merge(track_attrs).merge(other_data)
     end

@@ -27,17 +27,29 @@ class SpotifyTrack < ApplicationRecord
         end
       end
 
+      # @type var images: Array[{ "url" => String, "width" => Integer, "height" => Integer }]
+      images = data["album"]["images"][-3..-1] || []
+
       {
-        track:        track,
-        spotify_id:   data["id"],
-        name:         data["name"],
-        disc_number:  data["disc_number"],
-        track_number: data["track_number"],
-        has_lyrics:   data["explicit"],
-        playable:     data["is_playable"] || true,
-        duration_ms:  data["duration_ms"],
-        preview_url:  data["preview_url"],
-        popularity:   data["popularity"],
+        track:            track,
+        spotify_id:       data["id"],
+        name:             data["name"],
+        disc_number:      data["disc_number"],
+        track_number:     data["track_number"],
+        has_lyrics:       data["explicit"],
+        playable:         data["is_playable"] || true,
+        duration_ms:      data["duration_ms"],
+        preview_url:      data["preview_url"],
+        popularity:       data["popularity"],
+        artwork_l_url:    images.dig(0, "url"),
+        artwork_l_width:  images.dig(0, "width"),
+        artwork_l_height: images.dig(0, "height"),
+        artwork_m_url:    images.dig(1, "url"),
+        artwork_m_width:  images.dig(1, "width"),
+        artwork_m_height: images.dig(1, "height"),
+        artwork_s_url:    images.dig(2, "url"),
+        artwork_s_width:  images.dig(2, "width"),
+        artwork_s_height: images.dig(2, "height"),
         status:       track.status,
       }.merge(track_attrs)
     end
