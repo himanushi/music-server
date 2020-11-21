@@ -86,7 +86,7 @@ class SpotifyAlbum < ApplicationRecord
         spotify_id:       data["id"],
         name:             data["name"],
         record_label:     data["label"],
-        copyright:        data.dig("copyrights", 0, "text")[0...255] || "",
+        copyright:        (data.dig("copyrights", 0, "text") || "")[0...255],
         upc:              data.dig("external_ids", "upc") || "",
         popularity:       data["popularity"] || 0,
         artwork_l_url:    images.dig(0, "url"),
