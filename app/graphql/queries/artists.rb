@@ -18,6 +18,7 @@ module Queries
     class ArtistsConditionsInputObject < BaseInputObject
       argument :usernames, [String], "ユーザー名", required: false
       argument :albums, IdInputObject, "アルバムID", required: false
+      argument :tracks, IdInputObject, "トラックID", required: false
       argument :name,   String, "アーティスト名(あいまい検索)", required: false
       argument :status, [StatusEnum], "表示ステータス", required: false
       argument :favorite, Boolean, "お気に入り", required: false
@@ -60,6 +61,10 @@ module Queries
         artist_ids = albums.map {|a| a.artists.ids }.flatten
         artist_ids += albums.map {|a| a.tracks.include_artists.map {|t| t.artists.ids } }.flatten
         artist_relation = artist_relation.where(id: artist_ids)
+      end
+
+      if conditions.has_key?(:tracks)
+        artist_relation = artist_relation.include_tracks.where(tracks: { id: conditions.delete(:tracks)[:id] })
       end
 
       [
