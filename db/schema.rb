@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_000000) do
+ActiveRecord::Schema.define(version: 2020_11_26_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -147,6 +147,31 @@ ActiveRecord::Schema.define(version: 2020_11_14_000000) do
     t.string "title", limit: 191, null: false
     t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
+  end
+
+  create_table "playlist_items", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "playlist_id", limit: 16, null: false
+    t.string "track_id", limit: 16, null: false
+    t.integer "track_number", null: false
+    t.index ["playlist_id", "track_number"], name: "index_playlist_items_on_playlist_id_and_track_number", unique: true
+    t.index ["track_id"], name: "fk_rails_c2326b5e9c"
+  end
+
+  create_table "playlists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_id", limit: 16, null: false
+    t.string "title", limit: 191, null: false
+    t.text "description"
+    t.integer "public_type", null: false
+    t.integer "popularity", default: 0, null: false
+    t.index ["created_at"], name: "index_playlists_on_created_at"
+    t.index ["popularity"], name: "index_playlists_on_popularity"
+    t.index ["title"], name: "index_playlists_on_title"
+    t.index ["updated_at"], name: "index_playlists_on_updated_at"
+    t.index ["user_id"], name: "fk_rails_d67ef1eb45"
   end
 
   create_table "public_informations", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -303,6 +328,9 @@ ActiveRecord::Schema.define(version: 2020_11_14_000000) do
   add_foreign_key "artist_has_tracks", "artists"
   add_foreign_key "artist_has_tracks", "tracks"
   add_foreign_key "favorites", "users"
+  add_foreign_key "playlist_items", "playlists"
+  add_foreign_key "playlist_items", "tracks"
+  add_foreign_key "playlists", "users"
   add_foreign_key "public_informations", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "spotify_albums", "albums"
