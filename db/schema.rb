@@ -162,14 +162,16 @@ ActiveRecord::Schema.define(version: 2020_11_26_000000) do
   create_table "playlists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "track_id", limit: 16, null: false
     t.string "user_id", limit: 16, null: false
-    t.string "title", limit: 191, null: false
+    t.string "name", limit: 191, null: false
     t.text "description"
     t.integer "public_type", null: false
     t.integer "popularity", default: 0, null: false
     t.index ["created_at"], name: "index_playlists_on_created_at"
+    t.index ["name"], name: "index_playlists_on_name", unique: true
     t.index ["popularity"], name: "index_playlists_on_popularity"
-    t.index ["title"], name: "index_playlists_on_title"
+    t.index ["track_id"], name: "fk_rails_f42c5216a7"
     t.index ["updated_at"], name: "index_playlists_on_updated_at"
     t.index ["user_id"], name: "fk_rails_d67ef1eb45"
   end
@@ -330,6 +332,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_000000) do
   add_foreign_key "favorites", "users"
   add_foreign_key "playlist_items", "playlists"
   add_foreign_key "playlist_items", "tracks"
+  add_foreign_key "playlists", "tracks"
   add_foreign_key "playlists", "users"
   add_foreign_key "public_informations", "users"
   add_foreign_key "sessions", "users"
