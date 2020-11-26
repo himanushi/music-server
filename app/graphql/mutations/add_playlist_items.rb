@@ -9,6 +9,7 @@ class Mutations::AddPlaylistItems < Mutations::BaseMutation
 
   def mutate(playlist_id: nil, track_ids: [])
     begin
+      Playlist.validate_author(playlist_id, context[:current_info][:user].id)
       playlist = Playlist.find(playlist_id).add_items(track_ids: track_ids)
 
       {

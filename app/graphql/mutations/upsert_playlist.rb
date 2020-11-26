@@ -18,6 +18,7 @@ class Mutations::UpsertPlaylist < Mutations::BaseMutation
 
   def mutate(playlist_id: nil, track_id:, name:, description: nil, public_type:, track_ids: [])
     begin
+      Playlist.validate_author(playlist_id, context[:current_info][:user].id) if playlist_id
 
       playlist =
         Playlist.upsert(

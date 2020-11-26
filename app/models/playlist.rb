@@ -21,6 +21,11 @@ class Playlist < ApplicationRecord
       end
     end
 
+    # 作者のみ更新可能
+    def validate_author(playlist_id, user_id)
+      raise StandardError, "エラー : 編集権限がありません" unless find(playlist_id).user_id == user_id
+    end
+
     def upsert(id: nil, track_id:, user_id:, name:, description: nil, public_type:, track_ids: [])
       raise StandardError, "エラー : プレイリストは1曲以上必要です" unless track_ids.present?
       validate_track_ids(track_ids)
