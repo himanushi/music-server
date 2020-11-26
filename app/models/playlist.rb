@@ -14,8 +14,16 @@ class Playlist < ApplicationRecord
             uniqueness: { case_sensitive: true, message: "がすでに使用されています, 別のタイトルに変更してください" }
 
   class << self
+    # 曲存在チェック
+    def validate_track_ids(track_ids)
+      unless (Track.select(:id).find(track_ids).pluck(:id) rescue false)
+        raise StandardError, "エラー : 存在しない曲が選択されています"
+      end
+    end
+
     def upsert(id: nil, track_id:, user_id:, name:, description: nil, public_type:, track_ids: [])
       raise StandardError, "エラー : プレイリストは1曲以上必要です" unless track_ids.present?
+      validate_track_ids(track_ids)
 
       playlist =
         if id.present?
@@ -43,5 +51,20 @@ class Playlist < ApplicationRecord
 
       playlist
     end
+  end
+
+  def add_items(track_ids: [])
+    self.class.validate_track_ids(track_ids)
+
+    track_number = playlist_items.order(:track_number).last.track_number + 1
+
+    items =
+      track_ids.map.with_index(track_number) do |track_id, index|
+        PlaylistItem.new(track_id: track_id, track_number: index)
+      end
+
+    playlist_items << items
+
+    self
   end
 end

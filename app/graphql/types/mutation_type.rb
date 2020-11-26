@@ -6,6 +6,7 @@ module Types
     field :update_me,          mutation: Mutations::UpdateMe
     field :change_status,      mutation: Mutations::ChangeStatus
     field :upsert_playlist,    mutation: Mutations::UpsertPlaylist
+    field :add_playlist_items, mutation: Mutations::AddPlaylistItems
     field :upsert_artist,      mutation: Mutations::UpsertArtist
     field :mix_artist,         mutation: Mutations::MixArtist
     field :ignore_artists,     mutation: Mutations::IgnoreArtists
