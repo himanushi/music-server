@@ -8,6 +8,8 @@ ja:
         username: "ユーザーID"
         password: "パスワード"
         password_confirmation: "再確認パスワード"
+      playlist:
+        name: "タイトル"
     errors:
       messages:
         record_invalid: "エラー : %{errors}"
