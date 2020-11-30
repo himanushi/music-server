@@ -2,8 +2,9 @@ class Mutations::UpsertPlaylist < Mutations::BaseMutation
   description "プレイリストを作成更新する"
 
   class PlaylistPublicTypeEnum < BaseEnum
-    value "NON_OPEN", value: "non_open", description: "非公開"
     value "OPEN",     value: "open", description: "公開"
+    value "NON_OPEN", value: "non_open", description: "非公開"
+    value "NO_NAME_OPEN", value: "no_name_open", description: "名前なし公開"
   end
 
   argument :playlist_id, TTID, required: false, description: "IDがない場合は作成"

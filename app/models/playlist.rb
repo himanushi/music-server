@@ -5,18 +5,21 @@ class Playlist < ApplicationRecord
   belongs_to :track
   has_many :playlist_items, dependent: :destroy
 
-  enum public_type: { non_open: 0, open: 1 }
+  enum public_type: { non_open: 0, open: 1, no_name_open: 2 }, _prefix: true
 
   validates :public_type, presence: true
   validates :name,
             presence: true,
-            length: { maximum: 15 },
+            length: { maximum: 150 },
             uniqueness: { case_sensitive: true, message: "がすでに使用されています, 別のタイトルに変更してください" }
+
+  scope :include_users,  -> { eager_load(:user) }
+  scope :include_tracks, -> { eager_load(track: [:apple_music_and_itunes_tracks, :spotify_tracks]) }
 
   class << self
     # 曲存在チェック
     def validate_track_ids(track_ids)
-      unless (Track.select(:id).find(track_ids).pluck(:id) rescue false)
+      unless (Track.active.select(:id).find(track_ids).pluck(:id) rescue false)
         raise StandardError, "エラー : 存在しない曲が選択されています"
       end
     end
