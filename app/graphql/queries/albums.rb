@@ -28,8 +28,19 @@ module Queries
     argument :sort, AlbumsSortInputObject, required: false, description: "取得順", default_value: AlbumsSortInputObject.default_argument_values
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
-    # TODO: それぞれの条件の検索を疎結合でリファクタすること
     def list_query(cursor:, sort:, conditions: {})
+      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions)
+
+      [
+        is_cache,
+        album_relation.where(conditions).
+          order([{ order => sort_type }, { id: sort_type }]).
+          distinct.offset(offset).limit(limit)
+      ]
+    end
+
+    # 汚すぎてどうしようか
+    def self.build_relation(conditions: {})
       is_cache = true
       conditions = { status: [:active], **conditions }
       album_relation = ::Album.include_services
@@ -73,12 +84,7 @@ module Queries
         album_relation = album_relation.include_tracks.where(tracks: { id: conditions.delete(:tracks)[:id] })
       end
 
-      [
-        is_cache,
-        album_relation.where(conditions).
-          order([{ order => sort_type }, { id: sort_type }]).
-          distinct.offset(offset).limit(limit)
-      ]
+      [album_relation, conditions, is_cache]
     end
   end
 end
