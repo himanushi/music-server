@@ -13,7 +13,7 @@ module Queries
       @offset    = cursor[:offset]
 
       # 最大件数
-      @limit = 100 > @limit ? 100 : @limit
+      @limit = 100 < @limit ? 100 : @limit
 
       is_cache, result = list_query(**args)
 
