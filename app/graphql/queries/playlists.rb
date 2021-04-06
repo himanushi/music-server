@@ -26,6 +26,12 @@ module Queries
       conditions = { public_type: [:open, :no_name_open], **conditions }
       relation   = ::Playlist.include_users.include_tracks
 
+      # 名前あいまい検索
+      if conditions.has_key?(:name)
+        name = conditions.delete(:name)
+        relation = relation.where("playlists.name like :name", name: "%#{name}%")
+      end
+
       [
         is_cache = false,
         relation.where(conditions).
