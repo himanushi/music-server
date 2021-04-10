@@ -8,7 +8,7 @@ module Types
       field :description, String, null: false, description: "説明"
       field :public_type, String, null: false, description: "公開種別"
       field :author,      UserType, null: true, description: "作者"
-      field :track,       TrackType, null: false, description: "ジャケットトラック"
+      field :track,       TrackType, null: true, description: "ジャケットトラック"
       field :updated_at,  GraphQL::Types::ISO8601DateTime, null: false, description: "更新日"
       field :created_at,  GraphQL::Types::ISO8601DateTime, null: false, description: "作成日"
       field :items,       [PlaylistItemType], null: false, description: "曲一覧"

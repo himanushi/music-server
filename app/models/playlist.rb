@@ -10,7 +10,7 @@ class Playlist < ApplicationRecord
   validates :public_type, presence: true
   validates :name,
             presence: true,
-            length: { maximum: 150 },
+            length: { maximum: 100 },
             uniqueness: { case_sensitive: true, message: "がすでに使用されています, 別のタイトルに変更してください" }
 
   scope :include_users,  -> { eager_load(:user) }
@@ -30,8 +30,7 @@ class Playlist < ApplicationRecord
     end
 
     def upsert(id: nil, track_id:, user_id:, name:, description: nil, public_type:, track_ids: [])
-      raise StandardError, "エラー : プレイリストは1曲以上必要です" unless track_ids.present?
-      validate_track_ids(track_ids)
+      validate_track_ids(track_ids) if track_ids.present?
 
       playlist =
         if id.present?
@@ -46,14 +45,17 @@ class Playlist < ApplicationRecord
           new(track_id: track_id, user_id: user_id, name: name, description: description, public_type: public_type)
         end
 
-      items =
-        track_ids.map.with_index(1) do |track_id, index|
-          PlaylistItem.new(track_id: track_id, track_number: index)
-        end
-
       ActiveRecord::Base.transaction do
         playlist.playlist_items.destroy
-        playlist.playlist_items = items
+
+        if track_ids.present?
+          items =
+            track_ids.map.with_index(1) do |track_id, index|
+              PlaylistItem.new(track_id: track_id, track_number: index)
+            end
+          playlist.playlist_items = items
+        end
+
         playlist.save!
       end
 

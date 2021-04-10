@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_000000) do
+ActiveRecord::Schema.define(version: 2021_04_10_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_000000) do
   create_table "playlists", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "track_id", limit: 16, null: false
+    t.string "track_id", limit: 16
     t.string "user_id", limit: 16, null: false
     t.string "name", limit: 191, null: false
     t.text "description"
