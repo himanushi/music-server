@@ -28,6 +28,12 @@ module Queries
 
       relation = relation.where(user: context[:current_info][:user])
 
+      # 名前あいまい検索
+      if conditions.has_key?(:name)
+        name = conditions.delete(:name)
+        relation = relation.where("playlists.name like :name", name: "%#{name}%")
+      end
+
       [
         is_cache = false,
         relation.where(conditions).

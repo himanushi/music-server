@@ -2,10 +2,10 @@ class Playlist < ApplicationRecord
   table_id :pst
 
   belongs_to :user
-  belongs_to :track
+  belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
 
-  enum public_type: { non_open: 0, open: 1, no_name_open: 2 }, _prefix: true
+  enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
 
   validates :public_type, presence: true
   validates :name,

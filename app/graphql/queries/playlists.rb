@@ -23,7 +23,7 @@ module Queries
 
     # TODO: それぞれの条件の検索を疎結合でリファクタすること
     def list_query(cursor:, sort:, conditions: {})
-      conditions = { public_type: [:open, :no_name_open], **conditions }
+      conditions = { public_type: [:open, :anonymous_open], **conditions }
       relation   = ::Playlist.include_users.include_tracks
 
       # 名前あいまい検索
