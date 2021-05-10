@@ -29,7 +29,7 @@ module Queries
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
     def list_query(cursor:, sort:, conditions: {})
-      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions)
+      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions, context: context)
 
       [
         is_cache,
@@ -40,7 +40,7 @@ module Queries
     end
 
     # 汚すぎてどうしようか
-    def self.build_relation(conditions: {})
+    def self.build_relation(conditions: {}, context:)
       is_cache = true
       conditions = { status: [:active], **conditions }
       album_relation = ::Album.include_services

@@ -16,7 +16,7 @@ module Queries
     argument :conditions, AlbumsCountConditionsInputObject, required: false, description: "取得条件"
 
     def count_query(conditions: {})
-      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions)
+      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions, context: context)
 
       [
         is_cache,
