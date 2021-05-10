@@ -27,7 +27,7 @@ module Spotify
         req.headers['Authorization'] = "Basic #{secret_token}"
         req.body = {
           code: code,
-          redirect_uri: Rails.env.production? ? ENV['SPOTIFY_REDIRECT_URI'] : "http://localhost:3001/me",
+          redirect_uri: Rails.env.production? ? ENV['SPOTIFY_REDIRECT_URI'] : "http://localhost:8080/me",
           grant_type: "authorization_code",
         }
       end

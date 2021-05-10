@@ -17,21 +17,21 @@ class ApplicationController < ActionController::Base
       if token.present?
         begin
           session = Session.find_by_digit_token!(token)
-          { user: session.user, session: session, cookie: request.cookies }
+          { user: session.user, session: session, cookie: request.cookies, set_cookies: {} }
         rescue => e
           user = User.create_user_and_session!
-          { user: user, session: user.sessions.first, cookie: request.cookies }
+          { user: user, session: user.sessions.first, cookie: request.cookies, set_cookies: {} }
         end
       else
         user = User.create_user_and_session!
-        { user: user, session: user.sessions.first, cookie: request.cookies }
+        { user: user, session: user.sessions.first, cookie: request.cookies, set_cookies: {} }
       end
     end
   end
 
   def refresh_token
     # TODO: Session model 自体に expire を持たせること
-    cookie_info = {
+    auth_setting = {
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,
       http_only: true,
@@ -40,10 +40,15 @@ class ApplicationController < ActionController::Base
     }
 
     if Rails.env.production?
-      cookie_info.merge!({ secure: true })
+      auth_setting.merge!({ secure: true })
     end
 
-    response.set_cookie(:Authorization, cookie_info)
+    auth_cookie = { Authorization: auth_setting }
+    current_info[:set_cookies] = current_info[:set_cookies].merge(auth_cookie)
+
+    current_info[:set_cookies].each do |key, value|
+      response.set_cookie(key, value)
+    end
   end
 
   private
