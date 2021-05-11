@@ -6,6 +6,7 @@ module Queries
 
     class PlaylistsQueryOrderEnum < BaseEnum
       value "NEW", value: "playlists.created_at", description: "作成日順"
+      value "UPDATE", value: "playlists.updated_at", description: "更新日順"
     end
 
     class PlaylistsSortInputObject < BaseInputObject
@@ -15,6 +16,7 @@ module Queries
 
     class PlaylistsConditionsInputObject < BaseInputObject
       argument :name, String, "プレイリスト名( like 検索)", required: false
+      argument :is_mine, Boolean, "自身のプレイリストのみ取得", required: false, default_value: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
@@ -25,6 +27,12 @@ module Queries
     def list_query(cursor:, sort:, conditions: {})
       conditions = { public_type: [:open, :anonymous_open], **conditions }
       relation   = ::Playlist.include_users.include_tracks
+
+      # マイプレイリスト
+      if conditions[:is_mine]
+        conditions = { **conditions, public_type: [:open, :non_open, :anonymous_open] }
+        relation = relation.where(user: context[:current_info][:user])
+      end
 
       # 名前あいまい検索
       if conditions.has_key?(:name)

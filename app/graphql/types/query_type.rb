@@ -12,7 +12,6 @@ module Types
     field :tracks,        resolver: Queries::Tracks
     field :playlist,      resolver: Queries::Playlist
     field :playlists,     resolver: Queries::Playlists
-    field :my_playlists,  resolver: Queries::MyPlaylists
     field :roles,         resolver: Queries::Roles
   end
 end
