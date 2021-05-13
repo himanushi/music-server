@@ -16,7 +16,9 @@ module Queries
 
     class PlaylistsConditionsInputObject < BaseInputObject
       argument :name, String, "プレイリスト名( like 検索)", required: false
-      argument :is_mine, Boolean, "自身のプレイリストのみ取得", required: false, default_value: false
+      argument :is_mine, Boolean, "自身のプレイリスト取得", required: false, default_value: false
+      argument :usernames, [String], "ユーザー名", required: false
+      argument :favorite,  Boolean, "お気に入り", required: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
@@ -32,6 +34,23 @@ module Queries
       if conditions.delete(:is_mine)
         conditions = { **conditions, public_type: [:open, :non_open, :anonymous_open] }
         relation = relation.where(user: context[:current_info][:user])
+      end
+
+      # ユーザー公開お気に入り検索
+      if conditions.has_key?(:usernames)
+        is_cache = false
+        usernames = conditions.delete(:usernames)
+        user_ids =
+          ::User.joins(:public_informations).where(username: usernames, public_informations: { public_type: :playlist }).ids
+        ids = ::Favorite.where(user_id: user_ids, favorable_type: ::Playlist.name).pluck(:favorable_id)
+        relation = relation.where(id: ids)
+      end
+
+      # お気に入り検索
+      if conditions.delete(:favorite)
+        is_cache = false
+        relation =
+          relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
       end
 
       # 名前あいまい検索

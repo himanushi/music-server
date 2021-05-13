@@ -4,6 +4,7 @@ class Playlist < ApplicationRecord
   belongs_to :user
   belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
+  has_many :favorites, as: :favorable, dependent: :destroy
 
   enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
 
@@ -19,7 +20,8 @@ class Playlist < ApplicationRecord
   class << self
     # 曲存在チェック
     def validate_track_ids(track_ids)
-      unless (Track.active.select(:id).find(track_ids).pluck(:id) rescue false)
+      # active のみの曲を指定していたが整合性が合わないようなのでDBにあればとりあえずok
+      unless (Track.select(:id).find(track_ids).pluck(:id) rescue false)
         raise StandardError, "エラー : 存在しない曲が選択されています"
       end
     end
@@ -54,6 +56,8 @@ class Playlist < ApplicationRecord
               PlaylistItem.new(track_id: track_id, track_number: index)
             end
           playlist.playlist_items = items
+        else
+          playlist.playlist_items.delete_all
         end
 
         playlist.save!
