@@ -29,7 +29,7 @@ module Queries
       relation   = ::Playlist.include_users.include_tracks
 
       # マイプレイリスト
-      if conditions[:is_mine]
+      if conditions.delete(:is_mine)
         conditions = { **conditions, public_type: [:open, :non_open, :anonymous_open] }
         relation = relation.where(user: context[:current_info][:user])
       end

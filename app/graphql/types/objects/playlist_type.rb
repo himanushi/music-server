@@ -20,10 +20,10 @@ module Types
 
       def author
         # 冗長だが書いておく
-        if object.public_type_anonymous_open?
-          nil
-        else
+        if !object.public_type_anonymous_open? || object.user.id == context[:current_info][:user].id
           object.user
+        else
+          nil
         end
       end
 

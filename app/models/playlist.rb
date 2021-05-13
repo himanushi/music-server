@@ -66,7 +66,7 @@ class Playlist < ApplicationRecord
   def add_items(track_ids: [])
     self.class.validate_track_ids(track_ids)
 
-    track_number = playlist_items.order(:track_number).last.track_number + 1
+    track_number = (playlist_items.order(:track_number).last&.track_number || 0) + 1
 
     items =
       track_ids.map.with_index(track_number) do |track_id, index|
@@ -75,6 +75,8 @@ class Playlist < ApplicationRecord
 
     playlist_items << items
 
+    # 更新日時を更新
+    touch
     self
   end
 end
