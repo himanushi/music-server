@@ -18,6 +18,7 @@ module Queries
     class AlbumsConditionsInputObject < BaseInputObject
       argument :usernames, [String], "ユーザー名", required: false
       argument :artists,   IdInputObject, "アーティストID", required: false
+      argument :albums,    IdInputObject, "アルバムID", required: false
       argument :tracks,    IdInputObject, "トラックID", required: false
       argument :name,      String, "アルバム名(あいまい検索)", required: false
       argument :status,    [StatusEnum], "表示ステータス", required: false
@@ -72,6 +73,11 @@ module Queries
           album_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
       end
 
+      if conditions.has_key?(:albums)
+        ids = conditions.delete(:albums)[:id]
+        album_relation = album_relation.where(id: ids)
+      end
+
       if conditions.has_key?(:artists)
         ids = conditions.delete(:artists)[:id]
         album_ids = ::Album.include_artists.where(artists: { id: ids }).ids
@@ -81,7 +87,8 @@ module Queries
       end
 
       if conditions.has_key?(:tracks)
-        album_relation = album_relation.include_tracks.where(tracks: { id: conditions.delete(:tracks)[:id] })
+        ids = conditions.delete(:tracks)[:id]
+        album_relation = album_relation.include_tracks.where(tracks: { id: ids })
       end
 
       [album_relation, conditions, is_cache]
