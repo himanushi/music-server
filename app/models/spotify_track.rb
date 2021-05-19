@@ -4,6 +4,8 @@ class SpotifyTrack < ApplicationRecord
   belongs_to :track
   belongs_to :spotify_album
 
+  has_many :words, as: :searchable, dependent: :destroy
+
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
@@ -59,6 +61,10 @@ class SpotifyTrack < ApplicationRecord
         isrc: data.dig("external_ids", "isrc").upcase,
       }
     end
+
+    def none_words
+      where("char_length(spotify_tracks.name) > 1").left_joins(:words).where("words.id is null")
+    end
   end
 
   def music_service_id
@@ -71,5 +77,9 @@ class SpotifyTrack < ApplicationRecord
 
   def artwork_m
     @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
+  end
+
+  def words_attributes
+    words.bigram_attributes("name", self.name)
   end
 end

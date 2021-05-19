@@ -4,6 +4,8 @@ class AppleMusicTrack < ApplicationRecord
   belongs_to :track
   belongs_to :apple_music_album
 
+  has_many :words, as: :searchable, dependent: :destroy
+
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
@@ -60,6 +62,10 @@ class AppleMusicTrack < ApplicationRecord
         isrc: attrs["isrc"],
       }
     end
+
+    def none_words
+      where("char_length(apple_music_tracks.name) > 1").left_joins(:words).where("words.id is null")
+    end
   end
 
   def music_service_id
@@ -85,5 +91,9 @@ class AppleMusicTrack < ApplicationRecord
     # @type var url: String
     url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
     Artwork.new(url: url, width: width, height: height)
+  end
+
+  def words_attributes
+    words.bigram_attributes("name", self.name)
   end
 end

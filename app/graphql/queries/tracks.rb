@@ -51,11 +51,18 @@ module Queries
       # 名前あいまい検索
       if conditions.has_key?(:name)
         name = conditions.delete(:name)
-        track_relation =
-          track_relation.where(
-            "apple_music_tracks.name like :name or spotify_tracks.name like :name",
-            name: "%#{name}%"
-          )
+        # track_relation =
+        #   track_relation.where(
+        #     "apple_music_tracks.name like :name or spotify_tracks.name like :name",
+        #     name: "%#{name}%"
+        #   )
+
+        apple_music_track_ids = ::Word.search_ids(AppleMusicTrack.name, "name", name)
+        ids = AppleMusicTrack.where(id: apple_music_track_ids).pluck(:track_id)
+        spotify_track_ids = ::Word.search_ids(SpotifyTrack.name, "name", name)
+        ids += SpotifyTrack.where(id: spotify_track_ids).pluck(:track_id)
+
+        track_relation = track_relation.where(id: ids.uniq)
       end
 
       [

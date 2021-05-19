@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_000000) do
+ActiveRecord::Schema.define(version: 2021_05_18_000000) do
 
   create_table "album_has_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -316,6 +316,19 @@ ActiveRecord::Schema.define(version: 2021_04_10_000000) do
     t.boolean "registered", default: false, null: false
     t.index ["status"], name: "index_users_on_status"
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "searchable_id", limit: 16, null: false
+    t.string "searchable_type", limit: 191, null: false
+    t.integer "ngram", null: false
+    t.string "column_name", limit: 191, null: false
+    t.string "text", limit: 16, null: false
+    t.integer "position", null: false
+    t.index ["column_name"], name: "index_words_on_column_name"
+    t.index ["position"], name: "index_words_on_position"
+    t.index ["searchable_type", "searchable_id"], name: "index_words_on_searchable_type_and_searchable_id"
+    t.index ["text"], name: "index_words_on_text"
   end
 
   add_foreign_key "album_has_tracks", "albums"
