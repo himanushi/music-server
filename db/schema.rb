@@ -73,6 +73,14 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.index ["status"], name: "index_apple_music_artists_on_status"
   end
 
+  create_table "apple_music_track_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "apple_music_track_id", limit: 16, null: false
+    t.string "text", limit: 191, null: false
+    t.integer "position", null: false
+    t.index ["apple_music_track_id", "position"], name: "index_apple_music_track_words_on_amt_id_and_position", unique: true
+    t.index ["text"], name: "index_apple_music_track_words_on_text"
+  end
+
   create_table "apple_music_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -255,6 +263,14 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.index ["total_followers"], name: "index_spotify_artists_on_total_followers"
   end
 
+  create_table "spotify_track_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "spotify_track_id", limit: 16, null: false
+    t.string "text", limit: 191, null: false
+    t.integer "position", null: false
+    t.index ["spotify_track_id", "position"], name: "index_spotify_track_words_on_st_id_and_position", unique: true
+    t.index ["text"], name: "index_spotify_track_words_on_text"
+  end
+
   create_table "spotify_tracks", id: :string, limit: 16, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -318,24 +334,12 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "searchable_id", limit: 16, null: false
-    t.string "searchable_type", limit: 191, null: false
-    t.integer "ngram", null: false
-    t.string "column_name", limit: 191, null: false
-    t.string "text", limit: 16, null: false
-    t.integer "position", null: false
-    t.index ["column_name"], name: "index_words_on_column_name"
-    t.index ["position"], name: "index_words_on_position"
-    t.index ["searchable_type", "searchable_id"], name: "index_words_on_searchable_type_and_searchable_id"
-    t.index ["text"], name: "index_words_on_text"
-  end
-
   add_foreign_key "album_has_tracks", "albums"
   add_foreign_key "album_has_tracks", "tracks"
   add_foreign_key "allowed_actions", "roles"
   add_foreign_key "apple_music_albums", "albums"
   add_foreign_key "apple_music_artists", "artists"
+  add_foreign_key "apple_music_track_words", "apple_music_tracks"
   add_foreign_key "apple_music_tracks", "apple_music_albums"
   add_foreign_key "apple_music_tracks", "tracks"
   add_foreign_key "artist_has_albums", "albums"
@@ -351,6 +355,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
   add_foreign_key "sessions", "users"
   add_foreign_key "spotify_albums", "albums"
   add_foreign_key "spotify_artists", "artists"
+  add_foreign_key "spotify_track_words", "spotify_tracks"
   add_foreign_key "spotify_tracks", "spotify_albums"
   add_foreign_key "spotify_tracks", "tracks"
 end

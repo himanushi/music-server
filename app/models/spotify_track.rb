@@ -1,10 +1,10 @@
 class SpotifyTrack < ApplicationRecord
   table_id :spt
 
+  include Searchable
+
   belongs_to :track
   belongs_to :spotify_album
-
-  has_many :words, as: :searchable, dependent: :destroy
 
   enum status: { pending: 0, active: 1, ignore: 2 }
 
@@ -77,9 +77,5 @@ class SpotifyTrack < ApplicationRecord
 
   def artwork_m
     @artwork_m ||=  Artwork.new(url: artwork_m_url, width: artwork_m_width, height: artwork_m_height)
-  end
-
-  def words_attributes
-    words.bigram_attributes("name", self.name)
   end
 end
