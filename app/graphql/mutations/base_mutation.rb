@@ -19,16 +19,26 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
 
     # 権限
     unless context[:current_info][:user].can?(action_name)
-      raise GraphQL::ExecutionError.new('エラー : 権限がありません', extensions: { status: 403 })
+      raise GraphQL::ExecutionError.new("権限がありません", extensions: { code: "UNAUTHORIZED" })
     end
 
     # ロボット検証
-    @error_message = ""
     if use_recaptcha?
       token = context.dig(:current_info, :cookie, "reCAPTCHAv2Token")
-      @error_message = "エラー : ロボット操作の可能性があります。再入力をお願いします。" unless Google::Recaptcha.valid?(token)
+      unless Google::Recaptcha.valid?(token)
+        raise GraphQL::ExecutionError.new(
+          'ロボット操作の可能性があります。再入力をお願いします。',
+          extensions: { code: "FAILED_RECAPTCHA", path: "recaptcha" }
+        )
+      end
     end
 
-    mutate(**args)
+    begin
+      mutate(**args)
+    rescue GraphQL::ExecutionError => error
+      raise error
+    rescue => error
+      raise GraphQL::ExecutionError.new(error.message, extensions: { code: "SYSTEM_ERROR" })
+    end
   end
 end
