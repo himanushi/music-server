@@ -12,29 +12,21 @@ class Mutations::UpsertPlaylist < Mutations::BaseMutation
   field :error, String, null: true
 
   def mutate(playlist_id: nil, track_id: nil, name:, description: "", public_type:, track_ids: [])
-    begin
-      Playlist.validate_author(playlist_id, context[:current_info][:user].id) if playlist_id
+    Playlist.validate_author(playlist_id, context[:current_info][:user].id) if playlist_id
 
-      playlist =
-        Playlist.upsert(
-          id: playlist_id,
-          track_id: track_id,
-          user_id: context[:current_info][:user].id,
-          name: name,
-          description: description,
-          public_type: public_type,
-          track_ids: track_ids
-        )
+    playlist =
+      Playlist.upsert(
+        id: playlist_id,
+        track_id: track_id,
+        user_id: context[:current_info][:user].id,
+        name: name,
+        description: description,
+        public_type: public_type,
+        track_ids: track_ids
+      )
 
-      {
-        playlist: playlist,
-        error: nil,
-      }
-    rescue => error
-      {
-        playlist: nil,
-        error: error.message,
-      }
-    end
+    {
+      playlist: playlist,
+    }
   end
 end

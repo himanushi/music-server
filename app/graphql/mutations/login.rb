@@ -2,16 +2,16 @@ class Mutations::Login < Mutations::BaseMutation
   description "ログイン"
 
   argument :username, String, required: true
-  argument :password, String, required: true
+  argument :current_password, String, required: true
 
   field :current_user, Types::Objects::CurrentUserType, null: true
 
   def use_recaptcha?; true end
 
-  def mutate(username:, password:)
+  def mutate(username:, current_password:)
     user = User.find_by(username: username)
 
-    unless user&.authenticate(password)
+    unless user&.authenticate(current_password)
       raise GraphQL::ExecutionError.new(
         "ユーザーIDまたはパスワードに誤りがあります" ,
         extensions: { code: "FAILED_AUTHENTICATION" }

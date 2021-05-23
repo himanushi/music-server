@@ -11,8 +11,7 @@ class Playlist < ApplicationRecord
   validates :public_type, presence: true
   validates :name,
             presence: true,
-            length: { maximum: 100 },
-            uniqueness: { case_sensitive: true, message: "がすでに使用されています, 別のタイトルに変更してください" }
+            length: { maximum: 30 }
 
   scope :include_users,  -> { eager_load(:user) }
   scope :include_tracks, -> { eager_load(track: [:apple_music_and_itunes_tracks, :spotify_tracks]) }

@@ -3,8 +3,8 @@ class Mutations::Signup < Mutations::BaseMutation
 
   argument :name, String, required: true
   argument :username, String, required: true
-  argument :password, String, required: true
-  argument :password_confirmation, String, required: true
+  argument :new_password, String, required: true
+  argument :new_password_confirmation, String, required: true
 
   field :current_user, Types::Objects::CurrentUserType, null: true
 
@@ -12,7 +12,7 @@ class Mutations::Signup < Mutations::BaseMutation
 
   def use_recaptcha?; true end
 
-  def mutate(name:, username:, password:, password_confirmation:)
+  def mutate(name:, username:, new_password:, new_password_confirmation:)
 
     # 登録済みは正常終了しておく
     if context[:current_info][:user].registered
@@ -24,8 +24,8 @@ class Mutations::Signup < Mutations::BaseMutation
     attrs = {
       name: name,
       username: username,
-      password: password,
-      password_confirmation: password_confirmation,
+      password: new_password,
+      password_confirmation: new_password_confirmation,
       registered: true,
       role: Role.login_role
     }
