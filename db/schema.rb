@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.integer "public_type", null: false
     t.integer "popularity", default: 0, null: false
     t.index ["created_at"], name: "index_playlists_on_created_at"
-    t.index ["name"], name: "index_playlists_on_name", unique: true
+    t.index ["name"], name: "index_playlists_on_name"
     t.index ["popularity"], name: "index_playlists_on_popularity"
     t.index ["track_id"], name: "fk_rails_f42c5216a7"
     t.index ["updated_at"], name: "index_playlists_on_updated_at"
