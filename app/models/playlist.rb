@@ -30,8 +30,10 @@ class Playlist < ApplicationRecord
       raise StandardError, "エラー : 編集権限がありません" unless find(playlist_id).user_id == user_id
     end
 
-    def upsert(id: nil, track_id:, user_id:, name:, description: nil, public_type:, track_ids: [])
+    def upsert(id: nil, user_id:, name:, description: nil, public_type:, track_ids: [])
       validate_track_ids(track_ids) if track_ids.present?
+
+      track_id = track_ids.first
 
       playlist =
         if id.present?
@@ -76,10 +78,12 @@ class Playlist < ApplicationRecord
         PlaylistItem.new(track_id: track_id, track_number: index)
       end
 
-    playlist_items << items
+    ActiveRecord::Base.transaction do
+      playlist_items << items
+      self.track = playlist_items.first ? playlist_items.first.track : nil
+      save!
+    end
 
-    # 更新日時を更新
-    touch
     self
   end
 end
