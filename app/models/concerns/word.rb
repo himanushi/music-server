@@ -39,7 +39,7 @@ module Word
         SELECT #{id_name} FROM
         (SELECT #{self.table_name}.* FROM #{self.table_name} WHERE #{self.table_name}.text IN (#{text_in})) t
         GROUP BY #{id_name}
-        HAVING COUNT(*) > #{text.length - 2} AND GROUP_CONCAT(text ORDER BY position ASC SEPARATOR ',') LIKE #{text_like}
+        HAVING COUNT(*) > #{text.length - n} AND GROUP_CONCAT(text ORDER BY position ASC SEPARATOR ',') LIKE #{text_like}
       SQL
 
       results.cast_values

@@ -8,7 +8,7 @@ module Types
     field :artists,       resolver: Queries::Artists
     field :album,         resolver: Queries::Album
     field :albums,        resolver: Queries::Albums
-    field :albums_count,  resolver: Queries::AlbumsCount
+    field :track,         resolver: Queries::Track
     field :tracks,        resolver: Queries::Tracks
     field :playlist,      resolver: Queries::Playlist
     field :playlists,     resolver: Queries::Playlists
