@@ -21,6 +21,13 @@ class Mutations::Signup < Mutations::BaseMutation
       }
     end
 
+    unless new_password.present?
+      raise GraphQL::ExecutionError.new(
+        "パスワードは必須です",
+        extensions: { code: "INVALID_VALUE", path: "new_password" }
+      )
+    end
+
     attrs = {
       name: name,
       username: username,
