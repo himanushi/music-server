@@ -9,10 +9,17 @@ module Html
         # @type var category: String?
         # @type var id: String?
         category, id = path.split("/")
-        return raw_html unless id.present?
 
         # @type var html: Nokogiri::HTML::Document
         html = Nokogiri::HTML.parse(raw_html)
+
+        # @type var web_name: String
+        web_name = "ゲーム音楽"
+        html.title = web_name
+
+        # @type ver header: Nokogiri::XML::Element
+        header = html.at("head")
+        header << build_metatag(header, "音楽サブスクリプション配信中のゲーム音楽のポータルサイト", name: "description")
 
         if !id.nil? && id&.start_with?(Album.table_id)
 
@@ -20,12 +27,10 @@ module Html
           # @type var album: Album
           album  = Album.find(id)
 
-          # @type ver header: Nokogiri::XML::Element
-          header = html.at("head")
           header << build_metatag(header, "website", property: "og:type")
-          header << build_metatag(header, "ゲーム音楽", property: "og:site_name")
+          header << build_metatag(header, web_name, property: "og:site_name")
           header << build_metatag(header, album.to_url, property: "og:url")
-          header << build_metatag(header, "#{album.service.name} - ゲーム音楽", property: "og:title")
+          header << build_metatag(header, "#{album.service.name} - #{web_name}", property: "og:title")
           header << build_metatag(header, "「#{album.service.name}」の発売日は#{album.release_date.strftime('%Y年%m月%d日')}です。収録曲数は#{album.total_tracks}曲です。", property: "og:description")
           header << build_metatag(header, album.service.artwork_l.url, property: "og:image")
           header << build_metatag(header, "summary", name: "twitter:card")
