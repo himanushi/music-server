@@ -49,9 +49,4 @@ class User < ApplicationRecord
     end
     role.allowed_actions.where(name: action_name).exists?
   end
-
-  # ユーザーモデルに持たせるのはどうかと思う
-  def version
-    Dir["public/precache-manifest*"].first[/precache-manifest.*/]
-  end
 end

@@ -10,7 +10,6 @@ module Types
       field :favorite, FavoriteType, null: false, description: "お気に入り"
       field :registered, Boolean, null: false, description: "登録済み"
       field :public_informations, [PublicInformationType], null: false, description: "公開情報"
-      field :version, String, null: false, description: "バージョンファイル"
 
       def name
         object.registered ? object.name : ""
