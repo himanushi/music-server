@@ -7,10 +7,11 @@ module Queries
     class PlaylistsQueryOrderEnum < BaseEnum
       value "NEW", value: "playlists.created_at", description: "作成日順"
       value "UPDATE", value: "playlists.updated_at", description: "更新日順"
+      value "POPULARITY", value: "playlists.popularity", description: "人気順"
     end
 
     class PlaylistsSortInputObject < BaseInputObject
-      argument :order, PlaylistsQueryOrderEnum, required: false, default_value: PlaylistsQueryOrderEnum.values["NEW"].value, description: "並び順対象"
+      argument :order, PlaylistsQueryOrderEnum, required: false, default_value: PlaylistsQueryOrderEnum.values["POPULARITY"].value, description: "並び順対象"
       argument :type,  SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
     end
 
@@ -25,7 +26,7 @@ module Queries
     argument :sort, PlaylistsSortInputObject, required: false, description: "取得順", default_value: PlaylistsSortInputObject.default_argument_values
     argument :conditions, PlaylistsConditionsInputObject, required: false, description: "取得条件"
 
-    # TODO: それぞれの条件の検索を疎結合でリファクタすること
+    # キャッシュしない
     def list_query(cursor:, sort:, conditions: {})
       conditions = { public_type: [:open, :anonymous_open], **conditions }
       relation   = ::Playlist.include_users.include_tracks
@@ -38,7 +39,6 @@ module Queries
 
       # ユーザー公開お気に入り検索
       if conditions.has_key?(:usernames)
-        is_cache = false
         usernames = conditions.delete(:usernames)
         user_ids =
           ::User.joins(:public_informations).where(username: usernames, public_informations: { public_type: :playlist }).ids
@@ -48,7 +48,6 @@ module Queries
 
       # お気に入り検索
       if conditions.delete(:favorite)
-        is_cache = false
         relation =
           relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
       end

@@ -66,6 +66,24 @@ class Playlist < ApplicationRecord
 
       playlist
     end
+
+    # 人気度集計
+    def tally_popularity
+      ActiveRecord::Base.connection.execute(<<~SQL)
+        UPDATE
+        playlists p,
+        (
+          SELECT f.favorable_id AS id, count(f.favorable_id) AS popularity
+          FROM favorites f LEFT JOIN playlists ps ON ps.id = f.favorable_id
+          WHERE f.favorable_type = 'Playlist'
+          GROUP BY f.favorable_id
+        ) t
+        SET
+        p.popularity = t.popularity
+        WHERE
+        p.id = t.id
+      SQL
+    end
   end
 
   def add_items(track_ids: [])
