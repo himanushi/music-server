@@ -150,7 +150,7 @@ class Album < ApplicationRecord
   end
 
   def to_path
-    "/#{id}?ai=#{id}"
+    "/#{id}"
   end
 
   def to_url
