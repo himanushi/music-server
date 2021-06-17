@@ -1,4 +1,5 @@
-FROM ruby:2.7.1
+FROM ruby:3.0.1
+
 # nodeのバージョン6以上であること
 RUN curl -SL https://deb.nodesource.com/setup_12.x | bash && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \

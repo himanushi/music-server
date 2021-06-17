@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   def index
 
+    # no-cache
+    expires_now
+
     # OGP 付与
     html = Html::Ogp.convert(params["path"])
 

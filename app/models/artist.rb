@@ -73,7 +73,7 @@ class Artist < ApplicationRecord
   end
 
   def to_path
-    "/#{id}?bi=#{id}"
+    "/#{id}"
   end
 
   def to_url

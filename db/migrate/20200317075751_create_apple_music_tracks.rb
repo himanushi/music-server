@@ -19,6 +19,6 @@ class CreateAppleMusicTracks < ActiveRecord::Migration[6.0]
     add_foreign_key :apple_music_tracks, :tracks
     add_foreign_key :apple_music_tracks, :apple_music_albums
     add_index :apple_music_tracks, :apple_music_id, unique: true
-    add_index :apple_music_tracks, [:apple_music_album_id, :disc_number, :track_number], { unique: true, name: 'index_apple_music_tracks_on_am_id_and_numbers' }
+    add_index :apple_music_tracks, [:apple_music_album_id, :disc_number, :track_number], unique: true, name: 'index_apple_music_tracks_on_am_id_and_numbers'
   end
 end

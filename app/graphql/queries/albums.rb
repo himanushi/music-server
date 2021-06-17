@@ -18,6 +18,7 @@ module Queries
     class AlbumsConditionsInputObject < BaseInputObject
       argument :usernames, [String], "ユーザー名", required: false
       argument :artists,   IdInputObject, "アーティストID", required: false
+      argument :albums,    IdInputObject, "アルバムID", required: false
       argument :tracks,    IdInputObject, "トラックID", required: false
       argument :name,      String, "アルバム名(あいまい検索)", required: false
       argument :status,    [StatusEnum], "表示ステータス", required: false
@@ -28,8 +29,19 @@ module Queries
     argument :sort, AlbumsSortInputObject, required: false, description: "取得順", default_value: AlbumsSortInputObject.default_argument_values
     argument :conditions, AlbumsConditionsInputObject, required: false, description: "取得条件"
 
-    # TODO: それぞれの条件の検索を疎結合でリファクタすること
     def list_query(cursor:, sort:, conditions: {})
+      album_relation, conditions, is_cache = Queries::Albums.build_relation(conditions: conditions, context: context)
+
+      [
+        is_cache,
+        album_relation.where(conditions).
+          order([{ order => sort_type }, { id: sort_type }]).
+          distinct.offset(offset).limit(limit)
+      ]
+    end
+
+    # 汚すぎてどうしようか
+    def self.build_relation(conditions: {}, context:)
       is_cache = true
       conditions = { status: [:active], **conditions }
       album_relation = ::Album.include_services
@@ -61,6 +73,11 @@ module Queries
           album_relation.joins(:favorites).where(favorites: { user_id: context[:current_info][:user].id })
       end
 
+      if conditions.has_key?(:albums)
+        ids = conditions.delete(:albums)[:id]
+        album_relation = album_relation.where(id: ids)
+      end
+
       if conditions.has_key?(:artists)
         ids = conditions.delete(:artists)[:id]
         album_ids = ::Album.include_artists.where(artists: { id: ids }).ids
@@ -70,15 +87,11 @@ module Queries
       end
 
       if conditions.has_key?(:tracks)
-        album_relation = album_relation.include_tracks.where(tracks: { id: conditions.delete(:tracks)[:id] })
+        ids = conditions.delete(:tracks)[:id]
+        album_relation = album_relation.include_tracks.where(tracks: { id: ids })
       end
 
-      [
-        is_cache,
-        album_relation.where(conditions).
-          order([{ order => sort_type }, { id: sort_type }]).
-          distinct.offset(offset).limit(limit)
-      ]
+      [album_relation, conditions, is_cache]
     end
   end
 end

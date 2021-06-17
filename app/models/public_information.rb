@@ -4,5 +4,5 @@ class PublicInformation < ApplicationRecord
 
   belongs_to :user
 
-  enum public_type: { artist: 0, album: 1, track: 2 }
+  enum public_type: { artist: 0, album: 1, track: 2, playlist: 3 }
 end

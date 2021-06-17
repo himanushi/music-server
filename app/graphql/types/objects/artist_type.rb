@@ -10,10 +10,6 @@ module Types
       field :created_at,          GraphQL::Types::ISO8601DateTime, null: false, description: "追加日"
       field :artwork_l,           ArtworkType, null: false, description: "大型アートワーク"
       field :artwork_m,           ArtworkType, null: false, description: "中型アートワーク"
-      field :apple_music_artists, [AppleMusicArtistType], null: true, description: "Apple Music アーティスト"
-      field :spotify_artists,     [SpotifyArtistType], null: true, description: "Spotify アーティスト"
-      field :albums,              [AlbumType], null: true, description: "関連アルバム"
-      field :tracks,              [TrackType], null: true, description: "関連曲"
 
       def artwork_l
         return Artwork.new unless object.service.present?

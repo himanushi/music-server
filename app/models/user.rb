@@ -25,7 +25,7 @@ class User < ApplicationRecord
               with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
               message: "は半角英数をそれぞれ1種類以上を含む必要があります"
             },
-            allow_blank: true
+            allow_blank: true # signup では必須だが updateMe で空白でも ok なため
 
   class << self
     def create_user_and_session!
@@ -48,10 +48,5 @@ class User < ApplicationRecord
       raise StandardError, "指定されたアクションは存在しません"
     end
     role.allowed_actions.where(name: action_name).exists?
-  end
-
-  # ユーザーモデルに持たせるのはどうかと思う
-  def version
-    Dir["public/precache-manifest*"].first[/precache-manifest.*/]
   end
 end

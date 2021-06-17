@@ -3,7 +3,7 @@ module GraphiQL
   module Rails
     class EditorsController < ApplicationController
       def show
-         raise Forbidden, "権限がありません" unless current_info[:user].can?("graphiql")
+         raise ApplicationController::Forbidden, "権限がありません" unless current_info[:user].can?("graphiql")
       end
 
       helper_method :graphql_endpoint_path

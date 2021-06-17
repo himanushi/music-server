@@ -1,6 +1,8 @@
 class AppleMusicTrack < ApplicationRecord
   table_id :amt
 
+  include Searchable
+
   belongs_to :track
   belongs_to :apple_music_album
 

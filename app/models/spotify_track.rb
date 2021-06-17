@@ -1,6 +1,8 @@
 class SpotifyTrack < ApplicationRecord
   table_id :spt
 
+  include Searchable
+
   belongs_to :track
   belongs_to :spotify_album
 
@@ -58,6 +60,10 @@ class SpotifyTrack < ApplicationRecord
       {
         isrc: data.dig("external_ids", "isrc").upcase,
       }
+    end
+
+    def none_words
+      where("char_length(spotify_tracks.name) > 1").left_joins(:words).where("words.id is null")
     end
   end
 

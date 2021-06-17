@@ -5,13 +5,11 @@ module Queries
     type [TrackType], null: false
 
     class TracksQueryOrderEnum < BaseEnum
-      value "NAME",       value: "NAME", description: "名前順"
-      value "NEW",        value: "tracks.created_at", description: "追加順"
-      value "POPULARITY", value: "spotify_tracks.popularity", description: "人気順"
+      value "NEW", value: "tracks.created_at", description: "追加順"
     end
 
     class TracksSortInputObject < BaseInputObject
-      argument :order, TracksQueryOrderEnum, required: false, default_value: TracksQueryOrderEnum.values["NAME"].value, description: "並び順対象"
+      argument :order, TracksQueryOrderEnum, required: false, default_value: TracksQueryOrderEnum.values["NEW"].value, description: "並び順対象"
       argument :type,  SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
     end
 
@@ -28,18 +26,7 @@ module Queries
     def list_query(cursor:, sort:, conditions: {})
       is_cache = true
       conditions = { status: [:active], **conditions }
-      track_relation = ::Track.include_services
-
-      # 名前順の場合は音楽サービスの名前基準のため整形する
-      track_relation =
-        if sort[:order] == "NAME"
-          track_relation.order([
-            { "apple_music_tracks.name": sort[:type] },
-            { "spotify_tracks.name": sort[:type] }
-          ])
-        else
-          track_relation.order({ order => sort_type })
-        end
+      track_relation = ::Track
 
       # お気に入り検索
       if conditions.delete(:favorite)
@@ -51,17 +38,17 @@ module Queries
       # 名前あいまい検索
       if conditions.has_key?(:name)
         name = conditions.delete(:name)
-        track_relation =
-          track_relation.where(
-            "apple_music_tracks.name like :name or spotify_tracks.name like :name",
-            name: "%#{name}%"
-          )
+        ids = AppleMusicTrack.search(name).select(:track_id).pluck(:track_id)
+        ids += SpotifyTrack.search(name).select(:track_id).pluck(:track_id)
+        conditions = { **conditions, id: ids.uniq }
       end
+
+      # なぜか eager_load だと limit 指定で正確な個数が取得できないため冗長な実装になっている
+      ids = track_relation.where(conditions).order({ order => sort_type }).offset(offset).limit(limit).ids
 
       [
         is_cache,
-        track_relation.where(conditions).
-          distinct.offset(offset).limit(limit)
+        ::Track.include_services.where({ id: ids }).order({ order => sort_type })
       ]
     end
   end
