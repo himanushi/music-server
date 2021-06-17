@@ -11,7 +11,7 @@ module Queries
     end
 
     class PlaylistsSortInputObject < BaseInputObject
-      argument :order, PlaylistsQueryOrderEnum, required: false, default_value: PlaylistsQueryOrderEnum.values["POPULARITY"].value, description: "並び順対象"
+      argument :order, PlaylistsQueryOrderEnum, required: false, default_value: PlaylistsQueryOrderEnum.values["UPDATE"].value, description: "並び順対象"
       argument :type,  SortEnum, required: false, default_value: SortEnum.values["DESC"].value, description: "並び順"
     end
 
