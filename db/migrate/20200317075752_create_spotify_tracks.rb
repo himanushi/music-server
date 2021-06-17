@@ -20,6 +20,6 @@ class CreateSpotifyTracks < ActiveRecord::Migration[6.0]
     add_foreign_key :spotify_tracks, :tracks
     add_foreign_key :spotify_tracks, :spotify_albums
     add_index :spotify_tracks, :spotify_id, unique: true
-    add_index :spotify_tracks, [:spotify_album_id, :disc_number, :track_number], { unique: true, name: 'index_spotify_tracks_on_sp_id_and_numbers' }
+    add_index :spotify_tracks, [:spotify_album_id, :disc_number, :track_number], unique: true, name: 'index_spotify_tracks_on_sp_id_and_numbers'
   end
 end

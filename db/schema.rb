@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_000000) do
+ActiveRecord::Schema.define(version: 2021_05_18_000000) do
 
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_000000) do
     t.index ["disc_number"], name: "index_apple_music_tracks_on_disc_number"
     t.index ["duration_ms"], name: "index_apple_music_tracks_on_duration_ms"
     t.index ["isrc"], name: "index_apple_music_tracks_on_isrc"
-    t.index ["name"], name: "index_apple_music_tracks_on_name", type: :fulltext
+    t.index ["name"], name: "index_apple_music_tracks_on_name", length: 191
     t.index ["status"], name: "index_apple_music_tracks_on_status"
     t.index ["track_id"], name: "fk_rails_e512b7f7bc"
     t.index ["track_number"], name: "index_apple_music_tracks_on_track_number"
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_000000) do
     t.index ["disc_number"], name: "index_spotify_tracks_on_disc_number"
     t.index ["duration_ms"], name: "index_spotify_tracks_on_duration_ms"
     t.index ["isrc"], name: "index_spotify_tracks_on_isrc"
-    t.index ["name"], name: "index_spotify_tracks_on_name", type: :fulltext
+    t.index ["name"], name: "index_spotify_tracks_on_name", length: 191
     t.index ["popularity"], name: "index_spotify_tracks_on_popularity"
     t.index ["spotify_album_id", "disc_number", "track_number"], name: "index_spotify_tracks_on_sp_id_and_numbers", unique: true
     t.index ["spotify_id", "status"], name: "index_spotify_tracks_on_spotify_id_and_status", unique: true
