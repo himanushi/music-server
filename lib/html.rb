@@ -37,6 +37,26 @@ module Html
           header << build_metatag(header, "@vgm_net", name: "twitter:site")
         end
 
+        if !id.nil? && id&.start_with?(Playlist.table_id)
+
+          # @type var id: String
+          # @type var playlist: Playlist
+          playlist  = Playlist.find(id)
+
+          header << build_metatag(header, "website", property: "og:type")
+          header << build_metatag(header, web_name, property: "og:site_name")
+          header << build_metatag(header, playlist.to_url, property: "og:url")
+          header << build_metatag(header, "#{playlist.name} - #{web_name}", property: "og:title")
+          if playlist.description.present?
+            header << build_metatag(header, playlist.description, property: "og:description")
+          end
+          if playlist.track.present?
+            header << build_metatag(header, playlist.track.service.artwork_l.url, property: "og:image")
+          end
+          header << build_metatag(header, "summary", name: "twitter:card")
+          header << build_metatag(header, "@vgm_net", name: "twitter:site")
+        end
+
         html.to_s
       end
 

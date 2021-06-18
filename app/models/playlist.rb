@@ -104,4 +104,12 @@ class Playlist < ApplicationRecord
 
     self
   end
+
+  def to_path
+    "/#{id}"
+  end
+
+  def to_url
+    "#{ENV['PRODUCTION_APP_URL']}/playlist#{to_path}"
+  end
 end
