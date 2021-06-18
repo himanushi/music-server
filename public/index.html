@@ -29,7 +29,16 @@
     <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="module" src="/index.js?ver=47c9d616fcfed36b399b8152d96b17ee"></script>
-  <link rel="stylesheet" href="/index.css?ver=49caf8cd34192f83f639ab6dadb2cf1c"></head>
+    <script type="text/javascript">
+      // ref: https://css-tricks.com/the-trick-to-viewport-units-on-mobile
+      const resize = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      };
+      window.addEventListener("resize", resize);
+      resize();
+    </script>
+  <link rel="stylesheet" href="/index.css?ver=4de297d12f621b9ef7271473aa1563ae"></head>
   <body>
 
 </body></html>
