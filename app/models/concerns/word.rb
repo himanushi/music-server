@@ -32,8 +32,9 @@ module Word
       n = 2
       chars = ngram(n, text)
 
-      text_in = "'#{chars.join('\', \'')}'"
-      text_like = "'%#{chars.join(',')}%'"
+      text_in = ActiveRecord::Base.sanitize_sql_for_conditions([":chars", chars: chars])
+      text_like = ActiveRecord::Base.sanitize_sql_like("#{chars.join(',')}")
+      text_like = ActiveRecord::Base.sanitize_sql_for_conditions(["?", text_like])
 
       results = ActiveRecord::Base.connection.select_all(<<-SQL)
         SELECT #{id_name} FROM
