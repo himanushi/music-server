@@ -33,3 +33,4 @@
 yarn-debug.log*
 .yarn-integrity
 .devcontainer
+.DS_store
