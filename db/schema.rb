@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_000000) do
+ActiveRecord::Schema.define(version: 2021_07_06_000000) do
 
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.integer "status", default: 0, null: false
     t.datetime "release_date", null: false
     t.integer "total_tracks", default: 0, null: false
+    t.integer "pv", default: 0, null: false
+    t.integer "popularity", default: 0, null: false
+    t.index ["popularity"], name: "index_albums_on_popularity"
     t.index ["release_date"], name: "index_albums_on_release_date"
     t.index ["status"], name: "index_albums_on_status"
     t.index ["total_tracks"], name: "index_albums_on_total_tracks"
@@ -133,7 +136,10 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
     t.integer "status", default: 0, null: false
+    t.integer "pv", default: 0, null: false
+    t.integer "popularity", default: 0, null: false
     t.index ["name"], name: "index_artists_on_name", unique: true
+    t.index ["popularity"], name: "index_artists_on_popularity"
     t.index ["status"], name: "index_artists_on_status"
   end
 
@@ -176,6 +182,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.text "description"
     t.integer "public_type", null: false
     t.integer "popularity", default: 0, null: false
+    t.integer "pv", default: 0, null: false
     t.index ["created_at"], name: "index_playlists_on_created_at"
     t.index ["name"], name: "index_playlists_on_name"
     t.index ["popularity"], name: "index_playlists_on_popularity"
@@ -313,8 +320,11 @@ ActiveRecord::Schema.define(version: 2021_05_18_000000) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "isrc", limit: 191, null: false, comment: "国際標準レコーディングコード"
     t.integer "status", default: 0, null: false
+    t.integer "pv", default: 0, null: false
+    t.integer "popularity", default: 0, null: false
     t.index ["created_at"], name: "index_tracks_on_created_at"
     t.index ["isrc"], name: "index_tracks_on_isrc", unique: true
+    t.index ["popularity"], name: "index_tracks_on_popularity"
     t.index ["status"], name: "index_tracks_on_status"
     t.index ["updated_at"], name: "index_tracks_on_updated_at"
   end
