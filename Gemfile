@@ -31,6 +31,8 @@ gem "mini_magick"
 gem 'graphiql-rails'
 # Twitter 投稿
 gem 'twitter'
+# Google Analytics
+gem 'google-apis-analyticsreporting_v4'
 
 group :development, :test do
   # ブレイクポイント
