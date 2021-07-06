@@ -18,7 +18,7 @@ module Ggl
       end
 
       def json_file
-        Ggl::Analytics::JsonKey.new(ENV['GOOGLE_ANALYTICS_JSON_KEY'])
+        Ggl::Analytics::JsonKey.new(JSON.parse(ENV['GOOGLE_ANALYTICS_JSON_KEY']))
       end
 
       def client
