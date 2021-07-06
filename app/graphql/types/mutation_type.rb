@@ -7,7 +7,6 @@ module Types
     field :change_status,      mutation: Mutations::ChangeStatus
     field :upsert_playlist,    mutation: Mutations::UpsertPlaylist
     field :delete_playlist,    mutation: Mutations::DeletePlaylist
-    field :tally_playlists,    mutation: Mutations::TallyPlaylists
     field :add_playlist_items, mutation: Mutations::AddPlaylistItems
     field :upsert_artist,      mutation: Mutations::UpsertArtist
     field :mix_artist,         mutation: Mutations::MixArtist
@@ -21,6 +20,8 @@ module Types
     field :unmix_album,        mutation: Mutations::UnmixAlbum
     field :upsert_role,        mutation: Mutations::UpsertRole
     field :change_favorites,   mutation: Mutations::ChangeFavorites
+    field :update_analytics,   mutation: Mutations::UpdateAnalytics
+    field :tally,              mutation: Mutations::Tally
     field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
     field :clear_cache,        mutation: Mutations::ClearCache
   end

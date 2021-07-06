@@ -6,6 +6,7 @@ module Queries
 
     class TracksQueryOrderEnum < BaseEnum
       value "NEW", value: "tracks.created_at", description: "追加順"
+      value "POPULARITY", value: "tracks.popularity", description: "人気順"
     end
 
     class TracksSortInputObject < BaseInputObject

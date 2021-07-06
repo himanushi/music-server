@@ -7,7 +7,7 @@ module Queries
     class AlbumsQueryOrderEnum < BaseEnum
       value "NEW",        value: "albums.created_at", description: "追加順"
       value "RELEASE",    value: "albums.release_date", description: "発売日順"
-      value "POPULARITY", value: "spotify_albums.popularity", description: "人気順"
+      value "POPULARITY", value: "albums.popularity", description: "人気順"
     end
 
     class AlbumsSortInputObject < BaseInputObject

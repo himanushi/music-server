@@ -2,6 +2,7 @@ class Popularity
   class << self
     def tally
       models = %w[artist album track playlist]
+      magnification = 100
 
       ActiveRecord::Base.transaction do
         models.each do |model|
@@ -12,7 +13,7 @@ class Popularity
               SELECT it1.id, it1.pv + COALESCE(it2.popularity, 0) AS popularity
               FROM #{model.pluralize} it1 LEFT JOIN
               (
-                SELECT f.favorable_id AS id, count(f.favorable_id) * 100 AS popularity
+                SELECT f.favorable_id AS id, count(f.favorable_id) * #{magnification} AS popularity
                 FROM favorites f LEFT JOIN #{model.pluralize} m ON m.id = f.favorable_id
                 WHERE f.favorable_type = '#{model.camelcase}'
                 GROUP BY f.favorable_id

@@ -7,7 +7,7 @@ module Queries
     class ArtistsQueryOrderEnum < BaseEnum
       value "NAME",       value: "artists.name", description: "名前順"
       value "NEW",        value: "artists.created_at", description: "追加順"
-      value "POPULARITY", value: "spotify_artists.popularity", description: "人気順"
+      value "POPULARITY", value: "artists.popularity", description: "人気順"
     end
 
     class ArtistsSortInputObject < BaseInputObject
