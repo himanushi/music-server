@@ -1,4 +1,4 @@
-module Google
+module Ggl
   class Recaptcha
     def self.valid?(token, ip = nil)
       !!request(token, ip)["success"]

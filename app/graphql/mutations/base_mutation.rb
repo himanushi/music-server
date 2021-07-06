@@ -25,7 +25,7 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
     # ロボット検証
     if use_recaptcha?
       token = context.dig(:current_info, :cookie, "reCAPTCHAv2Token")
-      unless Google::Recaptcha.valid?(token)
+      unless Ggl::Recaptcha.valid?(token)
         raise GraphQL::ExecutionError.new(
           'ロボット操作の可能性があります。再入力をお願いします。',
           extensions: { code: "FAILED_RECAPTCHA", path: "recaptcha" }
