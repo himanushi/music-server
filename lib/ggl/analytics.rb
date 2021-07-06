@@ -2,16 +2,30 @@
 
 module Ggl
   class Analytics
+    class JsonKey
+      def initialize(data)
+        @data = data
+      end
+
+      def read
+        @data
+      end
+    end
+
     class << self
       def analytics
         Google::Apis::AnalyticsreportingV4
+      end
+
+      def json_file
+        Ggl::Analytics::JsonKey.new(ENV['GOOGLE_ANALYTICS_JSON_KEY'])
       end
 
       def client
         scope = ['https://www.googleapis.com/auth/analytics.readonly']
         client = analytics::AnalyticsReportingService.new
         client.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
-          json_key_io: File.open('tmp/key/google-auth-cred.json'),
+          json_key_io: json_file,
           scope: scope
         )
 
@@ -58,7 +72,7 @@ module Ggl
         # filter = [analytics::MetricFilterClause.new(
         #   filters: [analytics::MetricFilter.new(
         #     metric_name: "ga:pageviews",
-        #     comparison_value: "2",
+        #     comparison_value: "100",
         #     operator: "GREATER_THAN"
         #   )]
         # )]
@@ -93,6 +107,8 @@ module Ggl
 
         ActiveRecord::Base.transaction do
           results.keys.each do |table_name|
+            next unless results[table_name].present?
+
             t2 = results[table_name].map{|id, pv| "select '#{id}' as id, '#{pv}' as pv" }.join(" union all ")
             ActiveRecord::Base.connection.execute(<<~SQL)
               UPDATE
