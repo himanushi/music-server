@@ -18,6 +18,7 @@ module Queries
       argument :name,     String, "トラック名(あいまい検索)", required: false
       argument :status,   [StatusEnum], "表示ステータス", required: false
       argument :favorite, Boolean, "お気に入り", required: false
+      argument :random,   Boolean, "ランダム取得", required: false
     end
 
     argument :cursor, CursorInputObject, required: false, description: "取得件数", default_value: CursorInputObject.default_argument_values
@@ -41,6 +42,12 @@ module Queries
         name = conditions.delete(:name)
         ids = AppleMusicTrack.search(name).select(:track_id).pluck(:track_id)
         conditions = { **conditions, id: ids.uniq }
+      end
+
+      # ランダム取得
+      if conditions.delete(:random)
+        is_cache = false
+        track_relation = track_relation.order("RAND()")
       end
 
       # なぜか eager_load だと limit 指定で正確な個数が取得できないため冗長な実装になっている
