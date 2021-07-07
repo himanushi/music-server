@@ -12,6 +12,7 @@ class Artist < ApplicationRecord
 
   has_many :favorites, as: :favorable, dependent: :destroy
 
+  scope :include_album_services, -> { eager_load(albums: :apple_music_and_itunes_album) }
   scope :include_albums, -> { eager_load(:albums) }
   scope :include_tracks, -> { eager_load(:tracks) }
   scope :include_services, -> { eager_load(:apple_music_artists) }

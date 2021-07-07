@@ -12,13 +12,13 @@ module Types
       field :artwork_m,           ArtworkType, null: false, description: "中型アートワーク"
 
       def artwork_l
-        return Artwork.new unless object.service.present?
-        object.service.artwork_l
+        return Artwork.new unless object.albums.first.present?
+        object.albums.first.apple_music_and_itunes_album.artwork_l
       end
 
       def artwork_m
-        return Artwork.new unless object.service.present?
-        object.service.artwork_m
+        return Artwork.new unless object.albums.first.present?
+        object.albums.first.apple_music_and_itunes_album.artwork_m
       end
     end
   end

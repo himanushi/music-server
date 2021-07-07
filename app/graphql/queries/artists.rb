@@ -31,7 +31,7 @@ module Queries
     def list_query(cursor:, sort:, conditions: {})
       is_cache = true
       conditions = { status: [:active], **conditions }
-      artist_relation = ::Artist.include_services
+      artist_relation = ::Artist.include_services.include_album_services
 
       # 名前あいまい検索
       if conditions.has_key?(:name)
