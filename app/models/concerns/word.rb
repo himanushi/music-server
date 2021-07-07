@@ -49,4 +49,3 @@ module Word
 end
 
 # AppleMusicTrack.active.find_in_batches(batch_size: 500) {|ts| AppleMusicTrackWord.insert_all ts.map{|t|t.words_attributes}.flatten }
-# SpotifyTrack.active.find_in_batches(batch_size: 500) {|ts| SpotifyTrackWord.insert_all ts.map{|t|t.words_attributes}.flatten }

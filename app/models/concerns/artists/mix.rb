@@ -9,7 +9,7 @@ module Artists
       # 第一引数のIDがメインアーティストとなる
       # 破壊的なメソッドで修正不可なので注意して使用すること
       def mix!(main_artist_id, sub_artist_id)
-        Artist.validate_associations([:apple_music_artists, :spotify_artists, :artist_has_albums, :artist_has_tracks, :favorites])
+        Artist.validate_associations([:apple_music_artists, :artist_has_albums, :artist_has_tracks, :favorites])
 
         main_artist = find(main_artist_id)
         sub_artist = find(sub_artist_id)
@@ -17,7 +17,6 @@ module Artists
         ActiveRecord::Base.transaction do
           # 付け替え
           main_artist.apple_music_artists << sub_artist.apple_music_artists
-          main_artist.spotify_artists << sub_artist.spotify_artists
           main_artist.albums << (sub_artist.albums - main_artist.albums)
           main_artist.tracks << (sub_artist.tracks - main_artist.tracks)
           # サブアーティスト削除

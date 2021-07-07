@@ -18,7 +18,6 @@ module Tweet
       services = []
       services << "#AppleMusic" if album.apple_music_album.present?
       services << "#iTunes" if album.itunes_album.present?
-      services << "#Spotify" if album.spotify_album.present?
       client.update <<~TWEET
         [アルバム追加]
         「#{album.service.name}」が追加されました。

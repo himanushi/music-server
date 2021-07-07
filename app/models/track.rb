@@ -6,7 +6,6 @@ class Track < ApplicationRecord
   has_many :album_has_tracks, dependent: :destroy
   has_many :albums, through: :album_has_tracks
   has_many :apple_music_and_itunes_tracks, class_name: AppleMusicTrack.name, dependent: :destroy
-  has_many :spotify_tracks, dependent: :destroy
 
   has_many :favorites, as: :favorable, dependent: :destroy
 
@@ -14,12 +13,12 @@ class Track < ApplicationRecord
 
   scope :include_artists, -> { eager_load(:artists) }
   scope :include_albums, -> { eager_load(:albums) }
-  scope :include_services, -> { eager_load(:apple_music_and_itunes_tracks, :spotify_tracks) }
-  scope :include_album_services, -> { eager_load(apple_music_and_itunes_tracks: :apple_music_album, spotify_tracks: :spotify_album) }
+  scope :include_services, -> { eager_load(:apple_music_and_itunes_tracks) }
+  scope :include_album_services, -> { eager_load(apple_music_and_itunes_tracks: :apple_music_album) }
   scope :services, -> { include_services.map(&:service) }
 
   def service
-    @service ||= (apple_music_and_itunes_tracks.to_a + spotify_tracks.to_a).first
+    @service ||= apple_music_and_itunes_tracks.to_a.first
   end
 
   def apple_music_tracks

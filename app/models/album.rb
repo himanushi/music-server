@@ -10,13 +10,12 @@ class Album < ApplicationRecord
   has_many :tracks, through: :album_has_tracks
   # iTunes と分けるため名前を変更している
   has_one  :apple_music_and_itunes_album, class_name: AppleMusicAlbum.name, dependent: :destroy
-  has_one  :spotify_album, dependent: :destroy
 
   has_many :favorites, as: :favorable, dependent: :destroy
 
   scope :include_artists, -> { eager_load(:artists) }
   scope :include_tracks, -> { eager_load(:tracks) }
-  scope :include_services, -> { eager_load(:apple_music_and_itunes_album, :spotify_album) }
+  scope :include_services, -> { eager_load(:apple_music_and_itunes_album) }
   scope :services, -> { include_services.map(&:service) }
 
   enum status: { pending: 0, active: 1, ignore: 2 }
@@ -74,11 +73,11 @@ class Album < ApplicationRecord
   end
 
   def service
-    @service ||= (apple_music_and_itunes_album || spotify_album)
+    @service ||= apple_music_and_itunes_album
   end
 
   def services
-    [apple_music_and_itunes_album, spotify_album].compact
+    [apple_music_and_itunes_album].compact
   end
 
   # アルバム作曲者とトラック作曲者全員
@@ -112,15 +111,12 @@ class Album < ApplicationRecord
     _isrc =
       if !apple_music_and_itunes_album.nil?
         apple_music_and_itunes_album.apple_music_tracks.order(:disc_number, :track_number).first.isrc
-      elsif !spotify_album.nil?
-        spotify_album.spotify_tracks.order(:disc_number, :track_number).first.isrc
       else
         return []
       end
 
     albums = []
     albums += AppleMusicAlbum.create_by_track_isrc(_isrc).map(&:album)
-    albums += SpotifyAlbum.create_by_track_isrc(_isrc).map(&:album)
     albums.compact
   end
 

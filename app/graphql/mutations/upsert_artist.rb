@@ -7,12 +7,11 @@ class Mutations::UpsertArtist < Mutations::BaseMutation
   DESC
   argument :artist_id, String, required: false, description: "アーティストに関連する音楽サービスアーティストを更新。関連アルバム、トラックを全て更新する。"
   argument :apple_music_id, String, required: false, description: "Apple Music のアーティストを登録。登録後、関連アルバム、トラックを全て保存する。"
-  argument :spotify_id, String, required: false, description: "Spotify のアーティストを登録。登録後、関連アルバム、トラックを全て保存する。"
 
   field :artists, [ArtistType], null: true, description: "追加されたアーティスト"
   field :error, String, null: true
 
-  def mutate(artist_name: nil, artist_id: nil, apple_music_id: nil, spotify_id: nil)
+  def mutate(artist_name: nil, artist_id: nil, apple_music_id: nil)
     begin
       artists = []
 
@@ -26,10 +25,6 @@ class Mutations::UpsertArtist < Mutations::BaseMutation
 
       if apple_music_id.present?
         artists << AppleMusicArtist.create_by_music_service_id(apple_music_id)&.artist
-      end
-
-      if spotify_id.present?
-        artists << SpotifyArtist.create_by_music_service_id(spotify_id)&.artist
       end
 
       artists.compact.uniq.map {|artist| artist.create_albums }

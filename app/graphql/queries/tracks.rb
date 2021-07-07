@@ -40,7 +40,6 @@ module Queries
       if conditions.has_key?(:name)
         name = conditions.delete(:name)
         ids = AppleMusicTrack.search(name).select(:track_id).pluck(:track_id)
-        ids += SpotifyTrack.search(name).select(:track_id).pluck(:track_id)
         conditions = { **conditions, id: ids.uniq }
       end
 

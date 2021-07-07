@@ -15,7 +15,6 @@ module Types
       field :artwork_m,         ArtworkType, null: false, description: "中型アートワーク"
       field :apple_music_album, AppleMusicAlbumType, null: true, description: "Apple Music アルバム"
       field :itunes_album,      AppleMusicAlbumType, null: true, description: "iTunes アルバム"
-      field :spotify_album,     SpotifyAlbumType, null: true, description: "Spotify アルバム"
       field :tracks,            [TrackType], null: false, description: "トラック"
 
       def name
@@ -44,8 +43,6 @@ module Types
         order(
             "apple_music_tracks.disc_number",
             "apple_music_tracks.track_number",
-            "spotify_tracks.disc_number",
-            "spotify_tracks.track_number",
           )
       end
     end

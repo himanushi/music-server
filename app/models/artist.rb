@@ -9,13 +9,12 @@ class Artist < ApplicationRecord
   has_many :artist_has_tracks, dependent: :destroy
   has_many :tracks, through: :artist_has_tracks
   has_many :apple_music_artists, dependent: :destroy
-  has_many :spotify_artists, dependent: :destroy
 
   has_many :favorites, as: :favorable, dependent: :destroy
 
   scope :include_albums, -> { eager_load(:albums) }
   scope :include_tracks, -> { eager_load(:tracks) }
-  scope :include_services, -> { eager_load(:apple_music_artists, :spotify_artists) }
+  scope :include_services, -> { eager_load(:apple_music_artists) }
   scope :services, -> { include_services.map(&:service) }
   scope :names, -> { services.map(&:name) }
 
@@ -28,7 +27,6 @@ class Artist < ApplicationRecord
       name = to_name(name)
       find_or_create_by!(name: name)
       AppleMusicArtist.create_by_name(name)
-      SpotifyArtist.create_by_name(name)
       where(name: name)
     end
 
@@ -64,12 +62,11 @@ class Artist < ApplicationRecord
 
   def create_albums
     apple_music_artists.each {|am_art| am_art.create_albums }
-    spotify_artists.each {|sp_art| sp_art.create_albums }
     self
   end
 
   def service
-    @service ||= (spotify_artists.to_a + apple_music_artists.to_a).first
+    @service ||= (apple_music_artists.to_a).first
   end
 
   def to_path

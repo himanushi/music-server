@@ -14,7 +14,7 @@ class Playlist < ApplicationRecord
             length: { maximum: 30 }
 
   scope :include_users,  -> { eager_load(:user) }
-  scope :include_tracks, -> { eager_load(track: [:apple_music_and_itunes_tracks, :spotify_tracks]) }
+  scope :include_tracks, -> { eager_load(track: [:apple_music_and_itunes_tracks]) }
 
   class << self
     # 曲存在チェック

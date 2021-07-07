@@ -51,7 +51,7 @@ module Queries
         name = conditions.delete(:name)
         album_relation =
           album_relation.where(
-            "apple_music_albums.name like :name or spotify_albums.name like :name",
+            "apple_music_albums.name like :name",
             name: "%#{name}%"
           )
       end

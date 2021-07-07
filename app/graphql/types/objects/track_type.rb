@@ -16,7 +16,6 @@ module Types
       field :artwork_l,    ArtworkType, null: false, description: "大型アートワーク"
       field :apple_music_tracks, [AppleMusicTrackType], null: true, description: "Apple Music トラック"
       field :itunes_tracks,      [AppleMusicTrackType], null: true, description: "iTunes トラック"
-      field :spotify_tracks,     [SpotifyTrackType], null: true, description: "Spotify トラック"
 
       def name
         object.service.name
@@ -36,10 +35,6 @@ module Types
 
       def preview_url
         object.service.preview_url
-      end
-
-      def popularity
-        object.spotify_tracks.map(&:popularity).max || 0
       end
 
       def artwork_m

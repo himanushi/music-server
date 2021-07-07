@@ -24,12 +24,6 @@ module Albums
             main_album.apple_music_and_itunes_album = service_album
           end
 
-          if main_album.spotify_album.nil?
-            service_album = sub_album.spotify_album
-            service_album.status = main_album.status
-            main_album.spotify_album = service_album
-          end
-
           # 最新の日時を正とする
           if main_album.release_date <= sub_album.release_date
             main_album.release_date = sub_album.release_date
@@ -62,14 +56,6 @@ module Albums
             album.apple_music_and_itunes_album.destroy
             album.reload
             albums << AppleMusicAlbum.create_by_music_service_id(service_id).album
-          end
-
-          if (album.spotify_album.present? &&
-              album.total_tracks != album.spotify_album.total_tracks)
-            service_id = album.spotify_album.spotify_id
-            album.spotify_album.destroy
-            album.reload
-            albums << SpotifyAlbum.create_by_music_service_id(service_id).album
           end
         end
 
