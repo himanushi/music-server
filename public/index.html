@@ -1,37 +1,44 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
     <link rel="icon" href="/favicon.ico">
+    <title>音楽</title>
     <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
-      // ref: https://developers.google.com/analytics/devguides/collection/analyticsjs
-      (function (i, s, o, g, r, a, m) {
-        i["GoogleAnalyticsObject"] = r;
-        (i[r] =
-          i[r] ||
-          function () {
-            (i[r].q = i[r].q || []).push(arguments);
-          }),
-          (i[r].l = 1 * new Date());
-        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m);
-      })(
-        window,
-        document,
-        "script",
-        "https://www.google-analytics.com/analytics.js",
-        "ga"
-      );
+      let analytics_id = document.querySelector(
+        "meta[property='ms:google-analytics-id']"
+      )?.content;
 
-      window.ga("create", "UA-84910533-3", "auto");
+      if (analytics_id) {
+        // ref: https://developers.google.com/analytics/devguides/collection/analyticsjs
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(
+          window,
+          document,
+          "script",
+          "https://www.google-analytics.com/analytics.js",
+          "ga"
+        );
+
+        window.ga("create", analytics_id, "auto");
+      }
     </script>
     <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script type="module" src="/index.js?ver=1625645015"></script>
-  <link rel="stylesheet" href="/index.css?ver=1625645015"></head>
+    <script type="module" src="/index.js?ver=1625722454"></script>
+  <link rel="stylesheet" href="/index.css?ver=1625722454"></head>
   <body>
 
 </body></html>

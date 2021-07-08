@@ -21,6 +21,15 @@ module Html
         header = html.at("head")
         header << build_metatag(header, "音楽サブスクリプション配信中のゲーム音楽のポータルサイト", name: "description")
 
+        # 環境変数
+        if Rails.env.production?
+          header.first_element_child.before build_metatag(header, "#{ENV['PRODUCTION_APP_URL']}/graphql", property: "ms:graphql-url") if ENV['PRODUCTION_APP_URL']
+          header.first_element_child.before build_metatag(header, ENV['GOOGLE_RECAPTCHA_V2_CLIENT_KEY'], property: "ms:recaptcha-key") if ENV['GOOGLE_RECAPTCHA_V2_CLIENT_KEY']
+          header.first_element_child.before build_metatag(header, ENV['GOOGLE_ANALYTICS_ID'], property: "ms:google-analytics-id") if ENV['GOOGLE_ANALYTICS_ID']
+          header.first_element_child.before build_metatag(header, ENV['APPLE_AFFILIATE_TOKEN'], property: "ms:apple-affiliate-token") if ENV['APPLE_AFFILIATE_TOKEN']
+          header.first_element_child.before build_metatag(header, ENV['TWITTER_ACCOUNT'], property: "ms:twitter-account") if ENV['TWITTER_ACCOUNT']
+        end
+
         if !id.nil? && id&.start_with?(Album.table_id)
 
           # @type var id: String
