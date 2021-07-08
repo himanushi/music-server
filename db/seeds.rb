@@ -14,11 +14,7 @@ class String
   end
 end
 
-raise StandardError, "bundle exec rails db:migrate:reset をしてから実行してね" if User.exists?
-
 puts "seed 開始".red
-
-puts "user & role 作成".green
 
 Role.create!(name: "admin", description: "管理者") do |role|
   AllowedAction::ALL_ACTIONS.each do |action_name|
@@ -26,13 +22,20 @@ Role.create!(name: "admin", description: "管理者") do |role|
   end
 end
 
-Role.create!(name: "default", description: "初期ロール") do |role|
+Role.create!(name: "default", description: "未ログイン") do |role|
+  AllowedAction::DEFAULT_ACTIONS.each do |action_name|
+    role.allowed_actions.new(name: action_name)
+  end
+end
+
+Role.create!(name: "login", description: "ログイン済み") do |role|
   AllowedAction::DEFAULT_ACTIONS.each do |action_name|
     role.allowed_actions.new(name: action_name)
   end
 end
 
 password = SecureRandom.hex(3)
+
 puts "/login [username: admin,  password: #{password}]".red
 User.create!(
   name: "admin",
@@ -41,24 +44,5 @@ User.create!(
   role: Role.find_by!(name: "admin"),
   encrypted_password: BCrypt::Password.create(password, cost: 12)
 )
-
-puts "user & role 作成終了".green
-
-if File.exists?("#{Rails.root.join("tmp", "vgm_db.dump")}")
-  require 'rake'
-  Rake::Task['db:restore'].execute
-else
-  YAML.load_file(Rails.root.join("db", "artists.yml")).each do |name|
-    puts "create artist #{name}".green
-    start_time = Time.now
-
-    Artist.create_by_name(name).map(&:create_albums)
-
-    end_time = Time.now
-    sec = (end_time - start_time).to_i
-    puts "create finish #{name}, #{sec} sec".green
-  end
-  puts "bundle exec rails db:dump をしておくと吉".red
-end
 
 puts "seed 終了".red
