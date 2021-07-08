@@ -4,11 +4,11 @@ module Html
       def convert(path)
 
         # @type var raw_html: String
-        raw_html = File.open("#{Rails.root}/public/index.html")&.read || ""
+        raw_html = File.open("#{Rails.root}/public/index-dummy.html")&.read || ""
 
         # @type var category: String?
         # @type var id: String?
-        category, id = path.split("/")
+        category, id = (path || "").split("/")
 
         # @type var html: Nokogiri::HTML::Document
         html = Nokogiri::HTML.parse(raw_html)
