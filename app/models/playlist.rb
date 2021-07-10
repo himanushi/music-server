@@ -99,6 +99,7 @@ class Playlist < ApplicationRecord
     ActiveRecord::Base.transaction do
       playlist_items << items
       self.track = playlist_items.first ? playlist_items.first.track : nil
+      self.touch
       save!
     end
 
