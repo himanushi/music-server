@@ -19,6 +19,9 @@ module Searchable
   end
 
   def create_words
+    # 2文字未満は検索しないので除外
+    return unless name.length > 1
+
     ActiveRecord::Base.transaction do
       words.delete_all
 
