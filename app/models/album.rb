@@ -70,6 +70,10 @@ class Album < ApplicationRecord
         album
       end
     end
+
+    def create_by_new_releases
+      AppleMusicAlbum.create_by_new_releases
+    end
   end
 
   def service

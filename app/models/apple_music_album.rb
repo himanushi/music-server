@@ -59,7 +59,7 @@ class AppleMusicAlbum < ApplicationRecord
         apple_music_id:     data["id"],
         name:               attrs["name"],
         record_label:       attrs["recordLabel"],
-        copyright:          attrs["copyright"] || attrs["recordLabel"],
+        copyright:          (attrs["copyright"] || attrs["recordLabel"])[..254],
         playable:           attrs["playParams"].present?,
         artwork_url:        attrs.dig("artwork", "url"),
         artwork_width:      attrs.dig("artwork", "width"),
@@ -118,6 +118,49 @@ class AppleMusicAlbum < ApplicationRecord
 
           # @type var album: ::AppleMusicAlbum
           albums << album
+        end
+      end
+
+      albums
+    end
+
+    def new_releases_apple_music_ids(genre = 16)
+      response = AppleMusic::Client.get_new_apple_music
+      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
+      apple_music_ids = res.map{|r| r["id"] }
+
+      response = AppleMusic::Client.get_new_itunes
+      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
+
+      (apple_music_ids + res.map{|r| r["id"] }).uniq
+    end
+
+    def create_by_new_releases(genre = 16)
+
+      # @type var apple_music_ids: Array[String]
+      apple_music_ids = new_releases_apple_music_ids(genre)
+
+      return [] unless apple_music_ids.present?
+
+      # @type var apple_music_album_ids: Array[String]
+      apple_music_album_ids = AppleMusicAlbum.where(apple_music_id: apple_music_ids).pluck(:apple_music_id)
+
+      apple_music_ids -= apple_music_album_ids
+
+      # TODO: ここの書き方は型検証するために面倒な実装になっているのでどうにかしたい
+      # @type var albums: ::Array[::AppleMusicAlbum]
+      albums = []
+
+      ActiveRecord::Base.transaction do
+        apple_music_ids.map do |apple_music_id|
+          next unless AppleMusicAlbum.where(apple_music_id: apple_music_id).empty?
+
+          album = create_by_music_service_id(apple_music_id)
+          if album.present?
+
+            # @type var album: ::AppleMusicAlbum
+            albums << album
+          end
         end
       end
 

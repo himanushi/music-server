@@ -35,6 +35,20 @@ module AppleMusic
       def catalog_url
         "/#{VERSION}/catalog"
       end
+
+      def rss_client
+        Faraday::Connection.new(url: "https://rss.itunes.apple.com")
+      end
+
+      def get_new_apple_music
+        result = rss_client.get("api/v1/jp/apple-music/new-releases/all/200/explicit.json")
+        JSON.parse(result.body)
+      end
+
+      def get_new_itunes
+        result = rss_client.get("api/v1/jp/itunes-music/recent-releases/all/200/explicit.json")
+        JSON.parse(result.body)
+      end
     end
 
     def initialize(locale: LOCALE, version: VERSION)
