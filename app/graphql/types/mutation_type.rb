@@ -24,5 +24,6 @@ module Types
     field :tally,              mutation: Mutations::Tally
     field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
     field :clear_cache,        mutation: Mutations::ClearCache
+    field :insert_new_release_albums, mutation: Mutations::InsertNewReleaseAlbums
   end
 end
