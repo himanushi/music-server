@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_07_000001) do
+ActiveRecord::Schema.define(version: 2021_07_16_000000) do
 
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -199,6 +199,30 @@ ActiveRecord::Schema.define(version: 2021_07_07_000001) do
     t.index ["user_id", "public_type"], name: "index_public_informations_on_user_id_and_public_type", unique: true
   end
 
+  create_table "radio_items", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "radio_id", limit: 16, null: false
+    t.string "track_id", limit: 16, null: false
+    t.integer "track_number", null: false
+    t.index ["radio_id", "track_number"], name: "index_radio_items_on_radio_id_and_track_number", unique: true
+    t.index ["track_id"], name: "fk_rails_10e11c3a50"
+  end
+
+  create_table "radios", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "playlist_id", limit: 16, null: false
+    t.integer "current_playback_no"
+    t.datetime "start_datetime"
+    t.integer "public_type", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.boolean "random", default: false, null: false
+    t.boolean "repeat", default: false, null: false
+    t.index ["playlist_id"], name: "fk_rails_e10128f920"
+    t.index ["status"], name: "index_radios_on_status"
+  end
+
   create_table "roles", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -263,5 +287,8 @@ ActiveRecord::Schema.define(version: 2021_07_07_000001) do
   add_foreign_key "playlists", "tracks"
   add_foreign_key "playlists", "users"
   add_foreign_key "public_informations", "users"
+  add_foreign_key "radio_items", "radios"
+  add_foreign_key "radio_items", "tracks"
+  add_foreign_key "radios", "playlists"
   add_foreign_key "sessions", "users"
 end
