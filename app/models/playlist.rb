@@ -5,6 +5,7 @@ class Playlist < ApplicationRecord
   belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
   has_many :favorites, as: :favorable, dependent: :destroy
+  has_one :radio
 
   enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
 
@@ -104,6 +105,14 @@ class Playlist < ApplicationRecord
     end
 
     self
+  end
+
+  def create_radio(repeat: false, random: false)
+    ActiveRecord::Base.transaction do
+      radio.destroy! if self.radio.present?
+      build_radio(repeat: repeat, random: random).save!
+      radio.copy_items!
+    end
   end
 
   def to_path
