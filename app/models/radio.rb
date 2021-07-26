@@ -14,12 +14,26 @@ class Radio < ApplicationRecord
     save!
   end
 
+  def tracks
+    radio_items.order(:track_number).include_tracks.map(&:track)
+  end
+
   def apple_music_tracks
-    radio_items.order(:track_number).include_tracks.map(&:track).map(&:apple_music_and_itunes_tracks).flatten
+    tracks.map do |track|
+      track.apple_music_and_itunes_tracks.first
+    end.flatten
   end
 
   def durations
-    @_durations ||= apple_music_tracks.map(&:duration_ms)
+    @_durations ||= apple_music_tracks.map do |track|
+      if track.playable
+        track.duration_ms
+      elsif track.duration_ms > 30000
+        30000
+      else
+        track.duration_ms
+      end
+    end
   end
 
   def past_ms
