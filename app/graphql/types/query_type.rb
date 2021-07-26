@@ -10,6 +10,7 @@ module Types
     field :tracks,        resolver: Queries::Tracks
     field :playlist,      resolver: Queries::Playlist
     field :playlists,     resolver: Queries::Playlists
+    field :radio,         resolver: Queries::Radio
     field :roles,         resolver: Queries::Roles
   end
 end
