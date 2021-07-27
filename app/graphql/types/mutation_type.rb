@@ -20,6 +20,7 @@ module Types
     field :unmix_album,        mutation: Mutations::UnmixAlbum
     field :upsert_role,        mutation: Mutations::UpsertRole
     field :change_favorites,   mutation: Mutations::ChangeFavorites
+    field :create_radio,       mutation: Mutations::CreateRadio
     field :update_analytics,   mutation: Mutations::UpdateAnalytics
     field :tally,              mutation: Mutations::Tally
     field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
