@@ -213,14 +213,12 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "playlist_id", limit: 16, null: false
-    t.integer "current_playback_no"
     t.datetime "start_datetime"
-    t.integer "public_type", default: 0, null: false
-    t.integer "status", default: 0, null: false
     t.boolean "random", default: false, null: false
-    t.boolean "repeat", default: false, null: false
+    t.integer "popularity", default: 0, null: false
+    t.integer "pv", default: 0, null: false
     t.index ["playlist_id"], name: "fk_rails_e10128f920"
-    t.index ["status"], name: "index_radios_on_status"
+    t.index ["popularity"], name: "index_radios_on_popularity"
   end
 
   create_table "roles", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
