@@ -25,7 +25,7 @@ module Queries
 
     def list_query(cursor:, sort:, conditions: {})
       conditions = { **conditions }
-      relation = ::Radio
+      relation = ::Radio.include_playlists
 
       # お気に入り検索
       if conditions.delete(:favorite)
@@ -36,7 +36,7 @@ module Queries
       # 名前あいまい検索
       if conditions.has_key?(:name)
         name = conditions.delete(:name)
-        relation = relation.where("radios.name like :name", name: "%#{name}%")
+        relation = relation.joins(:playlist).where("playlists.name like :name", name: "%#{name}%")
       end
 
       [

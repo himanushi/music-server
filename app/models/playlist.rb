@@ -107,12 +107,20 @@ class Playlist < ApplicationRecord
     self
   end
 
-  def create_radio(repeat: false, random: false)
+  def create_radio(random: false)
     ActiveRecord::Base.transaction do
-      radio.destroy! if self.radio.present?
-      build_radio(repeat: repeat, random: random).save!
+      if self.radio.present?
+        radio_id = self.radio.id
+        radio.destroy!
+      end
+      build_radio(random: random)
+      radio.id = radio_id if radio_id
+      radio.save!
       radio.copy_items!
+      radio.play
     end
+
+    radio
   end
 
   def to_path

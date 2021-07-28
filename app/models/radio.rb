@@ -3,13 +3,11 @@ class Radio < ApplicationRecord
 
   belongs_to :playlist
   has_many :radio_items, dependent: :destroy
+  has_many :favorites, as: :favorable, dependent: :destroy
 
-  enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
+  scope :include_playlists,  -> { eager_load(:playlist) }
 
-  enum status: { active: 0, inactive: 1 }
-
-  def play(playback_no)
-    self.current_playback_no = playback_no
+  def play
     self.start_datetime = DateTime.now
     save!
   end
