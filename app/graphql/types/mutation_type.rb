@@ -21,6 +21,7 @@ module Types
     field :upsert_role,        mutation: Mutations::UpsertRole
     field :change_favorites,   mutation: Mutations::ChangeFavorites
     field :create_radio,       mutation: Mutations::CreateRadio
+    field :delete_radio,       mutation: Mutations::DeleteRadio
     field :update_analytics,   mutation: Mutations::UpdateAnalytics
     field :tally,              mutation: Mutations::Tally
     field :generate_sitemaps,  mutation: Mutations::GenerateSitemaps
