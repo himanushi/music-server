@@ -75,4 +75,12 @@ class Radio < ApplicationRecord
       save!
     end
   end
+
+  def to_path
+    "/#{id}"
+  end
+
+  def to_url
+    "#{ENV['PRODUCTION_APP_URL']}/radios#{to_path}"
+  end
 end
