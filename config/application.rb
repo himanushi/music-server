@@ -29,7 +29,7 @@ module Server
           origins ENV['PRODUCTION_APP_URL']
           resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
         else
-          origins ENV['DEVELOPMENT_SPA_URL']
+          origins ["http://localhost:3000", "http://localhost:8080", "http://localhost:50000"]
           resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
         end
       end
