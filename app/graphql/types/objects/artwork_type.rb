@@ -4,8 +4,8 @@ module Types
       description 'アートワーク'
 
       field :url,    String, null: true, description: "URL"
-      field :width,  PositiveNumber, null: true, description: "幅"
-      field :height, PositiveNumber, null: true, description: "高さ"
+      field :width,  Integer, null: true, description: "幅"
+      field :height, Integer, null: true, description: "高さ"
     end
   end
 end

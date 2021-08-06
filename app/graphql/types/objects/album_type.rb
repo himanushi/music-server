@@ -8,7 +8,7 @@ module Types
       field :record_label,      String, null: false, description: "レーベル"
       field :copyright,         String, null: false, description: "コピーライト"
       field :status,            StatusEnum, null: false, description: "ステータス"
-      field :total_tracks,      PositiveNumber, null: false, description: "トラック数"
+      field :total_tracks,      Integer, null: false, description: "トラック数"
       field :release_date,      GraphQL::Types::ISO8601DateTime, null: false, description: "発売日"
       field :created_at,        GraphQL::Types::ISO8601DateTime, null: false, description: "追加日"
       field :artwork_l,         ArtworkType, null: false, description: "大型アートワーク"
