@@ -1,4 +1,4 @@
-const CACHE_NAME = "music-client-v4-1627955574";
+const CACHE_NAME = "music-client-v4-1628313001";
 const urlsToCache = [
   "./",
   "./index.js",
