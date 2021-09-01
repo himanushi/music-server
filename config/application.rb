@@ -26,7 +26,7 @@ module Server
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         if Rails.env.production?
-          origins ENV['PRODUCTION_APP_URL', /capacitor:\/\/localhost/]
+          origins [ENV['PRODUCTION_APP_URL'], /capacitor:\/\/localhost/]
           resource '*', headers: :any, methods: [:get, :post, :options], credentials: true
         else
           origins ["http://localhost:3000", "http://localhost:8080", "http://localhost:50000", /capacitor:\/\/localhost/]
