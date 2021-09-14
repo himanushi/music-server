@@ -5,22 +5,24 @@ class Mutations::ChangeFavorites < Mutations::BaseMutation
   argument :album_ids, [TTID], required: false, description: "お気に入り変更したいアルバムID"
   argument :track_ids, [TTID], required: false, description: "お気に入り変更したいトラックID"
   argument :playlist_ids, [TTID], required: false, description: "お気に入り変更したいプレイリストID"
+  argument :radio_ids, [TTID], required: false, description: "お気に入り変更したいラジオID"
   argument :favorite, Boolean, required: true, description: "true の場合は一括でお気に入り登録をする。false 場合は一括で解除する。"
 
   field :current_user, CurrentUserType, null: true, description: "更新されたカレントユーザー"
   field :error, String, null: true
 
-  def mutate(artist_ids: [], album_ids: [], track_ids: [], playlist_ids:[], favorite:)
+  def mutate(artist_ids: [], album_ids: [], track_ids: [], playlist_ids:[], radio_ids: [], favorite:)
     begin
       artists = ::Artist.where(id: artist_ids)
       albums  = ::Album.where(id: album_ids)
       tracks  = ::Track.where(id: track_ids)
       playlists = ::Playlist.where(id: playlist_ids)
+      radios = ::Radio.where(id: radio_ids)
 
       if favorite
-        ::Favorite.register(artists + albums + tracks + playlists, context[:current_info][:user])
+        ::Favorite.register(artists + albums + tracks + playlists + radios, context[:current_info][:user])
       else
-        ::Favorite.unregister(artists + albums + tracks + playlists, context[:current_info][:user])
+        ::Favorite.unregister(artists + albums + tracks + playlists + radios, context[:current_info][:user])
       end
 
       {

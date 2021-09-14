@@ -7,6 +7,7 @@ module Types
       field :album_ids, [String], null: false, description: "アルバムID"
       field :track_ids, [String], null: false, description: "トラックID"
       field :playlist_ids, [String], null: false, description: "プレイリストID"
+      field :radio_ids, [String], null: false, description: "ラジオID"
     end
   end
 end

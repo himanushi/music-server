@@ -25,6 +25,10 @@ module Users
       def playlist_ids
         ::Favorite.where(user_id: user_id, favorable_type: Playlist.name).pluck(:favorable_id)
       end
+
+      def radio_ids
+        ::Favorite.where(user_id: user_id, favorable_type: Radio.name).pluck(:favorable_id)
+      end
     end
 
     def favorite
