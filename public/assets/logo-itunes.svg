@@ -1,0 +1,717 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="1.1"
+  id="Artwork"
+  x="0px"
+  y="0px"
+  style="enable-background: new 0 0 361 361"
+  xml:space="preserve"
+>
+  <style type="text/css">
+    .st0 {
+      filter: url(#Adobe_OpacityMaskFilter);
+    }
+    .st1 {
+      fill: #ffffff;
+    }
+    .st2 {
+      mask: url(#mask-2_2_);
+    }
+    .st3 {
+      filter: url(#Adobe_OpacityMaskFilter_1_);
+    }
+    .st4 {
+      mask: url(#mask-4_2_);
+      fill: url(#Rectangle-path_6_);
+    }
+    .st5 {
+      filter: url(#Adobe_OpacityMaskFilter_2_);
+    }
+    .st6 {
+      mask: url(#mask-12_1_);
+    }
+    .st7 {
+      filter: url(#Adobe_OpacityMaskFilter_3_);
+    }
+    .st8 {
+      mask: url(#mask-14_1_);
+      fill: url(#Rectangle-path_7_);
+    }
+    .st9 {
+      filter: url(#Adobe_OpacityMaskFilter_4_);
+    }
+    .st10 {
+      mask: url(#mask-17_1_);
+    }
+    .st11 {
+      filter: url(#Adobe_OpacityMaskFilter_5_);
+    }
+    .st12 {
+      mask: url(#mask-19_1_);
+      fill: url(#Rectangle-path_8_);
+    }
+    .st13 {
+      filter: url(#Adobe_OpacityMaskFilter_6_);
+    }
+    .st14 {
+      mask: url(#mask-22_1_);
+    }
+    .st15 {
+      filter: url(#Adobe_OpacityMaskFilter_7_);
+    }
+    .st16 {
+      mask: url(#mask-24_1_);
+      fill: url(#Rectangle-path_9_);
+    }
+    .st17 {
+      filter: url(#Adobe_OpacityMaskFilter_8_);
+    }
+    .st18 {
+      mask: url(#mask-27_1_);
+    }
+    .st19 {
+      filter: url(#Adobe_OpacityMaskFilter_9_);
+    }
+    .st20 {
+      mask: url(#mask-29_1_);
+      fill: url(#Rectangle-path_10_);
+    }
+    .st21 {
+      filter: url(#Adobe_OpacityMaskFilter_10_);
+    }
+    .st22 {
+      mask: url(#mask-32_1_);
+      fill: #ffffff;
+    }
+    .st23 {
+      filter: url(#Adobe_OpacityMaskFilter_11_);
+    }
+    .st24 {
+      mask: url(#mask-7_1_);
+    }
+    .st25 {
+      filter: url(#Adobe_OpacityMaskFilter_12_);
+    }
+    .st26 {
+      mask: url(#mask-9_1_);
+      fill: url(#Rectangle-path_11_);
+    }
+  </style>
+  <g id="icons">
+    <g>
+      <g>
+        <g id="Clipped">
+          <defs>
+            <filter
+              id="Adobe_OpacityMaskFilter"
+              filterUnits="userSpaceOnUse"
+              x="1"
+              y="0.2"
+              width="25.1"
+              height="25.1"
+            >
+              <feColorMatrix
+                type="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+              />
+            </filter>
+          </defs>
+          <mask
+            maskUnits="userSpaceOnUse"
+            x="1"
+            y="0.2"
+            width="25.1"
+            height="25.1"
+            id="mask-2_2_"
+          >
+            <g class="st0">
+              <rect
+                id="path-1_2_"
+                x="1"
+                y="0.2"
+                class="st1"
+                width="25.1"
+                height="25.1"
+              />
+            </g>
+          </mask>
+          <g class="st2">
+            <defs>
+              <filter
+                id="Adobe_OpacityMaskFilter_1_"
+                filterUnits="userSpaceOnUse"
+                x="1"
+                y="0.2"
+                width="25.1"
+                height="25.1"
+              >
+                <feColorMatrix
+                  type="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                />
+              </filter>
+            </defs>
+            <mask
+              maskUnits="userSpaceOnUse"
+              x="1"
+              y="0.2"
+              width="25.1"
+              height="25.1"
+              id="mask-4_2_"
+            >
+              <g class="st3">
+                <path
+                  id="path-3_2_"
+                  class="st1"
+                  d="M8.7,0.2c-0.3,0-0.5,0-0.7,0c-0.3,0-0.5,0-0.8,0c-0.6,0-1.1,0-1.7,0.1         C5,0.4,4.5,0.6,4,0.9C3.5,1.1,3,1.4,2.6,1.8c-0.4,0.4-0.7,0.8-1,1.3c-0.3,0.5-0.4,1-0.5,1.6C1,5.3,1,5.8,1,6.4         c0,0.3,0,0.5,0,0.8c0,0.2,0,0.5,0,0.7V8v9.4v0.2c0,0.2,0,0.5,0,0.7c0,0.3,0,0.5,0,0.8c0,0.6,0,1.1,0.1,1.7         c0.1,0.6,0.3,1.1,0.5,1.6c0.3,0.5,0.6,0.9,1,1.3c0.4,0.4,0.8,0.7,1.3,1c0.5,0.3,1,0.4,1.6,0.5c0.5,0.1,1.1,0.1,1.7,0.1         c0.3,0,0.5,0,0.8,0c0.3,0,0.5,0,0.7,0h0.2h9.4h0.2c0.3,0,0.5,0,0.7,0c0.3,0,0.5,0,0.8,0c0.6,0,1.1,0,1.7-0.1         c0.6-0.1,1.1-0.3,1.6-0.5c0.5-0.3,0.9-0.6,1.3-1c0.4-0.4,0.7-0.8,1-1.3c0.3-0.5,0.4-1,0.5-1.6c0.1-0.5,0.1-1.1,0.1-1.7         c0-0.3,0-0.5,0-0.8c0-0.2,0-0.5,0-0.7V7.9c0-0.2,0-0.5,0-0.7c0-0.3,0-0.5,0-0.8c0-0.6,0-1.1-0.1-1.7         c-0.1-0.6-0.3-1.1-0.5-1.6c-0.3-0.5-0.6-0.9-1-1.3c-0.4-0.4-0.8-0.7-1.3-1c-0.5-0.3-1-0.4-1.6-0.5c-0.5-0.1-1.1-0.1-1.7-0.1         c-0.3,0-0.5,0-0.8,0c-0.3,0-0.5,0-0.7,0L8.7,0.2L8.7,0.2z"
+                />
+              </g>
+            </mask>
+
+            <linearGradient
+              id="Rectangle-path_6_"
+              gradientUnits="userSpaceOnUse"
+              x1="-808.9617"
+              y1="502.4956"
+              x2="-808.9617"
+              y2="503.4942"
+              gradientTransform="matrix(25.164 0 0 25.164 20370.252 -12644.6201)"
+            >
+              <stop offset="0" style="stop-color: #ef4db7" />
+              <stop offset="1" style="stop-color: #c643fd" />
+            </linearGradient>
+            <rect
+              id="Rectangle-path"
+              x="1"
+              y="0.2"
+              class="st4"
+              width="25.1"
+              height="25.1"
+            />
+          </g>
+        </g>
+        <g id="Artboard-Copy-2">
+          <g id="US_UK_iTunes_Store_Buy_Lockup_RGB_blk">
+            <g id="Group_2_">
+              <g id="Clipped_2_">
+                <defs>
+                  <filter
+                    id="Adobe_OpacityMaskFilter_2_"
+                    filterUnits="userSpaceOnUse"
+                    x="13.5"
+                    y="14.4"
+                    width="5.9"
+                    height="6.7"
+                  >
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    />
+                  </filter>
+                </defs>
+                <mask
+                  maskUnits="userSpaceOnUse"
+                  x="13.5"
+                  y="14.4"
+                  width="5.9"
+                  height="6.7"
+                  id="mask-12_1_"
+                >
+                  <g class="st5">
+                    <rect
+                      id="path-11_1_"
+                      x="1"
+                      y="0.2"
+                      class="st1"
+                      width="25.1"
+                      height="25.1"
+                    />
+                  </g>
+                </mask>
+                <g class="st6">
+                  <g transform="translate(12.000000, 14.000000)">
+                    <defs>
+                      <filter
+                        id="Adobe_OpacityMaskFilter_3_"
+                        filterUnits="userSpaceOnUse"
+                        x="1.5"
+                        y="0.4"
+                        width="5.9"
+                        height="6.7"
+                      >
+                        <feColorMatrix
+                          type="matrix"
+                          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                        />
+                      </filter>
+                    </defs>
+                    <mask
+                      maskUnits="userSpaceOnUse"
+                      x="1.5"
+                      y="0.4"
+                      width="5.9"
+                      height="6.7"
+                      id="mask-14_1_"
+                    >
+                      <g class="st7">
+                        <path
+                          id="path-13_1_"
+                          class="st1"
+                          d="M1.5,3.2l4.4,3.2c0.2,0.2,0.5,0.3,0.7,0.5C6.7,6.9,6.8,7,6.9,7c0,0,0,0,0,0             c0.1,0,0.1,0,0.2,0C7.2,7,7.2,7,7.3,7c0,0,0.1-0.1,0.1-0.1c0-0.1,0-0.1,0-0.2c0,0,0,0,0,0c0-0.1,0-0.2,0-0.3             C7.3,6.1,7.2,5.8,7.1,5.5L5.4,0.4L1.5,3.2z"
+                        />
+                      </g>
+                    </mask>
+
+                    <radialGradient
+                      id="Rectangle-path_7_"
+                      cx="-725.5587"
+                      cy="658.6119"
+                      r="4.429703e-03"
+                      gradientTransform="matrix(5.882 0 0 5.882 4257.271 -3870.7549)"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" style="stop-color: #f9e3fb" />
+                      <stop offset="0.7459" style="stop-color: #f9e3fb" />
+                      <stop offset="0.8097" style="stop-color: #f8defb" />
+                      <stop offset="0.8826" style="stop-color: #f3d0fa" />
+                      <stop offset="0.9599" style="stop-color: #ecbaf9" />
+                      <stop offset="0.981" style="stop-color: #eab2f9" />
+                      <stop offset="1" style="stop-color: #eab2f9" />
+                    </radialGradient>
+                    <rect
+                      id="Rectangle-path_2_"
+                      x="1.5"
+                      y="0.4"
+                      class="st8"
+                      width="5.9"
+                      height="6.7"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="Clipped_3_">
+                <defs>
+                  <filter
+                    id="Adobe_OpacityMaskFilter_4_"
+                    filterUnits="userSpaceOnUse"
+                    x="4.2"
+                    y="9.8"
+                    width="6.9"
+                    height="4.6"
+                  >
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    />
+                  </filter>
+                </defs>
+                <mask
+                  maskUnits="userSpaceOnUse"
+                  x="4.2"
+                  y="9.8"
+                  width="6.9"
+                  height="4.6"
+                  id="mask-17_1_"
+                >
+                  <g class="st9">
+                    <rect
+                      id="path-16_1_"
+                      x="1"
+                      y="0.2"
+                      class="st1"
+                      width="25.1"
+                      height="25.1"
+                    />
+                  </g>
+                </mask>
+                <g class="st10">
+                  <g transform="translate(3.000000, 9.000000)">
+                    <defs>
+                      <filter
+                        id="Adobe_OpacityMaskFilter_5_"
+                        filterUnits="userSpaceOnUse"
+                        x="1.2"
+                        y="0.8"
+                        width="6.9"
+                        height="4.6"
+                      >
+                        <feColorMatrix
+                          type="matrix"
+                          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                        />
+                      </filter>
+                    </defs>
+                    <mask
+                      maskUnits="userSpaceOnUse"
+                      x="1.2"
+                      y="0.8"
+                      width="6.9"
+                      height="4.6"
+                      id="mask-19_1_"
+                    >
+                      <g class="st11">
+                        <path
+                          id="path-18_1_"
+                          class="st1"
+                          d="M2.7,0.8c-0.3,0-0.6,0-0.9,0c-0.1,0-0.2,0-0.3,0.1c0,0,0,0,0,0             c-0.1,0-0.1,0.1-0.2,0.1c0,0-0.1,0.1-0.1,0.1c0,0,0,0.1,0,0.2c0,0.1,0,0.1,0.1,0.2c0,0,0,0,0,0c0.1,0.1,0.1,0.1,0.2,0.2             C1.8,1.8,2,2,2.2,2.2l4.4,3.2l1.5-4.6H2.7z"
+                        />
+                      </g>
+                    </mask>
+
+                    <radialGradient
+                      id="Rectangle-path_8_"
+                      cx="-667.2225"
+                      cy="712.7831"
+                      r="5.709395e-03"
+                      gradientTransform="matrix(4.599 0 0 4.599 3057.7996 -3286.936)"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" style="stop-color: #fae1f8" />
+                      <stop offset="0.6" style="stop-color: #fae1f8" />
+                      <stop offset="0.85" style="stop-color: #f7d6f7" />
+                      <stop offset="1" style="stop-color: #f7d6f7" />
+                    </radialGradient>
+                    <rect
+                      id="Rectangle-path_3_"
+                      x="1.2"
+                      y="0.8"
+                      class="st12"
+                      width="6.9"
+                      height="4.6"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="Clipped_4_">
+                <defs>
+                  <filter
+                    id="Adobe_OpacityMaskFilter_6_"
+                    filterUnits="userSpaceOnUse"
+                    x="7.7"
+                    y="14.4"
+                    width="5.9"
+                    height="6.7"
+                  >
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    />
+                  </filter>
+                </defs>
+                <mask
+                  maskUnits="userSpaceOnUse"
+                  x="7.7"
+                  y="14.4"
+                  width="5.9"
+                  height="6.7"
+                  id="mask-22_1_"
+                >
+                  <g class="st13">
+                    <rect
+                      id="path-21_1_"
+                      x="1"
+                      y="0.2"
+                      class="st1"
+                      width="25.1"
+                      height="25.1"
+                    />
+                  </g>
+                </mask>
+                <g class="st14">
+                  <g transform="translate(6.000000, 14.000000)">
+                    <defs>
+                      <filter
+                        id="Adobe_OpacityMaskFilter_7_"
+                        filterUnits="userSpaceOnUse"
+                        x="1.7"
+                        y="0.4"
+                        width="5.9"
+                        height="6.7"
+                      >
+                        <feColorMatrix
+                          type="matrix"
+                          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                        />
+                      </filter>
+                    </defs>
+                    <mask
+                      maskUnits="userSpaceOnUse"
+                      x="1.7"
+                      y="0.4"
+                      width="5.9"
+                      height="6.7"
+                      id="mask-24_1_"
+                    >
+                      <g class="st15">
+                        <path
+                          id="path-23_1_"
+                          class="st1"
+                          d="M1.9,5.5C1.9,5.8,1.8,6.1,1.7,6.4c0,0.1,0,0.2,0,0.3c0,0,0,0,0,0c0,0.1,0,0.1,0,0.2             C1.7,6.9,1.8,7,1.8,7c0,0,0.1,0,0.1,0.1c0.1,0,0.1,0,0.2,0c0,0,0,0,0,0c0.1,0,0.2-0.1,0.3-0.1c0.2-0.2,0.5-0.3,0.7-0.5             l4.4-3.2L5.1,1.4l-1.4-1L1.9,5.5z"
+                        />
+                      </g>
+                    </mask>
+
+                    <radialGradient
+                      id="Rectangle-path_9_"
+                      cx="-709.2784"
+                      cy="660.0571"
+                      r="4.429703e-03"
+                      gradientTransform="matrix(5.882 0 0 5.882 4186.8052 -3869.5693)"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" style="stop-color: #fae9fc" />
+                      <stop offset="0.669" style="stop-color: #fae9fc" />
+                      <stop offset="0.8118" style="stop-color: #f8defa" />
+                      <stop offset="0.91" style="stop-color: #f6d4f8" />
+                      <stop offset="1" style="stop-color: #f6d4f8" />
+                    </radialGradient>
+                    <rect
+                      id="Rectangle-path_4_"
+                      x="1.7"
+                      y="0.4"
+                      class="st16"
+                      width="5.9"
+                      height="6.7"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="Clipped_5_">
+                <defs>
+                  <filter
+                    id="Adobe_OpacityMaskFilter_8_"
+                    filterUnits="userSpaceOnUse"
+                    x="15.9"
+                    y="9.8"
+                    width="6.9"
+                    height="4.6"
+                  >
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    />
+                  </filter>
+                </defs>
+                <mask
+                  maskUnits="userSpaceOnUse"
+                  x="15.9"
+                  y="9.8"
+                  width="6.9"
+                  height="4.6"
+                  id="mask-27_1_"
+                >
+                  <g class="st17">
+                    <rect
+                      id="path-26_1_"
+                      x="1"
+                      y="0.2"
+                      class="st1"
+                      width="25.1"
+                      height="25.1"
+                    />
+                  </g>
+                </mask>
+                <g class="st18">
+                  <g transform="translate(14.000000, 9.000000)">
+                    <defs>
+                      <filter
+                        id="Adobe_OpacityMaskFilter_9_"
+                        filterUnits="userSpaceOnUse"
+                        x="1.9"
+                        y="0.8"
+                        width="6.9"
+                        height="4.6"
+                      >
+                        <feColorMatrix
+                          type="matrix"
+                          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                        />
+                      </filter>
+                    </defs>
+                    <mask
+                      maskUnits="userSpaceOnUse"
+                      x="1.9"
+                      y="0.8"
+                      width="6.9"
+                      height="4.6"
+                      id="mask-29_1_"
+                    >
+                      <g class="st19">
+                        <path
+                          id="path-28_1_"
+                          class="st1"
+                          d="M1.9,0.8l1.5,4.6l4.4-3.2C8.1,2,8.3,1.8,8.5,1.6c0.1-0.1,0.1-0.1,0.2-0.2             c0,0,0,0,0,0c0-0.1,0.1-0.1,0.1-0.2c0-0.1,0-0.1,0-0.2c0,0,0-0.1-0.1-0.1c0,0-0.1-0.1-0.2-0.1c0,0,0,0,0,0             c-0.1,0-0.2,0-0.3,0c-0.3,0-0.6,0-0.9,0H1.9z"
+                        />
+                      </g>
+                    </mask>
+
+                    <radialGradient
+                      id="Rectangle-path_10_"
+                      cx="-686.7855"
+                      cy="718.5959"
+                      r="5.709395e-03"
+                      gradientTransform="matrix(4.599 0 0 4.599 3165.3547 -3286.937)"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" style="stop-color: #fae9fb" />
+                      <stop offset="0.68" style="stop-color: #fae9fb" />
+                      <stop offset="0.8132" style="stop-color: #f8def8" />
+                      <stop offset="0.98" style="stop-color: #f5caf2" />
+                      <stop offset="1" style="stop-color: #f5caf2" />
+                    </radialGradient>
+                    <rect
+                      id="Rectangle-path_5_"
+                      x="1.9"
+                      y="0.8"
+                      class="st20"
+                      width="6.9"
+                      height="4.6"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g id="Clipped_6_">
+                <defs>
+                  <filter
+                    id="Adobe_OpacityMaskFilter_10_"
+                    filterUnits="userSpaceOnUse"
+                    x="9.6"
+                    y="9.8"
+                    width="7.8"
+                    height="7.4"
+                  >
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                    />
+                  </filter>
+                </defs>
+                <mask
+                  maskUnits="userSpaceOnUse"
+                  x="9.6"
+                  y="9.8"
+                  width="7.8"
+                  height="7.4"
+                  id="mask-32_1_"
+                >
+                  <g class="st21">
+                    <rect
+                      id="path-31_1_"
+                      x="1"
+                      y="0.2"
+                      class="st1"
+                      width="25.1"
+                      height="25.1"
+                    />
+                  </g>
+                </mask>
+                <polygon
+                  id="Shape_2_"
+                  class="st22"
+                  points="11.1,9.8 9.6,14.4 11.1,15.4 13.5,17.2 17.4,14.4 15.9,9.8        "
+                />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Clipped_1_">
+        <defs>
+          <filter
+            id="Adobe_OpacityMaskFilter_11_"
+            filterUnits="userSpaceOnUse"
+            x="11.1"
+            y="3.3"
+            width="4.8"
+            height="6.4"
+          >
+            <feColorMatrix
+              type="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+            />
+          </filter>
+        </defs>
+        <mask
+          maskUnits="userSpaceOnUse"
+          x="11.1"
+          y="3.3"
+          width="4.8"
+          height="6.4"
+          id="mask-7_1_"
+        >
+          <g class="st23">
+            <rect
+              id="path-6_1_"
+              x="1"
+              y="0.2"
+              class="st1"
+              width="25.1"
+              height="25.1"
+            />
+          </g>
+        </mask>
+        <g class="st24">
+          <g transform="translate(10.000000, 3.000000)">
+            <defs>
+              <filter
+                id="Adobe_OpacityMaskFilter_12_"
+                filterUnits="userSpaceOnUse"
+                x="1.1"
+                y="0.3"
+                width="4.8"
+                height="6.4"
+              >
+                <feColorMatrix
+                  type="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                />
+              </filter>
+            </defs>
+            <mask
+              maskUnits="userSpaceOnUse"
+              x="1.1"
+              y="0.3"
+              width="4.8"
+              height="6.4"
+              id="mask-9_1_"
+            >
+              <g class="st25">
+                <path
+                  id="path-8_1_"
+                  class="st1"
+                  d="M3.4,0.4c-0.1,0-0.1,0.1-0.1,0.1c0,0,0,0,0,0C3.2,0.6,3.1,0.7,3.1,0.8         C3,1.1,2.9,1.3,2.8,1.6L1.1,6.8H6L4.3,1.6C4.2,1.3,4.1,1.1,4,0.8c0-0.1-0.1-0.2-0.1-0.3c0,0,0,0,0,0c0-0.1-0.1-0.1-0.1-0.1         c0,0-0.1,0-0.2,0S3.4,0.3,3.4,0.4"
+                />
+              </g>
+            </mask>
+
+            <radialGradient
+              id="Rectangle-path_11_"
+              cx="-690.4658"
+              cy="704.2888"
+              r="5.414081e-03"
+              gradientTransform="matrix(4.836 0 0 4.836 3330.627 -3391.7415)"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" style="stop-color: #fbe3f8" />
+              <stop offset="0.745" style="stop-color: #fbe3f8" />
+              <stop offset="0.8082" style="stop-color: #fadef6" />
+              <stop offset="0.8798" style="stop-color: #f9d1f0" />
+              <stop offset="0.9554" style="stop-color: #f6bae7" />
+              <stop offset="0.98" style="stop-color: #f5b1e3" />
+              <stop offset="1" style="stop-color: #f5b1e3" />
+            </radialGradient>
+            <rect
+              id="Rectangle-path_1_"
+              x="1.1"
+              y="0.3"
+              class="st26"
+              width="4.8"
+              height="6.4"
+            />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
