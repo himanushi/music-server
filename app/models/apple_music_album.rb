@@ -125,14 +125,21 @@ class AppleMusicAlbum < ApplicationRecord
     end
 
     def new_releases_apple_music_ids(genre = 16)
+      apple_music_ids = []
+
       response = AppleMusic::Client.get_new_apple_music
       res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
-      apple_music_ids = res.map{|r| r["id"] }
+      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
 
       response = AppleMusic::Client.get_new_itunes
       res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
+      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
 
-      (apple_music_ids + res.map{|r| r["id"] }).uniq
+      response = AppleMusic::Client.get_top_albums
+      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
+      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
+
+      apple_music_ids.uniq.compact
     end
 
     def create_by_new_releases(genre = 16)

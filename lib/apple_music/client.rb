@@ -49,6 +49,11 @@ module AppleMusic
         result = rss_client.get("api/v1/jp/itunes-music/recent-releases/all/200/explicit.json")
         JSON.parse(result.body)
       end
+
+      def get_top_albums
+        result = rss_client.get("api/v1/jp/itunes-music/top-albums/all/200/explicit.json")
+        JSON.parse(result.body)
+      end
     end
 
     def initialize(locale: LOCALE, version: VERSION)
