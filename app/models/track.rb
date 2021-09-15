@@ -6,6 +6,9 @@ class Track < ApplicationRecord
   has_many :album_has_tracks, dependent: :destroy
   has_many :albums, through: :album_has_tracks
   has_many :apple_music_and_itunes_tracks, class_name: AppleMusicTrack.name, dependent: :destroy
+  has_one :playlist, dependent: :destroy
+  has_many :playlist_items, dependent: :destroy
+  has_many :radio_items, dependent: :destroy
 
   has_many :favorites, as: :favorable, dependent: :destroy
 
