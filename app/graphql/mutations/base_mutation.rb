@@ -23,7 +23,7 @@ class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
     end
 
     # ロボット検証
-    if Rails.env.production? && use_recaptcha?
+    if Rails.env.production? && use_recaptcha? && context[:platform] == "web"
       token = context.dig(:current_info, :cookie, "reCAPTCHAv2Token")
       unless Ggl::Recaptcha.valid?(token)
         raise GraphQL::ExecutionError.new(
