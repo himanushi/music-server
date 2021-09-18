@@ -5,32 +5,23 @@ class Mutations::UpsertAlbum < Mutations::BaseMutation
   argument :apple_music_id, String, required: false, description: "Apple Music か iTunes のアルバムを登録"
 
   field :albums, [AlbumType], null: true, description: "追加されたアルバム"
-  field :error, String, null: true
 
   def mutate(album_id: nil, apple_music_id: nil)
-    begin
-      albums = []
+    albums = []
 
-      if album_id.present?
-        albums += Album.find(album_id).create_all_service_albums
-      end
-
-      if apple_music_id.present?
-        albums << AppleMusicAlbum.create_by_music_service_id(apple_music_id)&.album
-      end
-
-      albums = albums.compact.uniq.map {|a| a.reload }
-
-      Rails.cache.clear
-      {
-        albums: albums.compact.uniq,
-        error: nil,
-      }
-    rescue => error
-      {
-        albums: nil,
-        error: error.message,
-      }
+    if album_id.present?
+      albums += Album.find(album_id).create_all_service_albums
     end
+
+    if apple_music_id.present?
+      albums << AppleMusicAlbum.create_by_music_service_id(apple_music_id)&.album
+    end
+
+    albums = albums.compact.uniq.map {|a| a.reload }
+
+    Rails.cache.clear
+    {
+      albums: albums.compact.uniq,
+    }
   end
 end
