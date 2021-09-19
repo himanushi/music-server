@@ -8,6 +8,7 @@ class GraphqlController < ApplicationController
       platform: platform,
     }
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    set_token!(result)
     render json: result
   rescue => e
     raise e unless Rails.env.development?
@@ -15,6 +16,12 @@ class GraphqlController < ApplicationController
   end
 
   private
+
+  def set_token!(result)
+    # web は cookie で対応
+    return if web?
+    result["extensions"] = { "Authorization" => "Bearer #{current_info[:session].digit_token}" }
+  end
 
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)

@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
 
   def set_current_info
     @current_info ||= begin
-      token = (request.cookies["Authorization"] || "").gsub(/\ABearer /, "")
+      authorization = web? ? request.cookies["Authorization"] : request.headers["Authorization"]
+      token = (authorization || "").gsub(/\ABearer /, "")
 
       if token.present?
         begin
@@ -38,11 +39,14 @@ class ApplicationController < ActionController::Base
   end
 
   def refresh_token
+    # web 以外は GraphQL のデータと一緒に token を返す
+    return unless web?
+
     # TODO: Session model 自体に expire を持たせること
     auth_setting = {
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,
-      http_only: web?,
+      http_only: true,
       same_site: :lax,
       path: "/",
     }
