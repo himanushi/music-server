@@ -5,7 +5,7 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       current_info: current_info,
-      platform: request.env["HTTP_ORIGIN"] == "capacitor://localhost" ? "ios" : "web",
+      platform: platform,
     }
     result = ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result

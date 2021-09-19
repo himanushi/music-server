@@ -29,12 +29,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def platform
+    request.env["HTTP_ORIGIN"] == "capacitor://localhost" ? "ios" : "web"
+  end
+
+  def web?
+    platform == "web"
+  end
+
   def refresh_token
     # TODO: Session model 自体に expire を持たせること
     auth_setting = {
       value: "Bearer #{current_info[:session].digit_token}",
       max_age: Session::EXPIRE_DAYS.to_i,
-      http_only: true,
+      http_only: web?,
       same_site: :lax,
       path: "/",
     }
