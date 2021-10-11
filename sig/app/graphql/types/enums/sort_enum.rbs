@@ -1,0 +1,6 @@
+module Types
+  module Enums
+    class SortEnum < GraphQL::Schema::Enum
+    end
+  end
+end

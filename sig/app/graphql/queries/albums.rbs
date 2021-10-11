@@ -1,0 +1,17 @@
+module Queries
+  class Albums < BaseListQuery
+    class AlbumsQueryOrderEnum < BaseEnum
+    end
+
+    class AlbumsSortInputObject < BaseInputObject
+    end
+
+    class AlbumsConditionsInputObject < BaseInputObject
+    end
+
+    def list_query: (cursor: untyped cursor, sort: untyped sort, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]
+
+    # 汚すぎてどうしようか
+    def self.build_relation: (context: untyped context, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]
+  end
+end

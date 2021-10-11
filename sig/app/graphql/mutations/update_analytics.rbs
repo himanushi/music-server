@@ -1,0 +1,3 @@
+class Mutations::UpdateAnalytics < Mutations::BaseMutation
+  def mutate: () -> { result: "ok" }
+end

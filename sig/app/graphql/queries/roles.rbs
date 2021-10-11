@@ -1,0 +1,5 @@
+module Queries
+  class Roles < BaseQuery
+    def query: () -> untyped
+  end
+end

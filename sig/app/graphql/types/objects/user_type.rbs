@@ -1,0 +1,6 @@
+module Types
+  module Objects
+    class UserType < Types::Objects::BaseObject
+    end
+  end
+end

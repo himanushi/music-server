@@ -1,120 +1,23 @@
 class Artist < ApplicationRecord
-  extend _ActiveRecord_Relation_ClassMethods[Artist, Artist::ActiveRecord_Relation]
-
-  attr_accessor id (): String
-  def id_changed?: () -> bool
-  def id_change: () -> [String?, String?]
-  def id_will_change!: () -> void
-  def id_was: () -> String?
-  def id_previously_changed?: () -> bool
-  def id_previous_change: () -> Array[String?]?
-  def id_previously_was: () -> String?
-  def restore_id!: () -> void
-  def clear_id_change: () -> void
-
-  attr_accessor created_at (): Time
-  def created_at_changed?: () -> bool
-  def created_at_change: () -> [Time?, Time?]
-  def created_at_will_change!: () -> void
-  def created_at_was: () -> Time?
-  def created_at_previously_changed?: () -> bool
-  def created_at_previous_change: () -> Array[Time?]?
-  def created_at_previously_was: () -> Time?
-  def restore_created_at!: () -> void
-  def clear_created_at_change: () -> void
-
-  attr_accessor updated_at (): Time
-  def updated_at_changed?: () -> bool
-  def updated_at_change: () -> [Time?, Time?]
-  def updated_at_will_change!: () -> void
-  def updated_at_was: () -> Time?
-  def updated_at_previously_changed?: () -> bool
-  def updated_at_previous_change: () -> Array[Time?]?
-  def updated_at_previously_was: () -> Time?
-  def restore_updated_at!: () -> void
-  def clear_updated_at_change: () -> void
-
-  attr_accessor name (): String
-  def name_changed?: () -> bool
-  def name_change: () -> [String?, String?]
-  def name_will_change!: () -> void
-  def name_was: () -> String?
-  def name_previously_changed?: () -> bool
-  def name_previous_change: () -> Array[String?]?
-  def name_previously_was: () -> String?
-  def restore_name!: () -> void
-  def clear_name_change: () -> void
-
-  attr_accessor status (): String
-  def status_changed?: () -> bool
-  def status_change: () -> [String?, String?]
-  def status_will_change!: () -> void
-  def status_was: () -> String?
-  def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[String?]?
-  def status_previously_was: () -> String?
-  def restore_status!: () -> void
-  def clear_status_change: () -> void
-
-  def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
-  def albums: () -> Album::ActiveRecord_Associations_CollectionProxy
-  def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
-  def tracks: () -> Track::ActiveRecord_Associations_CollectionProxy
-  def apple_music_artists: () -> AppleMusicArtist::ActiveRecord_Associations_CollectionProxy
-  def spotify_artists: () -> SpotifyArtist::ActiveRecord_Associations_CollectionProxy
-  def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
-
-
-  def pending!: () -> bool
-  def pending?: () -> bool
-  def active!: () -> bool
-  def active?: () -> bool
-  def ignore!: () -> bool
-  def ignore?: () -> bool
-  def self.pending: () -> Artist::ActiveRecord_Relation
-  def self.active: () -> Artist::ActiveRecord_Relation
-  def self.ignore: () -> Artist::ActiveRecord_Relation
-  def self.include_albums: () -> Artist::ActiveRecord_Relation
-  def self.include_services: () -> Artist::ActiveRecord_Relation
-  def self.services: () -> Artist::ActiveRecord_Relation
-  def self.names: () -> Artist::ActiveRecord_Relation
-
-  # rbs prototype rb app/models/artist.rb
   include Artists::Status
 
   include Artists::Mix
 
   FORCE_IGNORE_NAMES: ::Array[untyped]
 
-  def self.create_by_name: (String name) -> Artist::ActiveRecord_Relation
+  def self.create_by_name: (untyped name) -> untyped
 
-  def self.to_name: (String name) -> String
+  def self.to_name: (untyped name) -> untyped
 
-  def self.all_pending_to_ignore: () -> Array[instance]
+  def self.all_pending_to_ignore: () -> untyped
 
-  def self.all_create_albums: () -> Array[instance]
+  def self.all_create_albums: () -> untyped
 
-  def create_albums: () -> self
+  def create_albums: () -> untyped
 
-  def service: () -> (SpotifyArtist | AppleMusicArtist | nil)
+  def service: () -> untyped
 
   def to_path: () -> ::String
 
   def to_url: () -> ::String
-end
-
-class Artist::ActiveRecord_Relation < ActiveRecord::Relation
-  include _ActiveRecord_Relation[Artist]
-  include Enumerable[Artist, self]
-  def pending: () -> Artist::ActiveRecord_Relation
-  def active: () -> Artist::ActiveRecord_Relation
-  def ignore: () -> Artist::ActiveRecord_Relation
-  def include_albums: () -> Artist::ActiveRecord_Relation
-  def include_services: () -> Artist::ActiveRecord_Relation
-  def services: () -> Artist::ActiveRecord_Relation
-  def names: () -> Artist::ActiveRecord_Relation
-end
-
-class Artist::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
-  include Artist::ActiveRecord_Relation
 end

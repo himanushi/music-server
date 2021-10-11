@@ -1,0 +1,15 @@
+module Queries
+  class Playlists < BaseListQuery
+    class PlaylistsQueryOrderEnum < BaseEnum
+    end
+
+    class PlaylistsSortInputObject < BaseInputObject
+    end
+
+    class PlaylistsConditionsInputObject < BaseInputObject
+    end
+
+    # キャッシュしない
+    def list_query: (cursor: untyped cursor, sort: untyped sort, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]
+  end
+end

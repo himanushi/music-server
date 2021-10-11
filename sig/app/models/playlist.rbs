@@ -1,0 +1,20 @@
+class Playlist < ApplicationRecord
+  # 曲存在チェック
+  def self.validate_track_ids: (untyped track_ids) -> untyped
+
+  # 作者のみ更新可能
+  def self.validate_author: (untyped playlist_id, untyped user_id) -> untyped
+
+  def self.upsert: (user_id: untyped user_id, name: untyped name, public_type: untyped public_type, ?id: untyped? id, ?description: untyped? description, ?track_ids: untyped track_ids) -> untyped
+
+  # 人気度集計
+  def self.tally_popularity: () -> untyped
+
+  def add_items: (?track_ids: untyped track_ids) -> untyped
+
+  def create_radio: (?random: bool random) -> untyped
+
+  def to_path: () -> ::String
+
+  def to_url: () -> ::String
+end

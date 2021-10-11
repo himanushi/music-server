@@ -1,0 +1,5 @@
+class Types::Scalars::TTID < Types::Scalars::BaseScalar
+  def self.coerce_input: (untyped input_value, untyped context) -> untyped
+
+  def self.coerce_result: (untyped ruby_value, untyped context) -> untyped
+end

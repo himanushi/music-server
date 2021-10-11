@@ -1,0 +1,3 @@
+class Mutations::ClearCache < Mutations::BaseMutation
+  def mutate: () -> untyped
+end

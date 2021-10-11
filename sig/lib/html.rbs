@@ -1,7 +1,0 @@
-module Html
-  class Ogp
-    def self.convert: (String path) -> String
-
-    def self.build_metatag: (Nokogiri::XML::Element header, String content, **String prop) -> Nokogiri::XML::Node
-  end
-end

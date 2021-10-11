@@ -1,0 +1,3 @@
+class Mutations::ChangeFavorites < Mutations::BaseMutation
+  def mutate: (favorite: untyped favorite, ?artist_ids: untyped artist_ids, ?album_ids: untyped album_ids, ?track_ids: untyped track_ids, ?playlist_ids: untyped playlist_ids, ?radio_ids: untyped radio_ids) -> untyped
+end

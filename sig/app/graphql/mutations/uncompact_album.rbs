@@ -1,0 +1,3 @@
+class Mutations::UncompactAlbum < Mutations::BaseMutation
+  def mutate: (?album_id_for_apple_music: untyped? album_id_for_apple_music) -> untyped
+end

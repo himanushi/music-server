@@ -1,0 +1,3 @@
+class Mutations::Logout < Mutations::BaseMutation
+  def mutate: () -> untyped
+end

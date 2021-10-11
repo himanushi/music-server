@@ -1,0 +1,85 @@
+class AppleMusicTrackWord < ActiveRecord::Base
+  extend _ActiveRecord_Relation_ClassMethods[AppleMusicTrackWord, ActiveRecord_Relation, Integer]
+
+  attr_accessor id(): Integer
+  def id_changed?: () -> bool
+  def id_change: () -> [ Integer?, Integer? ]
+  def id_will_change!: () -> void
+  def id_was: () -> Integer?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[Integer?]?
+  def id_previously_was: () -> Integer?
+  def id_before_last_save: () -> Integer?
+  def id_change_to_be_saved: () -> Array[Integer?]?
+  def id_in_database: () -> Integer?
+  def saved_change_to_id: () -> Array[Integer?]?
+  def saved_change_to_id?: () -> bool
+  def will_save_change_to_id?: () -> bool
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
+  attr_accessor apple_music_track_id(): String
+  def apple_music_track_id_changed?: () -> bool
+  def apple_music_track_id_change: () -> [ String?, String? ]
+  def apple_music_track_id_will_change!: () -> void
+  def apple_music_track_id_was: () -> String?
+  def apple_music_track_id_previously_changed?: () -> bool
+  def apple_music_track_id_previous_change: () -> Array[String?]?
+  def apple_music_track_id_previously_was: () -> String?
+  def apple_music_track_id_before_last_save: () -> String?
+  def apple_music_track_id_change_to_be_saved: () -> Array[String?]?
+  def apple_music_track_id_in_database: () -> String?
+  def saved_change_to_apple_music_track_id: () -> Array[String?]?
+  def saved_change_to_apple_music_track_id?: () -> bool
+  def will_save_change_to_apple_music_track_id?: () -> bool
+  def restore_apple_music_track_id!: () -> void
+  def clear_apple_music_track_id_change: () -> void
+
+  attr_accessor text(): String
+  def text_changed?: () -> bool
+  def text_change: () -> [ String?, String? ]
+  def text_will_change!: () -> void
+  def text_was: () -> String?
+  def text_previously_changed?: () -> bool
+  def text_previous_change: () -> Array[String?]?
+  def text_previously_was: () -> String?
+  def text_before_last_save: () -> String?
+  def text_change_to_be_saved: () -> Array[String?]?
+  def text_in_database: () -> String?
+  def saved_change_to_text: () -> Array[String?]?
+  def saved_change_to_text?: () -> bool
+  def will_save_change_to_text?: () -> bool
+  def restore_text!: () -> void
+  def clear_text_change: () -> void
+
+  attr_accessor position(): Integer
+  def position_changed?: () -> bool
+  def position_change: () -> [ Integer?, Integer? ]
+  def position_will_change!: () -> void
+  def position_was: () -> Integer?
+  def position_previously_changed?: () -> bool
+  def position_previous_change: () -> Array[Integer?]?
+  def position_previously_was: () -> Integer?
+  def position_before_last_save: () -> Integer?
+  def position_change_to_be_saved: () -> Array[Integer?]?
+  def position_in_database: () -> Integer?
+  def saved_change_to_position: () -> Array[Integer?]?
+  def saved_change_to_position?: () -> bool
+  def will_save_change_to_position?: () -> bool
+  def restore_position!: () -> void
+  def clear_position_change: () -> void
+
+  module GeneratedRelationMethods
+  end
+
+  class ActiveRecord_Relation < ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[AppleMusicTrackWord, Integer]
+    include Enumerable[AppleMusicTrackWord]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[AppleMusicTrackWord, Integer]
+  end
+end

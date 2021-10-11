@@ -1,0 +1,3 @@
+class Mutations::ChangeStatus < Mutations::BaseMutation
+  def mutate: (status: untyped status, only: untyped only, tweet: untyped tweet, ?artist_id: untyped? artist_id, ?album_id: untyped? album_id, ?track_id: untyped? track_id) -> { result: "OK" }
+end

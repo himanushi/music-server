@@ -1,0 +1,9 @@
+module Types
+  module Objects
+    class CurrentUserType < Types::Objects::BaseObject
+      def name: () -> untyped
+
+      def username: () -> untyped
+    end
+  end
+end

@@ -1,0 +1,7 @@
+module Types
+  module Fields
+    class BaseField < GraphQL::Schema::Field
+      def resolve_field: (untyped obj, untyped args, untyped ctx) -> untyped
+    end
+  end
+end

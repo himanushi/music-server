@@ -1,0 +1,11 @@
+module Types
+  module Objects
+    class PlaylistType < BaseObject
+      def is_mine: () -> untyped
+
+      def author: () -> untyped
+
+      def items: () -> untyped
+    end
+  end
+end

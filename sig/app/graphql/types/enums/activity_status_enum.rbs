@@ -1,0 +1,6 @@
+module Types
+  module Enums
+    class ActivityStatusEnum < GraphQL::Schema::Enum
+    end
+  end
+end

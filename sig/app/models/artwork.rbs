@@ -1,11 +1,5 @@
 class Artwork
   include ActiveModel::Model
+
   include ActiveModel::Attributes
-  extend ActiveModel::Attributes::ClassMethods
-
-  attr_reader url: String
-  attr_reader width: Integer
-  attr_reader height: Integer
-
-  def initialize: (url: String?, width: Integer?, height: Integer?) -> void
 end

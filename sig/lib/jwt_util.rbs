@@ -1,5 +1,0 @@
-class JwtUtil
-  def self.encode: (Hash[Symbol, Object] object) -> String
-
-  def self.decode: (String object) -> Hash[String, Object]
-end

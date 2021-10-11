@@ -1,0 +1,3 @@
+class Mutations::Tally < Mutations::BaseMutation
+  def mutate: () -> { result: "ok" }
+end

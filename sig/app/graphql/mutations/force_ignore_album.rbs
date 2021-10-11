@@ -1,0 +1,3 @@
+class Mutations::ForceIgnoreAlbum < Mutations::BaseMutation
+  def mutate: (album_id: untyped album_id) -> { result: "OK" }
+end

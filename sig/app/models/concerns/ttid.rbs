@@ -1,34 +1,34 @@
 # TTID
 # Table id, hex Timestamp, ID
-module TTID : ApplicationRecord
+module TTID
   extend ActiveSupport::Concern
 
-  REGEXP: ::Regexp
+  REGEXP: untyped
 
-  def self.to_hash: (String id) -> (nil | { table_id: String, hex_timestamp: String, hex_id: String })
+  def self.to_hash: (untyped id) -> (nil | { table_id: untyped, hex_timestamp: untyped, hex_id: untyped })
 
-  def self.decode: (String id) -> (nil | { model: ApplicationRecord, timestamp: Time, hex_id: String })
+  def self.decode: (untyped id) -> (nil | { model: untyped, timestamp: untyped, hex_id: untyped })
 
-  def self.to_timestamp: (String hex_timestamp) -> Time
+  def self.to_timestamp: (untyped hex_timestamp) -> untyped
 
-  def self.table_info: () -> Hash[String, ApplicationRecord]
+  def self.table_info: () -> untyped
 
-  def self.add_table_info: (Hash[String, ApplicationRecord] info) -> Hash[String, ApplicationRecord]
+  def self.add_table_info: (untyped info) -> untyped
 
-  def self.unix_timestamp_usec3: () -> Integer
+  def self.unix_timestamp_usec3: () -> untyped
 
-  def identify: () -> String
+  def identify: () -> untyped
 
-  def build_id: () -> String
+  def build_id: () -> untyped
 
-  module ClassMethods : ApplicationRecord
+  module ClassMethods
     # 検証元のクラスと検証したいID
-    def validate_ids!: (Array[String] ids) -> ::TrueClass
+    def validate_ids!: (untyped ids) -> ::TrueClass
 
-    def table_id: (?Symbol _table_id) -> String
+    def table_id: (?untyped? _table_id) -> untyped
 
-    def hex_time: () -> String
+    def hex_time: () -> untyped
 
-    def build_id: () -> String
+    def build_id: () -> untyped
   end
 end

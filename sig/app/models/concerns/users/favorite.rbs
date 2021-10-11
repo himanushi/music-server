@@ -6,11 +6,17 @@ module Users
     class UserFavorite
       attr_reader user_id: untyped
 
-      def initialize: (untyped user_id) -> untyped
+      def initialize: (untyped user_id) -> void
+
+      def artist_ids: () -> untyped
 
       def album_ids: () -> untyped
 
-      def artist_ids: () -> untyped
+      def track_ids: () -> untyped
+
+      def playlist_ids: () -> untyped
+
+      def radio_ids: () -> untyped
     end
 
     def favorite: () -> untyped

@@ -1,0 +1,3 @@
+class Mutations::UpdateMe < Mutations::BaseMutation
+  def mutate: (**untyped attrs) -> { current_user: untyped }
+end

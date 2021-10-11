@@ -1,0 +1,6 @@
+module Types
+  module Objects
+    class AppleMusicAlbumType < Types::Objects::BaseObject
+    end
+  end
+end

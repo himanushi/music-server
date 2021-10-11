@@ -1,0 +1,3 @@
+class Mutations::IgnoreAlbums < Mutations::BaseMutation
+  def mutate: () -> { albums: untyped }
+end

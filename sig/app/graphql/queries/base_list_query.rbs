@@ -1,0 +1,15 @@
+module Queries
+  class BaseListQuery < BaseQuery
+    attr_reader offset: untyped
+
+    attr_reader limit: untyped
+
+    attr_reader conditions: untyped
+
+    attr_reader sort_type: untyped
+
+    attr_reader order: untyped
+
+    def query: (**untyped args) -> untyped
+  end
+end

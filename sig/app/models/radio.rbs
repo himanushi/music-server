@@ -1,0 +1,19 @@
+class Radio < ApplicationRecord
+  def play: () -> untyped
+
+  def tracks: () -> untyped
+
+  def apple_music_tracks: () -> untyped
+
+  def durations: () -> untyped
+
+  def past_ms: () -> (nil | untyped)
+
+  def current_track_number_and_time: () -> ::Array[untyped]
+
+  def copy_items!: () -> untyped
+
+  def to_path: () -> ::String
+
+  def to_url: () -> ::String
+end

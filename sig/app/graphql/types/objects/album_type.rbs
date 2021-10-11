@@ -1,0 +1,17 @@
+module Types
+  module Objects
+    class AlbumType < BaseObject
+      def name: () -> untyped
+
+      def record_label: () -> untyped
+
+      def copyright: () -> untyped
+
+      def artwork_l: () -> untyped
+
+      def artwork_m: () -> untyped
+
+      def tracks: () -> untyped
+    end
+  end
+end

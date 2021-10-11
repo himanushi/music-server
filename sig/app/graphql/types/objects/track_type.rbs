@@ -1,0 +1,19 @@
+module Types
+  module Objects
+    class TrackType < Types::Objects::BaseObject
+      def name: () -> untyped
+
+      def disc_number: () -> untyped
+
+      def track_number: () -> untyped
+
+      def duration_ms: () -> untyped
+
+      def preview_url: () -> untyped
+
+      def artwork_m: () -> untyped
+
+      def artwork_l: () -> untyped
+    end
+  end
+end

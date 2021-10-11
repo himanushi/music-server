@@ -1,0 +1,14 @@
+module Queries
+  class Tracks < BaseListQuery
+    class TracksQueryOrderEnum < BaseEnum
+    end
+
+    class TracksSortInputObject < BaseInputObject
+    end
+
+    class TracksConditionsInputObject < BaseInputObject
+    end
+
+    def list_query: (cursor: untyped cursor, sort: untyped sort, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]
+  end
+end

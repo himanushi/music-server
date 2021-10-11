@@ -1,0 +1,15 @@
+module Types
+  module InputObjects
+    class BaseInputObject < GraphQL::Schema::InputObject
+      include Types::Objects
+
+      include Types::Scalars
+
+      include Types::InputObjects
+
+      include Types::Enums
+
+      def self.default_argument_values: () -> untyped
+    end
+  end
+end

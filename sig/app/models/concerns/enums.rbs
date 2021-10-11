@@ -1,7 +1,5 @@
 module Enums
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def enums: (untyped enum_name) -> untyped
-  end
+  def enums: (untyped enum_name) -> untyped
 end

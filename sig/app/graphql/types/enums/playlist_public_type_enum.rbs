@@ -1,0 +1,6 @@
+module Types
+  module Enums
+    class PlaylistPublicTypeEnum < BaseEnum
+    end
+  end
+end

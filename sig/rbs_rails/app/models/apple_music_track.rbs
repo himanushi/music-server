@@ -1,0 +1,358 @@
+class AppleMusicTrack < ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[AppleMusicTrack, ActiveRecord_Relation, String]
+
+  attr_accessor id(): String
+  def id_changed?: () -> bool
+  def id_change: () -> [ String?, String? ]
+  def id_will_change!: () -> void
+  def id_was: () -> String?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[String?]?
+  def id_previously_was: () -> String?
+  def id_before_last_save: () -> String?
+  def id_change_to_be_saved: () -> Array[String?]?
+  def id_in_database: () -> String?
+  def saved_change_to_id: () -> Array[String?]?
+  def saved_change_to_id?: () -> bool
+  def will_save_change_to_id?: () -> bool
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
+  attr_accessor created_at(): ActiveSupport::TimeWithZone
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> ActiveSupport::TimeWithZone?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+  def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+  def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+  def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+  def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+  def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+  def saved_change_to_created_at?: () -> bool
+  def will_save_change_to_created_at?: () -> bool
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
+  attr_accessor updated_at(): ActiveSupport::TimeWithZone
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> ActiveSupport::TimeWithZone?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+  def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+  def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+  def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+  def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+  def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+  def saved_change_to_updated_at?: () -> bool
+  def will_save_change_to_updated_at?: () -> bool
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
+  attr_accessor track_id(): String
+  def track_id_changed?: () -> bool
+  def track_id_change: () -> [ String?, String? ]
+  def track_id_will_change!: () -> void
+  def track_id_was: () -> String?
+  def track_id_previously_changed?: () -> bool
+  def track_id_previous_change: () -> Array[String?]?
+  def track_id_previously_was: () -> String?
+  def track_id_before_last_save: () -> String?
+  def track_id_change_to_be_saved: () -> Array[String?]?
+  def track_id_in_database: () -> String?
+  def saved_change_to_track_id: () -> Array[String?]?
+  def saved_change_to_track_id?: () -> bool
+  def will_save_change_to_track_id?: () -> bool
+  def restore_track_id!: () -> void
+  def clear_track_id_change: () -> void
+
+  attr_accessor apple_music_id(): String
+  def apple_music_id_changed?: () -> bool
+  def apple_music_id_change: () -> [ String?, String? ]
+  def apple_music_id_will_change!: () -> void
+  def apple_music_id_was: () -> String?
+  def apple_music_id_previously_changed?: () -> bool
+  def apple_music_id_previous_change: () -> Array[String?]?
+  def apple_music_id_previously_was: () -> String?
+  def apple_music_id_before_last_save: () -> String?
+  def apple_music_id_change_to_be_saved: () -> Array[String?]?
+  def apple_music_id_in_database: () -> String?
+  def saved_change_to_apple_music_id: () -> Array[String?]?
+  def saved_change_to_apple_music_id?: () -> bool
+  def will_save_change_to_apple_music_id?: () -> bool
+  def restore_apple_music_id!: () -> void
+  def clear_apple_music_id_change: () -> void
+
+  attr_accessor apple_music_album_id(): String
+  def apple_music_album_id_changed?: () -> bool
+  def apple_music_album_id_change: () -> [ String?, String? ]
+  def apple_music_album_id_will_change!: () -> void
+  def apple_music_album_id_was: () -> String?
+  def apple_music_album_id_previously_changed?: () -> bool
+  def apple_music_album_id_previous_change: () -> Array[String?]?
+  def apple_music_album_id_previously_was: () -> String?
+  def apple_music_album_id_before_last_save: () -> String?
+  def apple_music_album_id_change_to_be_saved: () -> Array[String?]?
+  def apple_music_album_id_in_database: () -> String?
+  def saved_change_to_apple_music_album_id: () -> Array[String?]?
+  def saved_change_to_apple_music_album_id?: () -> bool
+  def will_save_change_to_apple_music_album_id?: () -> bool
+  def restore_apple_music_album_id!: () -> void
+  def clear_apple_music_album_id_change: () -> void
+
+  attr_accessor isrc(): String
+  def isrc_changed?: () -> bool
+  def isrc_change: () -> [ String?, String? ]
+  def isrc_will_change!: () -> void
+  def isrc_was: () -> String?
+  def isrc_previously_changed?: () -> bool
+  def isrc_previous_change: () -> Array[String?]?
+  def isrc_previously_was: () -> String?
+  def isrc_before_last_save: () -> String?
+  def isrc_change_to_be_saved: () -> Array[String?]?
+  def isrc_in_database: () -> String?
+  def saved_change_to_isrc: () -> Array[String?]?
+  def saved_change_to_isrc?: () -> bool
+  def will_save_change_to_isrc?: () -> bool
+  def restore_isrc!: () -> void
+  def clear_isrc_change: () -> void
+
+  attr_accessor name(): String
+  def name_changed?: () -> bool
+  def name_change: () -> [ String?, String? ]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def name_before_last_save: () -> String?
+  def name_change_to_be_saved: () -> Array[String?]?
+  def name_in_database: () -> String?
+  def saved_change_to_name: () -> Array[String?]?
+  def saved_change_to_name?: () -> bool
+  def will_save_change_to_name?: () -> bool
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
+  attr_accessor disc_number(): Integer
+  def disc_number_changed?: () -> bool
+  def disc_number_change: () -> [ Integer?, Integer? ]
+  def disc_number_will_change!: () -> void
+  def disc_number_was: () -> Integer?
+  def disc_number_previously_changed?: () -> bool
+  def disc_number_previous_change: () -> Array[Integer?]?
+  def disc_number_previously_was: () -> Integer?
+  def disc_number_before_last_save: () -> Integer?
+  def disc_number_change_to_be_saved: () -> Array[Integer?]?
+  def disc_number_in_database: () -> Integer?
+  def saved_change_to_disc_number: () -> Array[Integer?]?
+  def saved_change_to_disc_number?: () -> bool
+  def will_save_change_to_disc_number?: () -> bool
+  def restore_disc_number!: () -> void
+  def clear_disc_number_change: () -> void
+
+  attr_accessor track_number(): Integer
+  def track_number_changed?: () -> bool
+  def track_number_change: () -> [ Integer?, Integer? ]
+  def track_number_will_change!: () -> void
+  def track_number_was: () -> Integer?
+  def track_number_previously_changed?: () -> bool
+  def track_number_previous_change: () -> Array[Integer?]?
+  def track_number_previously_was: () -> Integer?
+  def track_number_before_last_save: () -> Integer?
+  def track_number_change_to_be_saved: () -> Array[Integer?]?
+  def track_number_in_database: () -> Integer?
+  def saved_change_to_track_number: () -> Array[Integer?]?
+  def saved_change_to_track_number?: () -> bool
+  def will_save_change_to_track_number?: () -> bool
+  def restore_track_number!: () -> void
+  def clear_track_number_change: () -> void
+
+  attr_accessor status(): String
+  def status_changed?: () -> bool
+  def status_change: () -> [ String?, String? ]
+  def status_will_change!: () -> void
+  def status_was: () -> String?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[String?]?
+  def status_previously_was: () -> String?
+  def status_before_last_save: () -> String?
+  def status_change_to_be_saved: () -> Array[String?]?
+  def status_in_database: () -> String?
+  def saved_change_to_status: () -> Array[String?]?
+  def saved_change_to_status?: () -> bool
+  def will_save_change_to_status?: () -> bool
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
+  attr_accessor playable(): bool
+  def playable_changed?: () -> bool
+  def playable_change: () -> [ bool?, bool? ]
+  def playable_will_change!: () -> void
+  def playable_was: () -> bool?
+  def playable_previously_changed?: () -> bool
+  def playable_previous_change: () -> Array[bool?]?
+  def playable_previously_was: () -> bool?
+  def playable_before_last_save: () -> bool?
+  def playable_change_to_be_saved: () -> Array[bool?]?
+  def playable_in_database: () -> bool?
+  def saved_change_to_playable: () -> Array[bool?]?
+  def saved_change_to_playable?: () -> bool
+  def will_save_change_to_playable?: () -> bool
+  def restore_playable!: () -> void
+  def clear_playable_change: () -> void
+  attr_accessor playable?(): bool
+
+  attr_accessor has_lyrics(): bool
+  def has_lyrics_changed?: () -> bool
+  def has_lyrics_change: () -> [ bool?, bool? ]
+  def has_lyrics_will_change!: () -> void
+  def has_lyrics_was: () -> bool?
+  def has_lyrics_previously_changed?: () -> bool
+  def has_lyrics_previous_change: () -> Array[bool?]?
+  def has_lyrics_previously_was: () -> bool?
+  def has_lyrics_before_last_save: () -> bool?
+  def has_lyrics_change_to_be_saved: () -> Array[bool?]?
+  def has_lyrics_in_database: () -> bool?
+  def saved_change_to_has_lyrics: () -> Array[bool?]?
+  def saved_change_to_has_lyrics?: () -> bool
+  def will_save_change_to_has_lyrics?: () -> bool
+  def restore_has_lyrics!: () -> void
+  def clear_has_lyrics_change: () -> void
+  attr_accessor has_lyrics?(): bool
+
+  attr_accessor duration_ms(): Integer
+  def duration_ms_changed?: () -> bool
+  def duration_ms_change: () -> [ Integer?, Integer? ]
+  def duration_ms_will_change!: () -> void
+  def duration_ms_was: () -> Integer?
+  def duration_ms_previously_changed?: () -> bool
+  def duration_ms_previous_change: () -> Array[Integer?]?
+  def duration_ms_previously_was: () -> Integer?
+  def duration_ms_before_last_save: () -> Integer?
+  def duration_ms_change_to_be_saved: () -> Array[Integer?]?
+  def duration_ms_in_database: () -> Integer?
+  def saved_change_to_duration_ms: () -> Array[Integer?]?
+  def saved_change_to_duration_ms?: () -> bool
+  def will_save_change_to_duration_ms?: () -> bool
+  def restore_duration_ms!: () -> void
+  def clear_duration_ms_change: () -> void
+
+  attr_accessor preview_url(): String?
+  def preview_url_changed?: () -> bool
+  def preview_url_change: () -> [ String?, String? ]
+  def preview_url_will_change!: () -> void
+  def preview_url_was: () -> String?
+  def preview_url_previously_changed?: () -> bool
+  def preview_url_previous_change: () -> Array[String?]?
+  def preview_url_previously_was: () -> String?
+  def preview_url_before_last_save: () -> String?
+  def preview_url_change_to_be_saved: () -> Array[String?]?
+  def preview_url_in_database: () -> String?
+  def saved_change_to_preview_url: () -> Array[String?]?
+  def saved_change_to_preview_url?: () -> bool
+  def will_save_change_to_preview_url?: () -> bool
+  def restore_preview_url!: () -> void
+  def clear_preview_url_change: () -> void
+
+  attr_accessor artwork_url(): String
+  def artwork_url_changed?: () -> bool
+  def artwork_url_change: () -> [ String?, String? ]
+  def artwork_url_will_change!: () -> void
+  def artwork_url_was: () -> String?
+  def artwork_url_previously_changed?: () -> bool
+  def artwork_url_previous_change: () -> Array[String?]?
+  def artwork_url_previously_was: () -> String?
+  def artwork_url_before_last_save: () -> String?
+  def artwork_url_change_to_be_saved: () -> Array[String?]?
+  def artwork_url_in_database: () -> String?
+  def saved_change_to_artwork_url: () -> Array[String?]?
+  def saved_change_to_artwork_url?: () -> bool
+  def will_save_change_to_artwork_url?: () -> bool
+  def restore_artwork_url!: () -> void
+  def clear_artwork_url_change: () -> void
+
+  attr_accessor artwork_width(): Integer
+  def artwork_width_changed?: () -> bool
+  def artwork_width_change: () -> [ Integer?, Integer? ]
+  def artwork_width_will_change!: () -> void
+  def artwork_width_was: () -> Integer?
+  def artwork_width_previously_changed?: () -> bool
+  def artwork_width_previous_change: () -> Array[Integer?]?
+  def artwork_width_previously_was: () -> Integer?
+  def artwork_width_before_last_save: () -> Integer?
+  def artwork_width_change_to_be_saved: () -> Array[Integer?]?
+  def artwork_width_in_database: () -> Integer?
+  def saved_change_to_artwork_width: () -> Array[Integer?]?
+  def saved_change_to_artwork_width?: () -> bool
+  def will_save_change_to_artwork_width?: () -> bool
+  def restore_artwork_width!: () -> void
+  def clear_artwork_width_change: () -> void
+
+  attr_accessor artwork_height(): Integer
+  def artwork_height_changed?: () -> bool
+  def artwork_height_change: () -> [ Integer?, Integer? ]
+  def artwork_height_will_change!: () -> void
+  def artwork_height_was: () -> Integer?
+  def artwork_height_previously_changed?: () -> bool
+  def artwork_height_previous_change: () -> Array[Integer?]?
+  def artwork_height_previously_was: () -> Integer?
+  def artwork_height_before_last_save: () -> Integer?
+  def artwork_height_change_to_be_saved: () -> Array[Integer?]?
+  def artwork_height_in_database: () -> Integer?
+  def saved_change_to_artwork_height: () -> Array[Integer?]?
+  def saved_change_to_artwork_height?: () -> bool
+  def will_save_change_to_artwork_height?: () -> bool
+  def restore_artwork_height!: () -> void
+  def clear_artwork_height_change: () -> void
+
+  def words: () -> AppleMusicTrackWord::ActiveRecord_Associations_CollectionProxy
+  def words=: (AppleMusicTrackWord::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrackWord]) -> (AppleMusicTrackWord::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrackWord])
+  def word_ids: () -> Array[Integer]
+  def word_ids=: (Array[Integer]) -> Array[Integer]
+
+  def track: () -> Track
+  def track=: (Track?) -> Track?
+  def reload_track: () -> Track?
+  def build_track: (untyped) -> Track
+  def create_track: (untyped) -> Track
+  def create_track!: (untyped) -> Track
+  def apple_music_album: () -> AppleMusicAlbum
+  def apple_music_album=: (AppleMusicAlbum?) -> AppleMusicAlbum?
+  def reload_apple_music_album: () -> AppleMusicAlbum?
+  def build_apple_music_album: (untyped) -> AppleMusicAlbum
+  def create_apple_music_album: (untyped) -> AppleMusicAlbum
+  def create_apple_music_album!: (untyped) -> AppleMusicAlbum
+
+  def pending!: () -> bool
+  def pending?: () -> bool
+  def active!: () -> bool
+  def active?: () -> bool
+  def ignore!: () -> bool
+  def ignore?: () -> bool
+  def self.pending: () -> ActiveRecord_Relation
+  def self.active: () -> ActiveRecord_Relation
+  def self.ignore: () -> ActiveRecord_Relation
+
+  module GeneratedRelationMethods
+    def pending: () -> ActiveRecord_Relation
+
+    def active: () -> ActiveRecord_Relation
+
+    def ignore: () -> ActiveRecord_Relation
+  end
+
+  class ActiveRecord_Relation < ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[AppleMusicTrack, String]
+    include Enumerable[AppleMusicTrack]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[AppleMusicTrack, String]
+  end
+end

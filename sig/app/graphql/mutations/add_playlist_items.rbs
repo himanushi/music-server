@@ -1,0 +1,3 @@
+class Mutations::AddPlaylistItems < Mutations::BaseMutation
+  def mutate: (?playlist_id: untyped? playlist_id, ?track_ids: untyped track_ids) -> { playlist: untyped }
+end

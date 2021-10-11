@@ -1,0 +1,17 @@
+module Types
+  module Objects
+    class RadioType < Types::Objects::BaseObject
+      def name: () -> untyped
+
+      def description: () -> untyped
+
+      def track: () -> untyped
+
+      def track_number: () -> untyped
+
+      def duration_ms: () -> untyped
+
+      def is_mine: () -> untyped
+    end
+  end
+end

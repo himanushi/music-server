@@ -1,0 +1,3 @@
+class Mutations::IgnoreArtists < Mutations::BaseMutation
+  def mutate: () -> { artists: untyped }
+end

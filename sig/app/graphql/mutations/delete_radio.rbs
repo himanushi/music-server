@@ -1,0 +1,3 @@
+class Mutations::DeleteRadio < Mutations::BaseMutation
+  def mutate: (radio_id: untyped radio_id) -> { playlist: untyped }
+end

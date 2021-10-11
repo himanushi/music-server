@@ -1,0 +1,3 @@
+class Mutations::GenerateSitemaps < Mutations::BaseMutation
+  def mutate: () -> untyped
+end

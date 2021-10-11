@@ -1,0 +1,2 @@
+class ServerSchema < GraphQL::Schema
+end

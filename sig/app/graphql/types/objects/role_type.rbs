@@ -1,0 +1,7 @@
+module Types
+  module Objects
+    class RoleType < Types::Objects::BaseObject
+      def allowed_actions: () -> untyped
+    end
+  end
+end

@@ -1,149 +1,43 @@
 class Album < ApplicationRecord
-  extend _ActiveRecord_Relation_ClassMethods[Album, Album::ActiveRecord_Relation]
-
-  attr_accessor id (): String
-  def id_changed?: () -> bool
-  def id_change: () -> [String?, String?]
-  def id_will_change!: () -> void
-  def id_was: () -> String?
-  def id_previously_changed?: () -> bool
-  def id_previous_change: () -> Array[String?]?
-  def id_previously_was: () -> String?
-  def restore_id!: () -> void
-  def clear_id_change: () -> void
-
-  attr_accessor created_at (): Time
-  def created_at_changed?: () -> bool
-  def created_at_change: () -> [Time?, Time?]
-  def created_at_will_change!: () -> void
-  def created_at_was: () -> Time?
-  def created_at_previously_changed?: () -> bool
-  def created_at_previous_change: () -> Array[Time?]?
-  def created_at_previously_was: () -> Time?
-  def restore_created_at!: () -> void
-  def clear_created_at_change: () -> void
-
-  attr_accessor updated_at (): Time
-  def updated_at_changed?: () -> bool
-  def updated_at_change: () -> [Time?, Time?]
-  def updated_at_will_change!: () -> void
-  def updated_at_was: () -> Time?
-  def updated_at_previously_changed?: () -> bool
-  def updated_at_previous_change: () -> Array[Time?]?
-  def updated_at_previously_was: () -> Time?
-  def restore_updated_at!: () -> void
-  def clear_updated_at_change: () -> void
-
-  attr_accessor status (): String
-  def status_changed?: () -> bool
-  def status_change: () -> [String?, String?]
-  def status_will_change!: () -> void
-  def status_was: () -> String?
-  def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[String?]?
-  def status_previously_was: () -> String?
-  def restore_status!: () -> void
-  def clear_status_change: () -> void
-
-  attr_accessor release_date (): Time
-  def release_date_changed?: () -> bool
-  def release_date_change: () -> [Time?, Time?]
-  def release_date_will_change!: () -> void
-  def release_date_was: () -> Time?
-  def release_date_previously_changed?: () -> bool
-  def release_date_previous_change: () -> Array[Time?]?
-  def release_date_previously_was: () -> Time?
-  def restore_release_date!: () -> void
-  def clear_release_date_change: () -> void
-
-  attr_accessor total_tracks (): Integer
-  def total_tracks_changed?: () -> bool
-  def total_tracks_change: () -> [Integer?, Integer?]
-  def total_tracks_will_change!: () -> void
-  def total_tracks_was: () -> Integer?
-  def total_tracks_previously_changed?: () -> bool
-  def total_tracks_previous_change: () -> Array[Integer?]?
-  def total_tracks_previously_was: () -> Integer?
-  def restore_total_tracks!: () -> void
-  def clear_total_tracks_change: () -> void
-
-  def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
-  def artists: () -> Artist::ActiveRecord_Associations_CollectionProxy
-  def album_has_tracks: () -> AlbumHasTrack::ActiveRecord_Associations_CollectionProxy
-  def tracks: () -> Track::ActiveRecord_Associations_CollectionProxy
-  def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
-  def apple_music_and_itunes_album: () -> AppleMusicAlbum
-  def spotify_album: () -> SpotifyAlbum
-
-  def pending!: () -> bool
-  def pending?: () -> bool
-  def active!: () -> bool
-  def active?: () -> bool
-  def ignore!: () -> bool
-  def ignore?: () -> bool
-  def self.pending: () -> Album::ActiveRecord_Relation
-  def self.active: () -> Album::ActiveRecord_Relation
-  def self.ignore: () -> Album::ActiveRecord_Relation
-  def self.include_artists: () -> Album::ActiveRecord_Relation
-  def self.include_tracks: () -> Album::ActiveRecord_Relation
-  def self.include_services: () -> Album::ActiveRecord_Relation
-  def self.services: () -> Album::ActiveRecord_Relation
-
-  # rbs prototype rb app/models/album.rb
-
   include Albums::Mix
 
   include Albums::Status
 
-  def self.find_by_isrc_or_create: (
-    { release_date: Time, total_tracks: Integer } album_attrs,
-    Array[{ isrc: String }] tracks_attrs
-  ) -> instance
+  def self.find_by_isrc_or_create: (untyped album_attrs, untyped tracks_attrs) -> untyped
 
-  def self.all_pending_to_ignore: () -> Array[Album]
+  def self.all_pending_to_ignore: () -> untyped
 
-  def service: () -> (AppleMusicAlbum | SpotifyAlbum)
+  def self.create_by_new_releases: () -> untyped
 
-  def services: () -> Array[AppleMusicAlbum | SpotifyAlbum]
+  def service: () -> untyped
+
+  def services: () -> untyped
 
   # アルバム作曲者とトラック作曲者全員
-  def composers: () -> Array[Artist]
+  def composers: () -> untyped
 
   # アルバムのトラックの作曲者
-  def tracks_composers: () -> Array[Artist]
+  def tracks_composers: () -> untyped
 
-  def apple_music_album: () -> AppleMusicAlbum?
+  def apple_music_album: () -> untyped
 
-  def itunes_album: () -> AppleMusicAlbum?
+  def itunes_album: () -> untyped
 
-  def pick_apple_album: (bool is_apple_music) -> AppleMusicAlbum?
+  private
+
+  def pick_apple_album: (untyped is_apple_music) -> (nil | untyped)
+
+  public
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
-  def create_all_service_albums: () -> Array[AppleMusicAlbum | SpotifyAlbum]
+  def create_all_service_albums: () -> (::Array[untyped] | untyped)
 
-  def validate_exists_services: () -> void
+  def validate_exists_services: () -> untyped
 
   # レコードを削除し関連音楽サービスを除外コンテンツにする
-  def force_ignore: () -> void
+  def force_ignore: () -> untyped
 
   def to_path: () -> ::String
 
   def to_url: () -> ::String
-end
-
-class Album::ActiveRecord_Relation < ActiveRecord::Relation
-  include _ActiveRecord_Relation[Album]
-  include Enumerable[Album, self]
-  def pending: () -> Album::ActiveRecord_Relation
-  def active: () -> Album::ActiveRecord_Relation
-  def ignore: () -> Album::ActiveRecord_Relation
-  def include_artists: () -> Album::ActiveRecord_Relation
-  def include_tracks: () -> Album::ActiveRecord_Relation
-  def include_services: () -> Album::ActiveRecord_Relation
-  def services: () -> Album::ActiveRecord_Relation
-end
-
-class Album::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
-  # 色々追加が面倒なので include してるが真似しちゃダメだぞ！
-  include Album::ActiveRecord_Relation
 end

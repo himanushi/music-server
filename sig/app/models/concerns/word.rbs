@@ -1,0 +1,13 @@
+module Word
+  extend ActiveSupport::Concern
+
+  module ClassMethods
+    def ngram: (untyped n, untyped text) -> untyped
+
+    def ngram_attributes: (untyped n, untyped text) -> untyped
+
+    def bigram_attributes: (untyped text) -> untyped
+
+    def search_ids: (untyped text) -> untyped
+  end
+end

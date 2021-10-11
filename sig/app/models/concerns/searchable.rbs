@@ -1,0 +1,11 @@
+module Searchable
+  extend ActiveSupport::Concern
+
+  module ClassMethods
+    def search: (untyped text) -> untyped
+  end
+
+  def words_attributes: () -> untyped
+
+  def create_words: () -> (nil | untyped)
+end
