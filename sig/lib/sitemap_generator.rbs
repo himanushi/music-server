@@ -1,0 +1,19 @@
+class SitemapGenerator
+  def self.generate_all: () -> untyped
+
+  def self.generate_models: (untyped klass) -> untyped
+
+  def self.generate_albums: () -> untyped
+
+  def self.generate_artists: () -> untyped
+
+  def self.export_file: (untyped file_name, untyped content) -> untyped
+
+  def self.to_xml_content: (untyped record) -> ::String
+
+  def self.to_xml: (untyped records) -> ::String
+
+  def self.to_index_xml_content: (untyped file_name) -> ::String
+
+  def self.to_index_xml: (untyped file_names) -> ::String
+end

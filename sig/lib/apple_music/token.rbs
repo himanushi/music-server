@@ -1,0 +1,9 @@
+module AppleMusic
+  class Token
+    def self.create_client_token: () -> untyped
+
+    def self.create_server_token: () -> untyped
+
+    def self.create: (untyped private_key, untyped keyId, untyped hours) -> { access_token: untyped, :token_type => "Bearer", expires_on: untyped }
+  end
+end

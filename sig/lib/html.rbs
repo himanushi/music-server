@@ -1,0 +1,7 @@
+module Html
+  class Ogp
+    def self.convert: (untyped path) -> untyped
+
+    def self.build_metatag: (untyped header, untyped content, **untyped prop) -> untyped
+  end
+end

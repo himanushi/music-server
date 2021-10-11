@@ -1,0 +1,24 @@
+module Ggl
+  class Analytics
+    class JsonKey
+      def initialize: (untyped data) -> void
+
+      def read: () -> untyped
+    end
+
+    def self.analytics: () -> untyped
+
+    def self.json_file: () -> untyped
+
+    def self.client: () -> untyped
+
+    def self.pv_report: (start_date: untyped start_date, ?end_date: ::String end_date, ?next_page_token: ::String next_page_token, ?filter: untyped filter) -> untyped
+
+    def self.all: () -> untyped
+
+    def self.reset_all: () -> untyped
+
+    # row = {:dimensions=>["/albums/abm1755be28b675c?ai=abm1755be28b675c"], :metrics=>[{:values=>["851"]}]}
+    def self.update: (untyped rows) -> untyped
+  end
+end

@@ -1,0 +1,11 @@
+module Tweet
+  class Client
+    def default_hash_tag: () -> ::String
+
+    def post_artist: (untyped artist) -> untyped
+
+    def post_album: (untyped album) -> untyped
+
+    def client: () -> untyped
+  end
+end

@@ -1,0 +1,58 @@
+module AppleMusic
+  class Client
+    ENDPOINT: ::String
+
+    VERSION: ::String
+
+    LOCALE: ::String
+
+    attr_reader locale: untyped
+
+    attr_reader version: untyped
+
+    def self.stub_client: () -> untyped
+
+    # settings = [
+    #   { path: "/album", status_code: 200, headers: {}, body: {} },
+    #   { path: "/artist", status_code: 404, headers: {}, body: {} },
+    # ]
+    def self.stub: (?untyped settings) -> untyped
+
+    def self.catalog_url: () -> ::String
+
+    def self.rss_client: () -> untyped
+
+    def self.get_new_apple_music: () -> untyped
+
+    def self.get_new_itunes: () -> untyped
+
+    def self.get_top_albums: () -> untyped
+
+    def initialize: (?locale: untyped locale, ?version: untyped version) -> void
+
+    def client: () -> untyped
+
+    def catalog_url: () -> untyped
+
+    # @repeat は next を何回実行するか判定する
+    def get: (untyped url, ?::Hash[untyped, untyped] params) -> (::Hash[untyped, untyped] | untyped)
+
+    def index: (?::Hash[untyped, untyped] params) -> untyped
+
+    def get_artist: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def index_artists: (untyped name) -> untyped
+
+    def get_artist_albums: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_artist_tracks: (untyped apple_music_id, ?::Hash[untyped, untyped] params, ?repeat: untyped? repeat) -> untyped
+
+    def get_album: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_track: (untyped apple_music_id, ?::Hash[untyped, untyped] params) -> untyped
+
+    def get_track_by_isrc: (untyped isrc) -> untyped
+
+    def result: (untyped response) -> untyped
+  end
+end

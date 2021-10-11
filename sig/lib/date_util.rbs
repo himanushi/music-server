@@ -1,0 +1,4 @@
+class DateUtil
+  # api 経由で取得した日付をよしなに日時へ変換
+  def self.data_to_datetime: (untyped date) -> untyped
+end

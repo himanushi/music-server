@@ -1,35 +1,11 @@
 #!/usr/bin/env
-for file in app/models/*.rb
+for file in lib/*.rb
 do
   mkdir -p sig/$(dirname $file)
   rbs prototype rb $file > sig/${file}s
 done
 
-for file in app/models/**/*.rb
-do
-  mkdir -p sig/$(dirname $file)
-  rbs prototype rb $file > sig/${file}s
-done
-
-for file in app/models/**/**/*.rb
-do
-  mkdir -p sig/$(dirname $file)
-  rbs prototype rb $file > sig/${file}s
-done
-
-for file in app/graphql/*.rb
-do
-  mkdir -p sig/$(dirname $file)
-  rbs prototype rb $file > sig/${file}s
-done
-
-for file in app/graphql/**/*.rb
-do
-  mkdir -p sig/$(dirname $file)
-  rbs prototype rb $file > sig/${file}s
-done
-
-for file in app/graphql/**/**/*.rb
+for file in lib/**/*.rb
 do
   mkdir -p sig/$(dirname $file)
   rbs prototype rb $file > sig/${file}s

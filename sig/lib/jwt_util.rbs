@@ -1,0 +1,5 @@
+class JwtUtil
+  def self.encode: (untyped object) -> untyped
+
+  def self.decode: (untyped object) -> untyped
+end
