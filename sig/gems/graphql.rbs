@@ -1,0 +1,24 @@
+module GraphQL
+  class Schema
+    class Resolver
+    end
+    class RelayClassicMutation
+    end
+    class Union
+    end
+    class Argument
+    end
+    class Scalar
+    end
+    class Object
+    end
+    class InputObject
+    end
+    class Field
+    end
+    class Enum
+    end
+    module Interface
+    end
+  end
+end

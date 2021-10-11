@@ -1,12 +1,12 @@
 module Queries
   class Playlists < BaseListQuery
-    class PlaylistsQueryOrderEnum < BaseEnum
+    class PlaylistsQueryOrderEnum < Types::Enums::BaseEnum
     end
 
-    class PlaylistsSortInputObject < BaseInputObject
+    class PlaylistsSortInputObject < Types::InputObjects::BaseInputObject
     end
 
-    class PlaylistsConditionsInputObject < BaseInputObject
+    class PlaylistsConditionsInputObject < Types::InputObjects::BaseInputObject
     end
 
     # キャッシュしない

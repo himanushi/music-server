@@ -1,12 +1,12 @@
 module Queries
   class Radios < BaseListQuery
-    class RadiosQueryOrderEnum < BaseEnum
+    class RadiosQueryOrderEnum < Types::Enums::BaseEnum
     end
 
-    class RadiosSortInputObject < BaseInputObject
+    class RadiosSortInputObject < Types::InputObjects::BaseInputObject
     end
 
-    class RadiosConditionsInputObject < BaseInputObject
+    class RadiosConditionsInputObject < Types::InputObjects::BaseInputObject
     end
 
     def list_query: (cursor: untyped cursor, sort: untyped sort, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]

@@ -1,12 +1,12 @@
 module Queries
   class Artists < BaseListQuery
-    class ArtistsQueryOrderEnum < BaseEnum
+    class ArtistsQueryOrderEnum < Types::Enums::BaseEnum
     end
 
-    class ArtistsSortInputObject < BaseInputObject
+    class ArtistsSortInputObject < Types::InputObjects::BaseInputObject
     end
 
-    class ArtistsConditionsInputObject < BaseInputObject
+    class ArtistsConditionsInputObject < Types::InputObjects::BaseInputObject
     end
 
     def list_query: (cursor: untyped cursor, sort: untyped sort, ?conditions: ::Hash[untyped, untyped] conditions) -> ::Array[untyped]
