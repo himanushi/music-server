@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 # Rails 6
-gem 'rails', '~> 6.1.3.2'
+gem 'rails', '~> 6.1.4.1'
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
