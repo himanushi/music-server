@@ -44,6 +44,7 @@ group :development, :test do
   gem "rbs"
   gem 'rbs_rails'
   gem "steep"
+  gem "typeprof"
 end
 
 group :development do

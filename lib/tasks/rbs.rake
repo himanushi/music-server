@@ -1,29 +1,6 @@
-# 一度実行し rbs ファイルを生成したためコメントアウト
-
-# # 少し修正
-# module RbsRails
-#   module ActiveRecord
-#     class Generator
-#       private def relation_decl
-#         <<~RBS
-#           class #{relation_class_name} < ::ActiveRecord::Relation
-#             include _ActiveRecord_Relation[#{klass.name}]
-#             include Enumerable[#{klass.name}, self]
-#           #{enum_scope_methods(singleton: false).indent(2)}
-#           #{scopes(singleton: false).indent(2)}
-#           end
-#         RBS
-#       end
-
-#       private def collection_proxy_decl
-#         <<~RBS
-#           class #{klass.name}::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
-#           end
-#         RBS
-#       end
-#     end
-#   end
-# end
+# bin/rake rbs_rails:all
+require 'rbs_rails/rake_task'
+RbsRails::RakeTask.new
 
 # ref: https://github.com/pocke/rbs_rails/blob/v0.2.0/README.md
 task copy_signature_files: :environment do

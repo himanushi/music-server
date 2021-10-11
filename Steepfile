@@ -1,29 +1,29 @@
-target :model do
-  signature 'sig'
+target :app do
+  check "app/models"
+  check "app/graphql"
+  check "lib"
 
-  check 'app/models'
-
-  library 'pathname'
-  library 'logger'
-  library 'mutex_m'
-end
-
-target :graphql do
-  signature 'sig'
-
-  check 'app/graphql'
+  signature "sig"
+  repo_path "vendor/rbs/gem_rbs_collection/gems"
 
   library 'pathname'
   library 'logger'
   library 'mutex_m'
-end
-
-target :lib do
-  signature 'sig'
-
-  check 'lib'
-
-  library 'pathname'
-  library 'logger'
-  library 'mutex_m'
+  library 'date'
+  library 'monitor'
+  library 'singleton'
+  library 'tsort'
+  library 'securerandom'
+  library 'base64'
+  library 'forwardable'
+  library 'time'
+  library 'json'
+  library 'rack'
+  library 'activesupport'
+  library 'actionpack'
+  library 'activejob'
+  library 'activemodel'
+  library 'actionview'
+  library 'activerecord'
+  library 'railties'
 end

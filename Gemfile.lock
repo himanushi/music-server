@@ -280,6 +280,8 @@ GEM
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
+    typeprof (0.20.0)
+      rbs (>= 1.6.2)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -324,6 +326,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   steep
   twitter
+  typeprof
 
 RUBY VERSION
    ruby 3.0.1p64
