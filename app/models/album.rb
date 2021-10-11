@@ -37,7 +37,7 @@ class Album < ApplicationRecord
         raise StandardError, "アルバムのトラック数が0件なので何かしらのバグがある"
       end
 
-      if !album.nil?
+      if album.present?
         # 最新の日時を正とする
         # @type var album: Album
         if album.release_date <= album_attrs[:release_date]
