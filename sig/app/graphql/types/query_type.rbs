@@ -1,4 +1,5 @@
 module Types
   class QueryType < Types::Objects::BaseObject
+    def self.fields: () -> Hash[String, untyped]
   end
 end
