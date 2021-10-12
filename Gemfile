@@ -9,7 +9,7 @@ gem "nokogiri", ">= 1.12.5"
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
-gem 'puma', '~> 5.5.0'
+gem 'puma', '~> 5.5.1'
 # Rails 起動高速化
 gem 'bootsnap', '>= 1.4.2', require: false
 # GraphQL
