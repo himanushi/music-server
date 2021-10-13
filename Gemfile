@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -5,7 +7,7 @@ ruby '3.0.1'
 
 # Rails 6
 gem 'rails', '~> 6.1.4.1'
-gem "nokogiri", ">= 1.12.5"
+gem "nokogiri", "~> 1.12.5"
 # Maria DB
 gem 'mysql2', '>= 0.4.4'
 # マルチプロセス
@@ -45,6 +47,8 @@ group :development, :test do
   gem 'rbs_rails'
   gem "steep"
   gem "typeprof"
+  # linter
+  gem 'rubocop', require: false
 end
 
 group :development do

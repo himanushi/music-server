@@ -231,12 +231,25 @@ GEM
     rbs_rails (0.9.0)
       parser
       rbs (>= 1)
+    regexp_parser (2.1.1)
     representable (3.1.1)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
     rexml (3.2.5)
+    rubocop (1.22.1)
+      parallel (~> 1.10)
+      parser (>= 3.0.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.12.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.12.0)
+      parser (>= 3.0.1.1)
+    ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     signet (0.16.0)
       addressable (~> 2.8)
@@ -312,7 +325,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2 (>= 0.4.4)
-  nokogiri (>= 1.12.5)
+  nokogiri (~> 1.12.5)
   pry-byebug
   pry-doc
   pry-rails
@@ -322,6 +335,7 @@ DEPENDENCIES
   rails (~> 6.1.4.1)
   rbs
   rbs_rails
+  rubocop
   spring
   spring-watcher-listen (~> 2.0.0)
   steep
