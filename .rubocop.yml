@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  EnabledByDefault: true
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+
+Style/Copyright:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/MissingElse:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
