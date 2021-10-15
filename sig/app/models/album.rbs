@@ -3,9 +3,12 @@ class Album < ApplicationRecord
 
   include Albums::Status
 
-  def self.find_by_isrc_or_create: (untyped album_attrs, untyped tracks_attrs) -> untyped
+  def self.find_by_isrc_or_create: (
+    { release_date: ::ActiveSupport::TimeWithZone, total_tracks: Integer } album_attrs,
+    Array[{ isrc: String }] tracks_attrs
+  ) -> instance
 
-  def self.all_pending_to_ignore: () -> untyped
+  def self.all_pending_to_ignore: () -> ::Array[::Album]
 
   def self.create_by_new_releases: () -> untyped
 
@@ -17,7 +20,7 @@ class Album < ApplicationRecord
   def composers: () -> untyped
 
   # アルバムのトラックの作曲者
-  def tracks_composers: () -> untyped
+  def tracks_composers: () -> ::Array[::Artist]
 
   def apple_music_album: () -> untyped
 
@@ -25,12 +28,12 @@ class Album < ApplicationRecord
 
   private
 
-  def pick_apple_album: (untyped is_apple_music) -> (nil | untyped)
+  def pick_apple_album: (bool is_apple_music) -> (nil | untyped)
 
   public
 
   # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
-  def create_all_service_albums: () -> (::Array[untyped] | untyped)
+  def create_all_service_albums: () -> ::Array[instance]
 
   def validate_exists_services: () -> untyped
 
