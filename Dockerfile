@@ -1,4 +1,4 @@
-FROM ruby:3.0.1
+FROM ruby:3.0.2
 
 # nodeのバージョン6以上であること
 RUN curl -SL https://deb.nodesource.com/setup_12.x | bash && \
