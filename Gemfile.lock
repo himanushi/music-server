@@ -126,9 +126,6 @@ GEM
       railties
       sprockets-rails
     graphql (1.12.16)
-    graphql-batch (0.4.3)
-      graphql (>= 1.3, < 2)
-      promise.rb (~> 0.7.2)
     http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -144,7 +141,6 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jwt (2.3.0)
-    language_server-protocol (3.16.0.3)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -173,7 +169,6 @@ GEM
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
-    promise.rb (0.7.4)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -183,10 +178,8 @@ GEM
     pry-doc (1.2.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
-    pry-rails (0.3.9)
-      pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.5.0)
+    puma (5.5.2)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -258,9 +251,6 @@ GEM
       multi_json (~> 1.10)
     simple_oauth (0.3.1)
     spring (2.1.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -268,17 +258,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    steep (0.46.0)
-      activesupport (>= 5.1)
-      language_server-protocol (>= 3.15, < 4.0)
-      listen (~> 3.0)
-      parallel (>= 1.0.0)
-      parser (>= 3.0)
-      rainbow (>= 2.2.2, < 4.0)
-      rbs (>= 1.2.0)
-      terminal-table (>= 2, < 4)
-    terminal-table (3.0.2)
-      unicode-display_width (>= 1.1.1, < 3)
     thor (1.1.0)
     thread_safe (0.3.6)
     trailblazer-option (0.1.1)
@@ -293,8 +272,6 @@ GEM
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
-    typeprof (0.20.0)
-      rbs (>= 1.6.2)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -313,37 +290,31 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bcrypt
+  bcrypt (~> 3.1.16)
   bootsnap (>= 1.4.2)
-  faraday
-  faraday_middleware
-  google-apis-analyticsreporting_v4
-  graphiql-rails
-  graphql
-  graphql-batch
-  jwt
+  faraday (~> 1.8.0)
+  faraday_middleware (~> 1.1.0)
+  google-apis-analyticsreporting_v4 (~> 0.5.0)
+  graphiql-rails (~> 1.8.0)
+  graphql (~> 1.12.16)
+  jwt (~> 2.3.0)
   listen (>= 3.0.5, < 3.2)
-  mini_magick
+  mini_magick (~> 4.11.0)
   mysql2 (>= 0.4.4)
   nokogiri (~> 1.12.5)
-  pry-byebug
-  pry-doc
-  pry-rails
-  puma (~> 5.5.0)
-  rack-attack
-  rack-cors
+  pry-byebug (~> 3.9.0)
+  pry-doc (~> 1.2.0)
+  puma (~> 5.5.2)
+  rack-attack (~> 6.5.0)
+  rack-cors (~> 1.1.1)
   rails (~> 6.1.4.1)
-  rbs
-  rbs_rails
-  rubocop
-  spring
-  spring-watcher-listen (~> 2.0.0)
-  steep
-  twitter
-  typeprof
+  rbs_rails (~> 0.9.0)
+  rubocop (~> 1.22.1)
+  spring (~> 2.1.1)
+  twitter (~> 7.0.0)
 
 RUBY VERSION
-   ruby 3.0.1p64
+   ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.15
+   2.2.22
