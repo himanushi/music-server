@@ -2,7 +2,7 @@
   "emeraldwalk.runonsave": {
     "commands": [
       {
-        "match": "\\.rb$",
+        "match": "\\.rb$|\\.rake$|Gemfile",
         "cmd": "docker exec -i music-server_web_1 bash -lc 'bundle exec rubocop -A `echo '${file}' | sed 's@.*/music-server/@@'`'"
       }
     ]
