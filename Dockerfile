@@ -1,7 +1,7 @@
 FROM ruby:3.0.2
 
-# nodeのバージョン6以上であること
-RUN curl -SL https://deb.nodesource.com/setup_12.x | bash && \
+# node lts
+RUN curl -SL https://deb.nodesource.com/setup_14.x | bash && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt update -qq && apt install -y nodejs yarn mariadb-client
@@ -15,8 +15,6 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 COPY . /music-server
-
-# cp -rp /usr/local/bundle/gems vendor/bundle
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/

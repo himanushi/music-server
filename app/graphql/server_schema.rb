@@ -1,9 +1,6 @@
-class ServerSchema < GraphQL::Schema
-  max_depth 13
+# frozen_string_literal: true
 
-  mutation(Types::MutationType)
-  query(Types::QueryType)
-
-  # N+1対策
-  use GraphQL::Batch
+class ServerSchema < ::GraphQL::Schema
+  mutation(::Mutation)
+  query(::Query)
 end

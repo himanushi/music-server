@@ -1,44 +1,32 @@
-class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
-  # Add your custom classes if you have them:
-  # This is used for generating payload types
-  object_class Types::Objects::BaseObject
-  # This is used for return fields on the mutation's payload
-  field_class Types::Fields::BaseField
-  # This is used for generating the `input: { ... }` object type
-  input_object_class Types::InputObjects::BaseInputObject
+# frozen_string_literal: true
 
-  include Types::Objects
-  include Types::Scalars
-  include Types::Unions
-  include Types::Enums
+module Mutations
+  class BaseMutation < ::GraphQL::Schema::RelayClassicMutation
+    # Add your custom classes if you have them:
+    # This is used for generating payload types
+    object_class ::Types::Objects::BaseObject
+    # This is used for return fields on the mutation's payload
+    field_class ::Types::Fields::BaseField
+    # This is used for generating the `input: { ... }` object type
+    input_object_class ::Types::InputObjects::BaseInputObject
 
-  def use_recaptcha?; false end
+    def use_recaptcha?() = false
 
-  def resolve(**args)
-    action_name = self.class.name.demodulize.camelize(:lower)
+    def resolve(**args)
+      # @type var action_name: ::String
+      action_name = self.class.name&.demodulize&.camelize(:lower)
 
-    # 権限
-    unless context[:current_info][:user].can?(action_name)
-      raise GraphQL::ExecutionError.new("権限がありません", extensions: { code: "UNAUTHORIZED" })
-    end
+      # unless context[:current_info][:user].can?(action_name)
+      #   raise(::GraphQL::ExecutionError.new('権限がありません', extensions: { code: 'UNAUTHORIZED' }))
+      # end
 
-    # ロボット検証
-    if Rails.env.production? && use_recaptcha? && context[:platform] == "web"
-      token = context.dig(:current_info, :cookie, "reCAPTCHAv2Token")
-      unless Ggl::Recaptcha.valid?(token)
-        raise GraphQL::ExecutionError.new(
-          'ロボット操作の可能性があります。再入力をお願いします。',
-          extensions: { code: "FAILED_RECAPTCHA", path: "recaptcha" }
-        )
+      begin
+        mutate(**args)
+      rescue ::GraphQL::ExecutionError => e
+        raise(e)
+      rescue ::StandardError => e
+        raise(::GraphQL::ExecutionError.new(e.message, extensions: { code: 'SYSTEM_ERROR' }))
       end
-    end
-
-    begin
-      mutate(**args)
-    rescue GraphQL::ExecutionError => error
-      raise error
-    rescue => error
-      raise GraphQL::ExecutionError.new(error.message, extensions: { code: "SYSTEM_ERROR" })
     end
   end
 end

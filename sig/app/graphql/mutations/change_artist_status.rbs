@@ -1,0 +1,5 @@
+module Mutations
+  class ChangeArtistStatus < ::Mutations::BaseMutation
+    def mutate: (status: ::String, id: ::String) -> { result: bool }
+  end
+end

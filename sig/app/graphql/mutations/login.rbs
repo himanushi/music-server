@@ -1,5 +1,8 @@
-class Mutations::Login < Mutations::BaseMutation
-  def use_recaptcha?: () -> ::TrueClass
-
-  def mutate: (username: untyped username, current_password: untyped current_password) -> { current_user: untyped }
+module Mutations
+  class Login < ::Mutations::BaseMutation
+    def mutate: (
+      username: ::String,
+      current_password: ::String
+    ) -> { current_user: ::User }
+  end
 end

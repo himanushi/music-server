@@ -1,8 +1,10 @@
-class Mutations::Signup < Mutations::BaseMutation
-  class RegisteredError < StandardError
+module Mutations
+  class Signup < ::Mutations::BaseMutation
+    def mutate: (
+      name: ::String,
+      username: ::String,
+      new_password: ::String,
+      new_password_confirmation: ::String
+    ) -> { current_user: ::User }
   end
-
-  def use_recaptcha?: () -> ::TrueClass
-
-  def mutate: (name: untyped name, username: untyped username, new_password: untyped new_password, new_password_confirmation: untyped new_password_confirmation) -> { current_user: untyped }
 end

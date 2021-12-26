@@ -1,15 +1,8 @@
 module Types
   module InputObjects
-    class BaseInputObject < GraphQL::Schema::InputObject
-      include Types::Objects
-
-      include Types::Scalars
-
-      include Types::InputObjects
-
-      include Types::Enums
-
-      def self.default_argument_values: () -> untyped
+    class BaseInputObject < ::GraphQL::Schema::InputObject
+      def self.arguments: -> ::Hash[untyped, untyped]
+      def self.default_argument_values: -> ::Hash[::Symbol, untyped]
     end
   end
 end

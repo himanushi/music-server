@@ -1,2 +1,4 @@
-# ログ表示時に password と付くパラメータを非表示にする
-Rails.application.config.filter_parameters += [:password]
+# frozen_string_literal: true
+
+# ログ出力すべきでないものはマスク
+::Rails.application.config.filter_parameters += %i[password passw secret token _key crypt salt certificate otp ssn]

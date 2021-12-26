@@ -52,7 +52,7 @@ class PlaylistItem < ApplicationRecord
   def restore_updated_at!: () -> void
   def clear_updated_at_change: () -> void
 
-  attr_accessor playlist_id(): String
+  attr_accessor playlist_id(): String?
   def playlist_id_changed?: () -> bool
   def playlist_id_change: () -> [ String?, String? ]
   def playlist_id_will_change!: () -> void
@@ -116,10 +116,7 @@ class PlaylistItem < ApplicationRecord
   def create_track: (untyped) -> Track
   def create_track!: (untyped) -> Track
 
-  def self.include_tracks: () -> ActiveRecord_Relation
-
   module GeneratedRelationMethods
-    def include_tracks: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

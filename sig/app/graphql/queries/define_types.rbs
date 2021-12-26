@@ -1,5 +1,5 @@
 module Queries
-  class DefineTypes < BaseQuery
-    def query: (untyped args) -> ::TrueClass
+  class DefineTypes < ::Queries::BaseQuery
+    def query: -> untyped
   end
 end

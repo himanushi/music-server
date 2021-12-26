@@ -1,3 +1,0 @@
-class Mutations::MixArtist < Mutations::BaseMutation
-  def mutate: (main_artist_id: untyped main_artist_id, sub_artist_id: untyped sub_artist_id) -> untyped
-end

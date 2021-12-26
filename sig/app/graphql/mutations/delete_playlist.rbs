@@ -1,3 +1,5 @@
-class Mutations::DeletePlaylist < Mutations::BaseMutation
-  def mutate: (playlist_id: untyped playlist_id) -> { result: "ok" }
+module Mutations
+  class DeletePlaylist < ::Mutations::BaseMutation
+    def mutate: (playlist_id: ::String) -> { result: true }
+  end
 end

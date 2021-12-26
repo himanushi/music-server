@@ -1,9 +1,8 @@
-class Session < ApplicationRecord
-  EXPIRE_DAYS: untyped
+class Session < ::ApplicationRecord
+  EXPIRE_DAYS: ::ActiveSupport::Duration
 
-  def refresh_token: () -> untyped
+  def refresh_token: -> ::String
+  def digit_token: -> ::String
 
-  def digit_token: () -> untyped
-
-  def self.find_by_digit_token!: (untyped digit_token) -> untyped
+  def self.find_by_digit_token!: (::String digit_token) -> ::Session
 end

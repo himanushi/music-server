@@ -1,7 +1,6 @@
-class User < ApplicationRecord
-  include Users::Favorite
-
-  def self.create_user_and_session!: () -> untyped
-
-  def can?: (untyped action_name) -> untyped
+class User < ::ApplicationRecord
+  def self.create_user_and_session!: -> ::User
+  def can?: (::String action_name) -> bool
+  def authenticate: (*untyped) -> bool
+  def create_session: -> ::Session
 end

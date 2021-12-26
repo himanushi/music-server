@@ -1,0 +1,13 @@
+class ApplicationController < ::ActionController::Base
+  type current_info = { user: ::User, session: ::Session, cookie: untyped }
+
+  @current_info: current_info
+
+  def current_info: -> current_info
+  def refresh_token: -> untyped
+
+  private
+
+  def token: -> ::String
+  def create_current_info: -> current_info
+end

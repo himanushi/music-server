@@ -1,0 +1,9 @@
+class GraphqlController < ::ApplicationController
+  def execute: -> untyped
+
+  private
+
+  def ensure_hash: (untyped ambiguous_param) -> untyped
+
+  def handle_error_in_development: (::StandardError e) -> untyped
+end

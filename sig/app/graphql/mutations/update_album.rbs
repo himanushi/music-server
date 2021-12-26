@@ -1,0 +1,5 @@
+module Mutations
+  class UpdateAlbum < ::Mutations::BaseMutation
+    def mutate: (album_id: ::String) -> { album: ::Album }
+  end
+end

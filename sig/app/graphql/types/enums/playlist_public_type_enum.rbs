@@ -1,6 +1,6 @@
 module Types
   module Enums
-    class PlaylistPublicTypeEnum < BaseEnum
+    class PlaylistPublicTypeEnum < ::Types::Enums::BaseEnum
     end
   end
 end

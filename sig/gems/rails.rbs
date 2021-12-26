@@ -1,1 +1,1 @@
-ENV: ::Hash[String, untyped]
+ENV: ::Hash[::String, ::String?]

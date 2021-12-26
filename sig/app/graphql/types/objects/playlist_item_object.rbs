@@ -1,0 +1,6 @@
+module Types
+  module Objects
+    class PlaylistItemObject < ::Types::Objects::BaseObject
+    end
+  end
+end

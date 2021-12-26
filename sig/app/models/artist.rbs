@@ -1,23 +1,11 @@
-class Artist < ApplicationRecord
-  include Artists::Status
-
-  include Artists::Mix
-
-  FORCE_IGNORE_NAMES: ::Array[untyped]
-
-  def self.create_by_name: (untyped name) -> untyped
-
-  def self.to_name: (untyped name) -> untyped
-
-  def self.all_pending_to_ignore: () -> untyped
-
-  def self.all_create_albums: () -> untyped
-
-  def create_albums: () -> untyped
-
-  def service: () -> untyped
-
-  def to_path: () -> ::String
-
-  def to_url: () -> ::String
+class Artist
+  def self.all_pending_to_ignore: -> untyped
+  def self.cache?: (conditions: ::Query::conditions) -> bool
+  def self.generate_relation: (
+    conditions: ::Query::conditions,
+    context: ::GraphQL::Query::context
+  ) -> untyped
+  def artwork_l: -> ::Artwork
+  def artwork_m: -> ::Artwork
+  def service_album: -> ::AppleMusicAlbum?
 end

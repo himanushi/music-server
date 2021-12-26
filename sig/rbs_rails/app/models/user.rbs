@@ -52,22 +52,22 @@ class User < ApplicationRecord
   def restore_updated_at!: () -> void
   def clear_updated_at_change: () -> void
 
-  attr_accessor status(): Integer
-  def status_changed?: () -> bool
-  def status_change: () -> [ Integer?, Integer? ]
-  def status_will_change!: () -> void
-  def status_was: () -> Integer?
-  def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[Integer?]?
-  def status_previously_was: () -> Integer?
-  def status_before_last_save: () -> Integer?
-  def status_change_to_be_saved: () -> Array[Integer?]?
-  def status_in_database: () -> Integer?
-  def saved_change_to_status: () -> Array[Integer?]?
-  def saved_change_to_status?: () -> bool
-  def will_save_change_to_status?: () -> bool
-  def restore_status!: () -> void
-  def clear_status_change: () -> void
+  attr_accessor role_id(): String
+  def role_id_changed?: () -> bool
+  def role_id_change: () -> [ String?, String? ]
+  def role_id_will_change!: () -> void
+  def role_id_was: () -> String?
+  def role_id_previously_changed?: () -> bool
+  def role_id_previous_change: () -> Array[String?]?
+  def role_id_previously_was: () -> String?
+  def role_id_before_last_save: () -> String?
+  def role_id_change_to_be_saved: () -> Array[String?]?
+  def role_id_in_database: () -> String?
+  def saved_change_to_role_id: () -> Array[String?]?
+  def saved_change_to_role_id?: () -> bool
+  def will_save_change_to_role_id?: () -> bool
+  def restore_role_id!: () -> void
+  def clear_role_id_change: () -> void
 
   attr_accessor name(): String
   def name_changed?: () -> bool
@@ -103,73 +103,22 @@ class User < ApplicationRecord
   def restore_username!: () -> void
   def clear_username_change: () -> void
 
-  attr_accessor password_digest(): String?
-  def password_digest_changed?: () -> bool
-  def password_digest_change: () -> [ String?, String? ]
-  def password_digest_will_change!: () -> void
-  def password_digest_was: () -> String?
-  def password_digest_previously_changed?: () -> bool
-  def password_digest_previous_change: () -> Array[String?]?
-  def password_digest_previously_was: () -> String?
-  def password_digest_before_last_save: () -> String?
-  def password_digest_change_to_be_saved: () -> Array[String?]?
-  def password_digest_in_database: () -> String?
-  def saved_change_to_password_digest: () -> Array[String?]?
-  def saved_change_to_password_digest?: () -> bool
-  def will_save_change_to_password_digest?: () -> bool
-  def restore_password_digest!: () -> void
-  def clear_password_digest_change: () -> void
-
-  attr_accessor description(): String?
-  def description_changed?: () -> bool
-  def description_change: () -> [ String?, String? ]
-  def description_will_change!: () -> void
-  def description_was: () -> String?
-  def description_previously_changed?: () -> bool
-  def description_previous_change: () -> Array[String?]?
-  def description_previously_was: () -> String?
-  def description_before_last_save: () -> String?
-  def description_change_to_be_saved: () -> Array[String?]?
-  def description_in_database: () -> String?
-  def saved_change_to_description: () -> Array[String?]?
-  def saved_change_to_description?: () -> bool
-  def will_save_change_to_description?: () -> bool
-  def restore_description!: () -> void
-  def clear_description_change: () -> void
-
-  attr_accessor album_id(): String?
-  def album_id_changed?: () -> bool
-  def album_id_change: () -> [ String?, String? ]
-  def album_id_will_change!: () -> void
-  def album_id_was: () -> String?
-  def album_id_previously_changed?: () -> bool
-  def album_id_previous_change: () -> Array[String?]?
-  def album_id_previously_was: () -> String?
-  def album_id_before_last_save: () -> String?
-  def album_id_change_to_be_saved: () -> Array[String?]?
-  def album_id_in_database: () -> String?
-  def saved_change_to_album_id: () -> Array[String?]?
-  def saved_change_to_album_id?: () -> bool
-  def will_save_change_to_album_id?: () -> bool
-  def restore_album_id!: () -> void
-  def clear_album_id_change: () -> void
-
-  attr_accessor role_id(): String
-  def role_id_changed?: () -> bool
-  def role_id_change: () -> [ String?, String? ]
-  def role_id_will_change!: () -> void
-  def role_id_was: () -> String?
-  def role_id_previously_changed?: () -> bool
-  def role_id_previous_change: () -> Array[String?]?
-  def role_id_previously_was: () -> String?
-  def role_id_before_last_save: () -> String?
-  def role_id_change_to_be_saved: () -> Array[String?]?
-  def role_id_in_database: () -> String?
-  def saved_change_to_role_id: () -> Array[String?]?
-  def saved_change_to_role_id?: () -> bool
-  def will_save_change_to_role_id?: () -> bool
-  def restore_role_id!: () -> void
-  def clear_role_id_change: () -> void
+  attr_accessor status(): Integer
+  def status_changed?: () -> bool
+  def status_change: () -> [ Integer?, Integer? ]
+  def status_will_change!: () -> void
+  def status_was: () -> Integer?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[Integer?]?
+  def status_previously_was: () -> Integer?
+  def status_before_last_save: () -> Integer?
+  def status_change_to_be_saved: () -> Array[Integer?]?
+  def status_in_database: () -> Integer?
+  def saved_change_to_status: () -> Array[Integer?]?
+  def saved_change_to_status?: () -> bool
+  def will_save_change_to_status?: () -> bool
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
 
   attr_accessor registered(): bool
   def registered_changed?: () -> bool
@@ -189,14 +138,27 @@ class User < ApplicationRecord
   def clear_registered_change: () -> void
   attr_accessor registered?(): bool
 
+  attr_accessor password_digest(): String?
+  def password_digest_changed?: () -> bool
+  def password_digest_change: () -> [ String?, String? ]
+  def password_digest_will_change!: () -> void
+  def password_digest_was: () -> String?
+  def password_digest_previously_changed?: () -> bool
+  def password_digest_previous_change: () -> Array[String?]?
+  def password_digest_previously_was: () -> String?
+  def password_digest_before_last_save: () -> String?
+  def password_digest_change_to_be_saved: () -> Array[String?]?
+  def password_digest_in_database: () -> String?
+  def saved_change_to_password_digest: () -> Array[String?]?
+  def saved_change_to_password_digest?: () -> bool
+  def will_save_change_to_password_digest?: () -> bool
+  def restore_password_digest!: () -> void
+  def clear_password_digest_change: () -> void
+
   def sessions: () -> Session::ActiveRecord_Associations_CollectionProxy
   def sessions=: (Session::ActiveRecord_Associations_CollectionProxy | Array[Session]) -> (Session::ActiveRecord_Associations_CollectionProxy | Array[Session])
   def session_ids: () -> Array[Integer]
   def session_ids=: (Array[Integer]) -> Array[Integer]
-  def public_informations: () -> PublicInformation::ActiveRecord_Associations_CollectionProxy
-  def public_informations=: (PublicInformation::ActiveRecord_Associations_CollectionProxy | Array[PublicInformation]) -> (PublicInformation::ActiveRecord_Associations_CollectionProxy | Array[PublicInformation])
-  def public_information_ids: () -> Array[Integer]
-  def public_information_ids=: (Array[Integer]) -> Array[Integer]
 
   def role: () -> Role
   def role=: (Role?) -> Role?

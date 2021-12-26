@@ -1,3 +1,0 @@
-class Mutations::UpsertArtist < Mutations::BaseMutation
-  def mutate: (?artist_name: untyped? artist_name, ?artist_id: untyped? artist_id, ?apple_music_id: untyped? apple_music_id) -> untyped
-end

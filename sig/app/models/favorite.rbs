@@ -1,5 +1,4 @@
-class Favorite < ApplicationRecord
-  def self.register: (untyped favorites, untyped user) -> untyped
-
-  def self.unregister: (untyped favorites, untyped user) -> untyped
+class Favorite
+  def self.register: (::Array[untyped] favorites, ::User user) -> untyped
+  def self.unregister: (::Array[untyped] favorites, ::User user) -> untyped
 end

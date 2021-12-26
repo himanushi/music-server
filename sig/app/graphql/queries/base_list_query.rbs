@@ -1,15 +1,21 @@
 module Queries
-  class BaseListQuery < BaseQuery
-    attr_reader offset: untyped
-
-    attr_reader limit: untyped
-
-    attr_reader conditions: untyped
-
-    attr_reader sort_type: untyped
-
-    attr_reader order: untyped
-
-    def query: (**untyped args) -> untyped
+  class BaseListQuery < ::Queries::BaseQuery
+    @direction: ::String
+    @order: ::String
+    @limit: ::Integer
+    @offset: ::Integer
+    def query: (
+      conditions: ::Query::conditions,
+      cursor: ::Query::cursor,
+      sort: ::Query::sort
+    ) -> untyped
+    def query_class: -> untyped
+    def cache?: (conditions: ::Query::conditions) -> bool
+    def list_query: (conditions: ::Query::conditions) -> untyped
+    def order: (
+      untyped relation,
+      cursor: ::Query::cursor,
+      sort: ::Query::sort
+    ) -> untyped
   end
 end

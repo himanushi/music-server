@@ -1,9 +1,8 @@
-class Track < ApplicationRecord
-  def service: () -> untyped
-
-  def apple_music_tracks: () -> untyped
-
-  def itunes_tracks: () -> untyped
-
-  def pick_apple_track: (untyped is_apple_music) -> (::Array[untyped] | untyped)
+class Track
+  def self.cache?: (conditions: ::Query::conditions) -> bool
+  def self.generate_relation: (
+    conditions: ::Query::conditions,
+    context: ::GraphQL::Query::context
+  ) -> untyped
+  def service: -> ::AppleMusicTrack?
 end

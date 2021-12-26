@@ -1,3 +1,11 @@
-class Mutations::UpsertPlaylist < Mutations::BaseMutation
-  def mutate: (name: untyped name, public_type: untyped public_type, ?playlist_id: untyped? playlist_id, ?description: ::String description, ?track_ids: untyped track_ids) -> { playlist: untyped }
+module Mutations
+  class UpsertPlaylist < ::Mutations::BaseMutation
+    def mutate: (
+      name: ::String,
+      public_type: ::String,
+      ?description: ::String,
+      ?track_ids: ::Array[::String],
+      ?playlist_id: ::String
+    ) -> { playlist: ::Playlist }
+  end
 end

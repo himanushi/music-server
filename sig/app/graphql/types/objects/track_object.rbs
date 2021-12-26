@@ -1,0 +1,7 @@
+module Types
+  module Objects
+    class TrackObject < BaseObject
+      def object: -> ::Track
+    end
+  end
+end

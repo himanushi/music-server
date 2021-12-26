@@ -1,183 +1,62 @@
-class AppleMusicAlbum < ApplicationRecord
-  table_id :amb
+# frozen_string_literal: true
 
-  include MusicServiceCreatable
-  include Albums::Compact
+class AppleMusicAlbum < ::ApplicationRecord
+  def table_id() = 'amb'
 
   belongs_to :album
   has_many :apple_music_tracks, dependent: :destroy
 
-  enum status: { pending: 0, active: 1, ignore: 2 }
-
-  before_update :sync_status_apple_music_tracks
-
   class << self
-    def music_service_id_name
-      "apple_music_id"
+    def create_by_data(data)
+      raise(::StandardError, 'album data が存在しない') unless (album = data['data'].first)
+
+      if (am_album = find_by(upc: album['attributes']['upc'].upcase))
+        am_album.destroy!
+      end
+
+      instance = new(mapping(album).merge(mapping_relation(album)))
+      instance.save!
+      instance
     end
 
     def mapping(data)
+      attrs = data['attributes']
+      artwork = attrs['artwork']
 
-      # @type var attrs: ::AppleMusic::Client::Response::album_attributes
-      attrs        = data["attributes"]
-
-      # @type var tracks_data: ::Array[::AppleMusic::Client::Response::track]
-      tracks_data  = data.dig("relationships", "tracks", "data") || []
-
-      # @type var album_attrs: { release_date: ::Time, total_tracks: ::Integer }
-      album_attrs  = to_album_attrs(data)
-
-      # @type var tracks_attrs: ::Array[{ isrc: ::String }]
-      tracks_attrs = tracks_data.map {|td| AppleMusicTrack.to_track_attrs(td) }
-
-      # @type var album: ::Album
-      album = Album.find_by_isrc_or_create(album_attrs, tracks_attrs)
-
-      data.dig("relationships", "artists", "data").each do |ad|
-
-        # @type var apple_music_artist: AppleMusicArtist?
-        apple_music_artist =
-          AppleMusicArtist.find_by(apple_music_id: ad["id"]) ||
-          AppleMusicArtist.create_by_music_service_id(ad["id"])
-
-        # locale: :jp で参照できないアーティストがいる
-        next unless apple_music_artist.present?
-
-        # @type var artist: Artist
-        artist = apple_music_artist.artist
-        artist.albums.push(album) if artist.albums.where(id: album.id).empty?
-      end
-
-      # @type var apple_music_tracks: Array[AppleMusicTrack]
-      apple_music_tracks = tracks_data.map do |td|
-        AppleMusicTrack.find_or_initialize_by(AppleMusicTrack.mapping(td).merge({ status: album.status }))
-      end
+      release_date = ::Convert.to_time(attrs['releaseDate'])
 
       {
-        album:              album,
-        apple_music_tracks: apple_music_tracks,
-        apple_music_id:     data["id"],
-        name:               attrs["name"],
-        record_label:       attrs["recordLabel"],
-        copyright:          (attrs["copyright"] || attrs["recordLabel"])[..254],
-        playable:           attrs["playParams"].present?,
-        artwork_url:        attrs.dig("artwork", "url"),
-        artwork_width:      attrs.dig("artwork", "width"),
-        artwork_height:     attrs.dig("artwork", "height"),
-        status:             album.status,
-      }.merge(album_attrs)
-    end
-
-    def to_album_attrs(data)
-      attrs = data["attributes"]
-
-      {
-        release_date: DateUtil.data_to_datetime(attrs["releaseDate"]),
-        total_tracks: attrs["trackCount"],
+        apple_music_id: data['id'],
+        name: attrs['name'],
+        playable: attrs['playParams'].present?,
+        upc: attrs['upc'].upcase,
+        release_date: release_date,
+        total_tracks: attrs['trackCount'],
+        record_label: attrs['recordLabel'],
+        copyright: attrs['copyright'],
+        artwork_url: artwork['url'],
+        artwork_width: artwork['width'],
+        artwork_height: artwork['height']
       }
     end
 
-    def create_by_music_service_id(apple_music_id)
-      return unless IgnoreContent.where(music_service_id: apple_music_id).empty?
+    def mapping_relation(data)
+      tracks_data = data['relationships']['tracks']['data']
 
-      data = AppleMusic::Client.new.get_album(apple_music_id).dig("data", 0)
-
-      return unless data.present?
-
-      unless data["attributes"]["trackCount"] == data["relationships"]["tracks"]["data"].size
-        # TODO: いつか起きるかもしれないバグをなんとかする。
-        # アルバムトラック数と実トラック数が合わないことがある。これはおそらく権利の都合上配信ができないトラックがあるから。
-        # もともとエラーにしていたが、仕方なくトラック数を調整することにした。
-        # これは AppleMusic::Client.new.get_album が絶対にエラーが発生しなければ問題はない。
-        # しかし、AppleMusic::Client.new.get_album で全ての Track を取得できなかった場合、不正なデータとなる可能性がある。
-        # raise StandardError, "トラック数が合わないよ"
-        data["attributes"]["trackCount"] = data["relationships"]["tracks"]["data"].size
-      end
-
-      ActiveRecord::Base.transaction do
-        create_or_update_by_data(data["id"], data)
-      end
-    end
-
-    # トラックのISRC1件でアルバム特定し生成する
-    def create_by_track_isrc(isrc)
-
-      # @type var apple_music_ids: Array[String]
-      apple_music_ids =
-        AppleMusic::Client.new.get_track_by_isrc(isrc).
-        dig("data", 0, "relationships", "albums", "data").try(:map){|d| d["id"] }.try(:compact) || []
-
-      return [] unless apple_music_ids.present?
-
-      # TODO: ここの書き方は型検証するために面倒な実装になっているのでどうにかしたい
-      # @type var albums: ::Array[::AppleMusicAlbum]
-      albums = []
-      apple_music_ids.map do |apple_music_id|
-        album = create_by_music_service_id(apple_music_id)
-        if album.present?
-
-          # @type var album: ::AppleMusicAlbum
-          albums << album
+      # @type var apple_music_tracks: ::Array[::AppleMusicTrack]
+      apple_music_tracks =
+        tracks_data.map do |track_data|
+          ::AppleMusicTrack.create_by_data(track_data)
         end
-      end
 
-      albums
-    end
-
-    def new_releases_apple_music_ids(genre = 16)
-      apple_music_ids = []
-
-      response = AppleMusic::Client.get_new_apple_music
-      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
-      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
-
-      response = AppleMusic::Client.get_new_itunes
-      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
-      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
-
-      response = AppleMusic::Client.get_top_albums
-      res = response["feed"]["results"].select{|a| a["genres"].select{|g| g["genreId"] == genre.to_s }.size > 0 }
-      apple_music_ids = apple_music_ids + res.map{|r| r["id"] }
-
-      apple_music_ids.uniq.compact
-    end
-
-    def create_by_new_releases(genre = 16)
-
-      # @type var apple_music_ids: Array[String]
-      apple_music_ids = new_releases_apple_music_ids(genre)
-
-      return [] unless apple_music_ids.present?
-
-      # @type var apple_music_album_ids: Array[String]
-      apple_music_album_ids = AppleMusicAlbum.where(apple_music_id: apple_music_ids).pluck(:apple_music_id)
-
-      apple_music_ids -= apple_music_album_ids
-
-      # TODO: ここの書き方は型検証するために面倒な実装になっているのでどうにかしたい
-      # @type var albums: ::Array[::AppleMusicAlbum]
-      albums = []
-
-      ActiveRecord::Base.transaction do
-        apple_music_ids.map do |apple_music_id|
-          next unless AppleMusicAlbum.where(apple_music_id: apple_music_id).empty?
-
-          album = create_by_music_service_id(apple_music_id)
-          if album.present?
-
-            # @type var album: ::AppleMusicAlbum
-            albums << album
-          end
-        end
-      end
-
-      albums
+      {
+        album: ::Album.find_by!(upc: data['attributes']['upc'].upcase),
+        apple_music_tracks: apple_music_tracks.compact
+      }
     end
   end
 
-  def music_service_id
-    apple_music_id
-  end
+  def apple_music_playable() = playable
 
   def artwork_l
     @artwork_l ||= build_artwork(640)
@@ -187,24 +66,17 @@ class AppleMusicAlbum < ApplicationRecord
     @artwork_m ||= build_artwork(300)
   end
 
-  private def build_artwork(max_size)
+  private
 
-    # @type var height: Integer
+  def build_artwork(max_size)
     height = artwork_height > max_size ? max_size : artwork_height
+    rate = Float(artwork_height) / Float(artwork_height)
+    width = Integer(rate * height)
 
-    # @type var width: Integer
-    width  = ((artwork_height.to_f / artwork_height.to_f) * height).to_i
+    url = artwork_url.gsub('{w}', width.to_s).gsub('{h}', height.to_s)
 
-    # @type var url: String
-    url    = artwork_url.gsub("{w}", width.to_s).gsub("{h}", height.to_s)
-    Artwork.new(url: url, width: width, height: height)
-  end
-
-  def sync_status_apple_music_tracks
-    ActiveRecord::Base.transaction do
-      apple_music_tracks.map do |t|
-        t.__send__("#{self.status}!")
-      end
-    end
+    artwork = ::Artwork.new
+    artwork.attributes = { url: url, width: width, height: height }
+    artwork
   end
 end

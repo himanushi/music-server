@@ -1,0 +1,5 @@
+module Queries
+  class MeQuery < ::Queries::BaseQuery
+    def query: -> ::User
+  end
+end

@@ -1,7 +1,0 @@
-module Queries
-  class BaseCountQuery < BaseQuery
-    attr_reader conditions: untyped
-
-    def query: (**untyped args) -> untyped
-  end
-end

@@ -1,0 +1,5 @@
+module Queries
+  class PlaylistQuery < ::Queries::BaseQuery
+    def query: (id: ::String) -> ::Playlist?
+  end
+end

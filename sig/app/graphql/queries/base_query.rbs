@@ -1,5 +1,6 @@
 module Queries
-  class BaseQuery < GraphQL::Schema::Resolver
-    def resolve: (**untyped args) -> untyped
+  class BaseQuery < ::GraphQL::Schema::Resolver
+    def resolve: (**untyped) -> untyped
+    def query: (**untyped) -> untyped
   end
 end

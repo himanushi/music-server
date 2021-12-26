@@ -1,34 +1,33 @@
-class AppleMusicAlbum < ApplicationRecord
-  include MusicServiceCreatable
+class AppleMusicAlbum
+  def self.create_by_data: (
+    ::AppleMusic::Api::Response::full_albums data
+  ) -> instance
+  def self.mapping: (
+    ::AppleMusic::Api::Response::full_album data
+  ) -> {
+    apple_music_id: ::String,
+    name: ::String,
+    playable: bool,
+    upc: ::String,
+    release_date: ActiveSupport::TimeWithZone,
+    total_tracks: ::Integer,
+    record_label: ::String,
+    copyright: ::String,
+    artwork_url: ::String,
+    artwork_width: ::Integer,
+    artwork_height: ::Integer
+  }
+  def self.mapping_relation: (
+    ::AppleMusic::Api::Response::full_album data
+  ) -> ::Hash[::Symbol, untyped]
 
-  include Albums::Compact
-
-  def self.music_service_id_name: () -> "apple_music_id"
-
-  def self.mapping: (untyped data) -> untyped
-
-  def self.to_album_attrs: (untyped data) -> { release_date: untyped, total_tracks: untyped }
-
-  def self.create_by_music_service_id: (untyped apple_music_id) -> (nil | untyped)
-
-  # トラックのISRC1件でアルバム特定し生成する
-  def self.create_by_track_isrc: (untyped isrc) -> (::Array[untyped] | untyped)
-
-  def self.new_releases_apple_music_ids: (?::Integer genre) -> untyped
-
-  def self.create_by_new_releases: (?::Integer genre) -> (::Array[untyped] | untyped)
-
-  def music_service_id: () -> untyped
-
-  def artwork_l: () -> untyped
-
-  def artwork_m: () -> untyped
+  def apple_music_playable: -> bool
+  @artwork_l: ::Artwork?
+  def artwork_l: -> ::Artwork
+  @artwork_m: ::Artwork?
+  def artwork_m: -> ::Artwork
 
   private
 
-  def build_artwork: (untyped max_size) -> untyped
-
-  public
-
-  def sync_status_apple_music_tracks: () -> untyped
+  def build_artwork: (::Integer max_size) -> ::Artwork
 end

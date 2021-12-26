@@ -1,5 +1,0 @@
-module Dokku
-  def self.configs: (?::String env) -> untyped
-
-  def self.keys: () -> untyped
-end

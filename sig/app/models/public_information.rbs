@@ -1,3 +1,0 @@
-# ユーザーが公開しても良い情報を保持する
-class PublicInformation < ApplicationRecord
-end

@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 module Queries
-  class DefineTypes < BaseQuery
-    description "型定義が欲しいのでそれ用"
+  class DefineTypes < ::Queries::BaseQuery
+    description '型定義用'
 
-    type Boolean, null: false
+    type ::GraphQL::Types::Boolean, null: false
 
-    argument :action, Types::Enums::ActionEnum, required: true, description: "全てのAllowedActions"
+    argument :action, ::Types::Enums::ActionEnum, required: true, description: '全てのAllowedActions'
 
-    def query(args)
-      true
-    end
+    def query() = true
   end
 end

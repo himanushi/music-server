@@ -1,3 +1,5 @@
-class Mutations::UpdateMe < Mutations::BaseMutation
-  def mutate: (**untyped attrs) -> { current_user: untyped }
+module Mutations
+  class UpdateMe < ::Mutations::BaseMutation
+    def mutate: (name: ::String) -> { current_user: ::User }
+  end
 end

@@ -1,0 +1,5 @@
+module Queries
+  class RolesQuery < ::Queries::BaseQuery
+    def query: -> ::Role::ActiveRecord_Relation
+  end
+end

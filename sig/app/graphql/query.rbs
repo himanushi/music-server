@@ -1,0 +1,9 @@
+class Query < ::Types::Objects::BaseObject
+  type params = { cursor: cursor, sort: sort, conditions: conditions }
+  type cursor = { offset: ::Integer, limit: ::Integer }
+  type sort = { order: ::String, direction: ::String }
+  type conditions = ::Hash[::Symbol, untyped]
+  type result = { :cache? => bool, relation: untyped }
+
+  def self.fields: -> ::Hash[::String, untyped]
+end

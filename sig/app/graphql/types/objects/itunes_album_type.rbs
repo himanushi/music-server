@@ -1,6 +1,0 @@
-module Types
-  module Objects
-    class ItunesAlbumType < Types::Objects::BaseObject
-    end
-  end
-end

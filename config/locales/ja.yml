@@ -1,0 +1,44 @@
+# ref: https://github.com/rails/rails/blob/main/activemodel/lib/active_model/locale/en.yml
+ja:
+  activerecord:
+    models:
+    user: "ユーザー"
+    attributes:
+      user:
+        name: "名前"
+        username: "ユーザーID"
+        password: "パスワード"
+        password_confirmation: "パスワード再確認"
+      playlist:
+        name: "タイトル"
+    errors:
+      messages:
+        record_invalid: "%{errors}"
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      model_invalid: "エラー: %{errors}"
+      inclusion: "is not included in the list"
+      exclusion: "is reserved"
+      invalid: "is invalid"
+      confirmation: "が一致しません"
+      accepted: "must be accepted"
+      empty: "can't be empty"
+      blank: "は必須です"
+      present: "must be blank"
+      too_short: "は%{count}文字以上必要です"
+      too_long: "は%{count}文字以下で入力してください"
+      wrong_length:
+        one: "is the wrong length (should be 1 character)"
+        other: "is the wrong length (should be %{count} characters)"
+      not_a_number: "is not a number"
+      not_an_integer: "must be an integer"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      other_than: "must be other than %{count}"
+      in: "must be in %{count}"
+      odd: "must be odd"
+      even: "must be even"

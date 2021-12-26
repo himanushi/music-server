@@ -1,9 +1,8 @@
+# frozen_string_literal: true
+
 module Types
   module Enums
-    class ActionEnum < GraphQL::Schema::Enum
-      AllowedAction::ALL_ACTIONS.each do |action|
-        value action, value: action
-      end
+    class ActionEnum < ::Types::Enums::BaseEnum
     end
   end
 end

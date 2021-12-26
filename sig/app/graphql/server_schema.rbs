@@ -1,2 +1,3 @@
-class ServerSchema < GraphQL::Schema
+class ServerSchema < ::GraphQL::Schema
+  def self.execute: (*untyped) -> ::Hash[untyped, untyped]
 end

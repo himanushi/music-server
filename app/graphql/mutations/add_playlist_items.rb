@@ -1,17 +1,21 @@
-class Mutations::AddPlaylistItems < Mutations::BaseMutation
-  description "プレイリストに曲を追加する"
+# frozen_string_literal: true
 
-  argument :playlist_id, TTID, required: true, description: "プレイリストID"
-  argument :track_ids, [TTID], required: true, description: "追加したい曲ID"
+module Mutations
+  class AddPlaylistItems < ::Mutations::BaseMutation
+    description 'プレイリストに曲を追加する'
 
-  field :playlist, PlaylistType, null: true, description: "曲追加されたプレイリスト"
+    argument :playlist_id, ::String, required: true, description: 'プレイリストID'
+    argument :track_ids, [::String], required: true, description: '追加したい曲ID'
 
-  def mutate(playlist_id: nil, track_ids: [])
-    Playlist.validate_author(playlist_id, context[:current_info][:user].id)
-    playlist = Playlist.find(playlist_id).add_items(track_ids: track_ids)
+    field :playlist, ::Types::Objects::PlaylistObject, null: true, description: '曲追加されたプレイリスト'
 
-    {
-      playlist: playlist,
-    }
+    def mutate(playlist_id:, track_ids:)
+      ::Playlist.validate_author!(playlist_id, context[:current_info][:user].id)
+      playlist = ::Playlist.find(playlist_id).add_items(track_ids)
+
+      {
+        playlist: playlist
+      }
+    end
   end
 end

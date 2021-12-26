@@ -1,5 +1,0 @@
-module Queries
-  class AppleMusicToken < BaseQuery
-    def query: () -> untyped
-  end
-end

@@ -1,6 +1,0 @@
-module Types
-  module InputObjects
-    class IdInputObject < BaseInputObject
-    end
-  end
-end

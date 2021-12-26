@@ -1,34 +1,17 @@
-# TTID
-# Table id, hex Timestamp, ID
 module TTID
-  extend ActiveSupport::Concern
+  REGEXP: ::Regexp
 
-  REGEXP: untyped
+  module InstanceMethods
+    attr_accessor id: ::String
 
-  def self.to_hash: (untyped id) -> (nil | { table_id: untyped, hex_timestamp: untyped, hex_id: untyped })
+    def identify: -> ::String
 
-  def self.decode: (untyped id) -> (nil | { model: untyped, timestamp: untyped, hex_id: untyped })
+    def unix_timestamp: -> ::Integer
 
-  def self.to_timestamp: (untyped hex_timestamp) -> untyped
+    def table_id: -> ::String
 
-  def self.table_info: () -> untyped
+    def hex_time: -> ::String
 
-  def self.add_table_info: (untyped info) -> untyped
-
-  def self.unix_timestamp_usec3: () -> untyped
-
-  def identify: () -> untyped
-
-  def build_id: () -> untyped
-
-  module ClassMethods
-    # 検証元のクラスと検証したいID
-    def validate_ids!: (untyped ids) -> ::TrueClass
-
-    def table_id: (?untyped? _table_id) -> untyped
-
-    def hex_time: () -> untyped
-
-    def build_id: () -> untyped
+    def build_id: -> ::String
   end
 end

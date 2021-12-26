@@ -1,9 +1,0 @@
-module Types
-  module Objects
-    class ArtistType < Types::Objects::BaseObject
-      def artwork_l: () -> untyped
-
-      def artwork_m: () -> untyped
-    end
-  end
-end

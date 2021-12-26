@@ -1,7 +1,0 @@
-module Ggl
-  class Recaptcha
-    def self.valid?: (untyped token, ?untyped? ip) -> untyped
-
-    def self.request: (untyped token, ?untyped? ip) -> untyped
-  end
-end

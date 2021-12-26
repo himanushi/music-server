@@ -1,5 +1,5 @@
-# 更新などで強制的に対象外にするコンテンツ
-# status が active な場合でも除外する
-class IgnoreContent < ApplicationRecord
-  table_id :igc
+# frozen_string_literal: true
+
+class IgnoreContent < ::ApplicationRecord
+  def table_id() = 'igc'
 end

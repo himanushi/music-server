@@ -1,18 +1,48 @@
 AllCops:
-  TargetRubyVersion: 3.0
   NewCops: enable
   EnabledByDefault: true
   Exclude:
     - "vendor/**/*"
+    - "bin/**/*"
     - "db/schema.rb"
 
-Style/Copyright:
+Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+Lint/NumberConversion:
+  IgnoredMethods:
+    - from_now
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/PredicateName:
+  Exclude:
+    - app/graphql/**/*.rb
 
 Style/AsciiComments:
   Enabled: false
 
-Style/MissingElse:
+Style/ClassMethodsDefinitions:
+  Enabled: true
+  EnforcedStyle: self_class
+
+Style/Copyright:
   Enabled: false
 
 Style/Documentation:
@@ -21,20 +51,14 @@ Style/Documentation:
 Style/DocumentationMethod:
   Enabled: false
 
-Metrics/AbcSize:
+Style/MissingElse:
   Enabled: false
 
-Metrics/ClassLength:
+Style/SafeNavigation:
   Enabled: false
 
-Metrics/CyclomaticComplexity:
+Style/StaticClass:
   Enabled: false
 
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Lint/NumberConversion:
+Style/SymbolProc:
   Enabled: false

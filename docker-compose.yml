@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   web:
     env_file: .env
@@ -6,7 +6,10 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/music-server
+      - bundle-data:/usr/local/bundle
     ports:
       - "3000:3000"
     tty: true
     stdin_open: true
+volumes:
+  bundle-data:

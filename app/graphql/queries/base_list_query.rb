@@ -1,29 +1,33 @@
+# frozen_string_literal: true
+
 module Queries
-  class BaseListQuery < BaseQuery
-    attr_reader :offset, :limit, :conditions, :sort_type, :order
+  class BaseListQuery < ::Queries::BaseQuery
+    def query(conditions:, sort:, cursor:)
+      params = { conditions: conditions, sort: sort, cursor: cursor }
+      cache_key = params.transform_values { |v| v.to_h }
+                        .to_s
 
-    def query(**args)
-      cache_key = args.map {|k, v| [k, v.to_h] }.to_h.to_s
+      return ::Rails.cache.read(cache_key) if cache?(conditions: conditions) && ::Rails.cache.exist?(cache_key)
 
-      cursor     = args[:cursor]&.to_h || {}
-      sort       = args[:sort]&.to_h || {}
-      @sort_type = sort[:type]
-      @order     = sort[:order]
-      @limit     = cursor[:limit]
-      @offset    = cursor[:offset]
+      result = list_query(conditions: conditions)
+      relation = order(result, sort: sort, cursor: cursor)
 
-      # 最大件数
-      @limit = 100 < @limit ? 100 : @limit
+      loaded_result = relation.load
+      ::Rails.cache.write(cache_key, loaded_result) if cache?(conditions: conditions)
+      loaded_result
+    end
 
-      is_cache, result = list_query(**args)
+    def list_query(conditions:) = query_class.generate_relation(conditions: conditions, context: context)
 
-      if is_cache && Rails.cache.exist?(cache_key)
-        Rails.cache.read(cache_key)
-      else
-        loaded_result = result.load
-        Rails.cache.write(cache_key, loaded_result) if is_cache
-        loaded_result
-      end
+    def cache?(conditions:) = query_class.cache?(conditions: conditions)
+
+    def order(relation, sort:, cursor:)
+      relation.order(
+        [
+          { sort[:order] => sort[:direction] },
+          { id: sort[:direction] }
+        ]
+      ).distinct.offset(cursor[:offset]).limit(cursor[:limit])
     end
   end
 end

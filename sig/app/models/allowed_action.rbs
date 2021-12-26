@@ -1,11 +1,5 @@
-class AllowedAction < ApplicationRecord
-  MUTATION_ACTIONS: untyped
-
-  QUERY_ACTIONS: untyped
-
-  CONSOLE_ACTIONS: ::Array[untyped]
-
-  DEFAULT_ACTIONS: untyped
-
-  ALL_ACTIONS: untyped
+class AllowedAction < ::ApplicationRecord
+  def self.default_actions: -> ::Array[::String]
+  def self.console_actions: -> ::Array[::String]
+  def self.all_actions: -> ::Array[::String]
 end

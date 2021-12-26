@@ -1,3 +1,11 @@
-class Mutations::ChangeFavorites < Mutations::BaseMutation
-  def mutate: (favorite: untyped favorite, ?artist_ids: untyped artist_ids, ?album_ids: untyped album_ids, ?track_ids: untyped track_ids, ?playlist_ids: untyped playlist_ids, ?radio_ids: untyped radio_ids) -> untyped
+module Mutations
+  class ChangeFavorites < ::Mutations::BaseMutation
+    def mutate: (
+      favorite: bool,
+      ?artist_ids: ::Array[::String],
+      ?album_ids: ::Array[::String],
+      ?track_ids: ::Array[::String],
+      ?playlist_ids: ::Array[::String]
+    ) -> { current_user: ::User }
+  end
 end

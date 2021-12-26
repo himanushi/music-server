@@ -1,3 +1,5 @@
-class Mutations::IgnoreArtists < Mutations::BaseMutation
-  def mutate: () -> { artists: untyped }
+module Mutations
+  class IgnoreArtists < ::Mutations::BaseMutation
+    def mutate: -> { result: true }
+  end
 end

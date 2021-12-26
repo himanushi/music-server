@@ -1,6 +1,0 @@
-module Types
-  module Objects
-    class ArtworkType < Types::Objects::BaseObject
-    end
-  end
-end

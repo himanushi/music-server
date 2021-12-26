@@ -1,0 +1,10 @@
+module Types
+  module Objects
+    class AlbumObject < BaseObject
+      def object: -> ::Album
+      def apple_music_album: -> ::AppleMusicAlbum?
+      def tracks: -> (::AppleMusicTrack::ActiveRecord_Associations_CollectionProxy?
+      | ::Array[::Track])
+    end
+  end
+end

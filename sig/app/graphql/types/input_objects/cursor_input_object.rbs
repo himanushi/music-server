@@ -1,6 +1,6 @@
 module Types
   module InputObjects
-    class CursorInputObject < BaseInputObject
+    class CursorInputObject < ::Types::InputObjects::BaseInputObject
     end
   end
 end

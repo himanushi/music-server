@@ -1,0 +1,14 @@
+class UserFavorite
+  attr_reader user_id: ::String
+  @user_id: ::String
+
+  def initialize: (::String user_id) -> untyped
+
+  def artist_ids: -> ::Array[::String]
+
+  def album_ids: -> ::Array[::String]
+
+  def track_ids: -> ::Array[::String]
+
+  def playlist_ids: -> ::Array[::String]
+end

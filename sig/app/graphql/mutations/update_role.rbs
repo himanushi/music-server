@@ -1,0 +1,10 @@
+module Mutations
+  class UpdateRole < ::Mutations::BaseMutation
+    def mutate: (
+      role_id: ::String,
+      ?name: ::String,
+      ?description: ::String,
+      ?allowed_actions: ::Array[::String]
+    ) -> { role: ::Role }
+  end
+end

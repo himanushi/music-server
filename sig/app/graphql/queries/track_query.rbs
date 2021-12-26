@@ -1,0 +1,5 @@
+module Queries
+  class TrackQuery < ::Queries::BaseQuery
+    def query: (id: ::String) -> ::Track?
+  end
+end

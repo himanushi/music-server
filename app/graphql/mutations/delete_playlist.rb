@@ -1,20 +1,20 @@
-class Mutations::DeletePlaylist < Mutations::BaseMutation
-  description "プレイリストを削除する"
+# frozen_string_literal: true
 
-  argument :playlist_id, TTID, required: false
+module Mutations
+  class DeletePlaylist < ::Mutations::BaseMutation
+    description 'プレイリストを削除する'
 
-  field :result, String, null: true, description: "削除結果"
-  field :error, String, null: true
+    argument :playlist_id, ::String, required: false
 
-  def mutate(playlist_id:)
-    ::Playlist.validate_author(playlist_id, context[:current_info][:user].id) if playlist_id
+    field :result, ::GraphQL::Types::Boolean, null: true
 
-    ActiveRecord::Base.transaction do
+    def mutate(playlist_id:)
+      ::Playlist.validate_author!(playlist_id, context[:current_info][:user].id) if playlist_id
       ::Playlist.find(playlist_id).destroy!
-    end
 
-    {
-      result: "ok",
-    }
+      {
+        result: true
+      }
+    end
   end
 end

@@ -1,0 +1,5 @@
+module Queries
+  class AlbumQuery < ::Queries::BaseQuery
+    def query: (id: ::String) -> ::Album?
+  end
+end

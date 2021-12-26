@@ -1,17 +1,22 @@
-class Mutations::ForceIgnoreAlbum < Mutations::BaseMutation
-  description "対象アルバムを除外コンテンツに登録する"
+# frozen_string_literal: true
 
-  argument :album_id, TTID, required: true, description: "除外コンテンツに登録したいアルバムID"
+module Mutations
+  class ForceIgnoreAlbum < ::Mutations::BaseMutation
+    description '対象アルバムを除外コンテンツに登録する'
 
-  field :result, String, null: false
+    argument :album_id, ::String, required: true, description: '除外コンテンツに登録したいアルバムID'
 
-  def mutate(album_id:)
-      album = Album.find(album_id)
+    field :result, ::GraphQL::Types::Boolean, null: false
+
+    def mutate(album_id:)
+      album = ::Album.find(album_id)
       album.force_ignore
 
-      Rails.cache.clear
+      ::Rails.cache.clear
+
       {
-        result: "OK",
+        result: true
       }
+    end
   end
 end

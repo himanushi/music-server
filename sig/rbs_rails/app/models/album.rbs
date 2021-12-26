@@ -86,6 +86,23 @@ class Album < ApplicationRecord
   def restore_release_date!: () -> void
   def clear_release_date_change: () -> void
 
+  attr_accessor upc(): String
+  def upc_changed?: () -> bool
+  def upc_change: () -> [ String?, String? ]
+  def upc_will_change!: () -> void
+  def upc_was: () -> String?
+  def upc_previously_changed?: () -> bool
+  def upc_previous_change: () -> Array[String?]?
+  def upc_previously_was: () -> String?
+  def upc_before_last_save: () -> String?
+  def upc_change_to_be_saved: () -> Array[String?]?
+  def upc_in_database: () -> String?
+  def saved_change_to_upc: () -> Array[String?]?
+  def saved_change_to_upc?: () -> bool
+  def will_save_change_to_upc?: () -> bool
+  def restore_upc!: () -> void
+  def clear_upc_change: () -> void
+
   attr_accessor total_tracks(): Integer
   def total_tracks_changed?: () -> bool
   def total_tracks_change: () -> [ Integer?, Integer? ]
@@ -103,23 +120,6 @@ class Album < ApplicationRecord
   def restore_total_tracks!: () -> void
   def clear_total_tracks_change: () -> void
 
-  attr_accessor pv(): Integer
-  def pv_changed?: () -> bool
-  def pv_change: () -> [ Integer?, Integer? ]
-  def pv_will_change!: () -> void
-  def pv_was: () -> Integer?
-  def pv_previously_changed?: () -> bool
-  def pv_previous_change: () -> Array[Integer?]?
-  def pv_previously_was: () -> Integer?
-  def pv_before_last_save: () -> Integer?
-  def pv_change_to_be_saved: () -> Array[Integer?]?
-  def pv_in_database: () -> Integer?
-  def saved_change_to_pv: () -> Array[Integer?]?
-  def saved_change_to_pv?: () -> bool
-  def will_save_change_to_pv?: () -> bool
-  def restore_pv!: () -> void
-  def clear_pv_change: () -> void
-
   attr_accessor popularity(): Integer
   def popularity_changed?: () -> bool
   def popularity_change: () -> [ Integer?, Integer? ]
@@ -136,6 +136,23 @@ class Album < ApplicationRecord
   def will_save_change_to_popularity?: () -> bool
   def restore_popularity!: () -> void
   def clear_popularity_change: () -> void
+
+  attr_accessor pv(): Integer
+  def pv_changed?: () -> bool
+  def pv_change: () -> [ Integer?, Integer? ]
+  def pv_will_change!: () -> void
+  def pv_was: () -> Integer?
+  def pv_previously_changed?: () -> bool
+  def pv_previous_change: () -> Array[Integer?]?
+  def pv_previously_was: () -> Integer?
+  def pv_before_last_save: () -> Integer?
+  def pv_change_to_be_saved: () -> Array[Integer?]?
+  def pv_in_database: () -> Integer?
+  def saved_change_to_pv: () -> Array[Integer?]?
+  def saved_change_to_pv?: () -> bool
+  def will_save_change_to_pv?: () -> bool
+  def restore_pv!: () -> void
+  def clear_pv_change: () -> void
 
   def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
   def artist_has_albums=: (ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasAlbum]) -> (ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasAlbum])
@@ -157,12 +174,12 @@ class Album < ApplicationRecord
   def favorites=: (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite]) -> (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite])
   def favorite_ids: () -> Array[Integer]
   def favorite_ids=: (Array[Integer]) -> Array[Integer]
-  def apple_music_and_itunes_album: () -> AppleMusicAlbum?
-  def apple_music_and_itunes_album=: (AppleMusicAlbum?) -> AppleMusicAlbum?
-  def build_apple_music_and_itunes_album: (untyped) -> AppleMusicAlbum
-  def create_apple_music_and_itunes_album: (untyped) -> AppleMusicAlbum
-  def create_apple_music_and_itunes_album!: (untyped) -> AppleMusicAlbum
-  def reload_apple_music_and_itunes_album: () -> AppleMusicAlbum?
+  def apple_music_album: () -> AppleMusicAlbum?
+  def apple_music_album=: (AppleMusicAlbum?) -> AppleMusicAlbum?
+  def build_apple_music_album: (untyped) -> AppleMusicAlbum
+  def create_apple_music_album: (untyped) -> AppleMusicAlbum
+  def create_apple_music_album!: (untyped) -> AppleMusicAlbum
+  def reload_apple_music_album: () -> AppleMusicAlbum?
 
   def pending!: () -> bool
   def pending?: () -> bool
@@ -173,10 +190,6 @@ class Album < ApplicationRecord
   def self.pending: () -> ActiveRecord_Relation
   def self.active: () -> ActiveRecord_Relation
   def self.ignore: () -> ActiveRecord_Relation
-  def self.include_artists: () -> ActiveRecord_Relation
-  def self.include_tracks: () -> ActiveRecord_Relation
-  def self.include_services: () -> ActiveRecord_Relation
-  def self.services: () -> ActiveRecord_Relation
 
   module GeneratedRelationMethods
     def pending: () -> ActiveRecord_Relation
@@ -184,14 +197,6 @@ class Album < ApplicationRecord
     def active: () -> ActiveRecord_Relation
 
     def ignore: () -> ActiveRecord_Relation
-
-    def include_artists: () -> ActiveRecord_Relation
-
-    def include_tracks: () -> ActiveRecord_Relation
-
-    def include_services: () -> ActiveRecord_Relation
-
-    def services: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

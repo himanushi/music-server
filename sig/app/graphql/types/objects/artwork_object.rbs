@@ -1,0 +1,6 @@
+module Types
+  module Objects
+    class ArtworkObject < ::Types::Objects::BaseObject
+    end
+  end
+end

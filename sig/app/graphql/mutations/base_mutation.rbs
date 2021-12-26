@@ -1,15 +1,7 @@
 module Mutations
-  class BaseMutation < GraphQL::Schema::RelayClassicMutation
-    include Types::Objects
-
-    include Types::Scalars
-
-    include Types::Unions
-
-    include Types::Enums
-
-    def use_recaptcha?: () -> ::FalseClass
-
-    def resolve: (**untyped args) -> untyped
+  class BaseMutation < ::GraphQL::Schema::RelayClassicMutation
+    def use_recaptcha?: -> bool
+    def mutate: (**untyped) -> bool
+    def resolve: (**untyped) -> untyped
   end
 end

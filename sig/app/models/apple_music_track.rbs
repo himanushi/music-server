@@ -1,17 +1,32 @@
-class AppleMusicTrack < ApplicationRecord
-  include Searchable
+class AppleMusicTrack
+  def self.create_by_data: (::AppleMusic::Api::Response::track data) -> untyped
+  def self.mapping: (
+    ::AppleMusic::Api::Response::track data
+  ) -> {
+    apple_music_id: ::String,
+    name: ::String,
+    playable: bool,
+    isrc: ::String,
+    disc_number: ::Integer,
+    track_number: ::Integer,
+    has_lyrics: bool,
+    duration_ms: ::Integer,
+    preview_url: ::String?,
+    artwork_url: ::String,
+    artwork_width: ::Integer,
+    artwork_height: ::Integer
+  }
+  def self.mapping_relation: (
+    ::AppleMusic::Api::Response::track data
+  ) -> ::Hash[::Symbol, untyped]
 
-  def self.mapping: (untyped data) -> untyped
-
-  def self.to_track_attrs: (untyped data) -> { isrc: untyped }
-
-  def music_service_id: () -> untyped
-
-  def artwork_l: () -> untyped
-
-  def artwork_m: () -> untyped
+  def apple_music_playable: -> bool
+  @artwork_l: ::Artwork?
+  def artwork_l: -> ::Artwork
+  @artwork_m: ::Artwork?
+  def artwork_m: -> ::Artwork
 
   private
 
-  def build_artwork: (untyped max_size) -> untyped
+  def build_artwork: (::Integer max_size) -> ::Artwork
 end

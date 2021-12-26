@@ -1,0 +1,9 @@
+module Mutations
+  class AddRole < ::Mutations::BaseMutation
+    def mutate: (
+      name: ::String,
+      description: ::String,
+      allowed_actions: ::Array[::String]
+    ) -> { role: ::Role }
+  end
+end

@@ -1,0 +1,5 @@
+module Mutations
+  class AddArtist < ::Mutations::BaseMutation
+    def mutate: (apple_music_id: ::String) -> { artist: ::Artist }
+  end
+end

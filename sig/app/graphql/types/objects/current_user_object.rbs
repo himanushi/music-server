@@ -1,0 +1,9 @@
+module Types
+  module Objects
+    class CurrentUserObject < ::Types::Objects::BaseObject
+      def object: -> ::User
+      def name: -> ::String
+      def username: -> ::String
+    end
+  end
+end

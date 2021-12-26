@@ -1,0 +1,12 @@
+module Queries
+  class TracksQuery < ::Queries::BaseListQuery
+    class TracksQueryOrderEnum < ::Types::Enums::BaseEnum
+    end
+
+    class TracksSortInputObject < ::Types::InputObjects::BaseInputObject
+    end
+
+    class TracksConditionsInputObject < ::Types::InputObjects::BaseInputObject
+    end
+  end
+end

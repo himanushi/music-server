@@ -52,39 +52,22 @@ class IgnoreContent < ApplicationRecord
   def restore_updated_at!: () -> void
   def clear_updated_at_change: () -> void
 
-  attr_accessor music_service_id(): String
-  def music_service_id_changed?: () -> bool
-  def music_service_id_change: () -> [ String?, String? ]
-  def music_service_id_will_change!: () -> void
-  def music_service_id_was: () -> String?
-  def music_service_id_previously_changed?: () -> bool
-  def music_service_id_previous_change: () -> Array[String?]?
-  def music_service_id_previously_was: () -> String?
-  def music_service_id_before_last_save: () -> String?
-  def music_service_id_change_to_be_saved: () -> Array[String?]?
-  def music_service_id_in_database: () -> String?
-  def saved_change_to_music_service_id: () -> Array[String?]?
-  def saved_change_to_music_service_id?: () -> bool
-  def will_save_change_to_music_service_id?: () -> bool
-  def restore_music_service_id!: () -> void
-  def clear_music_service_id_change: () -> void
-
-  attr_accessor title(): String
-  def title_changed?: () -> bool
-  def title_change: () -> [ String?, String? ]
-  def title_will_change!: () -> void
-  def title_was: () -> String?
-  def title_previously_changed?: () -> bool
-  def title_previous_change: () -> Array[String?]?
-  def title_previously_was: () -> String?
-  def title_before_last_save: () -> String?
-  def title_change_to_be_saved: () -> Array[String?]?
-  def title_in_database: () -> String?
-  def saved_change_to_title: () -> Array[String?]?
-  def saved_change_to_title?: () -> bool
-  def will_save_change_to_title?: () -> bool
-  def restore_title!: () -> void
-  def clear_title_change: () -> void
+  attr_accessor apple_music_id(): String
+  def apple_music_id_changed?: () -> bool
+  def apple_music_id_change: () -> [ String?, String? ]
+  def apple_music_id_will_change!: () -> void
+  def apple_music_id_was: () -> String?
+  def apple_music_id_previously_changed?: () -> bool
+  def apple_music_id_previous_change: () -> Array[String?]?
+  def apple_music_id_previously_was: () -> String?
+  def apple_music_id_before_last_save: () -> String?
+  def apple_music_id_change_to_be_saved: () -> Array[String?]?
+  def apple_music_id_in_database: () -> String?
+  def saved_change_to_apple_music_id: () -> Array[String?]?
+  def saved_change_to_apple_music_id?: () -> bool
+  def will_save_change_to_apple_music_id?: () -> bool
+  def restore_apple_music_id!: () -> void
+  def clear_apple_music_id_change: () -> void
 
   attr_accessor reason(): String
   def reason_changed?: () -> bool

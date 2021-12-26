@@ -1,0 +1,10 @@
+module Types
+  module Objects
+    class PlaylistObject < ::Types::Objects::BaseObject
+      def object: -> ::Playlist
+      def is_mine: -> bool
+      def author: -> ::User?
+      def items: -> ::PlaylistItem::ActiveRecord_Associations_CollectionProxy
+    end
+  end
+end

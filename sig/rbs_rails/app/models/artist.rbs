@@ -86,23 +86,6 @@ class Artist < ApplicationRecord
   def restore_status!: () -> void
   def clear_status_change: () -> void
 
-  attr_accessor pv(): Integer
-  def pv_changed?: () -> bool
-  def pv_change: () -> [ Integer?, Integer? ]
-  def pv_will_change!: () -> void
-  def pv_was: () -> Integer?
-  def pv_previously_changed?: () -> bool
-  def pv_previous_change: () -> Array[Integer?]?
-  def pv_previously_was: () -> Integer?
-  def pv_before_last_save: () -> Integer?
-  def pv_change_to_be_saved: () -> Array[Integer?]?
-  def pv_in_database: () -> Integer?
-  def saved_change_to_pv: () -> Array[Integer?]?
-  def saved_change_to_pv?: () -> bool
-  def will_save_change_to_pv?: () -> bool
-  def restore_pv!: () -> void
-  def clear_pv_change: () -> void
-
   attr_accessor popularity(): Integer
   def popularity_changed?: () -> bool
   def popularity_change: () -> [ Integer?, Integer? ]
@@ -119,6 +102,23 @@ class Artist < ApplicationRecord
   def will_save_change_to_popularity?: () -> bool
   def restore_popularity!: () -> void
   def clear_popularity_change: () -> void
+
+  attr_accessor pv(): Integer
+  def pv_changed?: () -> bool
+  def pv_change: () -> [ Integer?, Integer? ]
+  def pv_will_change!: () -> void
+  def pv_was: () -> Integer?
+  def pv_previously_changed?: () -> bool
+  def pv_previous_change: () -> Array[Integer?]?
+  def pv_previously_was: () -> Integer?
+  def pv_before_last_save: () -> Integer?
+  def pv_change_to_be_saved: () -> Array[Integer?]?
+  def pv_in_database: () -> Integer?
+  def saved_change_to_pv: () -> Array[Integer?]?
+  def saved_change_to_pv?: () -> bool
+  def will_save_change_to_pv?: () -> bool
+  def restore_pv!: () -> void
+  def clear_pv_change: () -> void
 
   def artist_has_albums: () -> ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy
   def artist_has_albums=: (ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasAlbum]) -> (ArtistHasAlbum::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasAlbum])
@@ -154,12 +154,6 @@ class Artist < ApplicationRecord
   def self.pending: () -> ActiveRecord_Relation
   def self.active: () -> ActiveRecord_Relation
   def self.ignore: () -> ActiveRecord_Relation
-  def self.include_album_services: () -> ActiveRecord_Relation
-  def self.include_albums: () -> ActiveRecord_Relation
-  def self.include_tracks: () -> ActiveRecord_Relation
-  def self.include_services: () -> ActiveRecord_Relation
-  def self.services: () -> ActiveRecord_Relation
-  def self.names: () -> ActiveRecord_Relation
 
   module GeneratedRelationMethods
     def pending: () -> ActiveRecord_Relation
@@ -167,18 +161,6 @@ class Artist < ApplicationRecord
     def active: () -> ActiveRecord_Relation
 
     def ignore: () -> ActiveRecord_Relation
-
-    def include_album_services: () -> ActiveRecord_Relation
-
-    def include_albums: () -> ActiveRecord_Relation
-
-    def include_tracks: () -> ActiveRecord_Relation
-
-    def include_services: () -> ActiveRecord_Relation
-
-    def services: () -> ActiveRecord_Relation
-
-    def names: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

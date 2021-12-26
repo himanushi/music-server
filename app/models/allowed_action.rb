@@ -1,15 +1,18 @@
-class AllowedAction < ApplicationRecord
-  table_id :awd
+# frozen_string_literal: true
+
+class AllowedAction < ::ApplicationRecord
+  def table_id() = 'ald'
 
   belongs_to :role
 
-  MUTATION_ACTIONS = Types::MutationType.fields.keys
-  QUERY_ACTIONS = Types::QueryType.fields.keys
-  CONSOLE_ACTIONS = %w[graphiql console]
-  DEFAULT_ACTIONS = QUERY_ACTIONS + %w[login] + CONSOLE_ACTIONS
-
-  ALL_ACTIONS = MUTATION_ACTIONS + QUERY_ACTIONS + CONSOLE_ACTIONS
-
   validates :name, :role, presence: true
-  validates :name, inclusion: { in: ALL_ACTIONS, message: "指定できないアクション(%{value})" }
+  validates :name, inclusion: { in: ->(_) { ::AllowedAction.all_actions }, message: '指定できないアクション(%<value>)' }
+
+  class << self
+    def default_actions() = ::Query.fields.keys + %w[login signup]
+
+    def console_actions() = %w[graphiql console].freeze
+
+    def all_actions() = (::Mutation.fields.keys + default_actions + console_actions).uniq
+  end
 end

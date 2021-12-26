@@ -1,3 +1,0 @@
-class Mutations::MixAlbum < Mutations::BaseMutation
-  def mutate: (album_ids: untyped album_ids) -> untyped
-end

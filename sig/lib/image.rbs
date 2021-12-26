@@ -1,3 +1,0 @@
-class Image
-  def self.fetch_actual_size: (untyped url) -> untyped
-end

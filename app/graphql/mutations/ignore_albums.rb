@@ -1,13 +1,19 @@
-class Mutations::IgnoreAlbums < Mutations::BaseMutation
-  description "PENDING状態のアルバム全てをIGNOREにする。よく考えてから実行すること。"
+# frozen_string_literal: true
 
-  field :albums, [AlbumType], null: true, description: "IGNOREされたアルバム"
+module Mutations
+  class IgnoreAlbums < ::Mutations::BaseMutation
+    description 'PENDING状態のアルバム全てをIGNOREにする。よく考えてから実行すること。'
 
-  def mutate
-    albums = Album.all_pending_to_ignore
-    Rails.cache.clear
-    {
-      albums: albums,
-    }
+    field :result, ::GraphQL::Types::Boolean, null: true
+
+    def mutate
+      ::Album.all_pending_to_ignore
+
+      ::Rails.cache.clear
+
+      {
+        result: true
+      }
+    end
   end
 end

@@ -1,10 +1,25 @@
 {
+  // space 可視化
+  "editor.renderWhitespace": "boundary",
+
+  //linter & formatter
   "emeraldwalk.runonsave": {
     "commands": [
       {
-        "match": "\\.rb$|\\.rake$|Gemfile",
-        "cmd": "docker exec -i music-server_web_1 bash -lc 'bundle exec rubocop -A `echo '${file}' | sed 's@.*/music-server/@@'`'"
+        // vscode の rubocop だと -A が実行できないため追加
+        "match": "\\.rb$|\\.rake$|\\.ru$|Gemfile|Steepfile",
+        "cmd": "rubocop -A '${file}'"
+      },
+      {
+        "match": "\\.rbs$",
+        "cmd": "rbprettier --write '${file}'"
       }
     ]
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "[ruby]": {
+    "editor.tabSize": 2
   }
 }

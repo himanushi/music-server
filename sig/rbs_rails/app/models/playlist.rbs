@@ -179,12 +179,7 @@ class Playlist < ApplicationRecord
   def favorites=: (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite]) -> (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite])
   def favorite_ids: () -> Array[Integer]
   def favorite_ids=: (Array[Integer]) -> Array[Integer]
-  def radio: () -> Radio?
-  def radio=: (Radio?) -> Radio?
-  def build_radio: (untyped) -> Radio
-  def create_radio: (untyped) -> Radio
-  def create_radio!: (untyped) -> Radio
-  def reload_radio: () -> Radio?
+
   def user: () -> User
   def user=: (User?) -> User?
   def reload_user: () -> User?
@@ -207,8 +202,6 @@ class Playlist < ApplicationRecord
   def self.public_type_non_open: () -> ActiveRecord_Relation
   def self.public_type_open: () -> ActiveRecord_Relation
   def self.public_type_anonymous_open: () -> ActiveRecord_Relation
-  def self.include_users: () -> ActiveRecord_Relation
-  def self.include_tracks: () -> ActiveRecord_Relation
 
   module GeneratedRelationMethods
     def public_type_non_open: () -> ActiveRecord_Relation
@@ -216,10 +209,6 @@ class Playlist < ApplicationRecord
     def public_type_open: () -> ActiveRecord_Relation
 
     def public_type_anonymous_open: () -> ActiveRecord_Relation
-
-    def include_users: () -> ActiveRecord_Relation
-
-    def include_tracks: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

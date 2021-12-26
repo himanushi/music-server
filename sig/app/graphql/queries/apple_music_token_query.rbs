@@ -1,0 +1,5 @@
+module Queries
+  class AppleMusicTokenQuery < ::Queries::BaseQuery
+    def query: -> ::String
+  end
+end

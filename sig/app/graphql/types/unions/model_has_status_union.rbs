@@ -1,7 +1,0 @@
-module Types
-  module Unions
-    class ModelHasStatusUnion < BaseUnion
-      def self.resolve_type: (untyped object, untyped context) -> untyped
-    end
-  end
-end

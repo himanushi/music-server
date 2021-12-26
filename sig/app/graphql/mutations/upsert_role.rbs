@@ -1,3 +1,0 @@
-class Mutations::UpsertRole < Mutations::BaseMutation
-  def mutate: (?id: untyped? id, ?name: untyped? name, ?description: untyped? description, ?allowed_actions: untyped allowed_actions) -> untyped
-end

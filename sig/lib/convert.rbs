@@ -1,0 +1,4 @@
+class Convert
+  def self.to_name: (::String name) -> ::String
+  def self.to_time: (::String date_str) -> ::ActiveSupport::TimeWithZone
+end

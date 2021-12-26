@@ -1,6 +1,12 @@
 {
   "recommendations": [
-    // vscode explorer icons
-    "vscode-icons-team.vscode-icons"
+    "misogi.ruby-rubocop",
+    "pkief.material-icon-theme",
+    "soutaro.rbs-syntax",
+    "esbenp.prettier-vscode",
+    "soutaro.steep-vscode",
+    "wingrunr21.vscode-ruby",
+    "mosapride.zenkaku",
+    "emeraldwalk.runonsave"
   ]
 }

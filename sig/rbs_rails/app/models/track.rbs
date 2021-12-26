@@ -52,23 +52,6 @@ class Track < ApplicationRecord
   def restore_updated_at!: () -> void
   def clear_updated_at_change: () -> void
 
-  attr_accessor isrc(): String
-  def isrc_changed?: () -> bool
-  def isrc_change: () -> [ String?, String? ]
-  def isrc_will_change!: () -> void
-  def isrc_was: () -> String?
-  def isrc_previously_changed?: () -> bool
-  def isrc_previous_change: () -> Array[String?]?
-  def isrc_previously_was: () -> String?
-  def isrc_before_last_save: () -> String?
-  def isrc_change_to_be_saved: () -> Array[String?]?
-  def isrc_in_database: () -> String?
-  def saved_change_to_isrc: () -> Array[String?]?
-  def saved_change_to_isrc?: () -> bool
-  def will_save_change_to_isrc?: () -> bool
-  def restore_isrc!: () -> void
-  def clear_isrc_change: () -> void
-
   attr_accessor status(): String
   def status_changed?: () -> bool
   def status_change: () -> [ String?, String? ]
@@ -86,22 +69,22 @@ class Track < ApplicationRecord
   def restore_status!: () -> void
   def clear_status_change: () -> void
 
-  attr_accessor pv(): Integer
-  def pv_changed?: () -> bool
-  def pv_change: () -> [ Integer?, Integer? ]
-  def pv_will_change!: () -> void
-  def pv_was: () -> Integer?
-  def pv_previously_changed?: () -> bool
-  def pv_previous_change: () -> Array[Integer?]?
-  def pv_previously_was: () -> Integer?
-  def pv_before_last_save: () -> Integer?
-  def pv_change_to_be_saved: () -> Array[Integer?]?
-  def pv_in_database: () -> Integer?
-  def saved_change_to_pv: () -> Array[Integer?]?
-  def saved_change_to_pv?: () -> bool
-  def will_save_change_to_pv?: () -> bool
-  def restore_pv!: () -> void
-  def clear_pv_change: () -> void
+  attr_accessor isrc(): String
+  def isrc_changed?: () -> bool
+  def isrc_change: () -> [ String?, String? ]
+  def isrc_will_change!: () -> void
+  def isrc_was: () -> String?
+  def isrc_previously_changed?: () -> bool
+  def isrc_previous_change: () -> Array[String?]?
+  def isrc_previously_was: () -> String?
+  def isrc_before_last_save: () -> String?
+  def isrc_change_to_be_saved: () -> Array[String?]?
+  def isrc_in_database: () -> String?
+  def saved_change_to_isrc: () -> Array[String?]?
+  def saved_change_to_isrc?: () -> bool
+  def will_save_change_to_isrc?: () -> bool
+  def restore_isrc!: () -> void
+  def clear_isrc_change: () -> void
 
   attr_accessor popularity(): Integer
   def popularity_changed?: () -> bool
@@ -120,6 +103,23 @@ class Track < ApplicationRecord
   def restore_popularity!: () -> void
   def clear_popularity_change: () -> void
 
+  attr_accessor pv(): Integer
+  def pv_changed?: () -> bool
+  def pv_change: () -> [ Integer?, Integer? ]
+  def pv_will_change!: () -> void
+  def pv_was: () -> Integer?
+  def pv_previously_changed?: () -> bool
+  def pv_previous_change: () -> Array[Integer?]?
+  def pv_previously_was: () -> Integer?
+  def pv_before_last_save: () -> Integer?
+  def pv_change_to_be_saved: () -> Array[Integer?]?
+  def pv_in_database: () -> Integer?
+  def saved_change_to_pv: () -> Array[Integer?]?
+  def saved_change_to_pv?: () -> bool
+  def will_save_change_to_pv?: () -> bool
+  def restore_pv!: () -> void
+  def clear_pv_change: () -> void
+
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
   def artist_has_tracks=: (ArtistHasTrack::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasTrack]) -> (ArtistHasTrack::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasTrack])
   def artist_has_track_ids: () -> Array[Integer]
@@ -136,18 +136,14 @@ class Track < ApplicationRecord
   def albums=: (Album::ActiveRecord_Associations_CollectionProxy | Array[Album]) -> (Album::ActiveRecord_Associations_CollectionProxy | Array[Album])
   def album_ids: () -> Array[Integer]
   def album_ids=: (Array[Integer]) -> Array[Integer]
-  def apple_music_and_itunes_tracks: () -> AppleMusicTrack::ActiveRecord_Associations_CollectionProxy
-  def apple_music_and_itunes_tracks=: (AppleMusicTrack::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrack]) -> (AppleMusicTrack::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrack])
-  def apple_music_and_itunes_track_ids: () -> Array[Integer]
-  def apple_music_and_itunes_track_ids=: (Array[Integer]) -> Array[Integer]
+  def apple_music_tracks: () -> AppleMusicTrack::ActiveRecord_Associations_CollectionProxy
+  def apple_music_tracks=: (AppleMusicTrack::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrack]) -> (AppleMusicTrack::ActiveRecord_Associations_CollectionProxy | Array[AppleMusicTrack])
+  def apple_music_track_ids: () -> Array[Integer]
+  def apple_music_track_ids=: (Array[Integer]) -> Array[Integer]
   def playlist_items: () -> PlaylistItem::ActiveRecord_Associations_CollectionProxy
   def playlist_items=: (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem]) -> (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem])
   def playlist_item_ids: () -> Array[Integer]
   def playlist_item_ids=: (Array[Integer]) -> Array[Integer]
-  def radio_items: () -> RadioItem::ActiveRecord_Associations_CollectionProxy
-  def radio_items=: (RadioItem::ActiveRecord_Associations_CollectionProxy | Array[RadioItem]) -> (RadioItem::ActiveRecord_Associations_CollectionProxy | Array[RadioItem])
-  def radio_item_ids: () -> Array[Integer]
-  def radio_item_ids=: (Array[Integer]) -> Array[Integer]
   def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
   def favorites=: (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite]) -> (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite])
   def favorite_ids: () -> Array[Integer]
@@ -168,11 +164,6 @@ class Track < ApplicationRecord
   def self.pending: () -> ActiveRecord_Relation
   def self.active: () -> ActiveRecord_Relation
   def self.ignore: () -> ActiveRecord_Relation
-  def self.include_artists: () -> ActiveRecord_Relation
-  def self.include_albums: () -> ActiveRecord_Relation
-  def self.include_services: () -> ActiveRecord_Relation
-  def self.include_album_services: () -> ActiveRecord_Relation
-  def self.services: () -> ActiveRecord_Relation
 
   module GeneratedRelationMethods
     def pending: () -> ActiveRecord_Relation
@@ -180,16 +171,6 @@ class Track < ApplicationRecord
     def active: () -> ActiveRecord_Relation
 
     def ignore: () -> ActiveRecord_Relation
-
-    def include_artists: () -> ActiveRecord_Relation
-
-    def include_albums: () -> ActiveRecord_Relation
-
-    def include_services: () -> ActiveRecord_Relation
-
-    def include_album_services: () -> ActiveRecord_Relation
-
-    def services: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

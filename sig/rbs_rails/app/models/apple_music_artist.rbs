@@ -103,23 +103,6 @@ class AppleMusicArtist < ApplicationRecord
   def restore_name!: () -> void
   def clear_name_change: () -> void
 
-  attr_accessor status(): String
-  def status_changed?: () -> bool
-  def status_change: () -> [ String?, String? ]
-  def status_will_change!: () -> void
-  def status_was: () -> String?
-  def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[String?]?
-  def status_previously_was: () -> String?
-  def status_before_last_save: () -> String?
-  def status_change_to_be_saved: () -> Array[String?]?
-  def status_in_database: () -> String?
-  def saved_change_to_status: () -> Array[String?]?
-  def saved_change_to_status?: () -> bool
-  def will_save_change_to_status?: () -> bool
-  def restore_status!: () -> void
-  def clear_status_change: () -> void
-
   def artist: () -> Artist
   def artist=: (Artist?) -> Artist?
   def reload_artist: () -> Artist?
@@ -127,22 +110,7 @@ class AppleMusicArtist < ApplicationRecord
   def create_artist: (untyped) -> Artist
   def create_artist!: (untyped) -> Artist
 
-  def pending!: () -> bool
-  def pending?: () -> bool
-  def active!: () -> bool
-  def active?: () -> bool
-  def ignore!: () -> bool
-  def ignore?: () -> bool
-  def self.pending: () -> ActiveRecord_Relation
-  def self.active: () -> ActiveRecord_Relation
-  def self.ignore: () -> ActiveRecord_Relation
-
   module GeneratedRelationMethods
-    def pending: () -> ActiveRecord_Relation
-
-    def active: () -> ActiveRecord_Relation
-
-    def ignore: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ActiveRecord::Relation

@@ -1,0 +1,8 @@
+module Types
+  module Objects
+    class RoleObject < ::Types::Objects::BaseObject
+      def object: -> ::Role
+      def allowed_actions: -> ::Array[::String]
+    end
+  end
+end

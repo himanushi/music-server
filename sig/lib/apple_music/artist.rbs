@@ -1,0 +1,5 @@
+module AppleMusic
+  class Artist
+    def self.create_full: (::String apple_music_id, ?force: bool) -> ::Artist
+  end
+end

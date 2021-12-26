@@ -1,3 +1,0 @@
-class Mutations::CreateRadio < Mutations::BaseMutation
-  def mutate: (playlist_id: untyped playlist_id, ?random: bool random) -> { radio: untyped }
-end

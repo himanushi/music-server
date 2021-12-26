@@ -1,46 +1,14 @@
-class Album < ApplicationRecord
-  include Albums::Mix
-
-  include Albums::Status
-
-  def self.find_by_isrc_or_create: (
-    { release_date: ::ActiveSupport::TimeWithZone, total_tracks: Integer } album_attrs,
-    Array[{ isrc: String }] tracks_attrs
-  ) -> instance
-
-  def self.all_pending_to_ignore: () -> ::Array[::Album]
-
-  def self.create_by_new_releases: () -> untyped
-
-  def service: () -> untyped
-
-  def services: () -> untyped
-
-  # アルバム作曲者とトラック作曲者全員
-  def composers: () -> untyped
-
-  # アルバムのトラックの作曲者
-  def tracks_composers: () -> ::Array[::Artist]
-
-  def apple_music_album: () -> untyped
-
-  def itunes_album: () -> untyped
-
-  private
-
-  def pick_apple_album: (bool is_apple_music) -> (nil | untyped)
-
-  public
-
-  # すでに存在するアルバムから全ての音楽サービスのアルバムを必死に探し作成する
-  def create_all_service_albums: () -> ::Array[instance]
-
-  def validate_exists_services: () -> untyped
-
-  # レコードを削除し関連音楽サービスを除外コンテンツにする
-  def force_ignore: () -> untyped
-
-  def to_path: () -> ::String
-
-  def to_url: () -> ::String
+class Album
+  def self.all_pending_to_ignore: -> untyped
+  def self.statuses: -> ::Hash[::String, ::Integer]
+  def self.cache?: (conditions: ::Query::conditions) -> bool
+  def self.generate_relation: (
+    conditions: ::Query::conditions,
+    context: ::GraphQL::Query::context
+  ) -> untyped
+  def sync_tracks_status: -> untyped
+  def force_ignore: -> untyped
+  def update_services: -> ::Album
+  def to_url: -> ::String
+  def service: -> ::AppleMusicAlbum?
 end

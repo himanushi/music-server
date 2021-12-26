@@ -1,0 +1,6 @@
+module Types
+  module Objects
+    class ArtistObject < ::Types::Objects::BaseObject
+    end
+  end
+end

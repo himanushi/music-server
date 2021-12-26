@@ -1,6 +1,10 @@
 module Types
   module Enums
-    class BaseEnum < GraphQL::Schema::Enum
+    class EnumDummy
+      def value: -> ::String
+    end
+    class BaseEnum < ::GraphQL::Schema::Enum
+      def self.values: -> ::Hash[::String, untyped]
     end
   end
 end

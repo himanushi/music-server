@@ -1,6 +1,6 @@
 module Types
   module Enums
-    class ActionEnum < GraphQL::Schema::Enum
+    class ActionEnum < ::Types::Enums::BaseEnum
     end
   end
 end

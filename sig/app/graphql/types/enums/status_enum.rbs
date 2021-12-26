@@ -1,6 +1,6 @@
 module Types
   module Enums
-    class StatusEnum < GraphQL::Schema::Enum
+    class StatusEnum < ::Types::Enums::BaseEnum
     end
   end
 end

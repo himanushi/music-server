@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 module Types
   module InputObjects
-    class BaseInputObject < GraphQL::Schema::InputObject
-      argument_class Types::BaseArgument
-      include Types::Objects
-      include Types::Scalars
-      include Types::InputObjects
-      include Types::Enums
+    class BaseInputObject < ::GraphQL::Schema::InputObject
+      argument_class ::Types::Arguments::BaseArgument
 
-      def self.default_argument_values
-        arguments.map {|k, v| [k, v.default_value] }.to_h.symbolize_keys
+      class << self
+        def default_argument_values
+          arguments.transform_values { |v| v.default_value }
+                   .symbolize_keys
+        end
       end
     end
   end

@@ -1,0 +1,12 @@
+module Queries
+  class AlbumsQuery < ::Queries::BaseListQuery
+    class AlbumsQueryOrderEnum < ::Types::Enums::BaseEnum
+    end
+
+    class AlbumsSortInputObject < ::Types::InputObjects::BaseInputObject
+    end
+
+    class AlbumsConditionsInputObject < ::Types::InputObjects::BaseInputObject
+    end
+  end
+end

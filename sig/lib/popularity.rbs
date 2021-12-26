@@ -1,3 +1,0 @@
-class Popularity
-  def self.tally: () -> untyped
-end

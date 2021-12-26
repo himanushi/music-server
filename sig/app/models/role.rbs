@@ -1,7 +1,5 @@
-class Role < ApplicationRecord
-  def self.admin_role: () -> untyped
-
-  def self.login_role: () -> untyped
-
-  def self.default_role: () -> untyped
+class Role < ::ApplicationRecord
+  def self.admin: -> ::Role
+  def self.login: -> ::Role
+  def self.default: -> ::Role
 end

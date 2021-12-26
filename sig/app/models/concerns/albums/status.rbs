@@ -1,7 +1,0 @@
-module Albums
-  module Status
-    extend ActiveSupport::Concern
-
-    def sync_status_albums: () -> untyped
-  end
-end

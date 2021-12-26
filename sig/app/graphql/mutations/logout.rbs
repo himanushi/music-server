@@ -1,3 +1,5 @@
-class Mutations::Logout < Mutations::BaseMutation
-  def mutate: () -> untyped
+module Mutations
+  class Logout < ::Mutations::BaseMutation
+    def mutate: -> { current_user: ::User }
+  end
 end

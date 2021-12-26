@@ -1,5 +1,0 @@
-module Enums
-  extend ActiveSupport::Concern
-
-  def enums: (untyped enum_name) -> untyped
-end

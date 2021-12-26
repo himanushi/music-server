@@ -1,5 +1,0 @@
-module Queries
-  class Album < BaseQuery
-    def query: (id: untyped id) -> untyped
-  end
-end
