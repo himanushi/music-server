@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_16_000000) do
+ActiveRecord::Schema.define(version: 2021_12_27_000000) do
 
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.integer "total_tracks", default: 0, null: false
     t.integer "pv", default: 0, null: false
     t.integer "popularity", default: 0, null: false
+    t.string "upc", limit: 191, default: "", null: false
     t.index ["popularity"], name: "index_albums_on_popularity"
     t.index ["release_date"], name: "index_albums_on_release_date"
     t.index ["status"], name: "index_albums_on_status"
@@ -49,7 +50,6 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.string "album_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", null: false
-    t.integer "status", default: 0, null: false
     t.boolean "playable", default: false, null: false, comment: "サブスクリプション再生可能可否"
     t.datetime "release_date", null: false
     t.integer "total_tracks", default: 0, null: false
@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.integer "artwork_width", null: false
     t.integer "artwork_height", null: false
     t.string "compacted_id"
+    t.string "upc", limit: 191, default: "", null: false
     t.index ["album_id"], name: "index_apple_music_albums_on_album_id", unique: true
-    t.index ["apple_music_id", "status"], name: "index_apple_music_albums_on_apple_music_id_and_status", unique: true
-    t.index ["status"], name: "index_apple_music_albums_on_status"
+    t.index ["apple_music_id"], name: "index_apple_music_albums_on_apple_music_id_and_status", unique: true
   end
 
   create_table "apple_music_artists", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
@@ -70,10 +70,8 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.string "artist_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", limit: 191, null: false
-    t.integer "status", default: 0, null: false
     t.index ["apple_music_id"], name: "index_apple_music_artists_on_apple_music_id", unique: true
     t.index ["artist_id"], name: "fk_rails_22b20a7d1a"
-    t.index ["status"], name: "index_apple_music_artists_on_status"
   end
 
   create_table "apple_music_track_words", charset: "utf8mb4", force: :cascade do |t|
@@ -158,7 +156,6 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "music_service_id", limit: 191, null: false
-    t.string "title", limit: 191, null: false
     t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
   end
@@ -189,36 +186,6 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
     t.index ["track_id"], name: "fk_rails_f42c5216a7"
     t.index ["updated_at"], name: "index_playlists_on_updated_at"
     t.index ["user_id"], name: "fk_rails_d67ef1eb45"
-  end
-
-  create_table "public_informations", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "user_id", limit: 16, null: false
-    t.integer "public_type", null: false
-    t.index ["user_id", "public_type"], name: "index_public_informations_on_user_id_and_public_type", unique: true
-  end
-
-  create_table "radio_items", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "radio_id", limit: 16, null: false
-    t.string "track_id", limit: 16, null: false
-    t.integer "track_number", null: false
-    t.index ["radio_id", "track_number"], name: "index_radio_items_on_radio_id_and_track_number", unique: true
-    t.index ["track_id"], name: "fk_rails_10e11c3a50"
-  end
-
-  create_table "radios", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "playlist_id", limit: 16, null: false
-    t.datetime "start_datetime"
-    t.boolean "random", default: false, null: false
-    t.integer "popularity", default: 0, null: false
-    t.integer "pv", default: 0, null: false
-    t.index ["playlist_id"], name: "fk_rails_e10128f920"
-    t.index ["popularity"], name: "index_radios_on_popularity"
   end
 
   create_table "roles", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
@@ -284,9 +251,5 @@ ActiveRecord::Schema.define(version: 2021_07_16_000000) do
   add_foreign_key "playlist_items", "tracks"
   add_foreign_key "playlists", "tracks"
   add_foreign_key "playlists", "users"
-  add_foreign_key "public_informations", "users"
-  add_foreign_key "radio_items", "radios"
-  add_foreign_key "radio_items", "tracks"
-  add_foreign_key "radios", "playlists"
   add_foreign_key "sessions", "users"
 end
