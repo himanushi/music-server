@@ -3,10 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.1.0'
 
 # Rails
-gem 'rails', '~> 7.0'
+gem 'rails', github: 'rails/rails', branch: '7-0-stable'
 # DB
 gem 'mysql2', '~> 0.5'
 # App server
