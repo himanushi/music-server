@@ -25,7 +25,7 @@ class Track < ::ApplicationRecord
            :artwork_l,
            to: :service
 
-  def service() = apple_music_tracks.first
+  def service() = apple_music_tracks.to_a[0]
 
   class << self
     def cache?(conditions:)
