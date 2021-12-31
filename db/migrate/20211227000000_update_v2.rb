@@ -16,6 +16,27 @@ class UpdateV2 < ::ActiveRecord::Migration[6.0]
     drop_table(:radio_items)
 
     drop_table(:radios)
+
+    ::AllowedAction.where(
+      name: %w[
+        changeStatus
+        compactAlbum
+        createRadio
+        deleteRadio
+        generateSitemaps
+        mixAlbum
+        mixArtist
+        radio
+        radios
+        tally
+        uncompactAlbum
+        unmixAlbum
+        updateAnalytics
+        upsertAlbum
+        upsertArtist
+        upsertRole
+      ]
+    ).delete_all
   end
 
   def down
