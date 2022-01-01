@@ -9,7 +9,8 @@ class ApplicationController < ::ActionController::Base
       if token.present?
         begin
           session = ::Session.find_by_digit_token!(token)
-          { user: session.user, session: session, cookie: request.cookies }
+          user = session.user
+          { user:, session:, cookie: request.cookies }
         rescue ::StandardError
           create_current_info
         end
@@ -41,6 +42,8 @@ class ApplicationController < ::ActionController::Base
 
   def create_current_info
     user = ::User.create_user_and_session!
-    { user: user, session: user.sessions.first, cookie: request.cookies }
+    session = user.sessions.first
+    
+    { user:, session:, cookie: request.cookies }
   end
 end
