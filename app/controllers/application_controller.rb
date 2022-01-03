@@ -10,7 +10,7 @@ class ApplicationController < ::ActionController::Base
         begin
           session = ::Session.find_by_digit_token!(token)
           user = session.user
-          { user:, session:, cookie: request.cookies }
+          { user: user, session: session, cookie: request.cookies }
         rescue ::StandardError
           create_current_info
         end
