@@ -1,4 +1,4 @@
-FROM ruby:3.1.0
+FROM ruby:3.0.2
 
 # node lts
 RUN curl -SL https://deb.nodesource.com/setup_14.x | bash && \
