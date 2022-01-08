@@ -30,9 +30,7 @@ module Mutations
 
       ::Rails.cache.clear
 
-      {
-        role: role
-      }
+      { role: role }
     end
   end
 end

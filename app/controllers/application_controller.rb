@@ -43,7 +43,7 @@ class ApplicationController < ::ActionController::Base
   def create_current_info
     user = ::User.create_user_and_session!
     session = user.sessions.first
-    
-    { user:, session:, cookie: request.cookies }
+
+    { user: user, session: session, cookie: request.cookies }
   end
 end
