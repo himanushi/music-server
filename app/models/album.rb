@@ -74,7 +74,7 @@ class Album < ::ApplicationRecord
 
       if conditions.key?(:name)
         name = conditions.delete(:name)
-        relation = relation.where('apple_music_albums.name like :name', name: "%#{name}%")
+        relation = relation.joins(:apple_music_album).where('apple_music_albums.name like :name', name: "%#{name}%")
       end
 
       if conditions.key?(:artist_ids)
