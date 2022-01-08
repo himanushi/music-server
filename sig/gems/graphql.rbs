@@ -109,6 +109,7 @@ module GraphQL
       attr_reader context: GraphQL::Query::context
     end
     class Resolver
+      def field: -> untyped
       module HasPayloadType
         def payload_type: (?Class? new_payload_type) -> Class
         alias type payload_type

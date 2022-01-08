@@ -11,6 +11,7 @@ class Query < ::Types::Objects::BaseObject
   field :playlist, resolver: ::Queries::PlaylistQuery
   field :playlists, resolver: ::Queries::PlaylistsQuery
   field :roles, resolver: ::Queries::RolesQuery
+  field :all_actions, resolver: ::Queries::AllActionsQuery
   field :apple_music_token, resolver: ::Queries::AppleMusicTokenQuery
   field :define_types, resolver: ::Queries::DefineTypes
 end

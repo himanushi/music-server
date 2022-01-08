@@ -1,0 +1,5 @@
+module Queries
+  class AllActionsQuery < ::Queries::BaseQuery
+    def query: -> ::Array[::String]
+  end
+end
