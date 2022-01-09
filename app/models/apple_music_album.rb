@@ -8,13 +8,13 @@ class AppleMusicAlbum < ::ApplicationRecord
 
   class << self
     def create_by_data(data)
-      raise(::StandardError, 'album data が存在しない') unless (album = data['data'].first)
+      raise(::StandardError, 'album data が存在しない') unless (album_data = data['data'].first)
 
-      if (am_album = find_by(upc: album['attributes']['upc'].upcase))
+      if (am_album = find_by(upc: album_data['attributes']['upc'].upcase))
         am_album.destroy!
       end
 
-      instance = new(mapping(album).merge(mapping_relation(album)))
+      instance = new(mapping(album_data).merge(mapping_relation(album_data)))
       instance.save!
       instance
     end
