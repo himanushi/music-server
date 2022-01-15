@@ -49,7 +49,7 @@ class User < ::ApplicationRecord
   end
 
   def can?(action_name)
-    raise(::StandardError, '指定されたアクションは存在しません') unless ::AllowedAction.all_actions.include?(action_name)
+    raise(::StandardError, "指定されたアクションは存在しません: #{action_name}") unless ::AllowedAction.all_actions.include?(action_name)
 
     role.allowed_actions.where(name: action_name).exists?
   end
