@@ -47,6 +47,11 @@ class Album < ::ApplicationRecord
   def update_services
     return self unless (am_album = apple_music_album)
 
+    begin
+      ::AppleMusic::Album.create_full(am_album.apple_music_id, force: true)
+    rescue ::StandardError => e
+      raise(e) unless e.message == '404: Not Found'
+    end
 
     self
   end
