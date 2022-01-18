@@ -159,30 +159,6 @@ module AppleMusic
 
       type albums = { "next" => ::String | nil, "data" => Array[album] }
 
-      # 結合した後の data
-      type full_album =
-        {
-          "id" => ::String,
-          "type" => 'albums',
-          "href" => ::String,
-          "attributes" => album_attributes,
-          "relationships" => {
-            "tracks" => {
-              "next" => ::String | nil,
-              "href" => ::String,
-              "data" => ::Array[track]
-            },
-            "artists" => {
-              "next" => ::String | nil,
-              "href" => ::String,
-              "data" => ::Array[artist]
-            }
-          }
-        }
-
-      type full_albums =
-        { "next" => ::String | nil, "data" => Array[full_album] }
-
       type simple_track =
         {
           "id" => ::String,
