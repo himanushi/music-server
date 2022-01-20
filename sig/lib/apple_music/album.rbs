@@ -6,12 +6,12 @@ module AppleMusic
     ) -> ::AppleMusicAlbum
     def self.build_json: (
       ::String apple_music_id
-    ) -> ::AppleMusic::Api::Response::full_albums
+    ) -> ::AppleMusic::Api::Response::albums
     def self.prepare_create_artists: (
-      ::AppleMusic::Api::Response::full_albums albums_data
+      ::AppleMusic::Api::Response::albums albums_data
     ) -> untyped
     def self.prepare_create_album_tracks: (
-      ::AppleMusic::Api::Response::full_albums albums_data
+      ::AppleMusic::Api::Response::albums albums_data
     ) -> untyped
   end
 end
