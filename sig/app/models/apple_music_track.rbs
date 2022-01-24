@@ -1,7 +1,9 @@
 class AppleMusicTrack
-  def self.create_by_data: (::AppleMusic::Api::Response::track data) -> untyped
+  def self.create_by_data: (
+    ::AppleMusic::Api::Response::simple_track data
+  ) -> untyped
   def self.mapping: (
-    ::AppleMusic::Api::Response::track data
+    ::AppleMusic::Api::Response::simple_track data
   ) -> {
     apple_music_id: ::String,
     name: ::String,
@@ -17,7 +19,7 @@ class AppleMusicTrack
     artwork_height: ::Integer
   }
   def self.mapping_relation: (
-    ::AppleMusic::Api::Response::track data
+    ::AppleMusic::Api::Response::simple_track data
   ) -> ::Hash[::Symbol, untyped]
 
   def apple_music_playable: -> bool

@@ -13,6 +13,10 @@ class Artist < ::ApplicationRecord
   enum status: { pending: 0, active: 1, ignore: 2 }
 
   class << self
+    def find_by_name(name)
+      find_by(name: ::Convert.to_name(name))
+    end
+
     def cache?(conditions:)
       cache = true
       cache = false if conditions.key?(:favorite)

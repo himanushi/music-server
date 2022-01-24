@@ -10,9 +10,10 @@ class AppleMusicAlbum < ::ApplicationRecord
     def create_by_data(data)
       raise(::StandardError, 'album data が存在しない') unless (album_data = data['data'].first)
 
-      if (am_album = find_by(upc: album_data['attributes']['upc'].upcase))
-        am_album.destroy!
-      end
+      isrc = album_data['relationships']['tracks']['data'].map { |track_data| track_data['attributes']['isrc'] }
+      album = ::Album.find_by_isrc(isrc) || ::Album.find_or_initialize_by(upc: album_data['attributes']['upc'].upcase)
+      apple_music_album = album.apple_music_album
+      apple_music_album.destroy! if apple_music_album
 
       instance = new(mapping(album_data).merge(mapping_relation(album_data)))
       instance.save!
@@ -49,8 +50,11 @@ class AppleMusicAlbum < ::ApplicationRecord
           ::AppleMusicTrack.create_by_data(track_data)
         end
 
+      isrc = data['relationships']['tracks']['data'].map { |track_data| track_data['attributes']['isrc'] }
+      album = ::Album.find_by_isrc(isrc) || ::Album.find_or_initialize_by(upc: data['attributes']['upc'].upcase)
+
       {
-        album: ::Album.find_by!(upc: data['attributes']['upc'].upcase),
+        album: album,
         apple_music_tracks: apple_music_tracks.compact
       }
     end

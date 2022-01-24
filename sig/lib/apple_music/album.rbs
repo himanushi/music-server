@@ -10,6 +10,7 @@ module AppleMusic
     def self.prepare_create_artists: (
       ::AppleMusic::Api::Response::albums albums_data
     ) -> untyped
+    def self.create_artist: (::String name, ::String id) -> untyped
     def self.prepare_create_album_tracks: (
       ::AppleMusic::Api::Response::albums albums_data
     ) -> untyped
