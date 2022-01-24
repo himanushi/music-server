@@ -15,6 +15,8 @@ module Mutations
       album.status = status
       album.save!
 
+      ::TwitterClient.post_album(album) if tweet
+
       ::Rails.cache.clear
 
       {

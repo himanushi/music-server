@@ -30,6 +30,16 @@ class Album < ::ApplicationRecord
 
   def service() = apple_music_album
 
+  # アルバム作曲者とトラック作曲者全員
+  def composers
+    (artists.active.to_a + tracks_composers).uniq
+  end
+
+  # アルバムのトラックの作曲者
+  def tracks_composers
+    ::Artist.distinct.where(id: tracks.includes(:artists).pluck('artists.id')).to_a
+  end
+
   def force_ignore
     ::ActiveRecord::Base.transaction do
       if (am_album = apple_music_album)

@@ -12,4 +12,6 @@ class Album
   def update_services: -> ::Album
   def to_url: -> ::String
   def service: -> ::AppleMusicAlbum?
+  def tracks_composers: -> ::Array[::Artist]
+  def composers: -> ::Array[::Artist]
 end

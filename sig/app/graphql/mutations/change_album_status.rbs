@@ -1,5 +1,9 @@
 module Mutations
   class ChangeAlbumStatus < ::Mutations::BaseMutation
-    def mutate: (status: ::String, id: ::String) -> { result: bool }
+    def mutate: (
+      status: ::String,
+      id: ::String,
+      tweet: ::GraphQL::Types::Boolean
+    ) -> { result: bool }
   end
 end
