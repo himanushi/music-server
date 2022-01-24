@@ -61,6 +61,11 @@ class Album < ::ApplicationRecord
   end
 
   class << self
+    def find_by_isrc(isrc)
+      joins(:tracks).where(tracks: { isrc: isrc }, total_tracks: isrc.size)
+                    .group('albums.id').having('count(*) = albums.total_tracks').first
+    end
+
     def cache?(conditions:)
       cache = true
       cache = false if conditions.key?(:favorite)
