@@ -1,0 +1,5 @@
+class TwitterClient
+  def self.default_hash_tag: -> ::String
+  def self.post_album: (::Album album) -> void
+  def self.client: -> ::Twitter::REST::Client
+end

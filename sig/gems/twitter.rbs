@@ -1,0 +1,7 @@
+module Twitter
+  module REST
+    class Client
+      def update: (::String txt) -> void
+    end
+  end
+end

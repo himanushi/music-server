@@ -21,6 +21,8 @@ gem 'graphiql-rails', '~> 1.8.0'
 gem 'jwt', '~> 2.3.0'
 # 暗号化 bcrypt
 gem 'bcrypt', '~> 3.1.16'
+# Twitter 投稿
+gem 'twitter', '~> 7.0.0'
 
 group :development, :test do
   # Ruby debug
