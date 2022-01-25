@@ -30,7 +30,6 @@ class Album < ::ApplicationRecord
 
   def service() = apple_music_album
 
-  # アルバム作曲者とトラック作曲者全員
   def composers
     (artists.active.to_a + tracks_composers).uniq
   end
