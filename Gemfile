@@ -10,7 +10,7 @@ gem 'rails', '~> 7.0'
 # DB
 gem 'mysql2', '~> 0.5'
 # App server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6'
 # HTTP メソッド許可
 gem 'rack-cors', '~> 1.1.1'
 # GraphQL
