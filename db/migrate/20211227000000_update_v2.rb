@@ -38,6 +38,7 @@ class UpdateV2 < ::ActiveRecord::Migration[6.0]
       ]
     ).delete_all
     ::AllowedAction.new(name: 'updateRole', role: ::Role.admin).save!
+    ::AllowedAction.new(name: 'allActions', role: ::Role.admin).save!
   end
 
   def down
