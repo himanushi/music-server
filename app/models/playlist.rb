@@ -109,7 +109,7 @@ class Playlist < ::ApplicationRecord
 
     ::ActiveRecord::Base.transaction do
       playlist_items << items
-      self.track = playlist_items.first ? playlist_items.first.track : nil
+      self.track = playlist_items.first ? playlist_items.first&.track : nil
       touch
       save!
     end

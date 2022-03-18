@@ -21,7 +21,7 @@ class ApplicationController < ::ActionController::Base
 
   def refresh_token
     auth_setting = {
-      value: "Bearer #{current_info[:session].digit_token}",
+      value: "Bearer #{current_info[:session]&.digit_token}",
       max_age: ::Session::EXPIRE_DAYS.in_seconds,
       http_only: true,
       same_site: :lax,

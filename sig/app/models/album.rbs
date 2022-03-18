@@ -1,4 +1,4 @@
-class Album
+class Album < ::ApplicationRecord
   def self.find_by_isrc: (::Array[::String] isrc) -> ::Album?
   def self.all_pending_to_ignore: -> untyped
   def self.statuses: -> ::Hash[::String, ::Integer]

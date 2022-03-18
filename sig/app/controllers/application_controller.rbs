@@ -1,5 +1,6 @@
 class ApplicationController < ::ActionController::Base
-  type current_info = { user: ::User, session: ::Session, cookie: untyped }
+  type current_info =
+    { user: ::User, session: ::Session | nil, cookie: untyped }
 
   @current_info: current_info
 

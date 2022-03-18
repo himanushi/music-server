@@ -1,125 +1,260 @@
-class Track < ApplicationRecord
+class Track < ::ApplicationRecord
   extend _ActiveRecord_Relation_ClassMethods[Track, ActiveRecord_Relation, String]
 
-  attr_accessor id(): String
-  def id_changed?: () -> bool
-  def id_change: () -> [ String?, String? ]
-  def id_will_change!: () -> void
-  def id_was: () -> String?
-  def id_previously_changed?: () -> bool
-  def id_previous_change: () -> Array[String?]?
-  def id_previously_was: () -> String?
-  def id_before_last_save: () -> String?
-  def id_change_to_be_saved: () -> Array[String?]?
-  def id_in_database: () -> String?
-  def saved_change_to_id: () -> Array[String?]?
-  def saved_change_to_id?: () -> bool
-  def will_save_change_to_id?: () -> bool
-  def restore_id!: () -> void
-  def clear_id_change: () -> void
+  module GeneratedAttributeMethods
+    def id: () -> String
 
-  attr_accessor created_at(): ActiveSupport::TimeWithZone
-  def created_at_changed?: () -> bool
-  def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
-  def created_at_will_change!: () -> void
-  def created_at_was: () -> ActiveSupport::TimeWithZone?
-  def created_at_previously_changed?: () -> bool
-  def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
-  def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
-  def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
-  def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
-  def created_at_in_database: () -> ActiveSupport::TimeWithZone?
-  def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
-  def saved_change_to_created_at?: () -> bool
-  def will_save_change_to_created_at?: () -> bool
-  def restore_created_at!: () -> void
-  def clear_created_at_change: () -> void
+    def id=: (String) -> String
 
-  attr_accessor updated_at(): ActiveSupport::TimeWithZone
-  def updated_at_changed?: () -> bool
-  def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
-  def updated_at_will_change!: () -> void
-  def updated_at_was: () -> ActiveSupport::TimeWithZone?
-  def updated_at_previously_changed?: () -> bool
-  def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
-  def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
-  def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
-  def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
-  def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
-  def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
-  def saved_change_to_updated_at?: () -> bool
-  def will_save_change_to_updated_at?: () -> bool
-  def restore_updated_at!: () -> void
-  def clear_updated_at_change: () -> void
+    def id?: () -> bool
 
-  attr_accessor status(): String
-  def status_changed?: () -> bool
-  def status_change: () -> [ String?, String? ]
-  def status_will_change!: () -> void
-  def status_was: () -> String?
-  def status_previously_changed?: () -> bool
-  def status_previous_change: () -> Array[String?]?
-  def status_previously_was: () -> String?
-  def status_before_last_save: () -> String?
-  def status_change_to_be_saved: () -> Array[String?]?
-  def status_in_database: () -> String?
-  def saved_change_to_status: () -> Array[String?]?
-  def saved_change_to_status?: () -> bool
-  def will_save_change_to_status?: () -> bool
-  def restore_status!: () -> void
-  def clear_status_change: () -> void
+    def id_changed?: () -> bool
 
-  attr_accessor isrc(): String
-  def isrc_changed?: () -> bool
-  def isrc_change: () -> [ String?, String? ]
-  def isrc_will_change!: () -> void
-  def isrc_was: () -> String?
-  def isrc_previously_changed?: () -> bool
-  def isrc_previous_change: () -> Array[String?]?
-  def isrc_previously_was: () -> String?
-  def isrc_before_last_save: () -> String?
-  def isrc_change_to_be_saved: () -> Array[String?]?
-  def isrc_in_database: () -> String?
-  def saved_change_to_isrc: () -> Array[String?]?
-  def saved_change_to_isrc?: () -> bool
-  def will_save_change_to_isrc?: () -> bool
-  def restore_isrc!: () -> void
-  def clear_isrc_change: () -> void
+    def id_change: () -> [ String?, String? ]
 
-  attr_accessor popularity(): Integer
-  def popularity_changed?: () -> bool
-  def popularity_change: () -> [ Integer?, Integer? ]
-  def popularity_will_change!: () -> void
-  def popularity_was: () -> Integer?
-  def popularity_previously_changed?: () -> bool
-  def popularity_previous_change: () -> Array[Integer?]?
-  def popularity_previously_was: () -> Integer?
-  def popularity_before_last_save: () -> Integer?
-  def popularity_change_to_be_saved: () -> Array[Integer?]?
-  def popularity_in_database: () -> Integer?
-  def saved_change_to_popularity: () -> Array[Integer?]?
-  def saved_change_to_popularity?: () -> bool
-  def will_save_change_to_popularity?: () -> bool
-  def restore_popularity!: () -> void
-  def clear_popularity_change: () -> void
+    def id_will_change!: () -> void
 
-  attr_accessor pv(): Integer
-  def pv_changed?: () -> bool
-  def pv_change: () -> [ Integer?, Integer? ]
-  def pv_will_change!: () -> void
-  def pv_was: () -> Integer?
-  def pv_previously_changed?: () -> bool
-  def pv_previous_change: () -> Array[Integer?]?
-  def pv_previously_was: () -> Integer?
-  def pv_before_last_save: () -> Integer?
-  def pv_change_to_be_saved: () -> Array[Integer?]?
-  def pv_in_database: () -> Integer?
-  def saved_change_to_pv: () -> Array[Integer?]?
-  def saved_change_to_pv?: () -> bool
-  def will_save_change_to_pv?: () -> bool
-  def restore_pv!: () -> void
-  def clear_pv_change: () -> void
+    def id_was: () -> String?
 
+    def id_previously_changed?: () -> bool
+
+    def id_previous_change: () -> Array[String?]?
+
+    def id_previously_was: () -> String?
+
+    def id_before_last_save: () -> String?
+
+    def id_change_to_be_saved: () -> Array[String?]?
+
+    def id_in_database: () -> String?
+
+    def saved_change_to_id: () -> Array[String?]?
+
+    def saved_change_to_id?: () -> bool
+
+    def will_save_change_to_id?: () -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def created_at: () -> ActiveSupport::TimeWithZone
+
+    def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: () -> bool
+
+    def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: () -> bool
+
+    def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: () -> bool
+
+    def will_save_change_to_created_at?: () -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def updated_at: () -> ActiveSupport::TimeWithZone
+
+    def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: () -> bool
+
+    def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: () -> bool
+
+    def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: () -> bool
+
+    def will_save_change_to_updated_at?: () -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def isrc: () -> String
+
+    def isrc=: (String) -> String
+
+    def isrc?: () -> bool
+
+    def isrc_changed?: () -> bool
+
+    def isrc_change: () -> [ String?, String? ]
+
+    def isrc_will_change!: () -> void
+
+    def isrc_was: () -> String?
+
+    def isrc_previously_changed?: () -> bool
+
+    def isrc_previous_change: () -> Array[String?]?
+
+    def isrc_previously_was: () -> String?
+
+    def isrc_before_last_save: () -> String?
+
+    def isrc_change_to_be_saved: () -> Array[String?]?
+
+    def isrc_in_database: () -> String?
+
+    def saved_change_to_isrc: () -> Array[String?]?
+
+    def saved_change_to_isrc?: () -> bool
+
+    def will_save_change_to_isrc?: () -> bool
+
+    def restore_isrc!: () -> void
+
+    def clear_isrc_change: () -> void
+
+    def status: () -> String
+
+    def status=: (String) -> String
+
+    def status?: () -> bool
+
+    def status_changed?: () -> bool
+
+    def status_change: () -> [ String?, String? ]
+
+    def status_will_change!: () -> void
+
+    def status_was: () -> String?
+
+    def status_previously_changed?: () -> bool
+
+    def status_previous_change: () -> Array[String?]?
+
+    def status_previously_was: () -> String?
+
+    def status_before_last_save: () -> String?
+
+    def status_change_to_be_saved: () -> Array[String?]?
+
+    def status_in_database: () -> String?
+
+    def saved_change_to_status: () -> Array[String?]?
+
+    def saved_change_to_status?: () -> bool
+
+    def will_save_change_to_status?: () -> bool
+
+    def restore_status!: () -> void
+
+    def clear_status_change: () -> void
+
+    def pv: () -> Integer
+
+    def pv=: (Integer) -> Integer
+
+    def pv?: () -> bool
+
+    def pv_changed?: () -> bool
+
+    def pv_change: () -> [ Integer?, Integer? ]
+
+    def pv_will_change!: () -> void
+
+    def pv_was: () -> Integer?
+
+    def pv_previously_changed?: () -> bool
+
+    def pv_previous_change: () -> Array[Integer?]?
+
+    def pv_previously_was: () -> Integer?
+
+    def pv_before_last_save: () -> Integer?
+
+    def pv_change_to_be_saved: () -> Array[Integer?]?
+
+    def pv_in_database: () -> Integer?
+
+    def saved_change_to_pv: () -> Array[Integer?]?
+
+    def saved_change_to_pv?: () -> bool
+
+    def will_save_change_to_pv?: () -> bool
+
+    def restore_pv!: () -> void
+
+    def clear_pv_change: () -> void
+
+    def popularity: () -> Integer
+
+    def popularity=: (Integer) -> Integer
+
+    def popularity?: () -> bool
+
+    def popularity_changed?: () -> bool
+
+    def popularity_change: () -> [ Integer?, Integer? ]
+
+    def popularity_will_change!: () -> void
+
+    def popularity_was: () -> Integer?
+
+    def popularity_previously_changed?: () -> bool
+
+    def popularity_previous_change: () -> Array[Integer?]?
+
+    def popularity_previously_was: () -> Integer?
+
+    def popularity_before_last_save: () -> Integer?
+
+    def popularity_change_to_be_saved: () -> Array[Integer?]?
+
+    def popularity_in_database: () -> Integer?
+
+    def saved_change_to_popularity: () -> Array[Integer?]?
+
+    def saved_change_to_popularity?: () -> bool
+
+    def will_save_change_to_popularity?: () -> bool
+
+    def restore_popularity!: () -> void
+
+    def clear_popularity_change: () -> void
+  end
+  include GeneratedAttributeMethods
   def artist_has_tracks: () -> ArtistHasTrack::ActiveRecord_Associations_CollectionProxy
   def artist_has_tracks=: (ArtistHasTrack::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasTrack]) -> (ArtistHasTrack::ActiveRecord_Associations_CollectionProxy | Array[ArtistHasTrack])
   def artist_has_track_ids: () -> Array[Integer]
@@ -173,13 +308,13 @@ class Track < ApplicationRecord
     def ignore: () -> ActiveRecord_Relation
   end
 
-  class ActiveRecord_Relation < ActiveRecord::Relation
+  class ActiveRecord_Relation < ::ActiveRecord::Relation
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Track, String]
     include Enumerable[Track]
   end
 
-  class ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+  class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Track, String]
   end

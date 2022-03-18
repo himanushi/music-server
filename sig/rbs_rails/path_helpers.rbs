@@ -4,9 +4,11 @@ interface _RbsRailsPathHelpers
   def rails_info_path: (*untyped) -> String
   def graphql_path: (*untyped) -> String
   def graphiql_rails_path: (*untyped) -> String
+  def root_path: (*untyped) -> String
   def rails_info_properties_url: (*untyped) -> String
   def rails_info_routes_url: (*untyped) -> String
   def rails_info_url: (*untyped) -> String
   def graphql_url: (*untyped) -> String
   def graphiql_rails_url: (*untyped) -> String
+  def root_url: (*untyped) -> String
 end

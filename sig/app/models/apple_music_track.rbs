@@ -28,6 +28,9 @@ class AppleMusicTrack
   @artwork_m: ::Artwork?
   def artwork_m: -> ::Artwork
 
+  def build_words_attributes: -> ::Array[::AppleMusicTrackWord::attributes]
+  def upsert_words: -> untyped
+
   private
 
   def build_artwork: (::Integer max_size) -> ::Artwork
