@@ -8,6 +8,25 @@ class AppleMusicTrack < ::ApplicationRecord
 
   delegate :status, :popularity, to: :track
 
+  ### Word ###
+  # いつか削除したいしモジュールにもしたい
+  has_many :words, class_name: 'AppleMusicTrackWord', dependent: :destroy
+
+  def build_words_attributes
+    ::AppleMusicTrackWord.bigram_attributes(id, name)
+  end
+
+  def upsert_words
+    # 2文字未満は検索しないので除外
+    return unless name.length > 1
+
+    ::ActiveRecord::Base.transaction do
+      words.delete_all
+      ::AppleMusicTrackWord.insert_all(build_words_attributes) if status == 'active'
+    end
+  end
+  ### Word ###
+
   class << self
     def create_by_data(data)
       new(mapping(data).merge(mapping_relation(data)))

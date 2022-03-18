@@ -44,9 +44,7 @@ class Track < ::ApplicationRecord
       if conditions.key?(:name)
         # @type var name: ::String
         name = conditions.delete(:name)
-        # @type var track_ids: ::Array[::String]
-        track_ids = ::AppleMusicTrack.where('name like :name', { name: "%#{name}%" }).select(:track_id).pluck(:track_id)
-        relation = relation.where(id: track_ids.uniq)
+        relation = relation.where(apple_music_tracks: { id: ::AppleMusicTrackWord.search_ids(name) })
       end
 
       if conditions.delete(:favorite)
@@ -56,4 +54,15 @@ class Track < ::ApplicationRecord
       relation.where(conditions)
     end
   end
+
+  ### Word ###
+  # いつか削除したいしモジュールにもしたい
+  before_update :upsert_words, if: :status_changed?
+
+  def upsert_words
+    ::ActiveRecord::Base.transaction do
+      apple_music_tracks.each { |apple_music_track| apple_music_track.upsert_words }
+    end
+  end
+  ### Word ###
 end

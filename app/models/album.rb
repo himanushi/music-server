@@ -22,10 +22,10 @@ class Album < ::ApplicationRecord
            :artwork_l,
            to: :service
 
-  before_update :sync_tracks_status
+  before_update :sync_tracks_status, if: :status_changed?
 
   def sync_tracks_status
-    tracks.update_all(status: status) if status_changed?
+    tracks.each { |track| track.update!(status: status) }
   end
 
   def service() = apple_music_album

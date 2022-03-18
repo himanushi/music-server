@@ -1,0 +1,16 @@
+class AppleMusicTrackWord < ::ActiveRecord::Base
+  type attributes =
+    { apple_music_track_id: ::String, text: ::String, position: ::Integer }
+
+  def self.ngram: (::Integer num, ::String text) -> ::Array[::String | nil]
+  def self.ngram_attributes: (
+    ::String id,
+    ::Integer num,
+    ::String text
+  ) -> ::Array[attributes]
+  def self.bigram_attributes: (
+    ::String id,
+    ::String text
+  ) -> ::Array[attributes]
+  def self.search_ids: (::String text) -> ::Array[::String]
+end
