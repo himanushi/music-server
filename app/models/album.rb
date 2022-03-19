@@ -43,11 +43,7 @@ class Album < ::ApplicationRecord
   def force_ignore
     ::ActiveRecord::Base.transaction do
       if (am_album = apple_music_album)
-        ::IgnoreContent.create!(
-          music_service_id: am_album.apple_music_id,
-          title: 'force ignore album',
-          reason: '除外対象のアルバムのため'
-        )
+        ::IgnoreContent.create!(music_service_id: am_album.apple_music_id, reason: '除外対象のアルバムのため')
         reload
         destroy
       end
