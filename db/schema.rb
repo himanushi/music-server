@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
+ActiveRecord::Schema.define(version: 2021_12_27_000000) do
+
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "album_id", limit: 16, null: false
     t.string "track_id", limit: 16, null: false
     t.index ["album_id", "track_id"], name: "index_album_has_tracks_on_album_id_and_track_id", unique: true
@@ -21,10 +22,10 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "albums", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
-    t.datetime "release_date", precision: nil, null: false
+    t.datetime "release_date", null: false
     t.integer "total_tracks", default: 0, null: false
     t.integer "pv", default: 0, null: false
     t.integer "popularity", default: 0, null: false
@@ -36,21 +37,21 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "allowed_actions", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "role_id", limit: 16, null: false
     t.string "name", limit: 191, null: false
     t.index ["role_id", "name"], name: "index_allowed_actions_on_role_id_and_name", unique: true
   end
 
   create_table "apple_music_albums", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "album_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", null: false
     t.boolean "playable", default: false, null: false, comment: "サブスクリプション再生可能可否"
-    t.datetime "release_date", precision: nil, null: false
+    t.datetime "release_date", null: false
     t.integer "total_tracks", default: 0, null: false
     t.string "record_label", null: false
     t.string "copyright", null: false
@@ -64,8 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "apple_music_artists", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "artist_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "name", limit: 191, null: false
@@ -82,8 +83,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "apple_music_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "track_id", limit: 16, null: false
     t.string "apple_music_id", limit: 191, null: false
     t.string "apple_music_album_id", limit: 16, null: false
@@ -111,8 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "artist_has_albums", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "artist_id", limit: 16, null: false
     t.string "album_id", limit: 16, null: false
     t.index ["album_id"], name: "fk_rails_f83ee68a8b"
@@ -120,8 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "artist_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "artist_id", limit: 16, null: false
     t.string "track_id", limit: 16, null: false
     t.index ["artist_id", "track_id"], name: "index_artist_has_tracks_on_artist_id_and_track_id", unique: true
@@ -129,8 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "artists", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
     t.integer "status", default: 0, null: false
     t.integer "pv", default: 0, null: false
@@ -141,8 +142,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "favorites", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "user_id", limit: 16, null: false
     t.string "favorable_id", limit: 16, null: false
     t.string "favorable_type", limit: 191, null: false
@@ -152,16 +153,16 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "ignore_contents", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "music_service_id", limit: 191, null: false
     t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
   end
 
   create_table "playlist_items", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "playlist_id", limit: 16, null: false
     t.string "track_id", limit: 16, null: false
     t.integer "track_number", null: false
@@ -170,8 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "playlists", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "track_id", limit: 16
     t.string "user_id", limit: 16, null: false
     t.string "name", limit: 191, null: false
@@ -188,16 +189,16 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "roles", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "name", limit: 191, null: false
     t.string "description", default: "", null: false
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "sessions", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "user_id", limit: 16, null: false
     t.string "token", limit: 191, null: false
     t.index ["token"], name: "index_sessions_on_token", unique: true
@@ -205,8 +206,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "isrc", limit: 191, null: false, comment: "国際標準レコーディングコード"
     t.integer "status", default: 0, null: false
     t.integer "pv", default: 0, null: false
@@ -219,8 +220,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
   end
 
   create_table "users", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
     t.string "name", limit: 191, null: false
     t.string "username", limit: 191, null: false
