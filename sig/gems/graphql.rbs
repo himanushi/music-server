@@ -1,6 +1,10 @@
 module GraphQL
   class Query
-    type context = { current_info: ::ApplicationController::current_info }
+    type context =
+      {
+        current_info: ::ApplicationController::current_info,
+        platform: 'ios' | 'web'
+      }
   end
   class Schema
     interface _Argument

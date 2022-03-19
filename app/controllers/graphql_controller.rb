@@ -5,7 +5,7 @@ class GraphqlController < ::ApplicationController
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    context = { current_info: current_info }
+    context = { current_info: current_info, platform: platform }
     result = ::ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     token!(result)
     render(json: result)
