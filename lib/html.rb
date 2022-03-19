@@ -71,6 +71,7 @@ module Html
       def add_env(header)
         app_url = ::ENV['PRODUCTION_APP_URL']
         if app_url
+          header.first_element_child.before(build_metatag(header, app_url.to_s, property: 'ms:origin-url'))
           header.first_element_child.before(build_metatag(header, "#{app_url}/graphql", property: 'ms:graphql-url'))
         end
 
