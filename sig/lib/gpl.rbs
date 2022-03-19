@@ -1,5 +1,6 @@
 module Ggl
   class Recaptcha
     def self.valid?: (::String token) -> bool
+    def self.request: (::String token) -> { "success" => bool }
   end
 end

@@ -23,6 +23,8 @@ gem 'jwt', '~> 2.3.0'
 gem 'bcrypt', '~> 3.1.16'
 # Twitter 投稿
 gem 'twitter', '~> 7.0.0'
+# HTTP Client
+gem 'faraday', '~> 2.2.0'
 
 group :development, :test do
   # Ruby debug

@@ -1,0 +1,3 @@
+module Faraday
+  def self.post: (*untyped, **untyped) -> untyped
+end
