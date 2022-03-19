@@ -20,6 +20,9 @@ class ApplicationController < ::ActionController::Base
   end
 
   def refresh_token
+    # web 以外は GraphQL のデータと一緒に token を返す
+    return unless web?
+
     auth_setting = {
       value: "Bearer #{current_info[:session]&.digit_token}",
       max_age: ::Session::EXPIRE_DAYS.in_seconds,
@@ -33,10 +36,19 @@ class ApplicationController < ::ActionController::Base
     response.set_cookie('Authorization', auth_setting)
   end
 
+  def platform
+    request.env['HTTP_ORIGIN'] == 'capacitor://localhost' ? 'ios' : 'web'
+  end
+
+  def web?
+    platform == 'web'
+  end
+
   private
 
   def token
-    authorization = request.cookies['Authorization']
+    # @type var authorization: ::String?
+    authorization = web? ? request.cookies['Authorization'] : request.headers['Authorization']
     (authorization || '').gsub(/\ABearer /, '')
   end
 

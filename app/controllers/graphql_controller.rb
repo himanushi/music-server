@@ -7,6 +7,7 @@ class GraphqlController < ::ApplicationController
     operation_name = params[:operationName]
     context = { current_info: current_info }
     result = ::ServerSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    token!(result)
     render(json: result)
   rescue ::StandardError => e
     raise(e) unless ::Rails.env.development?
@@ -15,6 +16,13 @@ class GraphqlController < ::ApplicationController
   end
 
   private
+
+  def token!(result)
+    # web は cookie で対応
+    return if web?
+
+    result['extensions'] = { Authorization: "Bearer #{current_info[:session]&.digit_token}" }
+  end
 
   def ensure_hash(ambiguous_param)
     case ambiguous_param

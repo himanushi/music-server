@@ -6,6 +6,8 @@ class ApplicationController < ::ActionController::Base
 
   def current_info: -> current_info
   def refresh_token: -> untyped
+  def platform: -> ('ios' | 'web')
+  def web?: -> bool
 
   private
 

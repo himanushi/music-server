@@ -3,6 +3,8 @@ class GraphqlController < ::ApplicationController
 
   private
 
+  def token!: (::Hash[untyped, untyped] result) -> untyped
+
   def ensure_hash: (untyped ambiguous_param) -> untyped
 
   def handle_error_in_development: (::StandardError e) -> untyped
