@@ -59,6 +59,11 @@ class Artist < ::ApplicationRecord
     def all_pending_to_ignore
       where(status: :pending).update_all(status: :ignore)
     end
+
+    # cron で実行する
+    def all_create_albums
+      nil
+    end
   end
 
   def artwork_l

@@ -17,7 +17,7 @@ module AppleMusic
     class << self
       def apple_music_most_played
         ::AppleMusic::Client.new.get(
-          "#{::AppleMusic::Api::RSS_ENDPOINT}/#{::AppleMusic::Api::LOCALE}/music/most-played/50/albums.json", {}, {}
+          "#{::AppleMusic::Api::RSS_ENDPOINT}/#{::AppleMusic::Api::LOCALE}/music/most-played/200/albums.json", {}, {}
         )
       end
     end

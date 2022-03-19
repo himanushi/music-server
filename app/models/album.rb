@@ -121,5 +121,10 @@ class Album < ::ApplicationRecord
         where(status: :pending).each { |album| album.ignore! }
       end
     end
+
+    # cron で実行する
+    def create_by_new_releases
+      nil
+    end
   end
 end
