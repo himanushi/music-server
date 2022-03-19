@@ -1,0 +1,23 @@
+module Ggl
+  class Analytics
+    def self.analytics: -> ::Google::Apis::AnalyticsreportingV4
+    def self.valid?: (::String token) -> bool
+    def self.request: (::String token) -> { "success" => bool }
+    def self.json_file: -> untyped
+    def self.client: -> ::Google::Apis::AnalyticsreportingV4::AnalyticsReportingService
+    def self.pv_report: (
+      start_date: untyped,
+      ?end_date: untyped,
+      ?next_page_token: untyped,
+      ?filter: untyped
+    ) -> untyped
+    def self.all: -> untyped
+    def self.reset_all: -> untyped
+    def self.update: (untyped) -> untyped
+
+    class JsonKey
+      @data: untyped
+      def initialize: (untyped) -> untyped
+    end
+  end
+end

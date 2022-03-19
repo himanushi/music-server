@@ -1,0 +1,53 @@
+module Google
+  module Apis
+    module AnalyticsreportingV4
+      class AnalyticsReportingService
+        def authorization=: (*untyped) -> untyped
+        def batch_get_reports: (
+          ::Google::Apis::AnalyticsreportingV4::GetReportsRequest
+        ) -> untyped
+      end
+
+      class DateRange
+        def initialize: (start_date: ::String, end_date: ::String) -> untyped
+      end
+
+      class Metric
+        def initialize: (expression: ::String, alias: ::String) -> untyped
+      end
+
+      class Dimension
+        def initialize: (name: ::String) -> untyped
+      end
+
+      class OrderBy
+        def initialize: (field_name: ::String, sort_order: ::String) -> untyped
+      end
+
+      class GetReportsRequest
+        def initialize: (report_requests: untyped) -> untyped
+      end
+
+      class ReportRequest
+        def initialize: (
+          view_id: untyped,
+          metrics: untyped,
+          dimensions: untyped,
+          metric_filter_clauses: untyped,
+          date_ranges: untyped,
+          order_bys: untyped,
+          page_token: untyped
+        ) -> untyped
+      end
+    end
+  end
+
+  module Auth
+    class ServiceAccountCredentials
+      def self.make_creds: (
+        json_key_io: untyped,
+        scope: ::Array[::String]
+      ) -> untyped
+    end
+  end
+end
