@@ -20,18 +20,18 @@ module Mutations
         raise(::GraphQL::ExecutionError.new('権限がありません', extensions: { code: 'UNAUTHORIZED' }))
       end
 
-      # ロボット検証
-      if ::Rails.env.production? && use_recaptcha?
-        token = context.dig(:current_info, :cookie, 'reCAPTCHAv2Token')
-        unless ::Ggl::Recaptcha.valid?(token)
-          raise(
-            ::GraphQL::ExecutionError.new(
-              'ロボット操作の可能性があります。再入力をお願いします。',
-              extensions: { code: 'FAILED_RECAPTCHA', path: 'recaptcha' }
-            )
-          )
-        end
-      end
+      # # ロボット検証
+      # if ::Rails.env.production? && use_recaptcha?
+      #   token = context.dig(:current_info, :cookie, 'reCAPTCHAv2Token')
+      #   unless ::Ggl::Recaptcha.valid?(token)
+      #     raise(
+      #       ::GraphQL::ExecutionError.new(
+      #         'ロボット操作の可能性があります。再入力をお願いします。',
+      #         extensions: { code: 'FAILED_RECAPTCHA', path: 'recaptcha' }
+      #       )
+      #     )
+      #   end
+      # end
 
       begin
         mutate(**args)
