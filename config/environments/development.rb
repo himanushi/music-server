@@ -30,6 +30,8 @@ require 'active_support/core_ext/integer/time'
     config.cache_store = :file_store, ::Rails.root.join('tmp', 'cache')
   end
 
+  config.public_file_server.enabled = true
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
