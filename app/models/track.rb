@@ -39,7 +39,7 @@ class Track < ::ApplicationRecord
       conditions = { status: [:active] }.merge(conditions)
       relation = ::Track.includes(:apple_music_tracks)
 
-      relation = relation.order('RAND()') if conditions.delete(:random)
+      relation = relation.where('popularity > 0').active.order('RAND()') if conditions.delete(:random)
 
       if conditions.key?(:name)
         # @type var name: ::String
