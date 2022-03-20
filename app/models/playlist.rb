@@ -75,9 +75,7 @@ class Playlist < ::ApplicationRecord
 
     def generate_relation(conditions:, context:)
       conditions = { public_type: %i[open anonymous_open] }.merge(conditions)
-      relation = ::Playlist.includes(:user)
-                           .includes(track: :apple_music_tracks)
-                           .includes(playlist_items: { track: :apple_music_tracks })
+      relation = ::Playlist.includes(:user).includes(track: :apple_music_tracks)
 
       if conditions.delete(:is_mine)
         conditions = conditions.merge({ public_type: %i[open non_open anonymous_open] })
