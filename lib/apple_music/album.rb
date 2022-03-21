@@ -28,6 +28,10 @@ module AppleMusic
           raise(::StandardError, "album data が存在しない apple_music_id(album): #{apple_music_id}")
         end
 
+        unless album_data['id'] == apple_music_id
+          raise(::StandardError, "Apple Music ID が一致しない apple_music_id(album): #{apple_music_id}")
+        end
+
         tracks = album_data['relationships']['tracks']['data']
 
         unless tracks.size.positive?
@@ -38,6 +42,12 @@ module AppleMusic
                                     .uniq.size
 
           raise(::StandardError, "ISRC がアルバム内で重複している apple_music_id(album): #{apple_music_id}")
+        end
+
+        album = ::Album.find_by_isrc(tracks.map { |data| data['attributes']['isrc'] })
+        apple_music_album = album&.apple_music_album
+        if apple_music_album && apple_music_album.apple_music_id != apple_music_id
+          raise(::StandardError, "Apple Music ID が変わってるけど問題ない？ apple_music_id(album): #{apple_music_id}")
         end
 
         albums_data
