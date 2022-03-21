@@ -4,20 +4,7 @@ class AppleMusicArtist < ::ApplicationRecord
   def table_id() = 'ama'
 
   belongs_to :artist
-  # Apple Music ID: 12906, Error: Mysql2::Error: Data too long for column 'name' at row 1
-  # Apple Music ID: 208472504, Error: Mysql2::Error: Duplicate entry 'JPCO09821010' for key 'index_tracks_on_isrc'
-  # Apple Music ID: 74064473, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 151385495, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1516371319, Error: Mysql2::Error: Data too long for column 'name' at row 1
-  # Apple Music ID: 290568908, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 291365220, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1277565947, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1267094116, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1080909084, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1258995350, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1226561403, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1513322647, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 1444590736, Error: undefined method `[]' for nil:NilClass
+
   def create_albums
     # @type var albums_ids: ::Array[::String]
     albums_ids = []
