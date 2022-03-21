@@ -7,6 +7,8 @@ module AppleMusic
         am_album = ::AppleMusicAlbum.find_by(apple_music_id: apple_music_id)
         return am_album unless !am_album || force
 
+        return unless ::IgnoreContent.where(music_service_id: apple_music_id).empty?
+
         album_data = build_json(apple_music_id)
 
         ::ActiveRecord::Base.transaction do

@@ -4,23 +4,11 @@ class AppleMusicArtist < ::ApplicationRecord
   def table_id() = 'ama'
 
   belongs_to :artist
-  # Apple Music ID: 164369096, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 58712771, Error: Mysql2::Error: Duplicate entry 'abm17faba119d4e8-trk172341067ec38' for key 'index_album_has_tracks_on_album_id_and_track_id'
-  # Apple Music ID: 339475264, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 322290360, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/932227960?include=artists,
-  # Apple Music ID: 45459986, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1059036594?include=artists,
-  # Apple Music ID: 215213464, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/956600743?include=artists,
-  # Apple Music ID: 332508097, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/947448013?include=artists,
   # Apple Music ID: 12906, Error: Mysql2::Error: Data too long for column 'name' at row 1
   # Apple Music ID: 208472504, Error: Mysql2::Error: Duplicate entry 'JPCO09821010' for key 'index_tracks_on_isrc'
   # Apple Music ID: 74064473, Error: undefined method `[]' for nil:NilClass
-  # Apple Music ID: 260101761, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1557536748?include=artists,
-  # Apple Music ID: 420422941, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1499882167?include=artists,
-  # Apple Music ID: 286814099, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1566018057?include=artists,
   # Apple Music ID: 151385495, Error: undefined method `[]' for nil:NilClass
   # Apple Music ID: 1516371319, Error: Mysql2::Error: Data too long for column 'name' at row 1
-  # Apple Music ID: 364497483, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1529935326?include=artists,
-  # Apple Music ID: 378890105, Error: 404: Not Found, URI: https://api.music.apple.com/v1/catalog/jp/albums/1449741352?include=artists,
   # Apple Music ID: 290568908, Error: undefined method `[]' for nil:NilClass
   # Apple Music ID: 291365220, Error: undefined method `[]' for nil:NilClass
   # Apple Music ID: 1277565947, Error: undefined method `[]' for nil:NilClass

@@ -43,7 +43,7 @@ class AppleMusicTrack < ::ApplicationRecord
 
       {
         apple_music_id: data['id'],
-        name: attrs['name'],
+        name: (attrs['name'] || '')[..254] || '',
         playable: attrs['playParams'].present?,
         isrc: attrs['isrc'].upcase,
         disc_number: attrs['discNumber'],
