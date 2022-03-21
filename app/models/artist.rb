@@ -74,7 +74,12 @@ class Artist < ::ApplicationRecord
   end
 
   def create_albums
-    apple_music_artists.each { |apple_music_artist| apple_music_artist.create_albums }
+    apple_music_artists.each do |apple_music_artist|
+      apple_music_artist.create_albums
+    rescue ::StandardError => e
+      # エラーはスキップする
+      ::Rails.logger.info("Apple Music ID: #{apple_music_artist.apple_music_id}, Error: #{e.message}")
+    end
     nil
   end
 

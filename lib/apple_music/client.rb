@@ -15,7 +15,9 @@ module AppleMusic
       uri = ::URI.parse(url)
       uri.query = ::URI.encode_www_form(params) unless uri.query
       response = ::Net::HTTP.get_response(uri, header)
-      raise(::StandardError, "#{response.code}: #{response.message}") unless response.code.match?(/\A(2|3)/)
+      unless response.code.match?(/\A(2|3)/)
+        raise(::StandardError, "#{response.code}: #{response.message}, URI: #{uri}, Header: #{header}")
+      end
 
       ::JSON.parse(response.body)
     end
