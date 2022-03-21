@@ -36,6 +36,16 @@ module AppleMusic
 
     def get_track_by_isrc: (::String isrc) -> Response::tracks
 
+    def get_chart_albums: (
+      ::Integer genre,
+      ::Integer limit
+    ) -> ResponseChart::chart_albums
+
+    def get_chart_tracks: (
+      ::Integer genre,
+      ::Integer limit
+    ) -> ResponseChart::chart_tracks
+
     private
 
     def compound: (::Hash[::String, untyped] body) -> untyped
@@ -191,6 +201,38 @@ module AppleMusic
           "meta" => {
             "results" => { "order" => ['artists'], "rawOrder" => ['artists'] }
           }
+        }
+    end
+
+    module ResponseChart
+      type chart_albums =
+        {
+          "results" => {
+            "albums" => {
+              "chart" => 'most-played',
+              "name" => 'トップアルバム',
+              "orderId" => 'most-played:albums',
+              "next" => ::String,
+              "data" => ::Array[Response::simple_album]
+            },
+            "href" => ::String
+          },
+          "meta" => { "results" => { "order" => ::Array[::String] } }
+        }
+
+      type chart_tracks =
+        {
+          "results" => {
+            "songs" => {
+              "chart" => 'most-played',
+              "name" => 'トップソング',
+              "orderId" => 'most-played:songs',
+              "next" => ::String,
+              "data" => ::Array[Response::simple_track]
+            },
+            "href" => ::String
+          },
+          "meta" => { "results" => { "order" => ::Array[::String] } }
         }
     end
 

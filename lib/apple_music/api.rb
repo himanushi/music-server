@@ -82,6 +82,24 @@ module AppleMusic
       get("#{catalog_url}/songs", params)
     end
 
+    def get_chart_albums(genre, limit)
+      # @type var params: ::Hash[::String, untyped]
+      params = {}
+      params['types'] = 'albums'
+      params['genre'] = genre
+      params['limit'] = limit
+      get("#{catalog_url}/charts", params)
+    end
+
+    def get_chart_tracks(genre, limit)
+      # @type var params: ::Hash[::String, untyped]
+      params = {}
+      params['types'] = 'songs'
+      params['genre'] = genre
+      params['limit'] = limit
+      get("#{catalog_url}/charts", params)
+    end
+
     private
 
     def compound(body)
