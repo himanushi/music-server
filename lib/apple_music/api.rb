@@ -14,6 +14,28 @@ module AppleMusic
     DEFAULT_REPEAT = 5
     public_constant :DEFAULT_REPEAT
 
+    ALL_GENRES = {
+      '4': 'チルドレン・ミュージック',
+      '5': 'クラシック',
+      '7': 'エレクトロニック',
+      '11': 'ジャズ',
+      '14': 'ポップ',
+      '15': 'R&B／ソウル',
+      '16': 'サウンドトラック',
+      '17': 'ダンス',
+      '18': 'ヒップホップ／ラップ',
+      '20': 'オルタナティブ',
+      '21': 'ロック',
+      '24': 'レゲエ',
+      '27': 'J-Pop',
+      '28': '演歌',
+      '29': 'アニメ',
+      '30': '歌謡曲',
+      '34': 'ミュージック',
+      '51': 'K-Pop'
+    }.freeze
+    public_constant :ALL_GENRES
+
     class << self
       def apple_music_most_played
         ::AppleMusic::Client.new.get(
@@ -98,6 +120,10 @@ module AppleMusic
       params['genre'] = genre
       params['limit'] = limit
       get("#{catalog_url}/charts", params)
+    end
+
+    def get_genre(id)
+      get("#{catalog_url}/genres/#{id}")
     end
 
     private

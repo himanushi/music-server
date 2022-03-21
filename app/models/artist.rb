@@ -62,7 +62,7 @@ class Artist < ::ApplicationRecord
 
     # cron で実行する
     def all_create_albums
-      active_artists = active.offset(68)
+      active_artists = active.offset(68 + 36 + 150)
       size = active_artists.size
       active_artists.map.with_index do |artist, index|
         ::Rails.logger.info("---------------- #{artist.name} #{index} / #{size} ----------------")
@@ -76,9 +76,6 @@ class Artist < ::ApplicationRecord
   def create_albums
     apple_music_artists.each do |apple_music_artist|
       apple_music_artist.create_albums
-    rescue ::StandardError => e
-      # エラーはスキップする
-      ::Rails.logger.info("Apple Music ID: #{apple_music_artist.apple_music_id}, Error: #{e.message}")
     end
     nil
   end

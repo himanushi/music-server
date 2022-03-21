@@ -8,6 +8,8 @@ module AppleMusic
 
     DEFAULT_REPEAT: ::Integer
 
+    ALL_GENRES: ::Hash[::Symbol, ::String]
+
     def self.apple_music_most_played: -> ResponseFeed::feed_attributes
 
     @client: ::AppleMusic::Client

@@ -26,8 +26,16 @@ module AppleMusic
           raise(::StandardError, "album data が存在しない apple_music_id(album): #{apple_music_id}")
         end
 
-        unless album_data['relationships']['tracks']['data'].size.positive?
+        tracks = album_data['relationships']['tracks']['data']
+
+        unless tracks.size.positive?
           raise(::StandardError, "アルバムのトラック数が0件なので何かしらのバグがある apple_music_id(album): #{apple_music_id}")
+        end
+
+        unless tracks.size == tracks.map { |track| track['attributes']['isrc'] }
+                                    .uniq.size
+
+          raise(::StandardError, "ISRC がアルバム内で重複している apple_music_id(album): #{apple_music_id}")
         end
 
         albums_data
@@ -50,6 +58,9 @@ module AppleMusic
         artist_names = []
 
         album_data['relationships']['artists']['data'].each do |artist_data|
+          # name が存在しない場合がある ID: 974601659
+          next unless artist_data['attributes']
+
           artist_name = artist_data['attributes']['name']
           artist = ::Artist.find_by_name(artist_name)
 
@@ -92,6 +103,9 @@ module AppleMusic
 
         # album artists
         album_data['relationships']['artists']['data'].each do |artist_data|
+          # name が存在しない場合がある ID: 974601659
+          next unless artist_data['attributes']
+
           artist = ::Artist.find_by_name(artist_data['attributes']['name'])
           album.artists = (album.artists.to_a + [artist]).compact.uniq
         end
