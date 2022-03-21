@@ -26,15 +26,17 @@ class AppleMusicAlbum < ::ApplicationRecord
 
       release_date = ::Convert.to_time(attrs['releaseDate'])
 
+      total_tracks = data['relationships']['tracks']['data'].size || attrs['trackCount']
+
       {
         apple_music_id: data['id'],
         name: attrs['name'],
         playable: attrs['playParams'].present?,
         upc: attrs['upc'].upcase,
         release_date: release_date,
-        total_tracks: attrs['trackCount'],
-        record_label: attrs['recordLabel'],
-        copyright: attrs['copyright'],
+        total_tracks: total_tracks,
+        record_label: attrs['recordLabel'] || '',
+        copyright: attrs['copyright'] || '',
         artwork_url: artwork['url'],
         artwork_width: artwork['width'],
         artwork_height: artwork['height']

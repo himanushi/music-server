@@ -1,4 +1,4 @@
-class Track
+class Track < ::ApplicationRecord
   def self.cache?: (conditions: ::Query::conditions) -> bool
   def self.generate_relation: (
     conditions: ::Query::conditions,

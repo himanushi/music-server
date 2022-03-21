@@ -27,11 +27,7 @@ module AppleMusic
         end
 
         unless album_data['relationships']['tracks']['data'].size.positive?
-          raise(::StandardError, 'アルバムのトラック数が0件なので何かしらのバグがある')
-        end
-
-        unless album_data['relationships']['tracks']['data'].size == album_data['attributes']['trackCount']
-          raise(::StandardError, "アルバムのトラック数が合わない apple_music_id(album): #{album_data['id']}")
+          raise(::StandardError, "アルバムのトラック数が0件なので何かしらのバグがある apple_music_id(album): #{apple_music_id}")
         end
 
         albums_data
@@ -90,7 +86,8 @@ module AppleMusic
 
         date = ::Convert.to_time(album_data['attributes']['releaseDate'])
         album.release_date = date if album.release_date.nil? || album.release_date <= date
-        album.total_tracks = album_data['attributes']['trackCount']
+        album.total_tracks =
+          album_data['relationships']['tracks']['data'].size || album_data['attributes']['trackCount']
         album.upc = album_data['attributes']['upc'].upcase
 
         # album artists

@@ -1,4 +1,4 @@
-class Playlist
+class Playlist < ::ApplicationRecord
   def self.cache?: (conditions: ::Query::conditions) -> bool
   def self.generate_relation: (
     conditions: ::Query::conditions,

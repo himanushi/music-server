@@ -1,4 +1,4 @@
-class AppleMusicAlbum
+class AppleMusicAlbum < ::ApplicationRecord
   def self.create_by_data: (
     ::AppleMusic::Api::Response::albums data
   ) -> instance

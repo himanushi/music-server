@@ -62,8 +62,20 @@ class Artist < ::ApplicationRecord
 
     # cron で実行する
     def all_create_albums
+      active_artists = active.offset(68)
+      size = active_artists.size
+      active_artists.map.with_index do |artist, index|
+        ::Rails.logger.info("---------------- #{artist.name} #{index} / #{size} ----------------")
+        artist.create_albums
+      end
+      ::Rails.cache.clear
       nil
     end
+  end
+
+  def create_albums
+    apple_music_artists.each { |apple_music_artist| apple_music_artist.create_albums }
+    nil
   end
 
   def artwork_l

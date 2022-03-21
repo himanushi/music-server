@@ -1,4 +1,4 @@
-class Artwork
+class Artwork < ::ApplicationRecord
   include ::ActiveModel::Model
   include ::ActiveModel::Attributes
   extend ::ActiveModel::Attributes::ClassMethods

@@ -1,0 +1,3 @@
+class AppleMusicArtist < ::ApplicationRecord
+  def create_albums: -> untyped
+end

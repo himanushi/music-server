@@ -1,4 +1,4 @@
-class AppleMusicTrack
+class AppleMusicTrack < ::ApplicationRecord
   def self.create_by_data: (
     ::AppleMusic::Api::Response::simple_track data
   ) -> untyped
