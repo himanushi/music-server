@@ -210,13 +210,13 @@ module AppleMusic
       type chart_albums =
         {
           "results" => {
-            "albums" => {
+            "albums" => ::Array[{
               "chart" => 'most-played',
               "name" => 'トップアルバム',
               "orderId" => 'most-played:albums',
               "next" => ::String,
               "data" => ::Array[Response::simple_album]
-            },
+            }],
             "href" => ::String
           },
           "meta" => { "results" => { "order" => ::Array[::String] } }
@@ -225,13 +225,13 @@ module AppleMusic
       type chart_tracks =
         {
           "results" => {
-            "songs" => {
+            "songs" => ::Array[{
               "chart" => 'most-played',
               "name" => 'トップソング',
               "orderId" => 'most-played:songs',
               "next" => ::String,
               "data" => ::Array[Response::simple_track]
-            },
+            }],
             "href" => ::String
           },
           "meta" => { "results" => { "order" => ::Array[::String] } }
