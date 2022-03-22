@@ -24,7 +24,7 @@ class AppleMusicArtist < ::ApplicationRecord
 
     return [] if albums_ids.empty?
 
-    albums_ids.uniq.map do |albums_id|
+    albums_ids.uniq.each do |albums_id|
       ::ActiveRecord::Base.transaction do
         ::AppleMusic::Album.create_full(albums_id)
       end

@@ -120,6 +120,37 @@ class Album < ::ApplicationRecord
 
     # cron で実行する
     def create_by_new_releases
+      # @type var albums_ids: ::Array[::String]
+      albums_ids = []
+
+      result_chart_albums = ::AppleMusic::Api.new.get_chart_albums(16, 100)
+      albums_data = result_chart_albums['results']['albums'].first
+      if albums_data
+        albums_data['data'].each do |album_data|
+          albums_ids << album_data['id']
+        end
+      end
+
+      result_chart_tracks = ::AppleMusic::Api.new.get_chart_tracks(16, 100)
+      tracks_data = result_chart_tracks['results']['songs'].first
+      if tracks_data
+        tracks_data['data'].each do |track_data|
+          album_id = track_data['attributes']['url'][%r{/([0-9]+)\?}, 1]
+          albums_ids << album_id if album_id
+        end
+      end
+
+      return [] if albums_ids.empty?
+
+      albums_ids.uniq.each do |albums_id|
+        ::ActiveRecord::Base.transaction do
+          ::AppleMusic::Album.create_full(albums_id)
+        end
+      rescue ::StandardError => e
+        # エラーは一旦スキップする
+        ::Rails.logger.info("Apple Music ID: #{albums_id}, Error: #{e.message}")
+      end
+
       nil
     end
   end
