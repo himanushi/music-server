@@ -3,6 +3,7 @@
 module Vgmdb
   class Api
     ENDPOINT_URI = 'https://vgmdb.net/db/calendar.php'
+    public_constant :ENDPOINT_URI
 
     def parse(url)
       body = ::Vgmdb::Client.new.get(url)
@@ -10,7 +11,7 @@ module Vgmdb
     end
 
     def get_url(time)
-      doc = parse("#{ENDPOINT_URI}?year=#{time.year}&month=#{time.month}")
+      doc = parse("#{::Vgmdb::Api::ENDPOINT_URI}?year=#{time.year}&month=#{time.month}")
       urls =
         doc.xpath("//*[@id=\"#{time.strftime('%Y%m%d')}\"]/following-sibling::div[1]/div/div/div/a").map do |n|
           n.attributes['href'].value
@@ -26,8 +27,15 @@ module Vgmdb
     end
 
     def get_ids(time)
-      get_url(time).map { |url| get_id(url) }
-                   .compact
+      # @type var results: ::Array[::String]
+      results = []
+
+      get_url(time).each do |url|
+        id = get_id(url)
+        results << id if id
+      end
+
+      results
     end
   end
 end

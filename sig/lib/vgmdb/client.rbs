@@ -1,0 +1,5 @@
+module Vgmdb
+  class Client
+    def get: (::String url) -> untyped
+  end
+end

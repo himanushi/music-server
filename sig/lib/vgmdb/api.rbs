@@ -1,0 +1,13 @@
+module Vgmdb
+  class Api
+    ENDPOINT_URI: ::String
+
+    def parse: (::String url) -> untyped
+
+    def get_url: (::Time time) -> ::Array[::String]
+
+    def get_id: (::String url) -> ::String?
+
+    def get_ids: (::Time time) -> ::Array[::String]
+  end
+end
