@@ -140,6 +140,11 @@ class Album < ::ApplicationRecord
         end
       end
 
+      today = ::Time.now + 9.hours
+      1.upto(7).each do |date|
+        albums_ids += ::Vgmdb::Api.new.get_ids(today - date.day)
+      end
+
       return [] if albums_ids.empty?
 
       albums_ids.uniq.each do |albums_id|
