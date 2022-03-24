@@ -123,7 +123,7 @@ class Album < ::ApplicationRecord
       # @type var albums_ids: ::Array[::String]
       albums_ids = []
 
-      result_chart_albums = ::AppleMusic::Api.new.get_chart_albums(16, 100)
+      result_chart_albums = ::AppleMusic::Api.new.get_chart_albums(16, 200)
       albums_data = result_chart_albums['results']['albums'].first
       if albums_data
         albums_data['data'].each do |album_data|
@@ -131,7 +131,7 @@ class Album < ::ApplicationRecord
         end
       end
 
-      result_chart_tracks = ::AppleMusic::Api.new.get_chart_tracks(16, 100)
+      result_chart_tracks = ::AppleMusic::Api.new.get_chart_tracks(16, 200)
       tracks_data = result_chart_tracks['results']['songs'].first
       if tracks_data
         tracks_data['data'].each do |track_data|
