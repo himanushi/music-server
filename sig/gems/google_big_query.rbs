@@ -1,0 +1,11 @@
+module Google
+  module Cloud
+    class Bigquery
+      def initialize: (*untyped, **untyped) -> untyped
+
+      class Credentials
+        def initialize: (*untyped) -> untyped
+      end
+    end
+  end
+end

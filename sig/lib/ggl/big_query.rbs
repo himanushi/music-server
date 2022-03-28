@@ -1,0 +1,9 @@
+module Ggl
+  class BigQuery
+    def self.client: -> untyped
+    def self.get_page_views: (
+      ::Time from_date,
+      ?::Time to_date
+    ) -> ::Array[{ page_location: ::String, page_views: ::Integer }]
+  end
+end
