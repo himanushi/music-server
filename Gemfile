@@ -27,6 +27,8 @@ gem 'twitter', '~> 7.0.0'
 gem 'faraday', '~> 2.2.0'
 # Google Analytics
 gem 'google-apis-analyticsreporting_v4', '~> 0.7.0'
+# Google BigQuery
+gem 'google-cloud-bigquery', '~> 1.38.1'
 
 group :development, :test do
   # Ruby debug
