@@ -16,3 +16,13 @@ class AllowedAction < ::ApplicationRecord
     def all_actions = (::Mutation.fields.keys + default_actions + console_actions).uniq
   end
 end
+
+module Types
+  module Enums
+    class ActionEnum < ::Types::Enums::BaseEnum
+      ::AllowedAction.all_actions.each do |action|
+        value action, value: action
+      end
+    end
+  end
+end
