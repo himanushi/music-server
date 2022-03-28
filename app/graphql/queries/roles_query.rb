@@ -6,6 +6,6 @@ module Queries
 
     type [::Types::Objects::RoleObject], null: false
 
-    def query() = ::Role.all
+    def query = ::Role.all
   end
 end

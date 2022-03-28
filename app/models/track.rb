@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Track < ::ApplicationRecord
-  def table_id() = 'trk'
+  def table_id = 'trk'
 
   has_many :artist_has_tracks, dependent: :destroy
   has_many :artists, through: :artist_has_tracks
@@ -25,7 +25,7 @@ class Track < ::ApplicationRecord
            :artwork_l,
            to: :service
 
-  def service() = apple_music_tracks.to_a[0]
+  def service = apple_music_tracks.to_a[0]
 
   class << self
     def cache?(conditions:)

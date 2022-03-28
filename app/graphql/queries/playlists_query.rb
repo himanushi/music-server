@@ -46,6 +46,6 @@ module Queries
              required: false,
              description: '取得条件'
 
-    def query_class() = ::Playlist
+    def query_class = ::Playlist
   end
 end

@@ -12,9 +12,9 @@ module Types
       field :favorite, ::Types::Objects::FavoriteObject, null: false, description: 'お気に入り'
       field :registered, ::GraphQL::Types::Boolean, null: false, description: '登録済み'
 
-      def name() = object.registered ? object.name : ''
+      def name = object.registered ? object.name : ''
 
-      def username() = object.registered ? object.username : ''
+      def username = object.registered ? object.username : ''
     end
   end
 end

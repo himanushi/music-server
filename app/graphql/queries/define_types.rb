@@ -8,6 +8,6 @@ module Queries
 
     argument :action, ::Types::Enums::ActionEnum, required: true, description: '全てのAllowedActions'
 
-    def query() = true
+    def query = true
   end
 end

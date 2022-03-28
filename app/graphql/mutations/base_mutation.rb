@@ -10,7 +10,7 @@ module Mutations
     # This is used for generating the `input: { ... }` object type
     input_object_class ::Types::InputObjects::BaseInputObject
 
-    def use_recaptcha?() = false
+    def use_recaptcha? = false
 
     def resolve(**args)
       # @type var action_name: ::String

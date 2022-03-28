@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Album < ::ApplicationRecord
-  def table_id() = 'abm'
+  def table_id = 'abm'
 
   has_many :artist_has_albums, dependent: :destroy
   has_many :artists, through: :artist_has_albums
@@ -28,7 +28,7 @@ class Album < ::ApplicationRecord
     tracks.each { |track| track.update!(status: status) }
   end
 
-  def service() = apple_music_album
+  def service = apple_music_album
 
   # アルバム作曲者とトラック作曲者全員
   def composers

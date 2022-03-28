@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Artist < ::ApplicationRecord
-  def table_id() = 'art'
+  def table_id = 'art'
 
   has_many :artist_has_albums, dependent: :destroy
   has_many :albums, through: :artist_has_albums

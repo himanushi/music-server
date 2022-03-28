@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Playlist < ::ApplicationRecord
-  def table_id() = 'pst'
+  def table_id = 'pst'
 
   belongs_to :user
   belongs_to :track, optional: true

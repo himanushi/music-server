@@ -16,7 +16,7 @@ module Types
       field :track,       ::Types::Objects::TrackObject, null: true, description: 'ジャケットトラック'
       field :items,       [::Types::Objects::PlaylistItemObject], null: false, description: '曲一覧'
 
-      def is_mine() = object.user == context[:current_info][:user]
+      def is_mine = object.user == context[:current_info][:user]
 
       def author
         object.user if !object.public_type_anonymous_open? || object.user == context[:current_info][:user]

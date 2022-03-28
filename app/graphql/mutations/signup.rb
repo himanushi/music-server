@@ -11,7 +11,7 @@ module Mutations
 
     field :current_user, ::Types::Objects::CurrentUserObject, null: true
 
-    def use_recaptcha?() = true
+    def use_recaptcha? = true
 
     def mutate(name:, username:, new_password:, new_password_confirmation:)
       current_user = context[:current_info][:user]

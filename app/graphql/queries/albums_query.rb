@@ -45,6 +45,6 @@ module Queries
              default_value: ::Queries::AlbumsQuery::AlbumsSortInputObject.default_argument_values
     argument :conditions, ::Queries::AlbumsQuery::AlbumsConditionsInputObject, required: false, description: '取得条件'
 
-    def query_class() = ::Album
+    def query_class = ::Album
   end
 end

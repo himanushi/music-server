@@ -8,7 +8,7 @@ class Session < ::ApplicationRecord
 
   before_create :refresh_token
 
-  def table_id() = 'ses'
+  def table_id = 'ses'
 
   def refresh_token
     self.token = ::SecureRandom.hex(10)

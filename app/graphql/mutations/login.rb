@@ -9,7 +9,7 @@ module Mutations
 
     field :current_user, ::Types::Objects::CurrentUserObject, null: true
 
-    def use_recaptcha?() = true
+    def use_recaptcha? = true
 
     def mutate(username:, current_password:)
       user = ::User.find_by(username: username)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AppleMusicAlbum < ::ApplicationRecord
-  def table_id() = 'amb'
+  def table_id = 'amb'
 
   belongs_to :album
   has_many :apple_music_tracks, dependent: :destroy
@@ -62,7 +62,7 @@ class AppleMusicAlbum < ::ApplicationRecord
     end
   end
 
-  def apple_music_playable() = playable
+  def apple_music_playable = playable
 
   def artwork_l
     @artwork_l ||= build_artwork(640)

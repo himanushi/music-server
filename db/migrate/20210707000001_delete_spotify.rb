@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DeleteSpotify < ActiveRecord::Migration[6.0]
   def change
     delete_sql = <<~SQL

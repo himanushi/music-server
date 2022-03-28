@@ -10,7 +10,7 @@ module Types
       field :description,     ::String, null: false, description: '説明'
       field :allowed_actions, [::Types::Enums::ActionEnum], null: false, description: '出来ること一覧'
 
-      def allowed_actions() = object.allowed_actions.map(&:name)
+      def allowed_actions = object.allowed_actions.map(&:name)
     end
   end
 end

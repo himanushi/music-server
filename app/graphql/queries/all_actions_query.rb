@@ -6,6 +6,6 @@ module Queries
 
     type [::Types::Enums::ActionEnum], null: false
 
-    def query() = ::AllowedAction.all_actions
+    def query = ::AllowedAction.all_actions
   end
 end
