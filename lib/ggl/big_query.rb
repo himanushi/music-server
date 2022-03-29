@@ -32,6 +32,10 @@ module Ggl
 
         client.query(sql)
       end
+
+      def update_page_views_yesterday
+        get_page_views(::Time.now - 2.day)
+      end
     end
   end
 end
