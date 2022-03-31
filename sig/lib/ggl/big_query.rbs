@@ -4,6 +4,6 @@ module Ggl
     def self.get_page_views: (
       ::Time from_date,
       ?::Time to_date
-    ) -> ::Array[{ page_location: ::String, page_views: ::Integer }]
+    ) -> ::Array[{ page_location: ::String, count: ::Integer }]
   end
 end
