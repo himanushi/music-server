@@ -31,6 +31,9 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 Naming/PredicateName:
   Exclude:
     - app/graphql/**/*.rb
