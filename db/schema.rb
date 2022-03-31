@@ -160,10 +160,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
   end
 
   create_table "page_view_logs", charset: "utf8mb4", force: :cascade do |t|
-    t.string "path_location", null: false
+    t.string "page_location", null: false
     t.integer "count", null: false
     t.datetime "target_date"
-    t.index ["path_location"], name: "index_page_view_logs_on_path_location", length: 191
+    t.index ["page_location"], name: "index_page_view_logs_on_page_location", length: 191
     t.index ["target_date"], name: "index_page_view_logs_on_target_date"
   end
 

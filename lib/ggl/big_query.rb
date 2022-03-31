@@ -20,7 +20,7 @@ module Ggl
         sql = <<~SQL.gsub("\n", ' ')
           SELECT
           (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location') AS page_location,
-          COUNT(1) AS page_views
+          COUNT(1) AS count
           FROM
             `#{::ENV['GOOGLE_BIGQUERY_TABLE_NAME']}.events_*`
           WHERE
@@ -31,10 +31,6 @@ module Ggl
         SQL
 
         client.query(sql)
-      end
-
-      def update_page_views_yesterday
-        get_page_views(::Time.now - 2.day)
       end
     end
   end
