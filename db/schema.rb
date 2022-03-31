@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -157,6 +157,14 @@ ActiveRecord::Schema[7.0].define(version: 2021_12_27_000000) do
     t.string "music_service_id", limit: 191, null: false
     t.text "reason", null: false
     t.index ["music_service_id"], name: "index_ignore_contents_on_music_service_id", unique: true
+  end
+
+  create_table "page_view_logs", charset: "utf8mb4", force: :cascade do |t|
+    t.string "path_location", null: false
+    t.integer "count", null: false
+    t.datetime "target_date"
+    t.index ["path_location"], name: "index_page_view_logs_on_path_location", length: 191
+    t.index ["target_date"], name: "index_page_view_logs_on_target_date"
   end
 
   create_table "playlist_items", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
