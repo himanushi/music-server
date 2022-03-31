@@ -34,7 +34,7 @@ group :development, :test do
   # Ruby debug
   gem 'debug', '~> 1.3.4'
   # 型検証
-  gem 'rbs_rails', '~> 0.10.0', require: false
+  gem 'rbs_rails', '~> 0.11.0', require: false
 end
 
 # タイムゾーン
