@@ -88,6 +88,40 @@ module Ggl
         update(all)
       end
 
+      # Google Analytics のデータを移行するためだけのメソッド
+      # 一度実行すればOK
+      def create_page_view_logs
+        target_date = ::Time.new(2022, 1, 1)
+        return unless ::PageViewLog.where(target_date: target_date).empty?
+
+        # @type var page_view_logs: ::Hash[::String, ::PageViewLog]
+        page_view_logs = {}
+
+        all.each do |result|
+          dimension = result[:dimensions].first
+          metric = result[:metrics].first
+          count = metric[:values].first
+          next unless dimension && count
+
+          page_location = dimension.gsub(/[?\])].*/, '')
+          # @type var page_view_log: ::PageViewLog
+          page_view_log = page_view_logs[page_location] || ::PageViewLog.new(
+            page_location: page_location,
+            target_date: target_date,
+            count: 0
+          )
+
+          page_view_log.count = page_view_log.count + Integer(count, 10)
+          page_view_logs[page_location] = page_view_log
+        end
+
+        ::ActiveRecord::Base.transaction do
+          page_view_logs.each do |_key, page_view_log|
+            page_view_log.save!
+          end
+        end
+      end
+
       # row = {:dimensions=>["/albums/abm1755be28b675c?ai=abm1755be28b675c"], :metrics=>[{:values=>["851"]}]}
       def update(rows)
         results = { artists: ::Hash.new(0), albums: ::Hash.new(0), tracks: ::Hash.new(0), playlist: ::Hash.new(0) }

@@ -10,8 +10,14 @@ module Ggl
       ?end_date: untyped,
       ?next_page_token: untyped,
       ?filter: untyped
-    ) -> untyped
-    def self.all: -> untyped
+    ) -> ::Array[{
+      dimensions: ::Array[::String],
+      metrics: [{ values: ::Array[::String] }]
+    }]
+    def self.all: -> ::Array[{
+      dimensions: ::Array[::String],
+      metrics: [{ values: ::Array[::String] }]
+    }]
     def self.reset_all: -> untyped
     def self.update: (untyped) -> untyped
 
