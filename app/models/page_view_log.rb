@@ -14,7 +14,8 @@ class PageViewLog < ::ActiveRecord::Base
 
       ::ActiveRecord::Base.transaction do
         ::Ggl::BigQuery.get_page_views(target_date).each do |result|
-          attrs = { page_location: result[:page_location][..254], count: result[:count], target_date: target_date }
+          page_location = result[:page_location].gsub(/\?.*/, '').gsub(%r{https?://.*?/}, '/')[..254]
+          attrs = { page_location: page_location, count: result[:count], target_date: target_date }
           create!(**attrs)
         end
       end
