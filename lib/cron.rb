@@ -7,8 +7,10 @@ class Cron
       ::Artist.all_create_albums
       # 新アルバムを全件取得
       ::Album.create_by_new_releases
-      # Analytics 集計
-      ::Ggl::Analytics.all
+      # 昨日のPV数を登録
+      ::PageViewLog.create_yesterday_data
+      # 全てのテーブルのPVカラムを更新
+      ::PageViewLog.update_page_view_colmuns
       # 人気度集計
       ::Popularity.tally
     end
