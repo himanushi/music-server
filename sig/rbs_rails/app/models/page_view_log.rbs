@@ -38,41 +38,41 @@ class PageViewLog < ::ActiveRecord::Base
 
     def clear_id_change: () -> void
 
-    def path_location: () -> String
+    def page_location: () -> String
 
-    def path_location=: (String) -> String
+    def page_location=: (String) -> String
 
-    def path_location?: () -> bool
+    def page_location?: () -> bool
 
-    def path_location_changed?: () -> bool
+    def page_location_changed?: () -> bool
 
-    def path_location_change: () -> [ String?, String? ]
+    def page_location_change: () -> [ String?, String? ]
 
-    def path_location_will_change!: () -> void
+    def page_location_will_change!: () -> void
 
-    def path_location_was: () -> String?
+    def page_location_was: () -> String?
 
-    def path_location_previously_changed?: () -> bool
+    def page_location_previously_changed?: () -> bool
 
-    def path_location_previous_change: () -> Array[String?]?
+    def page_location_previous_change: () -> Array[String?]?
 
-    def path_location_previously_was: () -> String?
+    def page_location_previously_was: () -> String?
 
-    def path_location_before_last_save: () -> String?
+    def page_location_before_last_save: () -> String?
 
-    def path_location_change_to_be_saved: () -> Array[String?]?
+    def page_location_change_to_be_saved: () -> Array[String?]?
 
-    def path_location_in_database: () -> String?
+    def page_location_in_database: () -> String?
 
-    def saved_change_to_path_location: () -> Array[String?]?
+    def saved_change_to_page_location: () -> Array[String?]?
 
-    def saved_change_to_path_location?: () -> bool
+    def saved_change_to_page_location?: () -> bool
 
-    def will_save_change_to_path_location?: () -> bool
+    def will_save_change_to_page_location?: () -> bool
 
-    def restore_path_location!: () -> void
+    def restore_page_location!: () -> void
 
-    def clear_path_location_change: () -> void
+    def clear_page_location_change: () -> void
 
     def count: () -> Integer
 

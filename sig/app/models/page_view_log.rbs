@@ -1,4 +1,5 @@
 class PageViewLog < ::ActiveRecord::Base
   def self.create_yesterday_data: -> untyped
   def self.create_from_big_query: (::Time target_date) -> untyped
+  def self.update_page_view_colmuns: -> untyped
 end
