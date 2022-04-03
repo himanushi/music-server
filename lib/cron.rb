@@ -13,6 +13,8 @@ class Cron
       ::PageViewLog.update_page_view_colmuns
       # 人気度集計
       ::Popularity.tally
+      # キャッシュクリア
+      ::Rails.cache.clear
     end
   end
 end
