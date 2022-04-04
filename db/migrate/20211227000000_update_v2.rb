@@ -17,28 +17,31 @@ class UpdateV2 < ::ActiveRecord::Migration[6.0]
 
     drop_table(:radios)
 
-    ::AllowedAction.where(
-      name: %w[
-        changeStatus
-        compactAlbum
-        createRadio
-        deleteRadio
-        generateSitemaps
-        mixAlbum
-        mixArtist
-        radio
-        radios
-        tally
-        uncompactAlbum
-        unmixAlbum
-        updateAnalytics
-        upsertAlbum
-        upsertArtist
-        upsertRole
-      ]
-    ).delete_all
-    ::AllowedAction.new(name: 'updateRole', role: ::Role.admin).save!
-    ::AllowedAction.new(name: 'allActions', role: ::Role.admin).save!
+    begin
+      ::AllowedAction.where(
+        name: %w[
+          changeStatus
+          compactAlbum
+          createRadio
+          deleteRadio
+          generateSitemaps
+          mixAlbum
+          mixArtist
+          radio
+          radios
+          tally
+          uncompactAlbum
+          unmixAlbum
+          updateAnalytics
+          upsertAlbum
+          upsertArtist
+          upsertRole
+        ]
+      ).delete_all
+      ::AllowedAction.new(name: 'updateRole', role: ::Role.admin).save!
+      ::AllowedAction.new(name: 'allActions', role: ::Role.admin).save!
+    rescue StandardError => e
+    end
   end
 
   def down
