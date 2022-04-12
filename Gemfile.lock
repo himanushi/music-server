@@ -180,7 +180,9 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.3-aarch64-linux)
+    nokogiri (1.13.4-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     os (1.1.4)
     parser (3.1.1.0)
@@ -277,6 +279,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt (~> 3.1.16)
