@@ -18,7 +18,7 @@ class TwitterClient
               [アルバム追加]
               「#{album.service&.name}」が追加されました。
               #{album.to_url}
-              #{album.composers.map { |c| "##{c.name.gsub(/\s|-|\./, '')}" }
+              #{album.composers.map { |c| "##{c.name.gsub(/\s|-|\.|:/, '')}" }
         .join(' ')}
               #{services.join(' ')}
               #{default_hash_tag}
