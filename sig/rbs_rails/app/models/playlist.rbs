@@ -361,12 +361,52 @@ class Playlist < ::ApplicationRecord
     def restore_pv!: () -> void
 
     def clear_pv_change: () -> void
+
+    def is_condition: () -> bool
+
+    def is_condition=: (bool) -> bool
+
+    def is_condition?: () -> bool
+
+    def is_condition_changed?: () -> bool
+
+    def is_condition_change: () -> [ bool?, bool? ]
+
+    def is_condition_will_change!: () -> void
+
+    def is_condition_was: () -> bool?
+
+    def is_condition_previously_changed?: () -> bool
+
+    def is_condition_previous_change: () -> Array[bool?]?
+
+    def is_condition_previously_was: () -> bool?
+
+    def is_condition_before_last_save: () -> bool?
+
+    def is_condition_change_to_be_saved: () -> Array[bool?]?
+
+    def is_condition_in_database: () -> bool?
+
+    def saved_change_to_is_condition: () -> Array[bool?]?
+
+    def saved_change_to_is_condition?: () -> bool
+
+    def will_save_change_to_is_condition?: () -> bool
+
+    def restore_is_condition!: () -> void
+
+    def clear_is_condition_change: () -> void
   end
   include GeneratedAttributeMethods
   def playlist_items: () -> PlaylistItem::ActiveRecord_Associations_CollectionProxy
   def playlist_items=: (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem]) -> (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem])
   def playlist_item_ids: () -> Array[Integer]
   def playlist_item_ids=: (Array[Integer]) -> Array[Integer]
+  def playlist_conditions: () -> PlaylistCondition::ActiveRecord_Associations_CollectionProxy
+  def playlist_conditions=: (PlaylistCondition::ActiveRecord_Associations_CollectionProxy | Array[PlaylistCondition]) -> (PlaylistCondition::ActiveRecord_Associations_CollectionProxy | Array[PlaylistCondition])
+  def playlist_condition_ids: () -> Array[Integer]
+  def playlist_condition_ids=: (Array[Integer]) -> Array[Integer]
   def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
   def favorites=: (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite]) -> (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite])
   def favorite_ids: () -> Array[Integer]
