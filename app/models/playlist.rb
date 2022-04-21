@@ -6,6 +6,7 @@ class Playlist < ::ApplicationRecord
   belongs_to :user
   belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
+  has_many :playlist_conditions, dependent: :destroy
   has_many :favorites, as: :favorable, dependent: :destroy
 
   enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
