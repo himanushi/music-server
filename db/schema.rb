@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_21_000000) do
   create_table "album_has_tracks", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -167,6 +167,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
     t.index ["target_date"], name: "index_page_view_logs_on_target_date"
   end
 
+  create_table "playlist_conditions", charset: "utf8mb4", force: :cascade do |t|
+    t.string "playlist_id", limit: 16, null: false
+    t.integer "order", null: false
+    t.integer "direction", null: false
+    t.boolean "favorite", default: false, null: false
+    t.integer "min_popularity"
+    t.integer "max_popularity"
+    t.datetime "from_release_date"
+    t.datetime "to_release_date"
+    t.index ["playlist_id"], name: "fk_rails_ad3b2fcced"
+  end
+
   create_table "playlist_items", id: { type: :string, limit: 16 }, charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -187,6 +199,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
     t.integer "public_type", null: false
     t.integer "popularity", default: 0, null: false
     t.integer "pv", default: 0, null: false
+    t.boolean "is_condition", default: false, null: false
     t.index ["created_at"], name: "index_playlists_on_created_at"
     t.index ["name"], name: "index_playlists_on_name"
     t.index ["popularity"], name: "index_playlists_on_popularity"
@@ -254,6 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
   add_foreign_key "artist_has_tracks", "artists"
   add_foreign_key "artist_has_tracks", "tracks"
   add_foreign_key "favorites", "users"
+  add_foreign_key "playlist_conditions", "playlists"
   add_foreign_key "playlist_items", "playlists"
   add_foreign_key "playlist_items", "tracks"
   add_foreign_key "playlists", "tracks"
