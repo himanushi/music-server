@@ -28,7 +28,7 @@ class Playlist < ::ApplicationRecord
       true
     end
 
-    def create_or_update(id:, user_id:, name:, description:, public_type:, track_ids:)
+    def create_or_update(id:, user_id:, name:, is_condition:, description:, public_type:, track_ids:)
       validate_track_ids!(track_ids) if track_ids.present?
 
       playlist =
@@ -39,6 +39,7 @@ class Playlist < ::ApplicationRecord
           pl.name = name
           pl.description = description
           pl.public_type = public_type
+          pl.is_condition = is_condition
           pl
         else
           new(
@@ -46,7 +47,8 @@ class Playlist < ::ApplicationRecord
             user_id: user_id,
             name: name,
             description: description,
-            public_type: public_type
+            public_type: public_type,
+            is_condition: is_condition
           )
         end
 

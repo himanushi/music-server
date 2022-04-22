@@ -11,6 +11,7 @@ class Playlist < ::ApplicationRecord
     user_id: ::String,
     name: ::String,
     description: ::String,
+    is_condition: bool,
     public_type: ::String,
     track_ids: ::Array[::String]
   ) -> ::Playlist
