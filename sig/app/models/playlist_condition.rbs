@@ -1,2 +1,10 @@
 class PlaylistCondition < ::ApplicationRecord
+  type conditions =
+    {
+      order: ['popularity', 'release_date', 'name'],
+      asc: bool,
+      favorite: bool,
+      min_popularity: ::Integer,
+      max_popularity: ::Integer
+    }
 end

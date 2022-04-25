@@ -5,6 +5,7 @@ module Mutations
       public_type: ::String,
       ?description: ::String,
       ?is_condition: bool,
+      ?conditions: untyped,
       ?track_ids: ::Array[::String],
       ?playlist_id: ::String
     ) -> { playlist: ::Playlist }

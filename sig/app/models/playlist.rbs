@@ -12,6 +12,7 @@ class Playlist < ::ApplicationRecord
     name: ::String,
     description: ::String,
     is_condition: bool,
+    conditions: ::PlaylistCondition::conditions,
     public_type: ::String,
     track_ids: ::Array[::String]
   ) -> ::Playlist
