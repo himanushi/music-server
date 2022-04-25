@@ -6,7 +6,7 @@ class Playlist < ::ApplicationRecord
   belongs_to :user
   belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
-  has_many :playlist_conditions, dependent: :destroy
+  has_one :playlist_condition, dependent: :destroy
   has_many :favorites, as: :favorable, dependent: :destroy
 
   enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
@@ -28,7 +28,16 @@ class Playlist < ::ApplicationRecord
       true
     end
 
-    def create_or_update(id:, user_id:, name:, is_condition:, description:, public_type:, track_ids:)
+    def create_or_update(
+      id:,
+      user_id:,
+      name:,
+      is_condition:,
+      description:,
+      public_type:,
+      track_ids:,
+      conditions:
+    )
       validate_track_ids!(track_ids) if track_ids.present?
 
       playlist =
@@ -63,6 +72,16 @@ class Playlist < ::ApplicationRecord
           playlist.playlist_items = items
         else
           playlist.playlist_items.delete_all
+        end
+
+        if is_condition
+          playlist.playlist_condition = ::PlaylistCondition.new(
+            order: conditions[:order],
+            direction: conditions[:asc] ? 'asc' : 'desc',
+            favorite: conditions[:favorite],
+            min_popularity: conditions[:min_popularity],
+            max_popularity: conditions[:max_popularity]
+          )
         end
 
         playlist.save!
