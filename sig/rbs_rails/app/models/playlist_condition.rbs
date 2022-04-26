@@ -1,4 +1,4 @@
-class PlaylistCondition < ::ApplicationRecord
+class PlaylistCondition < ::ActiveRecord::Base
   extend _ActiveRecord_Relation_ClassMethods[PlaylistCondition, ActiveRecord_Relation, Integer]
 
   module GeneratedAttributeMethods
@@ -335,27 +335,32 @@ class PlaylistCondition < ::ApplicationRecord
   def create_playlist: (untyped) -> Playlist
   def create_playlist!: (untyped) -> Playlist
 
-  def popularity!: () -> bool
-  def popularity?: () -> bool
-  def release_date!: () -> bool
-  def release_date?: () -> bool
-  def asc!: () -> bool
-  def asc?: () -> bool
-  def desc!: () -> bool
-  def desc?: () -> bool
-  def self.popularity: () -> ActiveRecord_Relation
-  def self.release_date: () -> ActiveRecord_Relation
-  def self.asc: () -> ActiveRecord_Relation
-  def self.desc: () -> ActiveRecord_Relation
+  def order_popularity!: () -> bool
+  def order_popularity?: () -> bool
+  def order_release_date!: () -> bool
+  def order_release_date?: () -> bool
+  def order_name!: () -> bool
+  def order_name?: () -> bool
+  def direction_asc!: () -> bool
+  def direction_asc?: () -> bool
+  def direction_desc!: () -> bool
+  def direction_desc?: () -> bool
+  def self.order_popularity: () -> ActiveRecord_Relation
+  def self.order_release_date: () -> ActiveRecord_Relation
+  def self.order_name: () -> ActiveRecord_Relation
+  def self.direction_asc: () -> ActiveRecord_Relation
+  def self.direction_desc: () -> ActiveRecord_Relation
 
   module GeneratedRelationMethods
-    def popularity: () -> ActiveRecord_Relation
+    def order_popularity: () -> ActiveRecord_Relation
 
-    def release_date: () -> ActiveRecord_Relation
+    def order_release_date: () -> ActiveRecord_Relation
 
-    def asc: () -> ActiveRecord_Relation
+    def order_name: () -> ActiveRecord_Relation
 
-    def desc: () -> ActiveRecord_Relation
+    def direction_asc: () -> ActiveRecord_Relation
+
+    def direction_desc: () -> ActiveRecord_Relation
   end
 
   class ActiveRecord_Relation < ::ActiveRecord::Relation

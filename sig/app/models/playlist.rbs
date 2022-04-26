@@ -17,6 +17,8 @@ class Playlist < ::ApplicationRecord
     track_ids: ::Array[::String]
   ) -> ::Playlist
 
+  def items: -> ::Array[::PlaylistItem]
   def add_items: (::Array[::String] track_ids) -> instance
   def to_url: -> ::String
+  def build_condition_items: -> ::Array[::PlaylistItem]
 end

@@ -403,15 +403,16 @@ class Playlist < ::ApplicationRecord
   def playlist_items=: (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem]) -> (PlaylistItem::ActiveRecord_Associations_CollectionProxy | Array[PlaylistItem])
   def playlist_item_ids: () -> Array[Integer]
   def playlist_item_ids=: (Array[Integer]) -> Array[Integer]
-  def playlist_conditions: () -> PlaylistCondition::ActiveRecord_Associations_CollectionProxy
-  def playlist_conditions=: (PlaylistCondition::ActiveRecord_Associations_CollectionProxy | Array[PlaylistCondition]) -> (PlaylistCondition::ActiveRecord_Associations_CollectionProxy | Array[PlaylistCondition])
-  def playlist_condition_ids: () -> Array[Integer]
-  def playlist_condition_ids=: (Array[Integer]) -> Array[Integer]
   def favorites: () -> Favorite::ActiveRecord_Associations_CollectionProxy
   def favorites=: (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite]) -> (Favorite::ActiveRecord_Associations_CollectionProxy | Array[Favorite])
   def favorite_ids: () -> Array[Integer]
   def favorite_ids=: (Array[Integer]) -> Array[Integer]
-
+  def playlist_condition: () -> PlaylistCondition?
+  def playlist_condition=: (PlaylistCondition?) -> PlaylistCondition?
+  def build_playlist_condition: (untyped) -> PlaylistCondition
+  def create_playlist_condition: (untyped) -> PlaylistCondition
+  def create_playlist_condition!: (untyped) -> PlaylistCondition
+  def reload_playlist_condition: () -> PlaylistCondition?
   def user: () -> User
   def user=: (User?) -> User?
   def reload_user: () -> User?

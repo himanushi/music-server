@@ -22,8 +22,6 @@ class AppleMusicArtist::ActiveRecord_Associations_CollectionProxy < ActiveRecord
 end
 class PlaylistItem::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
-class PlaylistCondition::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
-end
 class User::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end
 class AllowedAction::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
