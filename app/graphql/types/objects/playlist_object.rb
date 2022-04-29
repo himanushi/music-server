@@ -22,10 +22,6 @@ module Types
       def author
         object.user if !object.public_type_anonymous_open? || object.user == context[:current_info][:user]
       end
-
-      def items
-        object.playlist_items.includes({ track: :apple_music_tracks }).order(:track_number)
-      end
     end
   end
 end
