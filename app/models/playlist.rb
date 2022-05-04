@@ -40,6 +40,7 @@ class Playlist < ::ApplicationRecord
     )
       validate_track_ids!(track_ids) if track_ids.present?
 
+      # @type var playlist: ::Playlist
       playlist =
         if id
           pl = find(id)
@@ -64,16 +65,6 @@ class Playlist < ::ApplicationRecord
       ::ActiveRecord::Base.transaction do
         playlist.playlist_items.destroy
 
-        if track_ids.present?
-          items =
-            track_ids.map.with_index(1) do |track_id, index|
-              ::PlaylistItem.new(track_id: track_id, track_number: index)
-            end
-          playlist.playlist_items = items
-        else
-          playlist.playlist_items.delete_all
-        end
-
         if is_condition
           playlist.playlist_condition = ::PlaylistCondition.new(
             order: conditions[:order],
@@ -82,6 +73,15 @@ class Playlist < ::ApplicationRecord
             min_popularity: conditions[:min_popularity],
             max_popularity: conditions[:max_popularity]
           )
+        end
+
+        if track_ids.present?
+          playlist.playlist_items =
+            track_ids.map.with_index(1) do |track_id, index|
+              ::PlaylistItem.new(track_id: track_id, track_number: index)
+            end
+        else
+          playlist.playlist_items.destroy
         end
 
         playlist.save!
@@ -115,6 +115,40 @@ class Playlist < ::ApplicationRecord
       end
 
       relation.where(conditions)
+    end
+  end
+
+  def build_condition_items
+    return [] unless (condition = playlist_condition)
+
+    track_relation = ::Track.includes(apple_music_tracks: :apple_music_album).where(status: [:active]).limit(100)
+
+    track_relation = track_relation.where('popularity >= ?', condition.min_popularity) if condition.min_popularity
+    track_relation = track_relation.where('popularity <= ?', condition.max_popularity) if condition.max_popularity
+    track_relation = track_relation.joins(:favorites).where(favorites: { user_id: user_id }) if condition.favorite
+
+    case condition.order
+    when 'popularity'
+      track_relation = track_relation.order(popularity: condition.direction)
+    when 'release_date'
+      track_relation = track_relation.order('apple_music_albums.release_date': condition.direction)
+    when 'created_at'
+      track_relation = track_relation.order('apple_music_albums.created_at': condition.direction)
+    end
+
+    track_relation.to_a.map.with_index(1) do |track, index|
+      ::PlaylistItem.new(
+        track: track,
+        track_number: index
+      )
+    end
+  end
+
+  def items
+    if is_condition
+      build_condition_items
+    else
+      playlist_items.includes({ track: :apple_music_tracks }).order(:track_number).to_a
     end
   end
 
