@@ -1,7 +1,7 @@
 class PlaylistCondition < ::ActiveRecord::Base
   type conditions =
     {
-      order: ['popularity', 'release_date', 'name'],
+      order: ['popularity', 'release_date', 'created_at'],
       asc: bool,
       favorite: bool,
       min_popularity: ::Integer,
