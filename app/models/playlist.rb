@@ -71,7 +71,9 @@ class Playlist < ::ApplicationRecord
             direction: conditions[:asc] ? 'asc' : 'desc',
             favorite: conditions[:favorite],
             min_popularity: conditions[:min_popularity],
-            max_popularity: conditions[:max_popularity]
+            max_popularity: conditions[:max_popularity],
+            from_release_date: conditions[:from_release_date]&.to_datetime,
+            to_release_date: conditions[:to_release_date]&.to_datetime
           )
         end
 

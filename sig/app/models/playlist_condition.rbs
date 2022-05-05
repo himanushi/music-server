@@ -5,6 +5,8 @@ class PlaylistCondition < ::ActiveRecord::Base
       asc: bool,
       favorite: bool,
       min_popularity: ::Integer,
-      max_popularity: ::Integer
+      max_popularity: ::Integer,
+      from_release_date: ::String,
+      to_release_date: ::String
     }
 end
