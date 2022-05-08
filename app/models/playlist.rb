@@ -125,6 +125,12 @@ class Playlist < ::ApplicationRecord
 
     track_relation = ::Track.includes(apple_music_tracks: :apple_music_album).where(status: [:active]).limit(100)
 
+    if condition.from_release_date
+      track_relation = track_relation.where('apple_music_albums.release_date >= ?', condition.from_release_date)
+    end
+    if condition.to_release_date
+      track_relation = track_relation.where('apple_music_albums.release_date <= ?', condition.to_release_date)
+    end
     track_relation = track_relation.where('popularity >= ?', condition.min_popularity) if condition.min_popularity
     track_relation = track_relation.where('popularity <= ?', condition.max_popularity) if condition.max_popularity
     track_relation = track_relation.joins(:favorites).where(favorites: { user_id: user_id }) if condition.favorite
