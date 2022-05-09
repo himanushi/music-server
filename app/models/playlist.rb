@@ -123,7 +123,7 @@ class Playlist < ::ApplicationRecord
   def build_condition_items
     return [] unless (condition = playlist_condition)
 
-    track_relation = ::Track.includes(apple_music_tracks: :apple_music_album).where(status: [:active]).limit(100)
+    track_relation = ::Track.joins(apple_music_tracks: :apple_music_album).where(status: [:active]).limit(100)
 
     if condition.from_release_date
       track_relation = track_relation.where('apple_music_albums.release_date >= ?', condition.from_release_date)
