@@ -68,7 +68,7 @@ class Playlist < ::ApplicationRecord
         if is_condition
           playlist.playlist_condition = ::PlaylistCondition.new(
             order: conditions[:order],
-            direction: conditions[:asc] ? 'asc' : 'desc',
+            direction: conditions[:direction],
             favorite: conditions[:favorite],
             min_popularity: conditions[:min_popularity],
             max_popularity: conditions[:max_popularity],
