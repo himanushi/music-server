@@ -11,14 +11,10 @@ class Playlist < ::ApplicationRecord
     user_id: ::String,
     name: ::String,
     description: ::String,
-    is_condition: bool,
-    conditions: ::PlaylistCondition::conditions,
     public_type: ::String,
     track_ids: ::Array[::String]
   ) -> ::Playlist
 
-  def items: -> ::Array[::PlaylistItem]
   def add_items: (::Array[::String] track_ids) -> instance
   def to_url: -> ::String
-  def build_condition_items: -> ::Array[::PlaylistItem]
 end

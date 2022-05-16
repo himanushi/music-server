@@ -6,7 +6,6 @@ class Playlist < ::ApplicationRecord
   belongs_to :user
   belongs_to :track, optional: true
   has_many :playlist_items, dependent: :destroy
-  has_one :playlist_condition, dependent: :destroy
   has_many :favorites, as: :favorable, dependent: :destroy
 
   enum public_type: { non_open: 0, open: 1, anonymous_open: 2 }, _prefix: true
@@ -28,19 +27,9 @@ class Playlist < ::ApplicationRecord
       true
     end
 
-    def create_or_update(
-      id:,
-      user_id:,
-      name:,
-      is_condition:,
-      description:,
-      public_type:,
-      track_ids:,
-      conditions:
-    )
+    def create_or_update(id:, user_id:, name:, description:, public_type:, track_ids:)
       validate_track_ids!(track_ids) if track_ids.present?
 
-      # @type var playlist: ::Playlist
       playlist =
         if id
           pl = find(id)
@@ -49,7 +38,6 @@ class Playlist < ::ApplicationRecord
           pl.name = name
           pl.description = description
           pl.public_type = public_type
-          pl.is_condition = is_condition
           pl
         else
           new(
@@ -57,33 +45,21 @@ class Playlist < ::ApplicationRecord
             user_id: user_id,
             name: name,
             description: description,
-            public_type: public_type,
-            is_condition: is_condition
+            public_type: public_type
           )
         end
 
       ::ActiveRecord::Base.transaction do
         playlist.playlist_items.destroy
 
-        if is_condition
-          playlist.playlist_condition = ::PlaylistCondition.new(
-            order: conditions[:order],
-            direction: conditions[:direction],
-            favorite: conditions[:favorite],
-            min_popularity: conditions[:min_popularity],
-            max_popularity: conditions[:max_popularity],
-            from_release_date: conditions[:from_release_date]&.to_datetime,
-            to_release_date: conditions[:to_release_date]&.to_datetime
-          )
-        end
-
         if track_ids.present?
-          playlist.playlist_items =
+          items =
             track_ids.map.with_index(1) do |track_id, index|
               ::PlaylistItem.new(track_id: track_id, track_number: index)
             end
+          playlist.playlist_items = items
         else
-          playlist.playlist_items.destroy
+          playlist.playlist_items.delete_all
         end
 
         playlist.save!
@@ -117,50 +93,6 @@ class Playlist < ::ApplicationRecord
       end
 
       relation.where(conditions)
-    end
-  end
-
-  def build_condition_items
-    return [] unless (condition = playlist_condition)
-
-    track_relation = ::Track.includes(apple_music_tracks: :apple_music_album).where(status: [:active]).limit(100)
-
-    if condition.from_release_date
-      track_relation = track_relation.joins(apple_music_tracks: :apple_music_album).where(
-        'apple_music_albums.release_date >= ?', condition.from_release_date
-      )
-    end
-    if condition.to_release_date
-      track_relation = track_relation.joins(apple_music_tracks: :apple_music_album).where(
-        'apple_music_albums.release_date <= ?', condition.to_release_date
-      )
-    end
-    track_relation = track_relation.where('popularity >= ?', condition.min_popularity) if condition.min_popularity
-    track_relation = track_relation.where('popularity <= ?', condition.max_popularity) if condition.max_popularity
-    track_relation = track_relation.joins(:favorites).where(favorites: { user_id: user_id }) if condition.favorite
-
-    case condition.order
-    when 'popularity'
-      track_relation = track_relation.order(popularity: condition.direction)
-    when 'release_date'
-      track_relation = track_relation.order('apple_music_albums.release_date': condition.direction)
-    when 'created_at'
-      track_relation = track_relation.order('apple_music_albums.created_at': condition.direction)
-    end
-
-    track_relation.to_a.map.with_index(1) do |track, index|
-      ::PlaylistItem.new(
-        track: track,
-        track_number: index
-      )
-    end
-  end
-
-  def items
-    if is_condition
-      build_condition_items
-    else
-      playlist_items.includes({ track: :apple_music_tracks }).order(:track_number).to_a
     end
   end
 

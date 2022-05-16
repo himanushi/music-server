@@ -1,6 +1,0 @@
-module Types
-  module InputObjects
-    class PlaylistConditionInputObject < ::Types::InputObjects::BaseInputObject
-    end
-  end
-end

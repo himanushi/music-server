@@ -1,6 +1,0 @@
-module Types
-  module Enums
-    class PlaylistConditionOrderEnum < ::Types::Enums::BaseEnum
-    end
-  end
-end
