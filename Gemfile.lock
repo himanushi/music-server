@@ -91,7 +91,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     google-apis-analyticsreporting_v4 (0.7.0)
       google-apis-core (>= 0.4, < 2.a)
@@ -158,7 +158,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.16.2)
+    minitest (5.17.0)
     multi_json (1.15.0)
     multipart-post (2.2.3)
     mysql2 (0.5.4)
@@ -179,6 +179,8 @@ GEM
       timeout
     nio4r (2.5.8)
     nokogiri (1.13.8-aarch64-linux)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     os (1.1.4)
     parser (3.1.2.0)
@@ -275,6 +277,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt (~> 3.1.16)
