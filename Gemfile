@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.2'
 
 # Rails
-gem 'rails', '~> 7.0.3.1'
+gem 'rails', '~> 7.0.4.2'
 # DB
 gem 'mysql2', '~> 0.5'
 # App server
@@ -35,6 +35,10 @@ group :development, :test do
   gem 'debug', '~> 1.3.4'
   # 型検証
   gem 'rbs_rails', '~> 0.11.0', require: false
+  # 型検査
+  gem 'steep', '~> 1.3.0'
+  # Lint
+  gem 'rubocop', '~> 1.44.1'
 end
 
 # タイムゾーン
