@@ -4,10 +4,8 @@ module Mutations
   class ChangeFavorites < ::Mutations::BaseMutation
     description 'お気に入り一括変更'
 
-    argument :artist_ids, [::String], required: false, description: 'お気に入り変更したいアーティストID'
-    argument :album_ids, [::String], required: false, description: 'お気に入り変更したいアルバムID'
-    argument :track_ids, [::String], required: false, description: 'お気に入り変更したいトラックID'
-    argument :playlist_ids, [::String], required: false, description: 'お気に入り変更したいプレイリストID'
+    argument :ids, [::String], required: false, description: 'お気に入り変更したいID'
+    argument :type, ::Types::Enums::FavoriteTypeEnum, required: false, description: 'お気に入り変更したいタイプ'
     argument :favorite,
              ::GraphQL::Types::Boolean,
              required: true,
@@ -15,16 +13,11 @@ module Mutations
 
     field :current_user, ::Types::Objects::CurrentUserObject, null: true, description: '更新されたカレントユーザー'
 
-    def mutate(favorite:, artist_ids: [], album_ids: [], track_ids: [], playlist_ids: [])
-      artists = ::Artist.where(id: artist_ids).to_a
-      albums  = ::Album.where(id: album_ids).to_a
-      tracks  = ::Track.where(id: track_ids).to_a
-      playlists = ::Playlist.where(id: playlist_ids).to_a
-
+    def mutate(favorite:, type:, ids: [])
       if favorite
-        ::Favorite.register(artists + albums + tracks + playlists, context[:current_info][:user])
+        ::Favorite.register(user: context[:current_info][:user], type: type, ids: ids)
       else
-        ::Favorite.unregister(artists + albums + tracks + playlists, context[:current_info][:user])
+        ::Favorite.unregister(user: context[:current_info][:user], type: type, ids: ids)
       end
 
       {

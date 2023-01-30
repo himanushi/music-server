@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserFavorite
-  attr_reader :user_id
+  attr_reader :user_id, :favorites
 
   def initialize(user_id)
     @user_id = user_id
