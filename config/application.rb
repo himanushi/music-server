@@ -52,7 +52,7 @@ module MusicServer
     config.middleware.insert_before(0, ::Rack::Cors) do
       allow do
         if ::Rails.env.production?
-          origins [*::ENV['PRODUCTION_APP_URL'].split(','), %r{capacitor://localhost}]
+          origins [::ENV['PRODUCTION_APP_URL'], ::ENV['STAGING_SPA_URL'], %r{capacitor://localhost}]
         else
           origins [%r{http://localhost}, %r{capacitor://localhost}]
         end
